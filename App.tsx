@@ -16,6 +16,8 @@ import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@src/utils/i18n";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -57,33 +59,35 @@ const App = () => {
   if (!fontLoaded || !appIsReady) return null;
 
   return (
-    <View
-      style={{ flex: 1, backgroundColor: background.dark }}
-      onLayout={onLayoutRootView}
-    >
-      <StatusBar style="light" />
-      <SafeAreaProvider>
-        <IsLoadingProvider>
-          <IconContext.Provider
-            value={{
-              color: light,
-              size: 24,
-              weight: "regular",
-            }}
-          >
-            <AuthProvider>
-              <NavigationContainer theme={myTheme}>
-                {/* <MyPostHogProvider> */}
-                <OnboardingNavigator />
-                <UpdateModal />
-                {/* </MyPostHogProvider> */}
-              </NavigationContainer>
-            </AuthProvider>
-            <LoaderModal />
-          </IconContext.Provider>
-        </IsLoadingProvider>
-      </SafeAreaProvider>
-    </View>
+    <I18nextProvider i18n={i18n}>
+      <View
+        style={{ flex: 1, backgroundColor: background.dark }}
+        onLayout={onLayoutRootView}
+      >
+        <StatusBar style="light" />
+        <SafeAreaProvider>
+          <IsLoadingProvider>
+            <IconContext.Provider
+              value={{
+                color: light,
+                size: 24,
+                weight: "regular",
+              }}
+            >
+              <AuthProvider>
+                <NavigationContainer theme={myTheme}>
+                  {/* <MyPostHogProvider> */}
+                  <OnboardingNavigator />
+                  <UpdateModal />
+                  {/* </MyPostHogProvider> */}
+                </NavigationContainer>
+              </AuthProvider>
+              <LoaderModal />
+            </IconContext.Provider>
+          </IsLoadingProvider>
+        </SafeAreaProvider>
+      </View>
+    </I18nextProvider>
   );
 };
 
