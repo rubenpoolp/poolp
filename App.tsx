@@ -59,11 +59,8 @@ const App = () => {
   if (!fontLoaded || !appIsReady) return null;
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <View
-        style={{ flex: 1, backgroundColor: background.dark }}
-        onLayout={onLayoutRootView}
-      >
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <I18nextProvider i18n={i18n}>
         <StatusBar style="light" />
         <SafeAreaProvider>
           <IsLoadingProvider>
@@ -86,8 +83,8 @@ const App = () => {
             </IconContext.Provider>
           </IsLoadingProvider>
         </SafeAreaProvider>
-      </View>
-    </I18nextProvider>
+      </I18nextProvider>
+    </View>
   );
 };
 
