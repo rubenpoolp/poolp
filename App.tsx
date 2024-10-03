@@ -8,16 +8,16 @@ import { AuthProvider } from "@src/context/Auth";
 import IsLoadingProvider from "@src/context/IsLoading";
 import useNotifications from "@src/hooks/useNotifications";
 import OnboardingNavigator from "@src/pages/navigation/OnboardingNavigator";
+import i18n from "@src/utils/i18n";
 import "@src/utils/sentry";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
+import { I18nextProvider } from "react-i18next";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { I18nextProvider } from "react-i18next";
-import i18n from "@src/utils/i18n";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -59,7 +59,7 @@ const App = () => {
   if (!fontLoaded || !appIsReady) return null;
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+    <View className="flex-1" onLayout={onLayoutRootView}>
       <I18nextProvider i18n={i18n}>
         <StatusBar style="light" />
         <SafeAreaProvider>

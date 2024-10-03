@@ -1,84 +1,73 @@
 import MyText from "@src/components/natives/MyText";
-import React from "react";
-import { ActivityIndicator, View } from "react-native";
-import MyGradient from "../MyGradient";
+import { hapticImpact } from "@src/utils/haptics";
+import React, { ComponentProps, useState } from "react";
+import { Pressable, StyleProp, View, ViewStyle } from "react-native";
+import { SvgProps } from "react-native-svg";
 import MyPressable from "./MyPressable";
 
-interface MyButtonProps {
-  onPress?: () => void;
+interface MyButtonProps extends ComponentProps<typeof Pressable> {
+  variant?: "gradient" | "secondary";
+  size?: "small" | "medium" | "large";
+  txtClassName?: string;
+  LeftComponent?: (props: SvgProps) => JSX.Element;
+  RightComponent?: (props: SvgProps) => JSX.Element;
   txt?: string;
-  txtStyle?: string;
-  secondary?: boolean;
-  disabled?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  isLoading?: boolean;
-  type?: "default" | "secondary" | "gradient";
-  style?: object;
-  className?: string;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }
 
+const variantStyle = {
+  gradient: { container: "border-0", text: "text-white" },
+  secondary: { container: "border-0", text: "text-white" },
+};
+
+const sizeStyle = {
+  small: { container: "py-2 px-4", text: "text-sm" },
+  medium: { container: "py-3.5 px-5", text: "text-lg" },
+  large: { container: "py-4 px-6", text: "text-xl" },
+};
+
 const MyButton = ({
+  variant = "gradient",
+  size = "medium",
+  txtClassName,
+  LeftComponent,
+  RightComponent,
+  txt,
   onPress,
-  txt = "",
-  txtStyle,
-  type = "default",
-  disabled = false,
-  leftIcon,
-  rightIcon,
-  isLoading = false,
-  style,
+  ...props
 }: MyButtonProps): React.ReactElement => {
-  const template: Record<
-    string,
-    {
-      container: string;
-      text: string;
-      shadow?: boolean;
-    }
-  > = {
-    default: {
-      container: "",
-      text: "text-white",
-    },
-    secondary: {
-      container: "",
-      text: "text-blue-300",
-    },
-    gradient: {
-      container: "",
-      text: "text-white",
-    },
-  };
+  const [isPressed, setIsPressed] = useState(false);
 
   return (
     <MyPressable
-      className={`flex-row py-3.5 items-center justify-center px-5 rounded-2xl self-start
-      ${template[type].container}  ${
-        rightIcon && !isLoading && "justify-between"
-      } ${disabled && "opacity-50"}`}
-      style={style}
-      onPress={onPress}
-      disabled={disabled || isLoading}
+      className={`rounded-xl items-center justify-center shadow-md border overflow-hidden ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${variantStyle[variant]}`}
+      {...props}
+      onPress={() => {
+        hapticImpact("medium");
+        onPress?.();
+      }}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      style={[props.style, { elevation: 10 }]}
     >
-      {type === "gradient" && <MyGradient />}
-      {leftIcon && !isLoading && leftIcon}
-      {txt && !isLoading && (
-        <MyText
-          className={`text-lg font-semibold ${template[type].text} ${txtStyle}`}
-        >
-          {txt}
-        </MyText>
-      )}
-      {isLoading && (
-        <View>
-          <ActivityIndicator
-            size={"small"}
-            color={type === "secondary" ? "white" : "black"}
-          />
+      {RightComponent && !LeftComponent && (
+        <View className="opacity-0">
+          <RightComponent />
         </View>
       )}
-      {rightIcon && !isLoading && rightIcon}
+      {LeftComponent && <LeftComponent />}
+      <MyText
+        className={`text-center uppercase font-semibold ${variantStyle[variant].text} ${sizeStyle[size].text} ${txtClassName}`}
+      >
+        {txt}
+      </MyText>
+      {LeftComponent && !RightComponent && (
+        <View className="opacity-0">
+          <LeftComponent />
+        </View>
+      )}
+      {RightComponent && <RightComponent />}
     </MyPressable>
   );
 };
