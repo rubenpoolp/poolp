@@ -4,9 +4,9 @@ export const hapticSelection = () => {
   Haptics.selectionAsync();
 };
 
-export const hapticImpact = (
-  style: "light" | "medium" | "heavy" | "soft" | "rigid",
-) => {
+export type HapticImpactStyle = "light" | "medium" | "heavy" | "soft" | "rigid";
+
+export const hapticImpact = (style: HapticImpactStyle) => {
   let styleFormatted = Haptics.ImpactFeedbackStyle.Light;
 
   switch (style) {

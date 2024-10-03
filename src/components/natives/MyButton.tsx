@@ -1,6 +1,5 @@
 import MyText from "@src/components/natives/MyText";
-import { hapticImpact } from "@src/utils/haptics";
-import React, { ComponentProps, useState } from "react";
+import React, { ComponentProps } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { SvgProps } from "react-native-svg";
 import MyPressable from "./MyPressable";
@@ -37,18 +36,12 @@ const MyButton = ({
   onPress,
   ...props
 }: MyButtonProps): React.ReactElement => {
-  const [isPressed, setIsPressed] = useState(false);
-
   return (
     <MyPressable
       className={`rounded-xl items-center justify-center shadow-md border overflow-hidden ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${variantStyle[variant]}`}
       {...props}
-      onPress={() => {
-        hapticImpact("medium");
-        onPress?.();
-      }}
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
+      hapticImpactStyle="medium"
+      onPress={onPress}
       style={[props.style, { elevation: 10 }]}
     >
       {RightComponent && !LeftComponent && (

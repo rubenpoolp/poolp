@@ -1,3 +1,4 @@
+import { hapticImpact, HapticImpactStyle } from "@src/utils/haptics";
 import sleep from "@src/utils/sleep";
 import React, { ComponentProps, useState } from "react";
 import { GestureResponderEvent, Pressable } from "react-native";
@@ -5,10 +6,16 @@ import { GestureResponderEvent, Pressable } from "react-native";
 interface MyPressableProps extends ComponentProps<typeof Pressable> {
   /** Keep the opacity when disabled */
   disabledFull?: boolean;
+  hapticImpactStyle?: HapticImpactStyle;
 }
 
 function MyPressable(props: MyPressableProps) {
-  const { disabled, disabledFull = false, ...otherProps } = props;
+  const {
+    disabled,
+    disabledFull = false,
+    hapticImpactStyle = "light",
+    ...otherProps
+  } = props;
 
   const [hovered, setHovered] = useState(false);
 
@@ -28,6 +35,7 @@ function MyPressable(props: MyPressableProps) {
       {...otherProps}
       onPress={(event: GestureResponderEvent) => {
         disableToAvoidMultipleClick();
+        hapticImpact(hapticImpactStyle);
         props.onPress?.(event);
       }}
       // @ts-ignore

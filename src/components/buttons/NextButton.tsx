@@ -1,5 +1,4 @@
 import shadow from "@config/shadow";
-import { hapticImpact } from "@src/utils/haptics";
 import { ArrowRight } from "phosphor-react-native";
 import React, { useState } from "react";
 import { View } from "react-native";
@@ -27,7 +26,6 @@ const NextButton: React.FC<NextButtonProps> = ({
   };
 
   const myOnPress = () => {
-    hapticImpact("medium");
     onPress();
   };
 
@@ -35,6 +33,7 @@ const NextButton: React.FC<NextButtonProps> = ({
     <View className="items-center">
       <Bump>
         <MyPressable
+          hapticImpactStyle="medium"
           onPress={myOnPress}
           onPressIn={handlePressIn}
           onPressOut={handlePressOut}
