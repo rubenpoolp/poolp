@@ -9,5 +9,17 @@
   },
   "name": {
     "title": "What's your name?"
+  },
+  "birthday": {
+    "title": "What's your birthday?",
+    "subtitle": "Only to join circles with people of your age."
+  },
+  "inputs": {
+    "birthday": {
+      "placeholder": "DD/MM/YYYY"
+    },
+    "name": {
+      "placeholder": "Your name"
+    }
   }
 }

@@ -1,15 +1,17 @@
 import React, { ComponentProps } from "react";
-import { TextInput, View } from "react-native";
-import MyTextInput from "./MyTextInput";
+import { TextInput } from "react-native";
 import colors from "@config/colors";
+import { useTranslation } from "react-i18next";
 
 interface NameInputProps extends ComponentProps<typeof TextInput> {}
 
 const NameInput: React.FC<NameInputProps> = ({ ...props }) => {
+  const { t } = useTranslation();
+
   return (
     <TextInput
-      placeholder="Your name"
-      className="text-3xl font-semibold text-center"
+      placeholder={t("inputs.name.placeholder")}
+      className="text-3xl font-semibold text-center text-light"
       placeholderTextColor={colors.gray[600]}
       style={{
         textAlignVertical: "top",

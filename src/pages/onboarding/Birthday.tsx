@@ -4,23 +4,29 @@ import { useTranslation } from "react-i18next";
 import MyText from "@src/components/natives/MyText";
 import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
 import NameInput from "@src/components/inputs/NameInput";
+import MyBirthdayInput from "@src/components/inputs/MyBirthdayInput";
 
-const Name = ({ navigation }: { navigation: any }) => {
+const Birthday = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
   const [name, setName] = useState("");
 
   return (
     <MyOnboardingLayout
       onNextPress={() => {
-        navigation.navigate("Birthday");
+        navigation.navigate("Name");
       }}
     >
       <View className="flex w-full" style={{ gap: 80 }}>
-        <MyText className="text-3xl font-semibold mb-5">
-          {t("name.title")}
-        </MyText>
+        <View className="items-start space-y-2">
+          <MyText className="text-3xl font-semibold">
+            {t("birthday.title")}
+          </MyText>
+          <MyText className="text-gray-500 text-xs">
+            {t("birthday.subtitle")}
+          </MyText>
+        </View>
 
-        <NameInput
+        <MyBirthdayInput
           autoFocus
           value={name}
           onChangeText={setName}
@@ -31,4 +37,4 @@ const Name = ({ navigation }: { navigation: any }) => {
   );
 };
 
-export default Name;
+export default Birthday;

@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import MyButton from "@src/components/natives/MyButton";
 import { ArrowRight } from "phosphor-react-native";
-import MyGradient from "@src/components/MyGradient";
 
 interface NextButtonProps {
   onPress: () => void;
