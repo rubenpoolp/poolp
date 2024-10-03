@@ -1,6 +1,6 @@
-import { View } from "react-native";
 import MyButton from "@src/components/natives/MyButton";
 import { ArrowRight } from "phosphor-react-native";
+import { View } from "react-native";
 
 interface NextButtonProps {
   onPress: () => void;
@@ -16,6 +16,7 @@ const NextButton: React.FC<NextButtonProps> = ({
   return (
     <View className="items-center justify-center">
       <MyButton
+        type="gradient"
         onPress={onPress}
         disabled={disabled}
         isLoading={isLoading}

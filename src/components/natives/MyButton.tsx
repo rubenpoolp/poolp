@@ -1,6 +1,7 @@
 import MyText from "@src/components/natives/MyText";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
+import MyGradient from "../MyGradient";
 import MyPressable from "./MyPressable";
 
 interface MyButtonProps {
@@ -12,7 +13,7 @@ interface MyButtonProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isLoading?: boolean;
-  type?: "default" | "secondary";
+  type?: "default" | "secondary" | "gradient";
   style?: object;
   className?: string;
 }
@@ -44,6 +45,10 @@ const MyButton = ({
       container: "",
       text: "text-blue-300",
     },
+    gradient: {
+      container: "",
+      text: "text-white",
+    },
   };
 
   return (
@@ -56,6 +61,7 @@ const MyButton = ({
       onPress={onPress}
       disabled={disabled || isLoading}
     >
+      {type === "gradient" && <MyGradient />}
       {leftIcon && !isLoading && leftIcon}
       {txt && !isLoading && (
         <MyText
