@@ -7,6 +7,7 @@ import { Introduction } from "@src/pages/onboarding/Introduction";
 import Name from "@src/pages/onboarding/Name";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
 import Birthday from "@src/pages/onboarding/Birthday";
+import Gender from "@src/pages/onboarding/Gender";
 
 const OnboardingStack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ const OnboardingViews = [
   { name: "Introduction", component: Introduction },
   { name: "Name", component: Name },
   { name: "Birthday", component: Birthday },
+  { name: "Gender", component: Gender },
   { name: "HomeStack", component: HomeStackNavigator },
 ];
 

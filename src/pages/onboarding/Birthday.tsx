@@ -13,7 +13,7 @@ const Birthday = ({ navigation }: { navigation: any }) => {
   return (
     <MyOnboardingLayout
       onNextPress={() => {
-        navigation.navigate("Name");
+        navigation.navigate("Gender");
       }}
     >
       <View className="flex w-full" style={{ gap: 80 }}>
