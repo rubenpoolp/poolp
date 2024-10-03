@@ -21,6 +21,7 @@ const MyKeyboardAvoidingView = (props: MyKeyboardAvoidingViewProps) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         keyboardVerticalOffset={keyboardVerticalOffset}
+        className="flex-1"
         {...props}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

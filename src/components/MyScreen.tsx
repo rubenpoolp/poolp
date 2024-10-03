@@ -23,7 +23,6 @@ const MyScreen = ({
     edges={edges}
     className={`flex-1 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
   >
-    <StatusBar style="dark" />
     <View
       className={`flex-1 items-center justify-between ${padding && "px-4"}`}
       style={style}
