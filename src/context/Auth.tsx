@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setSession(data?.session);
     const account = {
       id: data.session?.user.id,
-      phone,
+      phone: phone.replace("+", ""),
     };
     if (!account.id) throw new Error("No user id");
 
