@@ -22,20 +22,18 @@ const MyOnboardingLayout: React.FC<LayoutProps> = ({
   return (
     <MyScreen padding>
       <MyKeyboardAvoidingView>
-        <View className="flex-1 w-full justify-between">
-          <View className="flex-1">
-            {logo && (
-              <View className="w-full mb-12">
-                <MyImage img={assets.icon} containerStyle="h-10" />
-              </View>
-            )}
-
-            <View className={`flex-1 w-full ${contentContainerStyle}`}>
-              {children}
+        <View className="flex-1 ">
+          {logo && (
+            <View className="w-full mb-12">
+              <MyImage img={assets.icon} containerStyle="h-10" />
             </View>
+          )}
+
+          <View className={`flex-1 w-full ${contentContainerStyle}`}>
+            {children}
           </View>
 
-          <View className="w-full">
+          <View className="items-center">
             <NextButton onPress={onNextPress} />
           </View>
         </View>

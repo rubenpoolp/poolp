@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, TextInput } from "react-native";
+import { View } from "react-native";
 import { useTranslation } from "react-i18next";
-import MyScreen from "@src/components/MyScreen";
 import MyText from "@src/components/natives/MyText";
 import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
+import NameInput from "@src/components/inputs/NameInput";
 
 const Name = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
@@ -15,15 +15,16 @@ const Name = ({ navigation }: { navigation: any }) => {
         navigation.navigate("Introduction");
       }}
     >
-      <View className="flex w-full">
-        <MyText className="text-2xl font-semibold mb-5">
+      <View className="flex w-full" style={{ gap: 80 }}>
+        <MyText className="text-3xl font-semibold mb-5">
           {t("name.title")}
         </MyText>
 
-        <TextInput
+        <NameInput
+          autoFocus
           value={name}
           onChangeText={setName}
-          className="w-full border border-gray-300 rounded-md p-2 mt-4"
+          onSubmitEditing={() => {}}
         />
       </View>
     </MyOnboardingLayout>

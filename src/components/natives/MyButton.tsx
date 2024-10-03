@@ -37,11 +37,11 @@ const MyButton = ({
     }
   > = {
     default: {
-      container: "border-2",
+      container: "",
       text: "text-white",
     },
     secondary: {
-      container: "border-2",
+      container: "",
       text: "text-blue-300",
     },
   };

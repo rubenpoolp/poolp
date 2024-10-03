@@ -4,9 +4,7 @@ import MyImage from "@src/components/natives/MyImage";
 import MyText from "@src/components/natives/MyText";
 import React from "react";
 import { View } from "react-native";
-import { Trans, useTranslation } from "react-i18next";
-import MyButton from "@src/components/natives/MyButton";
-import NextButton from "@src/components/buttons/NextButton";
+import { useTranslation } from "react-i18next";
 import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
 
 export const Introduction = ({ navigation }: { navigation: any }) => {
@@ -26,21 +24,21 @@ export const Introduction = ({ navigation }: { navigation: any }) => {
       </View>
 
       <View className="flex flex-col items-center space-y-4">
-        <MyText className={"text-base text-center"}>
+        <MyText className={"text-center"}>
           {t("introduction.description1")}
         </MyText>
 
-        <MyText className={"text-base text-center"}>
+        <MyText className={"text-center"}>
           {t("introduction.description2")}
         </MyText>
 
-        <MyText className={"text-base text-center"}>
+        <MyText className={"text-center"}>
           {t("introduction.description3")}
         </MyText>
-        <MyText className={"text-base text-center"}>
+        <MyText className={"text-center"}>
           {t("introduction.description4")}
         </MyText>
-        <MyText className={"text-base text-center"}>
+        <MyText className={"text-center"}>
           {t("introduction.description5")}
         </MyText>
       </View>
