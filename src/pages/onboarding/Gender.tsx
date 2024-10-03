@@ -1,4 +1,3 @@
-import shadow from "@config/shadow";
 import { Bump } from "@src/components/animations/Bump";
 import MyGradient from "@src/components/MyGradient";
 import MyPressable from "@src/components/natives/MyPressable";
@@ -27,7 +26,7 @@ const GenderItem = ({
       <MyPressable
         onPress={onPress}
         className={`w-full flex-row items-center h-14 px-4 rounded-3xl bg-gray-400`}
-        style={isSelected && shadow.purple}
+        // style={isSelected && shadow.purple}
       >
         {isSelected && <MyGradient className="rounded-3xl" />}
         <View className="mr-2">

@@ -1,32 +1,22 @@
-import { TextInput } from "react-native";
+import { ComponentProps } from "react";
+import { StyleProp, TextInput, ViewStyle } from "react-native";
 
-interface MyTextInputProps {
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder: string;
-  onSubmitEditing: () => void;
+interface MyTextInputProps extends ComponentProps<typeof TextInput> {
+  className?: string;
+  style?: StyleProp<ViewStyle>;
 }
-const MyTextInput = ({
-  value,
-  onChangeText,
-  placeholder,
-  onSubmitEditing,
-}: MyTextInputProps) => {
+
+const MyTextInput = ({ ...props }: MyTextInputProps) => {
   return (
     <TextInput
       autoCapitalize="none"
-      maxLength={4000}
-      className="border-0 flex-1 mb-5"
-      style={{
-        textAlignVertical: "top",
-      }}
-      value={value}
-      onChangeText={onChangeText}
-      placeholder={placeholder}
-      multiline
-      onSubmitEditing={onSubmitEditing}
-      autoCorrect={false}
-      spellCheck={false}
+      {...props}
+      style={[
+        {
+          textAlignVertical: "top",
+        },
+        props.style,
+      ]}
     />
   );
 };

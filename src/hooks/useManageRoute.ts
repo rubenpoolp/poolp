@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@src/context/Auth";
-import { logInRevenueCat } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import { useEffect } from "react";
 
@@ -15,8 +14,8 @@ const useManageRoute = () => {
       if (!user) {
         resetTo(navigation, "Introduction");
       } else {
-        await logInRevenueCat(user.id, user.email);
-        resetTo(navigation, "Home");
+        // await logInRevenueCat(user.id, user.email);
+        resetTo(navigation, "HomeStack");
       }
     };
 

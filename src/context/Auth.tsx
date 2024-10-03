@@ -8,14 +8,18 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { Alert } from "react-native";
 
 type AuthContextType = {
   user: User | null;
   isAdmin: boolean;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
+  sendSMS: (phone: string) => Promise<{ data: any; error: any }>;
+  checkCode: (
+    phone: string,
+    token: string,
+  ) => Promise<{ data: any; error: any }>;
   signOut: () => Promise<void>;
 };
 
@@ -81,22 +85,37 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
   }, []);
 
-  const signUp = async (email: string, password: string) => {
-    // const firstTestGradeOn20 = await getAsyncStorage(ID_FIRST_TEST);
-
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+  const sendSMS = async (phone: string) => {
+    const { data, error } = await supabase.auth.signInWithOtp({
+      phone,
     });
 
-    if (error) throw error;
+    return { data, error };
+  };
+
+  const checkCode = async (phone: string, token: string) => {
+    const { data, error } = await supabase.auth.verifyOtp({
+      phone,
+      token,
+      type: "sms",
+    });
+
+    if (error) {
+      Alert.alert("Error", error.message);
+      throw error;
+    }
 
     setSession(data?.session);
     const account = {
       id: data.session?.user.id,
-      email,
+      phone,
     };
-    if (data)
+    if (!account.id) throw new Error("No user id");
+
+    const { account: accountResult } = await getAccountById(account.id);
+
+    if (!accountResult) {
+      console.log("Creating account");
       await createAccount(account)
         .then((result) => {
           setUser(result.account);
@@ -104,24 +123,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         .catch((error) => {
           console.warn("Error creating account:", error);
         });
-  };
-
-  const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-
-    setSession(data?.session);
-
-    if (!data.session?.user) {
-      console.warn("Failed to get user session");
-      return;
+    } else {
+      console.log("Account already exists");
+      setUser(accountResult);
     }
-    const { account } = await getAccountById(data.session?.user.id);
-    setUser(account);
+    return { data, error };
   };
 
   const signOut = async () => {
@@ -136,8 +142,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     isAdmin: user?.role === "admin",
     session,
     loading,
-    signUp,
-    signIn,
+    sendSMS,
+    checkCode,
     signOut,
   };
 

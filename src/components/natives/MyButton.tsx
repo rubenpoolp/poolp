@@ -1,7 +1,9 @@
+import shadow from "@config/shadow";
 import MyText from "@src/components/natives/MyText";
 import React, { ComponentProps } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { SvgProps } from "react-native-svg";
+import MyGradient from "../MyGradient";
 import MyPressable from "./MyPressable";
 
 interface MyButtonProps extends ComponentProps<typeof Pressable> {
@@ -16,8 +18,8 @@ interface MyButtonProps extends ComponentProps<typeof Pressable> {
 }
 
 const variantStyle = {
-  gradient: { container: "border-0", text: "text-white" },
-  secondary: { container: "border-0", text: "text-white" },
+  gradient: { container: "", text: "text-white" },
+  secondary: { container: "", text: "text-white" },
 };
 
 const sizeStyle = {
@@ -38,12 +40,19 @@ const MyButton = ({
 }: MyButtonProps): React.ReactElement => {
   return (
     <MyPressable
-      className={`rounded-xl items-center justify-center shadow-md border overflow-hidden ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${variantStyle[variant]}`}
+      className={`rounded-xl items-center justify-center bg-light ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${
+        variantStyle[variant].container
+      } ${sizeStyle[size].container}`}
       {...props}
       hapticImpactStyle="medium"
       onPress={onPress}
-      style={[props.style, { elevation: 10 }]}
+      style={[
+        props.style,
+        { elevation: 10 },
+        variant === "gradient" && shadow.purple,
+      ]}
     >
+      {variant === "gradient" && <MyGradient className="rounded-xl" />}
       {RightComponent && !LeftComponent && (
         <View className="opacity-0">
           <RightComponent />
