@@ -20,6 +20,16 @@
     "female": "Female",
     "other": "Other"
   },
+  "phone": {
+    "title": "We need your phone number to male sure you're a real person",
+    "subtitle": "Only for verification purposes."
+  },
+  "verificationCode": {
+    "title": "Enter the code you received"
+  },
+  "share": {
+    "title": "Enjoy poop's full potential : invite your entire promo, class or some peers!"
+  },
   "inputs": {
     "birthday": {
       "placeholder": "DD/MM/YYYY"

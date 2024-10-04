@@ -8,6 +8,9 @@ import Name from "@src/pages/onboarding/Name";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
 import Birthday from "@src/pages/onboarding/Birthday";
 import Gender from "@src/pages/onboarding/Gender";
+import Phone from "@src/pages/onboarding/Phone";
+import VerificationCode from "@src/pages/onboarding/VerificationCode";
+import Share from "@src/pages/onboarding/Share";
 
 const OnboardingStack = createNativeStackNavigator();
 
@@ -17,6 +20,9 @@ const OnboardingViews = [
   { name: "Name", component: Name },
   { name: "Birthday", component: Birthday },
   { name: "Gender", component: Gender },
+  { name: "Phone", component: Phone },
+  { name: "VerificationCode", component: VerificationCode },
+  { name: "Share", component: Share },
   { name: "HomeStack", component: HomeStackNavigator },
 ];
 

@@ -51,7 +51,7 @@ const Gender = ({ navigation }: { navigation: any }) => {
     <MyOnboardingLayout
       onNextPress={() => {
         if (selectedGender) {
-          navigation.navigate("Birthday");
+          navigation.navigate("Phone");
         }
       }}
     >
