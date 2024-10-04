@@ -12,14 +12,15 @@ const Name = ({ navigation }: { navigation: any }) => {
   return (
     <MyOnboardingLayout
       onNextPress={() => {
-        navigation.navigate("Birthday");
+        if (name && name.length >= 2) {
+          navigation.navigate("Birthday");
+        }
       }}
     >
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
           {t("name.title")}
         </MyText>
-
         <NameInput
           autoFocus
           value={name}

@@ -3,17 +3,18 @@ import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import MyText from "@src/components/natives/MyText";
 import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import NameInput from "@src/components/inputs/NameInput";
 import MyBirthdayInput from "@src/components/inputs/MyBirthdayInput";
 
 const Birthday = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
-  const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
 
   return (
     <MyOnboardingLayout
       onNextPress={() => {
-        navigation.navigate("Gender");
+        if (birthday && birthday.length === 10) {
+          navigation.navigate("Gender");
+        }
       }}
     >
       <View className="flex w-full" style={{ gap: 80 }}>
@@ -28,8 +29,8 @@ const Birthday = ({ navigation }: { navigation: any }) => {
 
         <MyBirthdayInput
           autoFocus
-          value={name}
-          onChangeText={setName}
+          value={birthday}
+          onChangeText={setBirthday}
           onSubmitEditing={() => {}}
         />
       </View>
