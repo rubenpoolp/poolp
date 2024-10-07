@@ -7,16 +7,18 @@ import { GenderFemale, GenderMale } from "phosphor-react-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
+import { SvgProps } from "react-native-svg";
+import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
 
 type GenderType = "female" | "male" | "other" | null;
 
 const GenderItem = ({
-  icon,
+  Icon,
   text,
   isSelected,
   onPress,
 }: {
-  icon?: React.ElementType;
+  Icon?: React.ReactNode;
   text: string;
   isSelected: boolean;
   onPress: () => void;
@@ -29,44 +31,41 @@ const GenderItem = ({
         // style={isSelected && shadow.purple}
       >
         {isSelected && <MyGradient className="rounded-3xl" />}
-        <View className="mr-2">
-          {icon &&
-            React.createElement(icon, {
-              size: 24,
-              color: "white",
-              weight: "bold",
-            })}
-        </View>
+        <View className="mr-2">{Icon && Icon}</View>
         <MyText className={`text-lg font-semibold text-light`}>{text}</MyText>
       </MyPressable>
     </Bump>
   );
 };
 
-const Gender = ({ navigation }: { navigation: any }) => {
+const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [selectedGender, setSelectedGender] = useState<GenderType>(null);
 
+  const { user } = route.params;
+
+  const handleNext = () => {
+    if (selectedGender) {
+      OnboardingNavigateTo(navigation, "Gender", {
+        user: { ...user, gender: selectedGender },
+      });
+    }
+  };
+
   return (
-    <MyOnboardingLayout
-      onNextPress={() => {
-        if (selectedGender) {
-          navigation.navigate("Phone");
-        }
-      }}
-    >
+    <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 40 }}>
         <MyText className="text-3xl font-semibold">{t("gender.title")}</MyText>
 
         <View className="w-full" style={{ gap: 16 }}>
           <GenderItem
-            icon={GenderFemale}
+            Icon={<GenderFemale />}
             text={t("gender.female")}
             isSelected={selectedGender === "female"}
             onPress={() => setSelectedGender("female")}
           />
           <GenderItem
-            icon={GenderMale}
+            Icon={<GenderMale />}
             text={t("gender.male")}
             isSelected={selectedGender === "male"}
             onPress={() => setSelectedGender("male")}

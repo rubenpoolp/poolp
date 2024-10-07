@@ -14,7 +14,7 @@ import Share from "@src/pages/onboarding/Share";
 
 const OnboardingStack = createNativeStackNavigator();
 
-const OnboardingViews = [
+export const OnboardingViews = [
   { name: "Loader", component: LoaderScreen },
   { name: "Introduction", component: Introduction },
   { name: "Name", component: Name },
@@ -25,6 +25,17 @@ const OnboardingViews = [
   { name: "Share", component: Share },
   { name: "HomeStack", component: HomeStackNavigator },
 ];
+
+export const OnboardingNavigateTo = (
+  navigation: any,
+  currentScreen: string,
+  data?: any,
+) => {
+  const nextScreen =
+    OnboardingViews.findIndex((view) => view.name === currentScreen) + 1;
+
+  return navigation.navigate(OnboardingViews[nextScreen].name, data);
+};
 
 const OnboardingStackNavigator = () => {
   return (

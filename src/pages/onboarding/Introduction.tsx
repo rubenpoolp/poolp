@@ -8,6 +8,7 @@ import resetTo from "@src/utils/resetTo";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
+import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
 
 export const Introduction = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
@@ -16,11 +17,11 @@ export const Introduction = ({ navigation }: { navigation: any }) => {
     process.env.EXPO_PUBLIC_TEST_PHONE_NUMBER ?? "",
   );
   const { sendSMS, checkCode, signOut } = useAuth();
-  const hide = false;
+  const hide = true;
 
   return (
     <MyOnboardingLayout
-      onNextPress={() => navigation.navigate("Name")}
+      onNextPress={() => OnboardingNavigateTo(navigation, "Introduction")}
       contentContainerStyle="pt-20"
       logo={false}
       canGoBack={false}
