@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { SvgProps } from "react-native-svg";
 import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
+import colors from "@config/colors";
 
 type GenderType = "female" | "male" | "other" | null;
 
@@ -59,13 +60,13 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
 
         <View className="w-full" style={{ gap: 16 }}>
           <GenderItem
-            Icon={<GenderFemale />}
+            Icon={<GenderFemale color={colors.light} weight="bold" />}
             text={t("gender.female")}
             isSelected={selectedGender === "female"}
             onPress={() => setSelectedGender("female")}
           />
           <GenderItem
-            Icon={<GenderMale />}
+            Icon={<GenderMale color={colors.light} weight="bold" />}
             text={t("gender.male")}
             isSelected={selectedGender === "male"}
             onPress={() => setSelectedGender("male")}
