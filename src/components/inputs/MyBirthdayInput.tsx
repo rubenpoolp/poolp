@@ -2,6 +2,7 @@ import React, { ComponentProps, useState, useCallback } from "react";
 import { TextInput } from "react-native";
 import colors from "@config/colors";
 import { useTranslation } from "react-i18next"; // Ajoutez cette importation
+import MyTextInput from "./MyTextInput";
 
 interface MyBirthdayInputProps extends ComponentProps<typeof TextInput> {}
 
@@ -35,13 +36,10 @@ const MyBirthdayInput: React.FC<MyBirthdayInputProps> = ({
   );
 
   return (
-    <TextInput
+    <MyTextInput
       placeholder={t("inputs.birthday.placeholder")}
       className="text-3xl font-semibold text-center text-light"
       placeholderTextColor={colors.gray[600]}
-      style={{
-        textAlignVertical: "top",
-      }}
       keyboardType="numeric"
       value={value}
       onChangeText={handleChange}
