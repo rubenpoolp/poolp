@@ -74,7 +74,7 @@ const PhoneNumberInput = ({
       </MyPressable>
 
       <MyTextInput
-        className="flex-1 text-light"
+        className="flex-1 text-light font-semibold text-3xl"
         value={value}
         placeholder={exampleNumber}
         inputMode="numeric"

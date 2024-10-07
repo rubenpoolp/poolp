@@ -15,7 +15,7 @@ import MyText from "@src/components/natives/MyText";
 import MyModal from "./MyModal";
 import { background } from "@config/colors";
 import MyTextInput from "@src/components/inputs/MyTextInput";
-import ScreenTemplate from "../templates/ScreenTemplate";
+import MyScreen from "@src/components/MyScreen";
 
 interface CountryCodeModalProps {
   isVisible: boolean;
@@ -66,7 +66,7 @@ const CountryCodeModal = ({
       animationOut={"slideOutDown"}
       isVisible={isVisible}
     >
-      <ScreenTemplate>
+      <MyScreen>
         <MyTextInput
           className="w-full text-3xl mb-4"
           placeholder={t("inputs.search")}
@@ -94,7 +94,7 @@ const CountryCodeModal = ({
             </MyPressable>
           )}
         />
-      </ScreenTemplate>
+      </MyScreen>
     </MyModal>
   );
 };
