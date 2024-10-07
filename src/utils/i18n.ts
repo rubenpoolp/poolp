@@ -24,3 +24,14 @@ i18n
   });
 
 export default i18n;
+
+export const getFlagEmoji = (countryCode: string) => {
+  if (!countryCode || typeof countryCode !== "string") return "";
+
+  const code = countryCode === "en" ? "gb" : countryCode;
+  const codePoints = code
+    .toUpperCase()
+    .split("")
+    .map((char) => 127397 + char.charCodeAt(0));
+  return String.fromCodePoint(...codePoints);
+};

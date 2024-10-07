@@ -21,7 +21,7 @@
     "other": "Other"
   },
   "phone": {
-    "title": "We need your phone number to male sure you're a real person",
+    "title": "We need your phone number to make sure you're a real person",
     "subtitle": "Only for verification purposes."
   },
   "verificationCode": {
@@ -31,6 +31,7 @@
     "title": "Enjoy poop's full potential : invite your entire promo, class or some peers!"
   },
   "inputs": {
+    "search": "Search",
     "birthday": {
       "placeholder": "DD/MM/YYYY"
     },

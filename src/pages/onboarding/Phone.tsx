@@ -3,9 +3,14 @@ import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import MyText from "@src/components/natives/MyText";
 import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
+import PhoneNumberInput from "@src/components/inputs/PhoneNumberInput";
+import { CountryCode } from "libphonenumber-js";
 
 const Phone = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
+
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [countryCode, setCountryCode] = useState<CountryCode>("FR");
 
   return (
     <MyOnboardingLayout
@@ -20,6 +25,13 @@ const Phone = ({ navigation }: { navigation: any }) => {
             {t("phone.subtitle")}
           </MyText>
         </View>
+        <PhoneNumberInput
+          value={phoneNumber}
+          setValue={setPhoneNumber}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
+          resetError={() => {}}
+        />
       </View>
     </MyOnboardingLayout>
   );
