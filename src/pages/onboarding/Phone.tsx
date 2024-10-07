@@ -18,6 +18,11 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const [countryCode, setCountryCode] = useState<CountryCode>("FR");
 
   const handleNext = () => {
+    // TODO: check if phone number is valid
+    if (!phoneNumber) {
+      return;
+    }
+
     try {
       const parsedPhoneNumber = parsePhoneNumber(phoneNumber, countryCode);
       if (parsedPhoneNumber) {

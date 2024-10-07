@@ -61,13 +61,13 @@ const PhoneNumberInput = ({
   return (
     <View className="flex-row space-x-5 w-full items-center">
       <MyPressable onPress={() => setIsModalVisible(true)}>
-        <View className="flex-1 border p-4 rounded-full border-gray-500">
+        <View className="py-2 px-4 border rounded-full border-gray-500">
           <MyTextInput
             onPress={() => setIsModalVisible(true)}
             value={`+${getCountryCallingCode(countryCode)}`}
             textAlign="center"
             editable={false}
-            className="text-gray-500"
+            className="text-gray-400"
             {...props}
           />
         </View>
