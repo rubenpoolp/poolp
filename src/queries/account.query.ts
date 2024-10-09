@@ -1,5 +1,5 @@
-import { supabase } from "@src/utils/supabase";
 import { User } from "@supabase/supabase-js";
+import { supabase } from "@utils/supabase";
 
 // Read an account by ID
 export const getAccountById = async (userId: string): Promise<any> => {

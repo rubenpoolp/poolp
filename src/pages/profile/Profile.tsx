@@ -1,13 +1,13 @@
+import AppVersion from "@components/AppVersion";
+import MyHeader from "@components/MyHeader";
+import MyScreen from "@components/MyScreen";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
+import deleteAuthUser from "@queries/deleteAuthUser.query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import AppVersion from "@src/components/AppVersion";
-import MyHeader from "@src/components/MyHeader";
-import MyScreen from "@src/components/MyScreen";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
-import { useAuth } from "@src/context/Auth";
-import deleteAuthUser from "@src/queries/deleteAuthUser.query";
-import resetTo from "@src/utils/resetTo";
+import resetTo from "@utils/resetTo";
 import {
   ArrowRight,
   Envelope,

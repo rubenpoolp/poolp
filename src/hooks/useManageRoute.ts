@@ -1,6 +1,6 @@
+import { useAuth } from "@context/Auth";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@src/context/Auth";
-import resetTo from "@src/utils/resetTo";
+import resetTo from "@utils/resetTo";
 import { useEffect } from "react";
 
 const useManageRoute = () => {

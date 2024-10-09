@@ -1,4 +1,4 @@
-import useUpdate from "@src/hooks/useUpdate";
+import useUpdate from "@hooks/useUpdate";
 import BasicModal from "./BasicModal";
 
 const UpdateModal = () => {

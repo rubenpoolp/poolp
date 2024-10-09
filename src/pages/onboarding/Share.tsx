@@ -1,15 +1,97 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+import assets from "@assets/index";
+import { Bump } from "@components/animations/Bump";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import { t } from "i18next";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import resetTo from "@src/utils/resetTo";
+import { Image, Linking, View } from "react-native";
+import * as Sharing from "expo-sharing";
 
-const VerificationCode = ({ navigation }: { navigation: any }) => {
+const socialButtons = [
+  {
+    asset: assets.instagram,
+    color: "#723AC8",
+    onPress: (message: string) =>
+      Linking.openURL(`instagram://share?text=${message}`),
+  },
+  {
+    asset: assets.snapchat,
+    color: "#DBB00B",
+    onPress: (message: string) =>
+      Linking.openURL(`snapchat://snap?text=${message}`),
+  },
+  {
+    asset: assets.whatsapp,
+    color: "#00DC60",
+    onPress: (message: string) =>
+      Linking.openURL(`whatsapp://send?text=${message}`),
+  },
+  {
+    asset: assets.message,
+    color: "#37C501",
+    onPress: (message: string) => Linking.openURL(`sms://send?text=${message}`),
+  },
+  {
+    asset: assets.messenger,
+    color: "#4C6AFF",
+    onPress: (message: string) =>
+      Linking.openURL(`fb-messenger://share?text=${message}`),
+  },
+  {
+    asset: assets.others,
+    color: "#3F3E3E",
+    onPress: (message: string) => Sharing.shareAsync(message),
+  },
+];
+
+const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
+  return (
+    <Bump scaleValue={0.9}>
+      <MyPressable
+        onPress={() => item.onPress(t("share.message"))}
+        className="bg-background-dark rounded-2xl"
+        style={{
+          shadowColor: item.color,
+          shadowOffset: {
+            width: 0,
+            height: 8,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
+      >
+        {item.asset && <Image source={item.asset} className="w-14 h-14" />}
+      </MyPressable>
+    </Bump>
+  );
+};
+
+const ShareButtons = () => {
+  return (
+    <View className="items-center">
+      <View className="flex-row justify-center mb-3" style={{ gap: 24 }}>
+        {socialButtons.slice(0, 3).map((item, index) => (
+          <SocialButton key={index} item={item} />
+        ))}
+      </View>
+      <View className="flex-row justify-center" style={{ gap: 24 }}>
+        {socialButtons.slice(3).map((item, index) => (
+          <SocialButton key={index + 3} item={item} />
+        ))}
+      </View>
+    </View>
+  );
+};
+
+const Share = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
+  const { nextScreen } = route.params;
 
   const handleNext = () => {
-    // resetTo(navigation, "HomeStack");
+    navigation.navigate(nextScreen);
   };
 
   return (
@@ -18,9 +100,10 @@ const VerificationCode = ({ navigation }: { navigation: any }) => {
         <MyText className="text-3xl font-semibold mb-5">
           {t("share.title")}
         </MyText>
+        <ShareButtons />
       </View>
     </MyOnboardingLayout>
   );
 };
 
-export default VerificationCode;
+export default Share;

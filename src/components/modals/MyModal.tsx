@@ -1,4 +1,4 @@
-import sleep from "@src/utils/sleep";
+import sleep from "@utils/sleep";
 import { ComponentProps, useEffect, useState } from "react";
 import { Platform } from "react-native";
 import Modal from "react-native-modal";

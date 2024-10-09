@@ -1,15 +1,13 @@
-import { Bump } from "@src/components/animations/Bump";
-import MyGradient from "@src/components/MyGradient";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
+import { Bump } from "@components/animations/Bump";
+import MyGradient from "@components/MyGradient";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import colors from "@config/colors";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { GenderFemale, GenderMale } from "phosphor-react-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
-import { SvgProps } from "react-native-svg";
-import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
-import colors from "@config/colors";
+import { Alert, View } from "react-native";
 
 type GenderType = "female" | "male" | "other" | null;
 
@@ -43,14 +41,16 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [selectedGender, setSelectedGender] = useState<GenderType>(null);
 
-  const { user } = route.params;
+  const { user, nextScreen } = route.params;
 
   const handleNext = () => {
-    if (selectedGender) {
-      OnboardingNavigateTo(navigation, "Gender", {
-        user: { ...user, gender: selectedGender },
-      });
+    if (!selectedGender) {
+      Alert.alert(t("gender.error"));
+      return;
     }
+    navigation.navigate(nextScreen, {
+      user: { ...user, gender: selectedGender },
+    });
   };
 
   return (

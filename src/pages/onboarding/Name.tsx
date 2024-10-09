@@ -1,19 +1,21 @@
+import NameInput from "@components/inputs/NameInput";
+import MyText from "@components/natives/MyText";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React, { useState } from "react";
-import { View } from "react-native";
 import { useTranslation } from "react-i18next";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import NameInput from "@src/components/inputs/NameInput";
-import { OnboardingNavigateTo } from "../navigation/OnboardingNavigator";
+import { Alert, View } from "react-native";
 
-const Name = ({ navigation }: { navigation: any }) => {
+const Name = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [name, setName] = useState("");
+  const { user, nextScreen } = route.params;
 
   const handleNext = () => {
-    if (name && name.length >= 2 && name.length <= 20) {
-      OnboardingNavigateTo(navigation, "Name", { user: { name } });
+    if (!name || name.length < 2 || name.length > 20) {
+      Alert.alert(t("name.error"));
+      return;
     }
+    navigation.navigate(nextScreen, { user: { ...user, name } });
   };
 
   return (

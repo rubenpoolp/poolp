@@ -1,7 +1,6 @@
-import React from "react";
-import { ComponentProps } from "react";
-import MyTextInput from "@src/components/inputs/MyTextInput";
+import MyTextInput from "@components/inputs/MyTextInput";
 import colors from "@config/colors";
+import React, { ComponentProps } from "react";
 
 interface MyCodeInputProps extends ComponentProps<typeof MyTextInput> {}
 

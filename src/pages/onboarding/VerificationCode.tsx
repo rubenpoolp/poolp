@@ -1,12 +1,10 @@
+import MyCodeInput from "@components/inputs/MyCodeInput";
+import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React, { useState } from "react";
-import { View } from "react-native";
 import { useTranslation } from "react-i18next";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import NameInput from "@src/components/inputs/NameInput";
-import MyCodeInput from "@src/components/inputs/MyCodeInput";
-import { OnboardingNavigateTo } from "../navigation/OnboardingNavigator";
-import { useAuth } from "@src/context/Auth";
+import { View } from "react-native";
 
 const VerificationCode = ({
   navigation,
@@ -19,15 +17,13 @@ const VerificationCode = ({
   const { checkCode } = useAuth();
 
   const [code, setCode] = useState<string>("");
-  const { user } = route.params;
+  const { user, nextScreen } = route.params;
 
   const handleNext = () => {
     if (code && code.length === 6) {
       checkCode(user.phoneNumber, code).then((data) => {
         console.log("data", data);
-        OnboardingNavigateTo(navigation, "VerificationCode", {
-          user: { ...user, code },
-        });
+        navigation.navigate(nextScreen, { ...user, code });
       });
     }
   };

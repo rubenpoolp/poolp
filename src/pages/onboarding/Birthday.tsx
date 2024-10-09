@@ -1,17 +1,16 @@
+import MyBirthdayInput from "@components/inputs/MyBirthdayInput";
+import MyText from "@components/natives/MyText";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import { differenceInYears, parse } from "date-fns";
 import React, { useState } from "react";
-import { View } from "react-native";
 import { useTranslation } from "react-i18next";
-import { parse, differenceInYears } from "date-fns";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import MyBirthdayInput from "@src/components/inputs/MyBirthdayInput";
-import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
+import { Alert, View } from "react-native";
 
 const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [birthday, setBirthday] = useState("");
 
-  const { user } = route.params;
+  const { user, nextScreen } = route.params;
 
   const checkBirthday = () => {
     if (birthday && birthday.length === 10) {
@@ -19,11 +18,13 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
       const today = new Date();
       const age = differenceInYears(today, parsedDate);
 
-      if (age > 13 && age < 90) {
-        OnboardingNavigateTo(navigation, "Birthday", {
-          user: { ...user, birthday: parsedDate },
-        });
+      if (age < 13 || age > 90) {
+        Alert.alert(t("birthday.error"));
+        return;
       }
+      navigation.navigate(nextScreen, {
+        user: { ...user, birthday: parsedDate.getTime() },
+      });
     }
   };
 

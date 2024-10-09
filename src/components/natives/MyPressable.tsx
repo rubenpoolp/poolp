@@ -1,5 +1,5 @@
-import { hapticImpact, HapticImpactStyle } from "@src/utils/haptics";
-import sleep from "@src/utils/sleep";
+import { hapticImpact, HapticImpactStyle } from "@utils/haptics";
+import sleep from "@utils/sleep";
 import React, { ComponentProps, useState } from "react";
 import { GestureResponderEvent, Pressable } from "react-native";
 

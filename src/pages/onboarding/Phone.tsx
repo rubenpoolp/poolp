@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import { useTranslation } from "react-i18next";
-import MyText from "@src/components/natives/MyText";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import PhoneNumberInput from "@src/components/inputs/PhoneNumberInput";
+import PhoneNumberInput from "@components/inputs/PhoneNumberInput";
+import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { CountryCode, parsePhoneNumber } from "libphonenumber-js";
-import { useAuth } from "@src/context/Auth";
-import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { View } from "react-native";
 
 const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const { sendSMS } = useAuth();
 
-  const { user } = route.params;
+  const { user, nextScreen } = route.params;
 
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [countryCode, setCountryCode] = useState<CountryCode>("FR");
@@ -31,8 +30,9 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
         sendSMS(formattedPhoneNumber)
           .then((data) => {
             console.log("data", data);
-            OnboardingNavigateTo(navigation, "Phone", {
-              user: { ...user, phoneNumber: formattedPhoneNumber },
+            navigation.navigate(nextScreen, {
+              ...user,
+              phoneNumber: formattedPhoneNumber,
             });
           })
           .catch((error) => {

@@ -1,21 +1,21 @@
-import { getFlagEmoji } from "@src/utils/i18n";
+import { getFlagEmoji } from "@utils/i18n";
 // import { normalizeAccents } from "@/utils/string";
-// import { black } from "@src/constants/colors";
-import { Check } from "phosphor-react-native";
+// import { black } from "@constants/colors";
+import MyTextInput from "@components/inputs/MyTextInput";
+import MyScreen from "@components/MyScreen";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import { background } from "@config/colors";
 import { t } from "i18next";
 import {
   CountryCode,
   getCountries,
   getCountryCallingCode,
 } from "libphonenumber-js";
+import { Check } from "phosphor-react-native";
 import { useState } from "react";
 import { FlatList } from "react-native";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
 import MyModal from "./MyModal";
-import { background } from "@config/colors";
-import MyTextInput from "@src/components/inputs/MyTextInput";
-import MyScreen from "@src/components/MyScreen";
 
 interface CountryCodeModalProps {
   isVisible: boolean;

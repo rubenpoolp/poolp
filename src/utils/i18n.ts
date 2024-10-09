@@ -1,10 +1,10 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import * as Localization from 'expo-localization';
+import * as Localization from "expo-localization";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 // Importez ici vos fichiers de traduction
-import en from '@src/locales/en.json';
-// import fr from '@src/locales/fr.json;
+import en from "@locales/en.json";
+// import fr from '@locales/fr.json;
 
 const resources = {
   en: { translation: en },
@@ -16,8 +16,8 @@ i18n
   .init({
     resources,
     lng: Localization.locale,
-    fallbackLng: 'en',
-    compatibilityJSON: 'v3',
+    fallbackLng: "en",
+    compatibilityJSON: "v3",
     interpolation: {
       escapeValue: false,
     },

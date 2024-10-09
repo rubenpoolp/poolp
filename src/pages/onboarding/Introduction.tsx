@@ -1,16 +1,21 @@
-import MyTextInput from "@src/components/inputs/MyTextInput";
-import LogoWithText from "@src/components/LogoWithText";
-import MyButton from "@src/components/natives/MyButton";
-import MyText from "@src/components/natives/MyText";
-import { useAuth } from "@src/context/Auth";
-import MyOnboardingLayout from "@src/pages/onboarding/MyOnboardingLayout";
-import resetTo from "@src/utils/resetTo";
+import MyTextInput from "@components/inputs/MyTextInput";
+import LogoWithText from "@components/LogoWithText";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import resetTo from "@utils/resetTo";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-import { OnboardingNavigateTo } from "@src/pages/navigation/OnboardingNavigator";
 
-export const Introduction = ({ navigation }: { navigation: any }) => {
+const Introduction = ({
+  navigation,
+  route,
+}: {
+  navigation: any;
+  route: any;
+}) => {
   const { t } = useTranslation();
   const [code, setCode] = useState("");
   const [phone, setPhone] = useState(
@@ -18,10 +23,15 @@ export const Introduction = ({ navigation }: { navigation: any }) => {
   );
   const { sendSMS, checkCode, signOut } = useAuth();
   const hide = true;
+  const { user, nextScreen } = route.params;
+
+  const handleNext = () => {
+    navigation.navigate(nextScreen, { user });
+  };
 
   return (
     <MyOnboardingLayout
-      onNextPress={() => OnboardingNavigateTo(navigation, "Introduction")}
+      onNextPress={handleNext}
       contentContainerStyle="pt-20"
       logo={false}
       canGoBack={false}
@@ -77,3 +87,5 @@ export const Introduction = ({ navigation }: { navigation: any }) => {
     </MyOnboardingLayout>
   );
 };
+
+export default Introduction;

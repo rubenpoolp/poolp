@@ -1,5 +1,5 @@
+import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
-import MyText from "@src/components/natives/MyText";
 import React, { ComponentProps } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { SvgProps } from "react-native-svg";

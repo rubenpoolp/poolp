@@ -1,11 +1,11 @@
+import AppVersion from "@components/AppVersion";
+import MyScreen from "@components/MyScreen";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import AppVersion from "@src/components/AppVersion";
-import MyScreen from "@src/components/MyScreen";
-import MyButton from "@src/components/natives/MyButton";
-import MyText from "@src/components/natives/MyText";
-import { useAuth } from "@src/context/Auth";
-import resetTo from "@src/utils/resetTo";
+import resetTo from "@utils/resetTo";
 import React from "react";
 import { Alert, View } from "react-native";
 

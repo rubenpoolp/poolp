@@ -1,9 +1,9 @@
 import assets from "@assets/index";
+import MyImage from "@components/natives/MyImage";
 import { red } from "@config/colors";
-import MyImage from "@src/components/natives/MyImage";
-import { useAuth } from "@src/context/Auth";
-import useManageRoute from "@src/hooks/useManageRoute";
-import { initializeRevenueCatApiKeys } from "@src/utils/purchase";
+import { useAuth } from "@context/Auth";
+import useManageRoute from "@hooks/useManageRoute";
+import { initializeRevenueCatApiKeys } from "@utils/purchase";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 

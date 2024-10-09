@@ -1,6 +1,6 @@
-import { createAccount, getAccountById } from "@src/queries/account.query";
-import { supabase } from "@src/utils/supabase";
+import { createAccount, getAccountById } from "@queries/account.query";
 import { Session, User } from "@supabase/supabase-js";
+import { supabase } from "@utils/supabase";
 import React, {
   createContext,
   ReactNode,

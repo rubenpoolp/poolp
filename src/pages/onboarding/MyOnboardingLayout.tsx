@@ -1,9 +1,9 @@
 import assets from "@assets/index";
-import BackButton from "@src/components/buttons/BackButton";
-import NextButton from "@src/components/buttons/NextButton";
-import MyKeyboardAvoidingView from "@src/components/MyKeyboardAvoidingView";
-import MyScreen from "@src/components/MyScreen";
-import MyImage from "@src/components/natives/MyImage";
+import BackButton from "@components/buttons/BackButton";
+import NextButton from "@components/buttons/NextButton";
+import MyKeyboardAvoidingView from "@components/MyKeyboardAvoidingView";
+import MyScreen from "@components/MyScreen";
+import MyImage from "@components/natives/MyImage";
 import React, { ReactNode } from "react";
 import { View } from "react-native";
 

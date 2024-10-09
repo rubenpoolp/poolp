@@ -1,4 +1,5 @@
-import CountryCodeModal from "@src/components/modals/CountryCodeModal";
+import CountryCodeModal from "@components/modals/CountryCodeModal";
+import MyPressable from "@components/natives/MyPressable";
 import {
   AsYouType,
   CountryCode,
@@ -14,10 +15,7 @@ import {
   useState,
 } from "react";
 import { View } from "react-native";
-import MyPressable from "@src/components/natives/MyPressable";
 import MyTextInput from "./MyTextInput";
-import { getFlagEmoji } from "@src/utils/i18n";
-import MyText from "@src/components/natives/MyText";
 
 interface PhoneNumberInputProps extends ComponentProps<typeof MyTextInput> {
   value: string;
