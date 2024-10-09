@@ -1,6 +1,7 @@
 import PhoneNumberInput from "@components/inputs/PhoneNumberInput";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
+import { useIsLoading } from "@context/IsLoading";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { CountryCode, parsePhoneNumber } from "libphonenumber-js";
 import React, { useState } from "react";
@@ -10,15 +11,16 @@ import { View } from "react-native";
 const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const { sendSMS } = useAuth();
-
   const { user, nextScreen } = route.params;
-
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [countryCode, setCountryCode] = useState<CountryCode>("FR");
+  const { setIsLoading } = useIsLoading();
 
   const handleNext = () => {
+    setIsLoading(true);
     // TODO: check if phone number is valid
     if (!phoneNumber) {
+      setIsLoading(false);
       return;
     }
 
@@ -37,6 +39,9 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
           })
           .catch((error) => {
             console.log("error", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
       } else {
         console.error("Invalid phone number");

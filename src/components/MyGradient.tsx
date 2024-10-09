@@ -15,7 +15,7 @@ const MyGradient = ({
       colors={gradient.primary}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
-      className="absolute top-0 left-0 right-0 bottom-0 bg-red"
+      className="absolute top-0 left-0 right-0 bottom-0"
       style={style}
     />
   );
