@@ -1,50 +1,12 @@
-import assets from "@assets/index";
 import { Bump } from "@components/animations/Bump";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import socialButtons from "@config/socialButtons";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { t } from "i18next";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Linking, View } from "react-native";
-import * as Sharing from "expo-sharing";
-
-const socialButtons = [
-  {
-    asset: assets.instagram,
-    color: "#723AC8",
-    onPress: (message: string) =>
-      Linking.openURL(`instagram://share?text=${message}`),
-  },
-  {
-    asset: assets.snapchat,
-    color: "#DBB00B",
-    onPress: (message: string) =>
-      Linking.openURL(`snapchat://snap?text=${message}`),
-  },
-  {
-    asset: assets.whatsapp,
-    color: "#00DC60",
-    onPress: (message: string) =>
-      Linking.openURL(`whatsapp://send?text=${message}`),
-  },
-  {
-    asset: assets.message,
-    color: "#37C501",
-    onPress: (message: string) => Linking.openURL(`sms://send?text=${message}`),
-  },
-  {
-    asset: assets.messenger,
-    color: "#4C6AFF",
-    onPress: (message: string) =>
-      Linking.openURL(`fb-messenger://share?text=${message}`),
-  },
-  {
-    asset: assets.others,
-    color: "#3F3E3E",
-    onPress: (message: string) => Sharing.shareAsync(message),
-  },
-];
+import { Image, View } from "react-native";
 
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
