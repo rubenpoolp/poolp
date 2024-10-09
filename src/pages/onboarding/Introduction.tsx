@@ -28,7 +28,7 @@ const Introduction = ({
     >
       <LogoWithText />
 
-      <View className="flex flex-col items-center space-y-4">
+      <View className="flex items-center space-y-4">
         <MyText className={"text-center"}>
           {t("introduction.description1")}
         </MyText>

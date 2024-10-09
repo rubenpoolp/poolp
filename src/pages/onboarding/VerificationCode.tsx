@@ -1,4 +1,5 @@
 import MyCodeInput from "@components/inputs/MyCodeInput";
+import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import { MAX_LENGTH_CODE } from "@config/string";
 import { useAuth } from "@context/Auth";
@@ -23,9 +24,13 @@ const VerificationCode = ({
   const { user, nextScreen } = route.params;
   const { setIsLoading } = useIsLoading();
 
-  const handleNext = () => {
+  const goNext = (codeFromInput: string) => {
+    navigation.navigate(nextScreen, { ...user, code: codeFromInput });
+  };
+
+  const handleNext = (codeFromInput: string) => {
     setIsLoading(true);
-    if (!code || code.length !== 6) {
+    if (!codeFromInput || codeFromInput.length !== 6) {
       setIsLoading(false);
       Alert.alert(t("verificationCode.error"));
       return;
@@ -33,28 +38,28 @@ const VerificationCode = ({
     if (!user.phoneNumber)
       throw new Error("User phone number is required in Verification Code");
 
-    checkCode(user.phoneNumber, code)
+    checkCode(user.phoneNumber, codeFromInput)
       .then((data) => {
         console.log("data", data);
-        navigation.navigate(nextScreen, { ...user, code });
+        goNext(codeFromInput);
       })
-      .catch((error) => {
-        console.log("error", error, typeof error);
+      .catch((error: Error) => {
         if (error.message.includes("Token has expired"))
           Alert.alert(i18n.t("verificationCode.invalidCode"));
+        else Alert.alert(error.message);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  const handleChangeCode = (code: string) => {
-    setCode(code);
-    if (code.length === MAX_LENGTH_CODE) handleNext();
+  const handleChangeCode = (codeFromInput: string) => {
+    setCode(codeFromInput);
+    if (codeFromInput.length === MAX_LENGTH_CODE) handleNext(codeFromInput);
   };
 
   return (
-    <MyOnboardingLayout onNextPress={handleNext}>
+    <MyOnboardingLayout onNextPress={() => handleNext(code)}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
           {t("verificationCode.title")}
@@ -64,9 +69,10 @@ const VerificationCode = ({
           maxLength={MAX_LENGTH_CODE}
           value={code}
           onChangeText={handleChangeCode}
-          onSubmitEditing={handleNext}
+          onSubmitEditing={() => handleNext(code)}
         />
       </View>
+      <MyButton onPress={() => goNext(code)} txt={"ONLY DEV : Next"} />
     </MyOnboardingLayout>
   );
 };

@@ -47,5 +47,17 @@
     "name": {
       "placeholder": "Your name"
     }
+  },
+  "askPermissionNotifications": {
+    "title": "Tap on the notification to receive it for your next circle !",
+    "notifTitle": "💜 New circle to discover!",
+    "notifDescription": "This is how Poolp will notify you to discover your new circle.",
+    "byEnablingNotifications": "By enabling notifications, you will know everyday when :",
+    "advantages": [
+      "Your circle change",
+      "Someone posts",
+      "Someone likes",
+      "Someone screenshots"
+    ]
   }
 }
