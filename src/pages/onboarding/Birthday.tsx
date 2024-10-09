@@ -28,8 +28,9 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
       return;
     }
 
+    const timestampzForSupabase = parsedDate.toISOString();
     navigation.navigate(nextScreen, {
-      user: { ...user, birthday: parsedDate.getTime() },
+      user: { ...user, birthday: timestampzForSupabase },
     });
   };
 

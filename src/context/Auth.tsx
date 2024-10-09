@@ -19,6 +19,7 @@ type AuthContextType = {
     phone: string,
     token: string,
   ) => Promise<{ data: any; error: any }>;
+  signUp: (onboardingUser: User) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -92,6 +93,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return { data, error };
   };
 
+  // The goal of checkCode is to signIn if the user has account
+  // If not, continue the onboarding process to signUp at the end
   const checkCode = async (phone: string, token: string) => {
     const { data, error } = await supabase.auth.verifyOtp({
       phone,
@@ -111,19 +114,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const { account: accountResult } = await getAccountById(account.id);
 
     if (!accountResult) {
+      // Cannot create account now
       console.log("Creating account");
-      await createAccount(account)
-        .then((result) => {
-          setUser(result.account);
-        })
-        .catch((error) => {
-          console.warn("Error creating account:", error);
-        });
     } else {
       console.log("Account already exists");
       setUser(accountResult);
     }
     return { data, error };
+  };
+
+  const signUp = async (onboardingUser: User) => {
+    await createAccount({ ...onboardingUser, id: session?.user?.id })
+      .then((result) => {
+        setUser(result.account);
+      })
+      .catch((error) => {
+        console.warn("Error creating account:", error);
+      });
   };
 
   const signOut = async () => {
@@ -140,6 +147,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     loading,
     sendSMS,
     checkCode,
+    signUp,
     signOut,
   };
 

@@ -3,6 +3,7 @@ import MyGradient from "@components/MyGradient";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import colors from "@config/colors";
+import { useAuth } from "@context/Auth";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { GenderFemale, GenderMale } from "phosphor-react-native";
 import React, { useState } from "react";
@@ -40,7 +41,7 @@ const GenderItem = ({
 const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [selectedGender, setSelectedGender] = useState<GenderType>(null);
-
+  const { signUp } = useAuth();
   const { user, nextScreen } = route.params;
 
   const handleNext = () => {
@@ -48,8 +49,11 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
       Alert.alert(t("gender.error"));
       return;
     }
+    const userWithGender = { ...user, gender: selectedGender };
+    console.log(userWithGender);
+    signUp(userWithGender);
     navigation.navigate(nextScreen, {
-      user: { ...user, gender: selectedGender },
+      user,
     });
   };
 
