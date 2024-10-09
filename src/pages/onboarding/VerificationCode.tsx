@@ -1,5 +1,5 @@
 import MyCodeInput from "@components/inputs/MyCodeInput";
-import MyButton from "@components/natives/MyButton";
+import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { MAX_LENGTH_CODE } from "@config/string";
 import { useAuth } from "@context/Auth";
@@ -72,7 +72,14 @@ const VerificationCode = ({
           onSubmitEditing={() => handleNext(code)}
         />
       </View>
-      <MyButton onPress={() => goNext(code)} txt={"ONLY DEV : Next"} />
+      {__DEV__ && (
+        <MyPressable
+          className="absolute -top-20 right-4"
+          onPress={() => goNext("123456")}
+        >
+          <MyText>DEV - Skip</MyText>
+        </MyPressable>
+      )}
     </MyOnboardingLayout>
   );
 };

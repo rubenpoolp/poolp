@@ -15,7 +15,7 @@ import {
   SignOut,
   Trash,
 } from "phosphor-react-native";
-import React from "react";
+import React, { FC } from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
 const Profile = () => {
@@ -33,7 +33,7 @@ const Profile = () => {
     [key: string]: {
       name: string;
       onPress: () => void;
-      icon?: React.FC;
+      icon?: FC;
     }[];
   } = {
     general: [

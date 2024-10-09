@@ -17,7 +17,7 @@ const OnboardingStackNavigator = () => {
           initialParams={{
             nextScreen:
               index === onboardingRoutes.length - 1
-                ? "HomeStack"
+                ? ""
                 : onboardingRoutes[index + 1].name,
           }}
         />

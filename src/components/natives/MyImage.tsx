@@ -1,4 +1,4 @@
-import { red } from "@config/colors";
+import { pink } from "@config/colors";
 import React, { useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 
@@ -38,7 +38,7 @@ const MyImage = ({
             loaderStyle ? loaderStyle : "bottom-4"
           }`}
           size={"small"}
-          color={red}
+          color={pink[100]}
         />
       )}
     </View>

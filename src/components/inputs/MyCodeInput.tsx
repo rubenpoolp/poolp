@@ -4,7 +4,7 @@ import React, { ComponentProps } from "react";
 
 interface MyCodeInputProps extends ComponentProps<typeof MyTextInput> {}
 
-const MyCodeInput: React.FC<MyCodeInputProps> = ({ ...props }) => {
+const MyCodeInput = ({ ...props }: MyCodeInputProps) => {
   return (
     <MyTextInput
       autoFocus

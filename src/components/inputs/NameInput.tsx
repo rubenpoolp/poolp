@@ -1,11 +1,11 @@
-import React, { ComponentProps } from "react";
-import { TextInput } from "react-native";
 import colors from "@config/colors";
+import React, { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
+import { TextInput } from "react-native";
 
 interface NameInputProps extends ComponentProps<typeof TextInput> {}
 
-const NameInput: React.FC<NameInputProps> = ({ ...props }) => {
+const NameInput = ({ ...props }: NameInputProps) => {
   const { t } = useTranslation();
 
   return (

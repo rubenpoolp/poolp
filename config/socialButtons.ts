@@ -1,6 +1,5 @@
 import assets from "@assets/index";
-import { Linking } from "react-native";
-import Share from "react-native-share";
+import { Linking, Share } from "react-native";
 
 const socialButtons = [
   {
@@ -18,12 +17,12 @@ const socialButtons = [
   {
     asset: assets.whatsapp,
     color: "#00DC60",
-    onPress: (message: string) =>
-      Share.shareSingle({
-        title: "Shared on Whatsapp",
-        social: Share.Social.WHATSAPP,
-        message,
-      }),
+    onPress: (message: string) => {},
+    // Share.shareSingle({
+    //   title: "Shared on Whatsapp",
+    //   social: Share.Social.WHATSAPP,
+    //   message,
+    // }),
   },
   {
     asset: assets.message,
@@ -40,7 +39,7 @@ const socialButtons = [
     asset: assets.others,
     color: "#3F3E3E",
     onPress: (message: string) =>
-      ShareNative.share({
+      Share.share({
         message,
       }),
   },

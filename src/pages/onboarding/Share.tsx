@@ -4,13 +4,14 @@ import MyText from "@components/natives/MyText";
 import socialButtons from "@config/socialButtons";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import i18n from "@utils/i18n";
+import { t } from "i18next";
 import { Image, View } from "react-native";
 
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
     <Bump scaleValue={0.9}>
       <MyPressable
-        // onPress={() => item.onPress(t("share.message"))}
+        onPress={() => item.onPress(t("share.message"))}
         className="bg-background-dark rounded-2xl"
         style={{
           shadowColor: item.color,

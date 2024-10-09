@@ -1,20 +1,17 @@
+import shadow from "@config/shadow";
 import { ArrowRight } from "phosphor-react-native";
 import React from "react";
 import { View } from "react-native";
 import { Bump } from "../animations/Bump";
 import MyGradient from "../MyGradient";
 import MyPressable from "../natives/MyPressable";
-import shadow from "@config/shadow";
 
 interface NextButtonProps {
   onPress: () => void;
   disabled?: boolean;
 }
 
-const NextButton: React.FC<NextButtonProps> = ({
-  onPress,
-  disabled = false,
-}) => {
+const NextButton = ({ onPress, disabled = false }: NextButtonProps) => {
   return (
     <View className="items-center">
       <Bump>

@@ -15,13 +15,13 @@ interface LayoutProps {
   contentContainerStyle?: string;
 }
 
-const MyOnboardingLayout: React.FC<LayoutProps> = ({
+const MyOnboardingLayout = ({
   children,
   onNextPress,
   canGoBack = true,
   logo = true,
   contentContainerStyle,
-}) => {
+}: LayoutProps) => {
   return (
     <MyScreen padding>
       <MyKeyboardAvoidingView>

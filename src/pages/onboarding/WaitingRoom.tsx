@@ -1,5 +1,4 @@
 import assets from "@assets/index";
-import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
 import MyPressable from "@components/natives/MyPressable";
@@ -32,35 +31,32 @@ const WaitingRoom = ({
   };
 
   return (
-    <MyScreen className="justify-between items-center flex-1 px-4">
-      <View className="flex-1 items-center justify-center">
-        <MyImage img={assets.logoCropped} containerStyle="h-24 mb-10" />
-        <MyText className="text-center text-3xl font-medium mb-3">
-          {t("waitingRoom.title")}
-        </MyText>
-        <MyText className="text-center text-lg mb-8">
-          {t("waitingRoom.description")}
-        </MyText>
-        {!notificationEnabled && (
-          <MyButton
-            variant="pink"
-            className="mb-20 w-4/5"
-            txt={t("utils.enableNotifications")}
-            onPress={handleEnableNotifications}
-          />
-        )}
+    <View className="flex-1 items-center justify-center px-5">
+      <MyImage img={assets.logoCropped} containerStyle="h-24 mb-10" />
+      <MyText className="text-center text-3xl font-medium mb-3">
+        {t("waitingRoom.title")}
+      </MyText>
+      <MyText className="text-center text-lg mb-8">
+        {t("waitingRoom.description")}
+      </MyText>
+      {!notificationEnabled && (
         <MyButton
-          txt={t("waitingRoom.inviteYourSchoolPeers")}
-          onPress={handleInvite}
+          variant="pink"
+          className="mb-20 w-4/5"
+          txt={t("utils.enableNotifications")}
+          onPress={handleEnableNotifications}
         />
-      </View>
-
+      )}
+      <MyButton
+        txt={t("waitingRoom.inviteYourSchoolPeers")}
+        onPress={handleInvite}
+      />
       {__DEV__ && (
-        <MyPressable className="absolute top-0 right-4" onPress={handleNext}>
+        <MyPressable className="absolute top-20 right-4" onPress={handleNext}>
           <MyText>DEV - Skip</MyText>
         </MyPressable>
       )}
-    </MyScreen>
+    </View>
   );
 };
 

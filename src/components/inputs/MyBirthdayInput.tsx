@@ -1,15 +1,12 @@
-import React, { ComponentProps, useState, useCallback } from "react";
-import { TextInput } from "react-native";
 import colors from "@config/colors";
-import { useTranslation } from "react-i18next"; // Ajoutez cette importation
+import React, { ComponentProps, useCallback, useState } from "react";
+import { TextInput } from "react-native";
 import MyTextInput from "./MyTextInput";
+import { useTranslation } from "react-i18next";
 
 interface MyBirthdayInputProps extends ComponentProps<typeof TextInput> {}
 
-const MyBirthdayInput: React.FC<MyBirthdayInputProps> = ({
-  onChangeText,
-  ...props
-}) => {
+const MyBirthdayInput = ({ onChangeText, ...props }: MyBirthdayInputProps) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation(); // Ajoutez cette ligne
 

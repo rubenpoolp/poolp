@@ -19,7 +19,7 @@ const useInitialization = () => {
   }, [user]);
 };
 
-const LoaderScreen: React.FC = () => {
+const LoaderScreen = () => {
   useInitialization();
   useManageRoute();
   const { loading } = useAuth();

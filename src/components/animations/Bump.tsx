@@ -17,11 +17,11 @@ const defaultConfig: WithSpringConfig = {
   stiffness: 200,
 };
 
-export const Bump: React.FC<BumpProps> = ({
+export const Bump = ({
   children,
   scaleValue = 0.8,
   springConfig = defaultConfig,
-}) => {
+}: BumpProps) => {
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => {

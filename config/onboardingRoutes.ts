@@ -1,4 +1,5 @@
 import LoaderScreen from "@pages/LoaderScreen";
+import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import AskPermissionNotifications from "@pages/onboarding/AskPermissionNotifications";
 import Birthday from "@pages/onboarding/Birthday";
 import Gender from "@pages/onboarding/Gender";
@@ -23,4 +24,5 @@ export const onboardingRoutes: {
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },
+  { name: "HomeStack", component: HomeStackNavigator },
 ];
