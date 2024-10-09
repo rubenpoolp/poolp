@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const directories = ["fonts", "logo", "social_networks"];
+const directories = ["fonts", "logo", "social_networks", "profilePictures"];
 
 const imageFileNames = (dir) => {
   const array = [];

@@ -4,17 +4,23 @@ import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
 const MyGradient = ({
+  colors = gradient.primary,
+  start = { x: 0, y: 0 },
+  end = { x: 1, y: 0 },
   style,
 }: {
+  colors?: string[];
+  start?: { x: number; y: number };
+  end?: { x: number; y: number };
   children?: React.ReactNode;
   className?: string;
   style?: StyleProp<ViewStyle>;
 }) => {
   return (
     <LinearGradient
-      colors={gradient.primary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
+      colors={colors}
+      start={start}
+      end={end}
       className="absolute top-0 left-0 right-0 bottom-0"
       style={style}
     />

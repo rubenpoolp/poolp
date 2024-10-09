@@ -25,7 +25,8 @@ const VerificationCode = ({
   const { setIsLoading } = useIsLoading();
 
   const goNext = (codeFromInput: string) => {
-    navigation.navigate(nextScreen, { ...user, code: codeFromInput });
+    console.log("user", user);
+    navigation.navigate(nextScreen, { user }); // We do not need the confirmation code
   };
 
   const handleNext = (codeFromInput: string) => {
@@ -35,13 +36,17 @@ const VerificationCode = ({
       Alert.alert(t("verificationCode.error"));
       return;
     }
-    if (!user.phoneNumber)
+    if (!user.phone)
       throw new Error("User phone number is required in Verification Code");
 
-    checkCode(user.phoneNumber, codeFromInput)
+    checkCode(user.phone, codeFromInput)
       .then((data) => {
-        console.log("data", data);
-        goNext(codeFromInput);
+        if (data.error) {
+          console.log("error in check code", data.error);
+          throw data.error;
+        }
+        if (data.hasAccount) navigation.navigate("Loader");
+        else goNext(codeFromInput);
       })
       .catch((error: Error) => {
         if (error.message.includes("Token has expired"))

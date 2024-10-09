@@ -47,6 +47,13 @@ const Introduction = ({
           {t("introduction.description5")}
         </MyText>
       </View>
+      <MyText
+        className={
+          "text-center w-full absolute bottom-3 text-[10px] text-gray-400"
+        }
+      >
+        {t("introduction.byPassingLegal")}
+      </MyText>
     </MyOnboardingLayout>
   );
 };

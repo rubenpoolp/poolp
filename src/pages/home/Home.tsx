@@ -1,4 +1,5 @@
 import AppVersion from "@components/AppVersion";
+import Avatar from "@components/Avatar";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
@@ -9,14 +10,6 @@ import resetTo from "@utils/resetTo";
 import React from "react";
 import { Alert, View } from "react-native";
 
-const DisplayInfo = ({ title, value }: { title: string; value: string }) => {
-  return (
-    <View className="w-full flex-row justify-between items-center">
-      <MyText className="text-lg font-semibold">{title}</MyText>
-      <MyText className="text-lg">{value}</MyText>
-    </View>
-  );
-};
 const Home = () => {
   const navigation = useNavigation();
   const { signOut, user } = useAuth();
@@ -46,8 +39,12 @@ const Home = () => {
 
   return (
     <MyScreen className="px-4">
-      <MyText className="text-3xl font-semibold">Home</MyText>
-      <DisplayInfo title="PhoneNumber" value={user?.phone} />
+      <View className="flex-row justify-between items-center w-full">
+        <View className="w-10" />
+        <MyText className="text-3xl font-semibold">Home</MyText>
+        <Avatar />
+      </View>
+
       <View className="self-start">
         <MyButton onPress={signOutWithThen} txt={"Sign out"} className="mb-2" />
         <AppVersion />

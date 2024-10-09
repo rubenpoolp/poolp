@@ -6,8 +6,8 @@ import Gender from "@pages/onboarding/Gender";
 import Introduction from "@pages/onboarding/Introduction";
 import Name from "@pages/onboarding/Name";
 import Phone from "@pages/onboarding/Phone";
-import Share from "@pages/onboarding/Share";
 import School from "@pages/onboarding/School";
+import Share from "@pages/onboarding/Share";
 import VerificationCode from "@pages/onboarding/VerificationCode";
 import WaitingRoom from "@pages/onboarding/WaitingRoom";
 
@@ -17,12 +17,12 @@ export const onboardingRoutes: {
 }[] = [
   { name: "Loader", component: LoaderScreen },
   { name: "Introduction", component: Introduction },
+  { name: "Phone", component: Phone },
+  { name: "VerificationCode", component: VerificationCode },
   { name: "Name", component: Name },
   { name: "Birthday", component: Birthday },
   { name: "Gender", component: Gender },
   { name: "School", component: School },
-  { name: "Phone", component: Phone },
-  { name: "VerificationCode", component: VerificationCode },
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },

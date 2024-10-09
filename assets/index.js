@@ -16,6 +16,9 @@ const assets = {
   "others": require("./social_networks/others.png"),
   "snapchat": require("./social_networks/snapchat.png"),
   "whatsapp": require("./social_networks/whatsapp.png"),
+
+  // profilePictures
+  "defaultProfilePicture": require("./profilePictures/defaultProfilePicture.png"),
 };
 
 export default assets;

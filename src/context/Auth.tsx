@@ -18,7 +18,7 @@ type AuthContextType = {
   checkCode: (
     phone: string,
     token: string,
-  ) => Promise<{ data: any; error: any }>;
+  ) => Promise<{ hasAccount: boolean; error: any }>;
   signUp: (onboardingUser: User) => Promise<void>;
   signOut: () => Promise<void>;
 };
@@ -104,27 +104,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (error) throw error;
 
+    const userId = data?.session?.user?.id;
     setSession(data?.session);
-    const account = {
-      id: data.session?.user.id,
-      phone: phone.replace("+", ""),
-    };
-    if (!account.id) throw new Error("No user id");
+    if (!userId) throw new Error("No user id");
 
-    const { account: accountResult } = await getAccountById(account.id);
+    const { account: accountResult } = await getAccountById(userId);
 
-    if (!accountResult) {
-      // Cannot create account now
-      console.log("Creating account");
-    } else {
-      console.log("Account already exists");
-      setUser(accountResult);
-    }
-    return { data, error };
+    return { hasAccount: !!accountResult, error };
   };
 
   const signUp = async (onboardingUser: User) => {
-    await createAccount({ ...onboardingUser, id: session?.user?.id })
+    await createAccount({
+      ...onboardingUser,
+      id: session?.user?.id,
+      school_id: "94638a44-0395-4ce5-95a0-a74a58dac0d5",
+    })
       .then((result) => {
         setUser(result.account);
       })

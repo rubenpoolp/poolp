@@ -21,6 +21,7 @@ export const getAccountById = async (userId: string): Promise<any> => {
 // Create an account
 export const createAccount = async (data: any): Promise<any> => {
   try {
+    console.log("data", data);
     const { data: account, error } = await supabase
       .from("account")
       .insert(data)

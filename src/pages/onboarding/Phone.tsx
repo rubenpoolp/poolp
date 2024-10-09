@@ -21,7 +21,7 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     navigation.navigate(nextScreen, {
       user: {
         ...user,
-        phoneNumber: formattedPhoneNumber,
+        phone: formattedPhoneNumber.replace("+", ""), // Supabase does not accept + in phone number
       },
     });
   };
