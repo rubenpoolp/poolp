@@ -3,16 +3,14 @@ import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import socialButtons from "@config/socialButtons";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
-import { t } from "i18next";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import i18n from "@utils/i18n";
 import { Image, View } from "react-native";
 
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
     <Bump scaleValue={0.9}>
       <MyPressable
-        onPress={() => item.onPress(t("share.message"))}
+        // onPress={() => item.onPress(t("share.message"))}
         className="bg-background-dark rounded-2xl"
         style={{
           shadowColor: item.color,
@@ -49,7 +47,6 @@ const ShareButtons = () => {
 };
 
 const Share = ({ navigation, route }: { navigation: any; route: any }) => {
-  const { t } = useTranslation();
   const { nextScreen } = route.params;
 
   const handleNext = () => {
@@ -60,7 +57,7 @@ const Share = ({ navigation, route }: { navigation: any; route: any }) => {
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
-          {t("share.title")}
+          {i18n.t("share.title")}
         </MyText>
         <ShareButtons />
       </View>
