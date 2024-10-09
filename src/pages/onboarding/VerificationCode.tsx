@@ -1,11 +1,12 @@
 import MyCodeInput from "@components/inputs/MyCodeInput";
 import MyText from "@components/natives/MyText";
+import { MAX_LENGTH_CODE } from "@config/string";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 const VerificationCode = ({
   navigation,
@@ -29,18 +30,25 @@ const VerificationCode = ({
     }
     if (!user.phoneNumber)
       throw new Error("User phone number is required in Verification Code");
+
     checkCode(user.phoneNumber, code)
       .then((data) => {
         console.log("data", data);
         navigation.navigate(nextScreen, { ...user, code });
       })
       .catch((error) => {
-        //TODO: handle error
-        console.log("error", error);
+        console.log("error", error, typeof error);
+        if (error.message.includes("Token has expired"))
+          Alert.alert("Error", "Invalid code"); // TODO
       })
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const handleChangeCode = (code: string) => {
+    setCode(code);
+    if (code.length === MAX_LENGTH_CODE) handleNext();
   };
 
   return (
@@ -51,8 +59,9 @@ const VerificationCode = ({
         </MyText>
 
         <MyCodeInput
+          maxLength={MAX_LENGTH_CODE}
           value={code}
-          onChangeText={setCode}
+          onChangeText={handleChangeCode}
           onSubmitEditing={handleNext}
         />
       </View>

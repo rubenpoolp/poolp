@@ -8,7 +8,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Alert } from "react-native";
 
 type AuthContextType = {
   user: User | null;
@@ -100,10 +99,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       type: "sms",
     });
 
-    if (error) {
-      Alert.alert("Error", error.message);
-      throw error;
-    }
+    if (error) throw error;
 
     setSession(data?.session);
     const account = {

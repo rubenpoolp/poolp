@@ -31,13 +31,15 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
 
         sendSMS(formattedPhoneNumber)
           .then((data) => {
-            console.log("data", data);
             navigation.navigate(nextScreen, {
-              ...user,
-              phoneNumber: formattedPhoneNumber,
+              user: {
+                ...user,
+                phoneNumber: formattedPhoneNumber,
+              },
             });
           })
           .catch((error) => {
+            // TODO: handle error
             console.log("error", error);
           })
           .finally(() => {
