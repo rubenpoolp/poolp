@@ -26,6 +26,7 @@ const VerificationCode = ({
     setIsLoading(true);
     if (!code || code.length !== 6) {
       setIsLoading(false);
+      Alert.alert(t("verificationCode.error"));
       return;
     }
     if (!user.phoneNumber)

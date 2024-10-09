@@ -22,14 +22,17 @@
     "title": "What's your gender?",
     "male": "Male",
     "female": "Female",
-    "other": "Other"
+    "other": "Other",
+    "error": "Please select your gender."
   },
   "phone": {
     "title": "We need your phone number to make sure you're a real person",
-    "subtitle": "Only for verification purposes."
+    "subtitle": "Only for verification purposes.",
+    "error": "Please enter a valid phone number."
   },
   "verificationCode": {
-    "title": "Enter the code you received"
+    "title": "Enter the code you received",
+    "error": "Please enter a valid code."
   },
   "share": {
     "title": "Enjoy poop's full potential : invite your entire promo, class or some peers!",

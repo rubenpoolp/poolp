@@ -6,7 +6,7 @@ import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { CountryCode, parsePhoneNumber } from "libphonenumber-js";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     // TODO: check if phone number is valid
     if (!phoneNumber) {
       setIsLoading(false);
+      Alert.alert(t("phone.error"));
       return;
     }
 
