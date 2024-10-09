@@ -4,6 +4,7 @@ import { MAX_LENGTH_CODE } from "@config/string";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import i18n from "@utils/i18n";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
@@ -40,7 +41,7 @@ const VerificationCode = ({
       .catch((error) => {
         console.log("error", error, typeof error);
         if (error.message.includes("Token has expired"))
-          Alert.alert("Error", "Invalid code"); // TODO
+          Alert.alert(i18n.t("verificationCode.invalidCode"));
       })
       .finally(() => {
         setIsLoading(false);

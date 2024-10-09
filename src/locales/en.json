@@ -32,7 +32,7 @@
   },
   "verificationCode": {
     "title": "Enter the code you received",
-    "error": "Please enter a valid code."
+    "invalidCode": "Invalid code"
   },
   "share": {
     "title": "Enjoy poop's full potential : invite your entire promo, class or some peers!",
