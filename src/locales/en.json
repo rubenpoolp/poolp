@@ -36,7 +36,7 @@
   "verificationCode": {
     "title": "Enter the code you received",
     "error": "Please enter a valid code.",
-    "invalidCode": "Invalid code"
+    "invalidCode": "The code you entered is invalid."
   },
   "school": {
     "title": "Which school are you attending?",
@@ -46,7 +46,7 @@
     "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the poolp community."
   },
   "share": {
-    "title": "Enjoy poop's full potential : invite your entire promo, class or some peers!",
+    "title": "Enjoy poolp's full potential : invite your entire promo, class or some peers!",
     "message": "https://www.google.com/"
   },
   "inputs": {

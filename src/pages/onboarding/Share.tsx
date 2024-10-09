@@ -24,7 +24,7 @@ const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
           elevation: 5,
         }}
       >
-        {item.asset && <Image source={item.asset} className="w-14 h-14" />}
+        {item.asset && <Image source={item.asset} className="w-16 h-16" />}
       </MyPressable>
     </Bump>
   );

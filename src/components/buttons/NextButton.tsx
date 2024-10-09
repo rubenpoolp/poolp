@@ -19,11 +19,11 @@ const NextButton = ({ onPress, disabled = false }: NextButtonProps) => {
           hapticImpactStyle="medium"
           onPress={onPress}
           disabled={disabled}
-          className="rounded-full w-14 aspect-square items-center justify-center bg-light"
+          className="rounded-full w-16 aspect-square items-center justify-center bg-light"
           style={shadow.purple}
         >
           <MyGradient className="rounded-full" />
-          <ArrowRight />
+          <ArrowRight size={28} />
         </MyPressable>
       </Bump>
     </View>
