@@ -1,4 +1,7 @@
 {
+  "utils": {
+    "enableNotifications": "Enable notifications"
+  },
   "introduction": {
     "title": "poolp",
     "description1": "Each day, you'll join a new group with 2-3 random students your age from your school.",
@@ -59,5 +62,10 @@
       "Someone likes",
       "Someone screenshots"
     ]
+  },
+  "waitingRoom": {
+    "title": "You are in the waiting room",
+    "description": "You will receive a notification when you get into your new circle.",
+    "inviteYourSchoolPeers": "Invite your school peers"
   }
 }

@@ -13,6 +13,10 @@ module.exports = {
     primary: ["#7826FD", "#A736FF"],
   },
 
+  pink: {
+    100: "#ECDEF6",
+  },
+
   red: "#FF5A5A",
 
   gray: {

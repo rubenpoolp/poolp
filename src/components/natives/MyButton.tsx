@@ -7,7 +7,7 @@ import MyGradient from "../MyGradient";
 import MyPressable from "./MyPressable";
 
 interface MyButtonProps extends ComponentProps<typeof Pressable> {
-  variant?: "gradient" | "secondary";
+  variant?: "gradient" | "pink";
   size?: "small" | "medium" | "large";
   txtClassName?: string;
   LeftComponent?: (props: SvgProps) => JSX.Element;
@@ -19,12 +19,12 @@ interface MyButtonProps extends ComponentProps<typeof Pressable> {
 
 const variantStyle = {
   gradient: { container: "", text: "text-white" },
-  secondary: { container: "", text: "text-white" },
+  pink: { container: "bg-pink-100", text: "text-[#391952]" },
 };
 
 const sizeStyle = {
   small: { container: "py-2 px-4", text: "text-sm" },
-  medium: { container: "py-3.5 px-5", text: "text-lg" },
+  medium: { container: "py-3 px-10", text: "text-lg" },
   large: { container: "py-4 px-6", text: "text-xl" },
 };
 
@@ -40,7 +40,7 @@ const MyButton = ({
 }: MyButtonProps): React.ReactElement => {
   return (
     <MyPressable
-      className={`rounded-xl items-center justify-center bg-light ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${
+      className={`rounded-full items-center justify-center bg-light w-full ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${
         variantStyle[variant].container
       } ${sizeStyle[size].container}`}
       {...props}
@@ -52,7 +52,7 @@ const MyButton = ({
         variant === "gradient" && shadow.purple,
       ]}
     >
-      {variant === "gradient" && <MyGradient className="rounded-xl" />}
+      {variant === "gradient" && <MyGradient className="rounded-full" />}
       {RightComponent && !LeftComponent && (
         <View className="opacity-0">
           <RightComponent />
@@ -60,7 +60,7 @@ const MyButton = ({
       )}
       {LeftComponent && <LeftComponent />}
       <MyText
-        className={`text-center uppercase font-semibold ${variantStyle[variant].text} ${sizeStyle[size].text} ${txtClassName}`}
+        className={`text-center font-medium ${variantStyle[variant].text} ${sizeStyle[size].text} ${txtClassName}`}
       >
         {txt}
       </MyText>
