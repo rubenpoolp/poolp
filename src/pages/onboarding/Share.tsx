@@ -5,45 +5,52 @@ import socialButtons from "@config/socialButtons";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import i18n from "@utils/i18n";
 import { t } from "i18next";
-import { Image, View } from "react-native";
+import { Image, Share as ShareRN, View } from "react-native";
 
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
-    <Bump scaleValue={0.9}>
-      <MyPressable
-        onPress={() => item.onPress(t("share.message"))}
-        className="bg-background-dark rounded-2xl"
-        style={{
-          shadowColor: item.color,
-          shadowOffset: {
-            width: 0,
-            height: 8,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-        }}
-      >
-        {item.asset && <Image source={item.asset} className="w-16 h-16" />}
-      </MyPressable>
-    </Bump>
+    <View
+      // onPress={() => item.onPress(t("share.message"))}
+      className="bg-background-dark rounded-2xl"
+      style={{
+        shadowColor: item.color,
+        shadowOffset: {
+          width: 0,
+          height: 8,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      }}
+    >
+      {item.asset && <Image source={item.asset} className="w-16 h-16" />}
+    </View>
   );
 };
 
 const ShareButtons = () => {
   return (
-    <View className="items-center">
-      <View className="flex-row justify-center mb-3" style={{ gap: 24 }}>
-        {socialButtons.slice(0, 3).map((item, index) => (
-          <SocialButton key={index} item={item} />
-        ))}
-      </View>
-      <View className="flex-row justify-center" style={{ gap: 24 }}>
-        {socialButtons.slice(3).map((item, index) => (
-          <SocialButton key={index + 3} item={item} />
-        ))}
-      </View>
-    </View>
+    <Bump scaleValue={0.9}>
+      <MyPressable
+        onPress={() => {
+          ShareRN.share({
+            message: t("share.message"),
+          });
+        }}
+        className="items-center"
+      >
+        <View className="flex-row justify-center mb-3" style={{ gap: 24 }}>
+          {socialButtons.slice(0, 3).map((item, index) => (
+            <SocialButton key={index} item={item} />
+          ))}
+        </View>
+        <View className="flex-row justify-center" style={{ gap: 24 }}>
+          {socialButtons.slice(3).map((item, index) => (
+            <SocialButton key={index + 3} item={item} />
+          ))}
+        </View>
+      </MyPressable>
+    </Bump>
   );
 };
 
