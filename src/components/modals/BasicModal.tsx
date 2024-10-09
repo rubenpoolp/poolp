@@ -40,7 +40,7 @@ const BasicModal = ({
             <MyButton
               className="text-sm"
               onPress={onPressLeft}
-              variant={"secondary"}
+              variant={"pink"}
               txt={txtButtonLeft ? txtButtonLeft : "Annuler"}
             />
           </View>
