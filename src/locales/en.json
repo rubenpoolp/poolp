@@ -8,11 +8,15 @@
     "description5": "The rest happens in real life."
   },
   "name": {
-    "title": "What's your name?"
+    "title": "What's your name?",
+    "error": "Name must be between 2 and 20 characters."
   },
   "birthday": {
     "title": "What's your birthday?",
-    "subtitle": "Only to join circles with people of your age."
+    "subtitle": "Only to join circles with people of your age.",
+    "errorTooYoung": "You must be at least 13 years old.",
+    "errorTooOld": "So you're still alive?",
+    "errorMissing": "Please enter your birthday."
   },
   "gender": {
     "title": "What's your gender?",

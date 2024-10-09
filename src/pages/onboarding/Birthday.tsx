@@ -13,19 +13,24 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
   const { user, nextScreen } = route.params;
 
   const checkBirthday = () => {
-    if (birthday && birthday.length === 10) {
-      const parsedDate = parse(birthday, "dd/MM/yyyy", new Date());
-      const today = new Date();
-      const age = differenceInYears(today, parsedDate);
-
-      if (age < 13 || age > 90) {
-        Alert.alert(t("birthday.error"));
-        return;
-      }
-      navigation.navigate(nextScreen, {
-        user: { ...user, birthday: parsedDate.getTime() },
-      });
+    if (!birthday || birthday.length !== 10) {
+      Alert.alert(t("birthday.errorMissing"));
+      return;
     }
+
+    const parsedDate = parse(birthday, "dd/MM/yyyy", new Date());
+    const age = differenceInYears(new Date(), parsedDate);
+
+    if (age < 13 || age > 90) {
+      Alert.alert(
+        t(age < 13 ? "birthday.errorTooYoung" : "birthday.errorTooOld"),
+      );
+      return;
+    }
+
+    navigation.navigate(nextScreen, {
+      user: { ...user, birthday: parsedDate.getTime() },
+    });
   };
 
   return (
