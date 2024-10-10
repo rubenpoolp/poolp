@@ -12,7 +12,7 @@ const Name = ({ navigation, route }: { navigation: any; route: any }) => {
 
   const handleNext = () => {
     if (!name || name.length < 2 || name.length > 20) {
-      Alert.alert(t("name.error"));
+      Alert.alert(t("onboarding.name.error"));
       return;
     }
     navigation.navigate(nextScreen, { user: { ...user, name } });
@@ -22,7 +22,7 @@ const Name = ({ navigation, route }: { navigation: any; route: any }) => {
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
-          {t("name.title")}
+          {t("onboarding.name.title")}
         </MyText>
         <NameInput
           autoFocus

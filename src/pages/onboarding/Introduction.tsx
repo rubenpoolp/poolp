@@ -30,21 +30,21 @@ const Introduction = ({
 
       <View className="flex items-center space-y-4">
         <MyText className={"text-center"}>
-          {t("introduction.description1")}
+          {t("onboarding.introduction.description1")}
         </MyText>
 
         <MyText className={"text-center"}>
-          {t("introduction.description2")}
+          {t("onboarding.introduction.description2")}
         </MyText>
 
         <MyText className={"text-center"}>
-          {t("introduction.description3")}
+          {t("onboarding.introduction.description3")}
         </MyText>
         <MyText className={"text-center"}>
-          {t("introduction.description4")}
+          {t("onboarding.introduction.description4")}
         </MyText>
         <MyText className={"text-center"}>
-          {t("introduction.description5")}
+          {t("onboarding.introduction.description5")}
         </MyText>
       </View>
       <MyText
@@ -52,7 +52,7 @@ const Introduction = ({
           "text-center w-full absolute bottom-3 text-[10px] text-gray-400"
         }
       >
-        {t("introduction.byPassingLegal")}
+        {t("onboarding.introduction.byPassingLegal")}
       </MyText>
     </MyOnboardingLayout>
   );

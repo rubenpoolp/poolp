@@ -30,10 +30,10 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
       <View className="flex w-full" style={{ gap: 80 }}>
         <View className="items-start space-y-2">
           <MyText className="text-3xl font-semibold">
-            {t("school.title")}
+            {t("onboarding.school.title")}
           </MyText>
           <MyText className="text-gray-500 text-xs">
-            {t("school.subtitle")}
+            {t("onboarding.school.subtitle")}
           </MyText>
         </View>
 
@@ -46,7 +46,7 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
               <View className="flex-row items-center space-x-4">
                 <GraduationCap size={20} />
                 <MyText className="text-lg font-semibold">
-                  {school ? school.name : t("school.button")}
+                  {school ? school.name : t("onboarding.school.button")}
                 </MyText>
               </View>
 
@@ -55,7 +55,7 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
           </Bump>
 
           <MyText className="text-gray-400 text-xs px-2 italic">
-            {t("school.details")}
+            {t("onboarding.school.details")}
           </MyText>
         </View>
       </View>

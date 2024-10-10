@@ -14,7 +14,7 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
 
   const checkBirthday = () => {
     if (!birthday || birthday.length !== 10) {
-      Alert.alert(t("birthday.errorMissing"));
+      Alert.alert(t("onboarding.birthday.errorMissing"));
       return;
     }
 
@@ -23,7 +23,11 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
 
     if (age < 13 || age > 90) {
       Alert.alert(
-        t(age < 13 ? "birthday.errorTooYoung" : "birthday.errorTooOld"),
+        t(
+          age < 13
+            ? "onboarding.birthday.errorTooYoung"
+            : "onboarding.birthday.errorTooOld",
+        ),
       );
       return;
     }
@@ -39,10 +43,10 @@ const Birthday = ({ navigation, route }: { navigation: any; route: any }) => {
       <View className="flex w-full" style={{ gap: 80 }}>
         <View className="items-start space-y-2">
           <MyText className="text-3xl font-semibold">
-            {t("birthday.title")}
+            {t("onboarding.birthday.title")}
           </MyText>
           <MyText className="text-gray-500 text-xs">
-            {t("birthday.subtitle")}
+            {t("onboarding.birthday.subtitle")}
           </MyText>
         </View>
 

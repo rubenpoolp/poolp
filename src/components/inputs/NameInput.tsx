@@ -10,7 +10,7 @@ const NameInput = ({ ...props }: NameInputProps) => {
 
   return (
     <TextInput
-      placeholder={t("inputs.name.placeholder")}
+      placeholder={t("onboarding.inputs.name.placeholder")}
       className="text-3xl font-semibold text-center text-light"
       placeholderTextColor={colors.gray[600]}
       style={{

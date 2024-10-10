@@ -8,7 +8,7 @@ interface MyBirthdayInputProps extends ComponentProps<typeof TextInput> {}
 
 const MyBirthdayInput = ({ onChangeText, ...props }: MyBirthdayInputProps) => {
   const [value, setValue] = useState("");
-  const { t } = useTranslation(); // Ajoutez cette ligne
+  const { t } = useTranslation();
 
   const formatDate = useCallback((input: string) => {
     const numbers = input.replace(/\D/g, "").slice(0, 8);
@@ -34,7 +34,7 @@ const MyBirthdayInput = ({ onChangeText, ...props }: MyBirthdayInputProps) => {
 
   return (
     <MyTextInput
-      placeholder={t("inputs.birthday.placeholder")}
+      placeholder={t("onboarding.inputs.birthday.placeholder")}
       className="text-3xl font-semibold text-center text-light"
       placeholderTextColor={colors.gray[600]}
       keyboardType="numeric"

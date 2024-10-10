@@ -1,5 +1,5 @@
+import { useTranslation } from "react-i18next";
 import MyText from "@components/natives/MyText";
-
 import MyModal from "./MyModal";
 import {
   SafeAreaView,
@@ -137,6 +137,7 @@ const SchoolListModal = ({
   onSelect,
 }: SchoolListModalProps) => {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <MyModal isVisible={isVisible} className="flex-1">
@@ -159,7 +160,9 @@ const SchoolListModal = ({
             </View>
 
             <View className="space-y-2">
-              <MySearchInput placeholder="Search schools" />
+              <MySearchInput
+                placeholder={t("onboarding.inputs.searchSchools")}
+              />
 
               <View className="w-full">
                 {Schools.map((school) => (

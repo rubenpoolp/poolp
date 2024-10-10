@@ -28,7 +28,6 @@ const GenderItem = ({
       <MyPressable
         onPress={onPress}
         className={`w-full flex-row items-center h-14 px-4 rounded-3xl bg-gray-400`}
-        // style={isSelected && shadow.purple}
       >
         {isSelected && <MyGradient className="rounded-3xl" />}
         <View className="mr-2">{Icon && Icon}</View>
@@ -46,7 +45,7 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
 
   const handleNext = () => {
     if (!selectedGender) {
-      Alert.alert(t("gender.error"));
+      Alert.alert(t("onboarding.gender.error"));
       return;
     }
     const userWithGender = { ...user, gender: selectedGender };
@@ -60,23 +59,25 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
   return (
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 40 }}>
-        <MyText className="text-3xl font-semibold">{t("gender.title")}</MyText>
+        <MyText className="text-3xl font-semibold">
+          {t("onboarding.gender.title")}
+        </MyText>
 
         <View className="w-full" style={{ gap: 16 }}>
           <GenderItem
             Icon={<GenderFemale color={colors.light} weight="bold" />}
-            text={t("gender.female")}
+            text={t("onboarding.gender.female")}
             isSelected={selectedGender === "female"}
             onPress={() => setSelectedGender("female")}
           />
           <GenderItem
             Icon={<GenderMale color={colors.light} weight="bold" />}
-            text={t("gender.male")}
+            text={t("onboarding.gender.male")}
             isSelected={selectedGender === "male"}
             onPress={() => setSelectedGender("male")}
           />
           <GenderItem
-            text={t("gender.other")}
+            text={t("onboarding.gender.other")}
             isSelected={selectedGender === "other"}
             onPress={() => setSelectedGender("other")}
           />

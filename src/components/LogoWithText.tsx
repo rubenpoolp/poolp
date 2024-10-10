@@ -9,7 +9,7 @@ const LogoWithText = () => {
     <View className="items-center space-y-5 mb-10">
       <MyImage img={assets.logoCropped} containerStyle="h-24" />
       <MyText className="text-4xl font-semibold">
-        {t("introduction.title")}
+        {t("onboarding.introduction.title")}
       </MyText>
     </View>
   );

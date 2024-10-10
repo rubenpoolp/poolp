@@ -10,7 +10,7 @@ import { Image, Share as ShareRN, View } from "react-native";
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
     <View
-      // onPress={() => item.onPress(t("share.message"))}
+      // onPress={() => item.onPress(t("onboarding.share.message"))}
       className="bg-background-dark rounded-2xl"
       style={{
         shadowColor: item.color,
@@ -34,7 +34,7 @@ const ShareButtons = () => {
       <MyPressable
         onPress={() => {
           ShareRN.share({
-            message: t("share.message"),
+            message: t("onboarding.share.message"),
           });
         }}
         className="items-center"
@@ -65,7 +65,7 @@ const Share = ({ navigation, route }: { navigation: any; route: any }) => {
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
-          {i18n.t("share.title")}
+          {i18n.t("onboarding.share.title")}
         </MyText>
         <ShareButtons />
       </View>

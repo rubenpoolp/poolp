@@ -33,7 +33,7 @@ const VerificationCode = ({
     setIsLoading(true);
     if (!codeFromInput || codeFromInput.length !== 6) {
       setIsLoading(false);
-      Alert.alert(t("verificationCode.error"));
+      Alert.alert(t("onboarding.verificationCode.error"));
       return;
     }
     if (!user.phone)
@@ -50,7 +50,7 @@ const VerificationCode = ({
       })
       .catch((error: Error) => {
         if (error.message.includes("Token has expired"))
-          Alert.alert(i18n.t("verificationCode.invalidCode"));
+          Alert.alert(i18n.t("onboarding.verificationCode.invalidCode"));
         else Alert.alert(error.message);
       })
       .finally(() => {
@@ -67,7 +67,7 @@ const VerificationCode = ({
     <MyOnboardingLayout onNextPress={() => handleNext(code)}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <MyText className="text-3xl font-semibold mb-5">
-          {t("verificationCode.title")}
+          {t("onboarding.verificationCode.title")}
         </MyText>
 
         <MyCodeInput

@@ -31,7 +31,7 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     // TODO: check if phone number is valid
     if (!phoneNumber) {
       setIsLoading(false);
-      Alert.alert(t("phone.error"));
+      Alert.alert(t("onboarding.phone.error"));
       return;
     }
 
@@ -63,9 +63,11 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>
         <View className="items-start space-y-2">
-          <MyText className="text-3xl font-semibold">{t("phone.title")}</MyText>
+          <MyText className="text-3xl font-semibold">
+            {t("onboarding.phone.title")}
+          </MyText>
           <MyText className="text-gray-500 text-xs">
-            {t("phone.subtitle")}
+            {t("onboarding.phone.subtitle")}
           </MyText>
         </View>
 

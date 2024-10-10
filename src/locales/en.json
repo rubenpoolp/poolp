@@ -2,62 +2,77 @@
   "utils": {
     "enableNotifications": "Enable notifications"
   },
-  "introduction": {
-    "title": "poolp",
-    "description1": "Each day, you'll join a new group with 2-3 random students your age from your school.",
-    "description2": "They may be your best friends, acquaintances or new people.",
-    "description3": "Discover by capturing authentic content.",
-    "description4": "Review your daily connections.",
-    "description5": "The rest happens in real life.",
-    "byPassingLegal": "by passing, you’re agreeing to our terms of service and privacy policy"
-  },
-  "name": {
-    "title": "What's your name?",
-    "error": "Name must be between 2 and 20 characters."
-  },
-  "birthday": {
-    "title": "What's your birthday?",
-    "subtitle": "Only to join circles with people of your age.",
-    "errorTooYoung": "You must be at least 13 years old.",
-    "errorTooOld": "So you're still alive?",
-    "errorMissing": "Please enter your birthday."
-  },
-  "gender": {
-    "title": "What's your gender?",
-    "male": "Male",
-    "female": "Female",
-    "other": "Other",
-    "error": "Please select your gender."
-  },
-  "phone": {
-    "title": "We need your phone number to make sure you're a real person",
-    "subtitle": "Only for verification purposes.",
-    "error": "Please enter a valid phone number."
-  },
-  "verificationCode": {
-    "title": "Enter the code you received",
-    "error": "Please enter a valid code.",
-    "invalidCode": "The code you entered is invalid."
-  },
-  "school": {
-    "title": "Which school are you attending?",
-    "subtitle": "We are only using this information to get you with your peers.",
-    "error": "Please select your school.",
-    "button": "Choose School",
-    "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the poolp community."
-  },
-  "share": {
-    "title": "Enjoy poolp's full potential : invite your entire promo, class or some peers!",
-    "message": "https://www.google.com/"
-  },
-  "inputs": {
-    "search": "Search",
-    "birthday": {
-      "placeholder": "DD/MM/YYYY"
+  "onboarding": {
+    "introduction": {
+      "title": "poolp",
+      "description1": "Each day, you'll join a new group with 2-3 random students your age from your school.",
+      "description2": "They may be your best friends, acquaintances or new people.",
+      "description3": "Discover by capturing authentic content.",
+      "description4": "Review your daily connections.",
+      "description5": "The rest happens in real life.",
+      "byPassingLegal": "by passing, you’re agreeing to our terms of service and privacy policy"
     },
     "name": {
-      "placeholder": "Your name"
+      "title": "What's your name?",
+      "error": "Name must be between 2 and 20 characters."
+    },
+    "birthday": {
+      "title": "What's your birthday?",
+      "subtitle": "Only to join circles with people of your age.",
+      "errorTooYoung": "You must be at least 13 years old.",
+      "errorTooOld": "So you're still alive?",
+      "errorMissing": "Please enter your birthday."
+    },
+    "gender": {
+      "title": "What's your gender?",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "error": "Please select your gender."
+    },
+    "phone": {
+      "title": "We need your phone number to make sure you're a real person",
+      "subtitle": "Only for verification purposes.",
+      "error": "Please enter a valid phone number."
+    },
+    "verificationCode": {
+      "title": "Enter the code you received",
+      "error": "Please enter a valid code.",
+      "invalidCode": "The code you entered is invalid."
+    },
+    "school": {
+      "title": "Which school are you attending?",
+      "subtitle": "We are only using this information to get you with your peers.",
+      "error": "Please select your school.",
+      "button": "Choose School",
+      "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the poolp community."
+    },
+    "share": {
+      "title": "Enjoy poolp's full potential : invite your entire promo, class or some peers!",
+      "message": "https://www.google.com/"
+    },
+    "inputs": {
+      "search": "Search",
+      "searchSchools": "Search schools",
+      "birthday": {
+        "placeholder": "DD/MM/YYYY"
+      },
+      "name": {
+        "placeholder": "Your name"
+      }
     }
+  },
+  
+  "profile": {
+    "name": "Name",
+    "school": "School",
+    "invite": "Invite your school's friends!",
+    "pushNotifications": "Push Notifications",
+    "help": "Help",
+    "rate": "Rate 🤍",
+    "aboutUs": "About us",
+    "logout": "Log out",
+    "deleteAccount": "Delete account"
   },
   "askPermissionNotifications": {
     "title": "Tap on the notification to receive it for your next circle !",
