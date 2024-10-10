@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { Platform, View } from "react-native";
+import { Platform, ScrollView, View } from "react-native";
 import MyScreen from "@components/MyScreen";
 import CloseModalButton from "@components/buttons/CloseModalButton";
 import { Bump } from "@components/animations/Bump";
@@ -163,18 +163,25 @@ const SchoolListModal = ({
               <MySearchInput
                 placeholder={t("onboarding.inputs.searchSchools")}
               />
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  paddingTop: 0,
+                  paddingHorizontal: 16,
+                }}
+              >
+                <View className="w-full">
+                  {Schools.map((school) => (
+                    <SchoolItem
+                      key={school.id}
+                      school={school}
+                      onSelect={onSelect}
+                    />
+                  ))}
 
-              <View className="w-full">
-                {Schools.map((school) => (
-                  <SchoolItem
-                    key={school.id}
-                    school={school}
-                    onSelect={onSelect}
-                  />
-                ))}
-
-                {/* <EmptyList /> */}
-              </View>
+                  {/* <EmptyList /> */}
+                </View>
+              </ScrollView>
             </View>
           </View>
         </SafeAreaView>
