@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { Platform, ScrollView, View } from "react-native";
+import { FlatList, Platform, ScrollView, View } from "react-native";
 import MyScreen from "@components/MyScreen";
 import CloseModalButton from "@components/buttons/CloseModalButton";
 import { Bump } from "@components/animations/Bump";
@@ -16,64 +16,94 @@ import SchoolItem from "@components/SchoolListItem";
 
 export const Schools = [
   {
-    name: "Stanford University",
-    city: "Stanford",
-    country: "USA",
+    name: "Oxford University",
+    city: "Oxford",
+    country: "UK",
     id: "1",
   },
   {
-    name: "Harvard University",
+    name: "University of Cambridge",
     city: "Cambridge",
-    country: "USA",
+    country: "UK",
     id: "2",
   },
   {
-    name: "MIT",
-    city: "Boston",
-    country: "USA",
+    name: "Sorbonne University",
+    city: "Paris",
+    country: "France",
     id: "3",
   },
   {
-    name: "University of California",
-    city: "Berkeley",
-    country: "USA",
+    name: "University of Tokyo",
+    city: "Tokyo",
+    country: "Japan",
     id: "4",
   },
   {
-    name: "University of California",
-    city: "Los Angeles",
-    country: "USA",
+    name: "National University of Singapore",
+    city: "Singapore",
+    country: "Singapore",
     id: "5",
   },
   {
-    name: "Harvard University",
-    city: "Cambridge",
-    country: "USA",
+    name: "ETH Zurich",
+    city: "Zurich",
+    country: "Switzerland",
     id: "6",
   },
   {
-    name: "MIT",
-    city: "Boston",
-    country: "USA",
+    name: "University of Melbourne",
+    city: "Melbourne",
+    country: "Australia",
     id: "7",
   },
   {
-    name: "University of California",
-    city: "Berkeley",
-    country: "USA",
+    name: "McGill University",
+    city: "Montreal",
+    country: "Canada",
     id: "8",
   },
   {
-    name: "University of California",
-    city: "Los Angeles",
-    country: "USA",
+    name: "University of Cape Town",
+    city: "Cape Town",
+    country: "South Africa",
     id: "9",
+  },
+  {
+    name: "University of São Paulo",
+    city: "São Paulo",
+    country: "Brazil",
+    id: "10",
+  },
+  {
+    name: "Peking University",
+    city: "Beijing",
+    country: "China",
+    id: "11",
+  },
+  {
+    name: "University of Sydney",
+    city: "Sydney",
+    country: "Australia",
+    id: "12",
+  },
+  {
+    name: "University of Munich",
+    city: "Munich",
+    country: "Germany",
+    id: "13",
+  },
+  {
+    name: "Indian Institute of Science",
+    city: "Bangalore",
+    country: "India",
+    id: "14",
   },
 ];
 
 const EmptyList = () => {
   return (
-    <View className="items-center justify-center space-y-8 mt-10">
+    <View className="items-center justify-center space-y-8 mt-10 px-4">
       <View className="items-center space-y-2">
         <GraduationCap size={40} />
         <MyText className="font-semibold text-center">
@@ -130,7 +160,19 @@ const SchoolListModal = ({
                   placeholder={t("onboarding.inputs.searchSchools")}
                 />
               </View>
-              <ScrollView
+              <FlatList
+                data={Schools}
+                renderItem={({ item }) => (
+                  <SchoolItem key={item.id} school={item} onSelect={onSelect} />
+                )}
+                keyExtractor={(item) => item.id}
+                ListEmptyComponent={EmptyList}
+                contentContainerStyle={{
+                  paddingBottom: 140,
+                  paddingHorizontal: 0,
+                }}
+              />
+              {/* <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                   paddingTop: 0,
@@ -146,9 +188,9 @@ const SchoolListModal = ({
                     />
                   ))}
 
-                  {/* <EmptyList /> */}
+                  {/* <EmptyList />
                 </View>
-              </ScrollView>
+              </ScrollView> */}
             </View>
           </View>
         </SafeAreaView>
