@@ -2,6 +2,10 @@
   "utils": {
     "enableNotifications": "Enable notifications"
   },
+  "actions" : {
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
   "onboarding": {
     "introduction": {
       "title": "poolp",
@@ -71,8 +75,18 @@
     "help": "Help",
     "rate": "Rate 🤍",
     "aboutUs": "About us",
-    "logout": "Log out",
-    "deleteAccount": "Delete account"
+    "logout": {
+      "title": "Log out",
+      "areYouSure": "Are you sure you want to log out?"
+
+    },
+    "deletion": {
+      "deleteAccount": "Delete my account",
+      "areYouSure": "Are you sure you want to delete your account?",
+      "accountDeleted": "Account deleted",
+      "accountDeletedDescription": "Your account has been deleted."
+    },
+    "seeWhoLikedYou": "See who liked you 💜"
   },
   "askPermissionNotifications": {
     "title": "Tap on the notification to receive it for your next circle !",
