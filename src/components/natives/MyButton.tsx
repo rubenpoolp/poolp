@@ -14,6 +14,7 @@ interface MyButtonProps extends ComponentProps<typeof Pressable> {
   RightComponent?: (props: SvgProps) => JSX.Element;
   txt?: string;
   style?: StyleProp<ViewStyle>;
+  badge?: boolean;
   onPress?: () => void;
 }
 
@@ -35,12 +36,13 @@ const MyButton = ({
   LeftComponent,
   RightComponent,
   txt,
+  badge = false,
   onPress,
   ...props
 }: MyButtonProps): React.ReactElement => {
   return (
     <MyPressable
-      className={`rounded-full items-center justify-center bg-light w-full ${(LeftComponent || RightComponent) && "flex-row w-full justify-between"} ${
+      className={`rounded-full items-center justify-center bg-light w-full ${(LeftComponent || RightComponent) && "flex-row w-full justify-between relative"} ${
         variantStyle[variant].container
       } ${sizeStyle[size].container}`}
       {...props}
@@ -52,6 +54,9 @@ const MyButton = ({
         variant === "gradient" && shadow.purple,
       ]}
     >
+      {badge && (
+        <View className="h-4 w-4 bg-red rounded-full absolute -right-1 -top-1 z-10" />
+      )}
       {variant === "gradient" && <MyGradient className="rounded-full" />}
       {RightComponent && !LeftComponent && (
         <View className="opacity-0">

@@ -160,8 +160,6 @@ const Profile = () => {
             </View>
 
             <View className="relative -translate-y-4">
-              <View className="h-4 w-4 bg-red rounded-full absolute -right-1 -top-1 z-10" />
-
               <Bump scaleValue={0.95}>
                 <MyButton
                   onPress={() => {}}
@@ -169,6 +167,7 @@ const Profile = () => {
                   size="small"
                   txtClassName="font-semibold"
                   className="px-6"
+                  badge
                 />
               </Bump>
             </View>
