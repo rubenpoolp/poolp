@@ -78,7 +78,7 @@ const SchoolItem = ({
   onSelect: (_school: any) => void;
 }) => {
   return (
-    <View className="flex-row items-center border-b border-gray-400 py-4 space-x-4 justify-between">
+    <View className="flex-row items-center border-b border-gray-400 py-4 px-4 space-x-4 justify-between">
       <View className="flex-row items-center space-x-4">
         <View className="border border-light rounded-full pt-1.5 pb-3 px-3 ">
           <MyText className="font-semibold text-2xl">🏫</MyText>
@@ -141,7 +141,7 @@ const SchoolListModal = ({
 
   return (
     <MyModal isVisible={isVisible} className="flex-1">
-      <MyScreen className="w-screen" padding>
+      <MyScreen className="w-screen">
         <SafeAreaView
           style={{
             flex: 1,
@@ -149,7 +149,7 @@ const SchoolListModal = ({
           }}
         >
           <View className="flex-1">
-            <View className="flex-row justify-between mb-2 w-full">
+            <View className="flex-row justify-between mb-2 w-full px-4">
               <View className="w-14">
                 <CloseModalButton onPress={onClose} />
               </View>
@@ -160,14 +160,16 @@ const SchoolListModal = ({
             </View>
 
             <View className="space-y-2">
-              <MySearchInput
-                placeholder={t("onboarding.inputs.searchSchools")}
-              />
+              <View className="w-full px-4">
+                <MySearchInput
+                  placeholder={t("onboarding.inputs.searchSchools")}
+                />
+              </View>
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                   paddingTop: 0,
-                  paddingHorizontal: 16,
+                  paddingHorizontal: 0,
                 }}
               >
                 <View className="w-full">
