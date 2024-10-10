@@ -30,21 +30,39 @@ const Introduction = ({
 
       <View className="flex items-center space-y-4">
         <MyText className={"text-center"}>
-          {t("onboarding.introduction.description1")}
+          {t("onboarding.introduction.description1.1")}
+          <MyText className="font-bold">
+            {t("onboarding.introduction.description1.2")}
+          </MyText>
+          {t("onboarding.introduction.description1.3")}
         </MyText>
 
         <MyText className={"text-center"}>
-          {t("onboarding.introduction.description2")}
+          {t("onboarding.introduction.description2.1")}
+          <MyText className="font-bold">
+            {t("onboarding.introduction.description2.2")}
+          </MyText>
+          {t("onboarding.introduction.description2.3")}
         </MyText>
 
         <MyText className={"text-center"}>
-          {t("onboarding.introduction.description3")}
+          {t("onboarding.introduction.description3.1")}
+          <MyText className="font-bold">
+            {t("onboarding.introduction.description3.2")}
+          </MyText>
+          {t("onboarding.introduction.description3.3")}
         </MyText>
         <MyText className={"text-center"}>
-          {t("onboarding.introduction.description4")}
+          <MyText className="font-bold">
+            {t("onboarding.introduction.description4.1")}
+          </MyText>
+          {t("onboarding.introduction.description4.2")}
         </MyText>
         <MyText className={"text-center"}>
-          {t("onboarding.introduction.description5")}
+          {t("onboarding.introduction.description5.1")}
+          <MyText className="font-bold">
+            {t("onboarding.introduction.description5.2")}
+          </MyText>
         </MyText>
       </View>
       <MyText
