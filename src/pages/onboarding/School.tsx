@@ -1,3 +1,6 @@
+import { Bump } from "@components/animations/Bump";
+import MyModal from "@components/modals/MyModal";
+import SchoolListModal from "@components/modals/SchoolListModal";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
@@ -9,10 +12,16 @@ import { Alert, View } from "react-native";
 
 const School = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
-  const [name, setName] = useState("");
   const { user, nextScreen } = route.params;
 
+  const [school, setSchool] = useState<any>();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
   const handleNext = () => {
+    if (!school) {
+      Alert.alert(t("school.error"));
+      return;
+    }
     navigation.navigate(nextScreen, { user: { ...user } });
   };
 
@@ -29,21 +38,36 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
         </View>
 
         <View className="flex flex-col space-y-2">
-          <MyPressable className="flex-row items-center justify-between bg-gradient-primary-1/30 rounded-xl py-3.5 px-5">
-            <View className="flex-row items-center space-x-4">
-              <GraduationCap size={20} />
-              <MyText className="text-lg font-semibold">
-                {t("school.button")}
-              </MyText>
-            </View>
+          <Bump scaleValue={0.95}>
+            <MyPressable
+              className="flex-row items-center justify-between bg-gradient-primary-1/30 rounded-xl py-3.5 px-5"
+              onPress={() => setIsVisible(true)}
+            >
+              <View className="flex-row items-center space-x-4">
+                <GraduationCap size={20} />
+                <MyText className="text-lg font-semibold">
+                  {school ? school.name : t("school.button")}
+                </MyText>
+              </View>
 
-            <Plus weight="bold" size={20} />
-          </MyPressable>
+              <Plus weight="bold" size={20} />
+            </MyPressable>
+          </Bump>
+
           <MyText className="text-gray-400 text-xs px-2 italic">
             {t("school.details")}
           </MyText>
         </View>
       </View>
+
+      <SchoolListModal
+        isVisible={isVisible}
+        onClose={() => setIsVisible(false)}
+        onSelect={(_school: any) => {
+          setSchool(_school);
+          setIsVisible(false);
+        }}
+      />
     </MyOnboardingLayout>
   );
 };

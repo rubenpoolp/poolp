@@ -42,7 +42,7 @@
   "school": {
     "title": "Which school are you attending?",
     "subtitle": "We are only using this information to get you with your peers.",
-    "error": "Please enter a valid school name.",
+    "error": "Please select your school.",
     "button": "Choose School",
     "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the poolp community."
   },
