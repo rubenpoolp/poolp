@@ -70,7 +70,14 @@ const Introduction = ({
           "text-center w-full absolute bottom-3 text-[10px] text-gray-400"
         }
       >
-        {t("onboarding.introduction.byPassingLegal")}
+        {t("onboarding.introduction.byPassingLegal.1")}
+        <MyText className="underline text-[10px] text-gray-400">
+          {t("onboarding.introduction.byPassingLegal.2")}
+        </MyText>
+        {t("onboarding.introduction.byPassingLegal.3")}
+        <MyText className="underline text-[10px] text-gray-400">
+          {t("onboarding.introduction.byPassingLegal.4")}
+        </MyText>
       </MyText>
     </MyOnboardingLayout>
   );

@@ -32,7 +32,12 @@
         "1": "The rest happens in ",
         "2": "real life."
       },
-      "byPassingLegal": "by passing, you’re agreeing to our terms of service and privacy policy"
+      "byPassingLegal" : {
+        "1": "By passing, you’re agreeing to our ",
+        "2": "terms of service",
+        "3": " and ",
+        "4": "privacy policy"
+      }
     },
     "name": {
       "title": "What's your name?",
