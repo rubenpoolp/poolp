@@ -10,7 +10,7 @@ interface MySearchInputProps extends ComponentProps<typeof TextInput> {
 
 const MySearchInput = ({ ...props }: MySearchInputProps) => {
   return (
-    <View className="bg-light rounded-xl py-3 px-4 flex-row space-x-2">
+    <View className="bg-light rounded-2xl py-3 px-4 flex-row space-x-2">
       <MagnifyingGlass color={colors.gray[400]} />
       <MyTextInput
         placeholder="Search"
