@@ -3,7 +3,7 @@ import MyText from "@components/natives/MyText";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 
 const Introduction = ({
   navigation,
@@ -71,11 +71,21 @@ const Introduction = ({
         }
       >
         {t("onboarding.introduction.byPassingLegal.1")}
-        <MyText className="underline text-[10px] text-gray-400">
+        <MyText
+          onPress={() => {
+            Linking.openURL("https://www.google.com");
+          }}
+          className="underline text-[10px] text-gray-400"
+        >
           {t("onboarding.introduction.byPassingLegal.2")}
         </MyText>
         {t("onboarding.introduction.byPassingLegal.3")}
-        <MyText className="underline text-[10px] text-gray-400">
+        <MyText
+          onPress={() => {
+            Linking.openURL("https://www.google.com");
+          }}
+          className="underline text-[10px] text-gray-400"
+        >
           {t("onboarding.introduction.byPassingLegal.4")}
         </MyText>
       </MyText>

@@ -1,6 +1,7 @@
-import AppVersion from "@components/AppVersion";
+import { Bump } from "@components/animations/Bump";
 import MyHeader from "@components/MyHeader";
 import MyScreen from "@components/MyScreen";
+import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
@@ -8,10 +9,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
 import React, { FC } from "react";
-import { Alert, Linking, ScrollView, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import MyButton from "@components/natives/MyButton";
-import { Bump } from "@components/animations/Bump";
+import { Alert, Linking, ScrollView, View } from "react-native";
 
 const DisplayInfo = ({
   title,
@@ -161,7 +160,7 @@ const Profile = () => {
             </View>
 
             <View className="relative -translate-y-4">
-              <View className="h-4 w-4 bg-red rounded-full absolute right-2 -top-2 z-10" />
+              <View className="h-4 w-4 bg-red rounded-full absolute -right-1 -top-1 z-10" />
 
               <Bump scaleValue={0.95}>
                 <MyButton
@@ -203,8 +202,12 @@ const Profile = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="px-4 self-start">
-        <AppVersion />
+      <View className="items-center absolute -bottom-12">
+        <MyText className="text-gray-400 text-xs">
+          You joined your first circle 44 days ago.
+        </MyText>
+        <MyText className="text-gray-400 text-xs">On 25.09.2024</MyText>
+        <MyText>❤️</MyText>
       </View>
     </MyScreen>
   );
