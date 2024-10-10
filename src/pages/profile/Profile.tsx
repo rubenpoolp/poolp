@@ -1,7 +1,6 @@
 import AppVersion from "@components/AppVersion";
 import MyHeader from "@components/MyHeader";
 import MyScreen from "@components/MyScreen";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
@@ -38,7 +37,7 @@ const DisplayInfo = ({
 const Profile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { isAdmin, signOut } = useAuth();
+  const { signOut } = useAuth();
 
   const signOutWithThen = () => {
     signOut().then(() => {
@@ -161,13 +160,16 @@ const Profile = () => {
               <MyText className="text-5xl text-background-dark">L</MyText>
             </View>
 
-            <View className="-translate-y-4">
+            <View className="relative -translate-y-4">
+              <View className="h-4 w-4 bg-red rounded-full absolute right-2 -top-2 z-10" />
+
               <Bump scaleValue={0.95}>
                 <MyButton
                   onPress={() => {}}
                   txt="Add pictures"
                   size="small"
                   txtClassName="font-semibold"
+                  className="px-6"
                 />
               </Bump>
             </View>
