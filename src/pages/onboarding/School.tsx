@@ -19,7 +19,7 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
 
   const handleNext = () => {
     if (!school) {
-      Alert.alert(t("school.error"));
+      Alert.alert(t("onboarding.school.error"));
       return;
     }
     navigation.navigate(nextScreen, { user: { ...user } });
