@@ -12,7 +12,7 @@ const SchoolItem = ({
   onSelect: (_school: any) => void;
 }) => {
   return (
-    <View className="flex-row items-center border-b border-gray-400 py-4 px-4 space-x-4 justify-between">
+    <View className="flex-row items-center border-b border-gray-400 p-4 space-x-4 justify-between">
       <View className="flex-row items-center space-x-4">
         <View className="border border-light rounded-full pt-1.5 pb-3 px-3 ">
           <MyText className="font-semibold text-2xl">🏫</MyText>

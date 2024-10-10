@@ -144,11 +144,11 @@ const SchoolListModal = ({
           }}
         >
           <View className="flex-1">
-            <View className="flex-row justify-between mb-2 w-full px-4">
+            <View className="flex-row justify-between mb-2 w-full px-2">
               <View className="w-14">
                 <CloseModalButton onPress={onClose} />
               </View>
-              <MyText className="text-2xl font-semibold mb-5 ">
+              <MyText className="text-2xl font-semibold mb-5">
                 Find your school
               </MyText>
               <View className="w-14" />
@@ -172,25 +172,6 @@ const SchoolListModal = ({
                   paddingHorizontal: 0,
                 }}
               />
-              {/* <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                  paddingTop: 0,
-                  paddingHorizontal: 0,
-                }}
-              >
-                <View className="w-full">
-                  {Schools.map((school) => (
-                    <SchoolItem
-                      key={school.id}
-                      school={school}
-                      onSelect={onSelect}
-                    />
-                  ))}
-
-                  {/* <EmptyList />
-                </View>
-              </ScrollView> */}
             </View>
           </View>
         </SafeAreaView>
