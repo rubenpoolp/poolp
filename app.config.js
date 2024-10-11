@@ -32,6 +32,22 @@ export default {
       "expo-font",
       "expo-localization",
       [
+        "expo-camera",
+        {
+          cameraPermission: "Allow poolp to access your camera",
+          microphonePermission: "Allow poolp to access your microphone",
+          recordAudioAndroid: true,
+        },
+      ],
+      [
+        "expo-media-library",
+        {
+          photosPermission: "Allow poolp to access your photos.",
+          savePhotosPermission: "Allow poolp to save photos.",
+          isAccessMediaLocationEnabled: true,
+        },
+      ],
+      [
         "@sentry/react-native/expo",
         {
           url: "https://sentry.io/",

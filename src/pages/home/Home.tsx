@@ -12,7 +12,7 @@ import { Alert, View } from "react-native";
 
 const Home = () => {
   const navigation = useNavigation();
-  const { signOut, user } = useAuth();
+  const { signOut } = useAuth();
 
   const signOutWithThen = () => {
     Alert.alert(
@@ -46,6 +46,8 @@ const Home = () => {
       </View>
 
       <View className="self-start">
+        {/* <Picture /> */}
+
         <MyButton onPress={signOutWithThen} txt={"Sign out"} className="mb-2" />
         <AppVersion />
       </View>
