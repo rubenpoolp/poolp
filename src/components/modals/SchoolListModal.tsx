@@ -13,6 +13,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import MyModal from "./MyModal";
+import { SlideInDown } from "react-native-reanimated";
 
 export const Schools = [
   {
@@ -135,7 +136,12 @@ const SchoolListModal = ({
   const { t } = useTranslation();
 
   return (
-    <MyModal isVisible={isVisible} className="flex-1">
+    <MyModal
+      isVisible={isVisible}
+      className="flex-1"
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+    >
       <MyScreen className="w-screen">
         <SafeAreaView
           style={{
