@@ -1,18 +1,18 @@
-import { useTranslation } from "react-i18next";
+import { Bump } from "@components/animations/Bump";
+import CloseModalButton from "@components/buttons/CloseModalButton";
+import MySearchInput from "@components/inputs/MySearchInput";
+import MyScreen from "@components/MyScreen";
+import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
-import MyModal from "./MyModal";
+import SchoolItem from "@components/SchoolListItem";
+import { GraduationCap } from "phosphor-react-native";
+import { useTranslation } from "react-i18next";
+import { FlatList, Platform, View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { FlatList, Platform, ScrollView, View } from "react-native";
-import MyScreen from "@components/MyScreen";
-import CloseModalButton from "@components/buttons/CloseModalButton";
-import { Bump } from "@components/animations/Bump";
-import MyButton from "@components/natives/MyButton";
-import { GraduationCap } from "phosphor-react-native";
-import MySearchInput from "@components/inputs/MySearchInput";
-import SchoolItem from "@components/SchoolListItem";
+import MyModal from "./MyModal";
 
 export const Schools = [
   {
@@ -161,6 +161,7 @@ const SchoolListModal = ({
                 />
               </View>
               <FlatList
+                showsVerticalScrollIndicator={false}
                 data={Schools}
                 renderItem={({ item }) => (
                   <SchoolItem key={item.id} school={item} onSelect={onSelect} />
