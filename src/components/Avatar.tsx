@@ -6,32 +6,55 @@ import MyImage from "./natives/MyImage";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
 
-const Avatar = () => {
+const Avatar = ({
+  disabled = false,
+  size = "md",
+}: {
+  disabled?: boolean;
+  size?: "sm" | "md" | "lg";
+}) => {
   const { user } = useAuth();
   const navigation = useNavigation();
+  const letter = user?.name ? user.name.charAt(0) : "L";
+
+  let sizeClass = "";
+  let textSizeClass = "";
+  if (size === "sm") {
+    sizeClass = "w-8 h-8";
+    textSizeClass = "text-xl";
+  } else if (size === "lg") {
+    sizeClass = "w-24 h-24";
+    textSizeClass = "text-5xl";
+  } else {
+    sizeClass = "w-10 h-10";
+    textSizeClass = "text-xl";
+  }
 
   const goToProfile = () => {
     navigation.navigate("Profile");
   };
 
   return (
-    <Bump scaleValue={0.9}>
+    <Bump scaleValue={0.9} disabled={disabled}>
       <MyPressable
+        disabledFull={disabled}
         onPress={goToProfile}
-        className="w-10 h-10 rounded-full bg-light items-center justify-center"
+        className={`rounded-full bg-light items-center justify-center ${sizeClass}`}
       >
         <MyImage
-          containerStyle="w-10 h-10 rounded-full absolute overflow-hidden"
+          containerStyle={`w-10 h-10 rounded-full absolute overflow-hidden ${sizeClass}`}
           img={assets.defaultProfilePicture}
         />
         {user?.profile_picture_url ? (
           <MyImage
-            containerStyle="w-10 h-10 rounded-full"
+            containerStyle={`rounded-full absolute overflow-hidden ${sizeClass}`}
             img={{ uri: user?.profile_picture_url }}
           />
         ) : (
-          <MyText className="text-background-dark text-xl font-semibold">
-            {user?.name?.charAt(0)}
+          <MyText
+            className={`text-background-dark font-medium ${textSizeClass}`}
+          >
+            {letter}
           </MyText>
         )}
       </MyPressable>

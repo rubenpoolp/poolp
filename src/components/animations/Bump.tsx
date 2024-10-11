@@ -10,6 +10,7 @@ interface BumpProps {
   children: ReactNode;
   scaleValue?: number;
   springConfig?: WithSpringConfig;
+  disabled?: boolean;
 }
 
 const defaultConfig: WithSpringConfig = {
@@ -19,6 +20,7 @@ const defaultConfig: WithSpringConfig = {
 
 export const Bump = ({
   children,
+  disabled = false,
   scaleValue = 0.8,
   springConfig = defaultConfig,
 }: BumpProps) => {
@@ -37,6 +39,10 @@ export const Bump = ({
   const handlePressOut = () => {
     scale.value = withSpring(1, springConfig);
   };
+
+  if (disabled) {
+    return <>{children}</>;
+  }
 
   return (
     <Animated.View style={animatedStyle}>
