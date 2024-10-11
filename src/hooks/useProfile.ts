@@ -34,43 +34,53 @@ const useProfile = () => {
     },
     {
       name: "profile.school",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
       value: "Sebeweiss High School",
     },
     {
       name: "profile.invite",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
     },
     {
       name: "profile.pushNotifications",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
     },
     {
       name: "profile.help",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
     },
     {
       name: "profile.rate",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
     },
     {
       name: "profile.aboutUs",
-      onPress: () => Linking.openURL(""),
+      onPress: () => Linking.openURL("https://google.com"),
     },
 
     {
       name: "profile.logout.title",
       onPress: () => {
-        Alert.alert(t("profile.logout.title"), t("profile.logout.areYouSure"), [
-          {
-            text: t("actions.cancel"),
-            style: "cancel",
-          },
-          {
-            text: "Se déconnecter",
-            onPress: signOutWithThen,
-          },
-        ]);
+        Alert.alert(
+          "Are you sure you want to sign out?",
+          "",
+          [
+            {
+              text: "Cancel",
+            },
+            {
+              style: "destructive",
+              text: "Sign out",
+              onPress: () => {
+                signOut().then(() => {
+                  AsyncStorage.clear();
+                  resetTo(navigation, "Loader");
+                });
+              },
+            },
+          ],
+          { cancelable: false },
+        );
       },
     },
     {
@@ -86,6 +96,7 @@ const useProfile = () => {
               style: "cancel",
             },
             {
+              style: "destructive",
               text: t("actions.delete"),
               onPress: () => {
                 deleteAuthUser()

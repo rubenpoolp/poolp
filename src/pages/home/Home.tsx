@@ -21,9 +21,9 @@ const Home = () => {
       [
         {
           text: "Cancel",
-          style: "destructive",
         },
         {
+          style: "destructive",
           text: "Sign out",
           onPress: () => {
             signOut().then(() => {

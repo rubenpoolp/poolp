@@ -3,6 +3,7 @@ import Avatar from "@components/Avatar";
 import MyHeader from "@components/MyHeader";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
+import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import useProfile from "@hooks/useProfile";
 import React from "react";
@@ -12,21 +13,26 @@ import { ScrollView, View } from "react-native";
 const DisplayInfo = ({
   title,
   value,
+  onPress,
   txtClassName,
 }: {
   title: string;
   value: string;
+  onPress?: () => void;
   txtClassName?: string;
 }) => {
   const { t } = useTranslation();
 
   return (
-    <View className="w-full flex-row justify-between items-center mb-6">
+    <MyPressable
+      className="w-full flex-row justify-between items-center mb-6"
+      onPress={onPress}
+    >
       <MyText className={`text-lg font-semibold ${txtClassName}`}>
         {t(title)}
       </MyText>
       <MyText className="text-gray-500 font-semibold">{value}</MyText>
-    </View>
+    </MyPressable>
   );
 };
 
@@ -86,6 +92,7 @@ const Profile = () => {
                 key={index}
                 title={item.name}
                 value={item.value ?? ""}
+                onPress={item.onPress}
                 txtClassName={item.txtClassName ?? ""}
               />
             ))}
