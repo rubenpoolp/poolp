@@ -3,14 +3,10 @@ import MyHeader from "@components/MyHeader";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
-import { useAuth } from "@context/Auth";
-import deleteAuthUser from "@queries/deleteAuthUser.query";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
-import resetTo from "@utils/resetTo";
-import React, { FC } from "react";
+import useProfile from "@hooks/useProfile";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Linking, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 const DisplayInfo = ({
   title,
@@ -35,111 +31,7 @@ const DisplayInfo = ({
 
 const Profile = () => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
-  const { signOut } = useAuth();
-
-  const signOutWithThen = () => {
-    signOut().then(() => {
-      AsyncStorage.clear();
-      resetTo(navigation, "Loader");
-    });
-  };
-
-  const list: {
-    name: string;
-    onPress: () => void;
-    icon?: FC;
-    value?: string;
-    txtClassName?: string;
-  }[] = [
-    {
-      name: "profile.name",
-      onPress: () => {
-        Linking.openURL("mailto:ruben@gmail.com"); // TODO: change to the right email
-      },
-      value: "Lola",
-    },
-
-    {
-      name: "profile.school",
-      onPress: () => Linking.openURL(""),
-      value: "Sebeweiss High School",
-    },
-    {
-      name: "profile.invite",
-      onPress: () => Linking.openURL(""),
-    },
-    {
-      name: "profile.pushNotifications",
-      onPress: () => Linking.openURL(""),
-    },
-    {
-      name: "profile.help",
-      onPress: () => Linking.openURL(""),
-    },
-    {
-      name: "profile.rate",
-      onPress: () => Linking.openURL(""),
-    },
-    {
-      name: "profile.aboutUs",
-      onPress: () => Linking.openURL(""),
-    },
-
-    {
-      name: "profile.logout.title",
-      onPress: () => {
-        Alert.alert(t("profile.logout.title"), t("profile.logout.areYouSure"), [
-          {
-            text: t("actions.cancel"),
-            style: "cancel",
-          },
-          {
-            text: "Se déconnecter",
-            onPress: signOutWithThen,
-          },
-        ]);
-      },
-    },
-    {
-      name: "profile.deletion.deleteAccount",
-      txtClassName: "text-red",
-      onPress: () => {
-        Alert.alert(
-          t("profile.deletion.deleteAccount"),
-          t("profile.deletion.areYouSure"),
-          [
-            {
-              text: t("actions.cancel"),
-              style: "cancel",
-            },
-            {
-              text: t("actions.delete"),
-              onPress: () => {
-                deleteAuthUser()
-                  .then(() => {
-                    AsyncStorage.clear();
-                    Alert.alert(
-                      t("profile.deletion.accountDeleted"),
-                      t("profile.deletion.accountDeletedDescription"),
-                      [
-                        {
-                          text: "OK",
-                          onPress: signOutWithThen,
-                        },
-                      ],
-                    );
-                  })
-                  .catch((error) => {
-                    Alert.alert("Erreur", error.message);
-                  });
-              },
-            },
-          ],
-        );
-      },
-    },
-  ];
+  const list = useProfile();
 
   return (
     <MyScreen className="px-0">
