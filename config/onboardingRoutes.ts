@@ -1,4 +1,5 @@
 import LoaderScreen from "@pages/LoaderScreen";
+import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
 import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import AskPermissionNotifications from "@pages/onboarding/AskPermissionNotifications";
 import Birthday from "@pages/onboarding/Birthday";
@@ -17,6 +18,7 @@ export const onboardingRoutes: {
 }[] = [
   { name: "Loader", component: LoaderScreen },
   { name: "Introduction", component: Introduction },
+  { name: "HomeStack", component: BottomTabNavigator },
   { name: "Phone", component: Phone },
   { name: "VerificationCode", component: VerificationCode },
   { name: "Name", component: Name },
@@ -26,5 +28,4 @@ export const onboardingRoutes: {
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },
-  { name: "HomeStack", component: HomeStackNavigator },
 ];
