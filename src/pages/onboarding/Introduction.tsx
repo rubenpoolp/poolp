@@ -1,3 +1,5 @@
+import assets from "@assets/index";
+import StoryButton from "@components/buttons/StoryButton";
 import LogoWithText from "@components/LogoWithText";
 import MyText from "@components/natives/MyText";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
@@ -89,6 +91,20 @@ const Introduction = ({
           {t("onboarding.introduction.byPassingLegal.4")}
         </MyText>
       </MyText>
+      <StoryButton
+        stories={[
+          {
+            firstName: "John",
+            img: assets.test1,
+          },
+          {
+            firstName: "Ruben",
+            img: assets.test2,
+          },
+        ]}
+      >
+        <MyText className="text-red">{"DEV See Stories"}</MyText>
+      </StoryButton>
     </MyOnboardingLayout>
   );
 };
