@@ -17,7 +17,7 @@ export const onboardingRoutes: {
   component: ((object: any) => React.JSX.Element) | React.FC<object>;
 }[] = [
   { name: "Loader", component: LoaderScreen },
-  { name: "Introduction", component: Introduction },
+  // { name: "Introduction", component: Introduction },
   { name: "DiscoverApp", component: DiscoverApp },
   { name: "Phone", component: Phone },
   { name: "VerificationCode", component: VerificationCode },

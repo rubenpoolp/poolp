@@ -17,6 +17,7 @@ interface LayoutProps {
   logoSize?: "small" | "regular";
   contentContainerStyle?: string;
   title?: string;
+  disableNextButton?: boolean;
 }
 
 const MyOnboardingLayout = ({
@@ -27,6 +28,7 @@ const MyOnboardingLayout = ({
   logoSize = "regular",
   contentContainerStyle,
   title,
+  disableNextButton = false,
 }: LayoutProps) => {
   const { t } = useTranslation();
 
@@ -57,7 +59,7 @@ const MyOnboardingLayout = ({
           </View>
 
           <View className="items-center">
-            <NextButton onPress={onNextPress} />
+            <NextButton onPress={onNextPress} disabled={disableNextButton} />
           </View>
         </View>
       </MyKeyboardAvoidingView>

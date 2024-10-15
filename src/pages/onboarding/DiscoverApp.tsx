@@ -1,19 +1,41 @@
 import assets from "@assets/index";
-import NextButton from "@components/buttons/NextButton";
-import MyKeyboardAvoidingView from "@components/MyKeyboardAvoidingView";
-import MyScreen from "@components/MyScreen";
-import MyImage from "@components/natives/MyImage";
-import { ReactNode } from "react";
+import OnboardingCarouselItem from "@components/OnboardingCarouselItem";
+import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import React from "react";
 import { View } from "react-native";
-import MyOnboardingLayout from "./MyOnboardingLayout";
+import { useSharedValue } from "react-native-reanimated";
 
-interface LayoutProps {
+const OnboardingCarouselContent = [
+  {
+    title: "onboarding.discoverApp.item1.title",
+    description: "onboarding.discoverApp.item1.description",
+    picture: assets.onboarding1,
+  },
+  {
+    title: "onboarding.discoverApp.item2.title",
+    description: "onboarding.discoverApp.item2.description",
+    picture: assets.onboarding1,
+  },
+  {
+    title: "onboarding.discoverApp.item3.title",
+    description: "onboarding.discoverApp.item3.description",
+    picture: assets.onboarding1,
+  },
+  {
+    title: "onboarding.discoverApp.item4.title",
+    description: "onboarding.discoverApp.item4.description",
+    picture: assets.onboarding1,
+  },
+];
+
+interface DiscoverAppProps {
   navigation: any;
   route: any;
 }
 
-const DiscoverApp = ({ navigation, route }: LayoutProps) => {
+const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
   const { user, nextScreen } = route.params;
+  const scrollOffsetValue = useSharedValue<number>(0);
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
@@ -25,8 +47,17 @@ const DiscoverApp = ({ navigation, route }: LayoutProps) => {
       logoSize="small"
       canGoBack={false}
       title="onboarding.discoverApp.title"
+      disableNextButton={true}
     >
-      <View className="flex-1 justify-center items-center"></View>
+      {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
+      <View className="flex-1">
+        <OnboardingCarouselItem
+          title="onboarding.discoverApp.item1.title"
+          description="onboarding.discoverApp.item1.description"
+          picture={assets.onboarding1}
+        />
+      </View>
+      {/* </GestureHandlerRootView> */}
     </MyOnboardingLayout>
   );
 };
