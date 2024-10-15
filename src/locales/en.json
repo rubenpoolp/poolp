@@ -7,6 +7,9 @@
     "delete": "Delete"
   },
   "onboarding": {
+    "discoverApp": {
+      "title": "What's Poolp?"
+    },
     "introduction": {
       "title": "poolp",
       "description1": {
