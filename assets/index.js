@@ -13,6 +13,7 @@ const assets = {
   "icon": require("./logo/icon.png"),
   "logoCropped": require("./logo/logoCropped.png"),
   "splash": require("./logo/splash.png"),
+  "gradientTypoLogo": require("./logo/gradientTypoLogo.png"),
 
   // social_networks
   "instagram": require("./social_networks/instagram.png"),

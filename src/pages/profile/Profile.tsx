@@ -1,6 +1,6 @@
 import { Bump } from "@components/animations/Bump";
 import Avatar from "@components/Avatar";
-import MyHeader from "@components/MyHeader";
+import MyHeader from "@components/headers/MyHeader";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
