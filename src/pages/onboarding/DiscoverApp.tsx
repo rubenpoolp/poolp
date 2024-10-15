@@ -3,7 +3,6 @@ import OnboardingCarouselItem from "@components/OnboardingCarouselItem";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React from "react";
 import { View } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
 
 const OnboardingCarouselContent = [
   {
@@ -35,7 +34,6 @@ interface DiscoverAppProps {
 
 const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
   const { user, nextScreen } = route.params;
-  const scrollOffsetValue = useSharedValue<number>(0);
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
