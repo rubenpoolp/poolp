@@ -1,20 +1,27 @@
-import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRef, useState } from "react";
 import { Button, Text, TouchableOpacity, View } from "react-native";
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+} from "react-native-vision-camera";
 import MyButton from "./natives/MyButton";
 
 const Picture = () => {
-  const cameraRef = useRef<CameraView>(null);
-  const [permission, requestPermission] = useCameraPermissions();
-  const [facing, setFacing] = useState<"front" | "back">("back");
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const [cameraPosition, setCameraPosition] = useState<"front" | "back">(
+    "back",
+  );
+  const device = useCameraDevice(cameraPosition);
+  const camera = useRef<Camera>(null);
 
-  if (!permission) {
-    // Camera permissions are still loading.
+  if (hasPermission === undefined) {
+    // Camera permissions are still loading
     return <View />;
   }
 
-  if (!permission.granted) {
-    // Camera permissions are not granted yet.
+  if (!hasPermission) {
+    // Camera permissions are not granted yet
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-lg mb-4 text-center">
@@ -25,26 +32,37 @@ const Picture = () => {
     );
   }
 
-  const toggleCameraFacing = () => {
-    setFacing((current) => (current === "back" ? "front" : "back"));
+  const toggleCameraPosition = () => {
+    setCameraPosition((current) => (current === "back" ? "front" : "back"));
   };
-  const takePhoto = () => {
-    cameraRef.current?.takePictureAsync();
+
+  const takePhoto = async () => {
+    if (!camera.current) return;
+    const photo = await camera.current.takePhoto();
+    console.log(photo);
   };
 
   if (!__DEV__) return null;
   return (
     <>
-      <CameraView className="flex-1" facing={facing}>
-        <View className="flex-1 justify-end items-center mb-4">
-          <TouchableOpacity
-            className="bg-white p-2 rounded-full"
-            onPress={toggleCameraFacing}
-          >
-            <Text className="text-black">Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
+      {device && (
+        <Camera
+          ref={camera}
+          style={{ flex: 1 }}
+          device={device}
+          isActive={true}
+          photo={true}
+        >
+          <View className="flex-1 justify-end items-center mb-4">
+            <TouchableOpacity
+              className="bg-white p-2 rounded-full"
+              onPress={toggleCameraPosition}
+            >
+              <Text className="text-black">Flip Camera</Text>
+            </TouchableOpacity>
+          </View>
+        </Camera>
+      )}
       <MyButton
         onPress={takePhoto}
         txt={"DEV Prendre une photo"}

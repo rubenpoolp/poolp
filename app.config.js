@@ -24,6 +24,7 @@ export default {
       googleServicesFile: "./google-services.json",
       adaptiveIcon: {
         foregroundImage: "./assets/logo/adaptiveIcon.png",
+        backgroundImage: "./assets/logo/backgroundImage.png",
         backgroundColor: "#1C1D21",
       },
       package: "app.poolp",
@@ -32,11 +33,11 @@ export default {
       "expo-font",
       "expo-localization",
       [
-        "expo-camera",
+        "react-native-vision-camera",
         {
-          cameraPermission: "Allow poolp to access your camera",
-          microphonePermission: "Allow poolp to access your microphone",
-          recordAudioAndroid: true,
+          cameraPermissionText: "Allow poolp to access your camera",
+          // microphonePermissionText: "Allow poolp to access your microphone",
+          // enableMicrophonePermission: true,
         },
       ],
       [
