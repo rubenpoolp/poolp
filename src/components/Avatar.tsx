@@ -20,8 +20,8 @@ const Avatar = ({
   let sizeClass = "";
   let textSizeClass = "";
   if (size === "sm") {
-    sizeClass = "w-8 h-8";
-    textSizeClass = "text-xl";
+    sizeClass = "w-6 h-6";
+    textSizeClass = "text-base";
   } else if (size === "lg") {
     sizeClass = "w-24 h-24";
     textSizeClass = "text-5xl";
