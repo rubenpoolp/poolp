@@ -6,7 +6,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "invitePeers": "Invite peers",
-    "openCircle": "Open circle"
+    "openCircle": "Open circle",
+    "skip": "skip"
   },
   "onboarding": {
     "discoverApp": {

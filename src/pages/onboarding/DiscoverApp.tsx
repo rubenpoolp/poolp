@@ -39,6 +39,10 @@ const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
     navigation.navigate(nextScreen, { user });
   };
 
+  const handleSkip = () => {
+    navigation.navigate(nextScreen, { user });
+  };
+
   return (
     <MyOnboardingLayout
       onNextPress={handleNext}
@@ -46,6 +50,7 @@ const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
       canGoBack={false}
       title="onboarding.discoverApp.title"
       disableNextButton={true}
+      onSkipPress={handleSkip}
     >
       {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
       <View className="flex-1">
