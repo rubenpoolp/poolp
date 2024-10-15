@@ -27,25 +27,22 @@ const BottomTabNavigator = () => {
         tabBarStyle: {
           backgroundColor: colors.tabBar.background,
           paddingHorizontal: 40,
+          //   height: 96,
         },
         tabBarIcon: ({ focused }) => {
           const tab = Pages.find((t) => t.name === route.name);
           if (!tab) return null;
 
-          if (tab.name === "Profile") {
-            return (
-              <View className="items-center">
-                <Avatar size="sm" disabled={true} />
-                {focused && (
-                  <View className="absolute -bottom-[10px] w-[28px] h-[1px] bg-light" />
-                )}
-              </View>
-            );
-          }
+          const iconContent =
+            tab.name === "Profile" ? (
+              <Avatar size="sm" disabled={true} />
+            ) : tab.Icon ? (
+              <tab.Icon size={24} color={colors.light} />
+            ) : null;
 
           return (
-            <View className="items-center">
-              {tab.Icon && <tab.Icon size={24} color={colors.light} />}
+            <View className="items-center justify-center h-full pt-3">
+              {iconContent}
               {focused && (
                 <View className="absolute -bottom-[10px] w-[28px] h-[1px] bg-light" />
               )}
