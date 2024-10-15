@@ -4,7 +4,8 @@
   },
   "actions" : {
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "skip": "skip"
   },
   "onboarding": {
     "discoverApp": {

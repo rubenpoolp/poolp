@@ -1,6 +1,7 @@
 import assets from "@assets/index";
 import BackButton from "@components/buttons/BackButton";
 import NextButton from "@components/buttons/NextButton";
+import SkipButton from "@components/buttons/SkipButton";
 import MyKeyboardAvoidingView from "@components/MyKeyboardAvoidingView";
 import MyScreen from "@components/MyScreen";
 import MyImage from "@components/natives/MyImage";
@@ -18,6 +19,7 @@ interface LayoutProps {
   contentContainerStyle?: string;
   title?: string;
   disableNextButton?: boolean;
+  onSkipPress?: () => void;
 }
 
 const MyOnboardingLayout = ({
@@ -29,6 +31,7 @@ const MyOnboardingLayout = ({
   contentContainerStyle,
   title,
   disableNextButton = false,
+  onSkipPress = () => {},
 }: LayoutProps) => {
   const { t } = useTranslation();
 
@@ -58,8 +61,14 @@ const MyOnboardingLayout = ({
             {children}
           </View>
 
-          <View className="items-center">
-            <NextButton onPress={onNextPress} disabled={disableNextButton} />
+          <View className="flex-row justify-between items-center w-full">
+            <View className="flex-1">
+              <SkipButton onPress={onSkipPress} />
+            </View>
+            <View className="flex-1 items-center">
+              <NextButton onPress={onNextPress} disabled={disableNextButton} />
+            </View>
+            <View className="flex-1" />
           </View>
         </View>
       </MyKeyboardAvoidingView>
