@@ -10,7 +10,24 @@
   },
   "onboarding": {
     "discoverApp": {
-      "title": "What's Poolp?"
+      "title": "What's Poolp?",
+
+      "item1": {
+        "title": "One notification every day",
+        "description": "To discover your circle by posting live content"
+      },
+      "item2": {
+        "title": "A new circle with random peers from your school",
+        "description": "Maximum age-gap of one year"
+      },
+      "item3": {
+        "title": "Post live authentic photos & videos in the circle",
+        "description": "Everything is better when it’s authentic & disapearing at the end of the circle..."
+      },
+      "item4": {
+        "title": "Circle sleeper? Wake them up!",
+        "description": "Anonymously of course..."
+      }
     },
     "introduction": {
       "title": "poolp",

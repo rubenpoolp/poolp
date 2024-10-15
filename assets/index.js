@@ -25,6 +25,12 @@ const assets = {
 
   // profilePictures
   "defaultProfilePicture": require("./profilePictures/defaultProfilePicture.png"),
+
+  // onboarding
+  "onboarding1": require("./onboarding/1.png"),
+  "onboarding2": require("./onboarding/2.png"),
+  "onboarding3": require("./onboarding/3.png"),
+  "onboarding4": require("./onboarding/4.png"),
 };
 
 export default assets;

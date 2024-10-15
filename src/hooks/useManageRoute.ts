@@ -12,7 +12,7 @@ const useManageRoute = () => {
       if (loading) return;
 
       if (!user) {
-        resetTo(navigation, "Introduction");
+        resetTo(navigation, "DiscoverApp");
       } else {
         // await logInRevenueCat(user.id, user.email);
         resetTo(navigation, "HomeStack");
