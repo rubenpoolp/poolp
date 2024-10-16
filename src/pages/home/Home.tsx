@@ -18,6 +18,38 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 
+const data = [
+  {
+    id: "1",
+    name: "John Doe",
+    pictures: [assets.test1, assets.test2],
+  },
+  {
+    id: "2",
+    name: "Jane Smith",
+    pictures: ["https://example.com/jane_1.jpg"],
+  },
+  {
+    id: "3",
+    name: "Alice Johnson",
+    pictures: ["https://example.com/alice_1.jpg"],
+  },
+  {
+    id: "4",
+    name: "Bob Williams",
+    pictures: ["https://example.com/bob_1.jpg"],
+  },
+  {
+    id: "5",
+    name: "Emma Brown",
+    pictures: [
+      "https://example.com/emma_1.jpg",
+      "https://example.com/emma_2.jpg",
+      "https://example.com/emma_3.jpg",
+    ],
+  },
+];
+
 const Home = () => {
   const navigation = useNavigation();
   const { signOut } = useAuth();

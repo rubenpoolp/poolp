@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useWindowDimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import {
   Extrapolation,
   interpolate,
@@ -88,5 +88,3 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
     />
   );
 };
-
-export default StackCarousel;
