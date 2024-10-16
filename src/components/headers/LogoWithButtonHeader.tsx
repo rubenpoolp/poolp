@@ -14,7 +14,7 @@ const LogoWithButtonHeader = ({ onPress, txt }: LogoWithButtonHeaderProps) => {
     <MyHeader
       titleComponent={
         <View className="flex justify-between items-center w-full space-y-4">
-          <MyImage img={assets.gradientTypoLogo} containerStyle="h-10 " />
+          <MyImage img={assets.gradientTypoLogo} containerStyle="h-8" />
 
           <View>
             <MyButton txt={txt} size="small" onPress={onPress} />
