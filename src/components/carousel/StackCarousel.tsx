@@ -88,3 +88,5 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
     />
   );
 };
+
+export default StackCarousel;
