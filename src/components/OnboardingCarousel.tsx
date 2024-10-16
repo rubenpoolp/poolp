@@ -3,7 +3,7 @@ import { View, Dimensions } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
 import OnboardingCarouselItem from "./OnboardingCarouselItem";
-import { CarouselItem } from "@pages/onboarding/DiscoverApp";
+import { CarouselItem } from "@pages/onboarding/Introduction";
 
 interface OnboardingCarouselProps {
   items: CarouselItem[];

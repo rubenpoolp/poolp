@@ -3,9 +3,8 @@ import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
 import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import AskPermissionNotifications from "@pages/onboarding/AskPermissionNotifications";
 import Birthday from "@pages/onboarding/Birthday";
-import DiscoverApp from "@pages/onboarding/DiscoverApp";
-import Gender from "@pages/onboarding/Gender";
 import Introduction from "@pages/onboarding/Introduction";
+import Gender from "@pages/onboarding/Gender";
 import Name from "@pages/onboarding/Name";
 import Phone from "@pages/onboarding/Phone";
 import School from "@pages/onboarding/School";
@@ -18,8 +17,7 @@ export const onboardingRoutes: {
   component: ((object: any) => React.JSX.Element) | React.FC<object>;
 }[] = [
   { name: "Loader", component: LoaderScreen },
-  // { name: "Introduction", component: Introduction },
-  { name: "DiscoverApp", component: DiscoverApp },
+  { name: "Introduction", component: Introduction },
   { name: "Phone", component: Phone },
   { name: "VerificationCode", component: VerificationCode },
   { name: "Name", component: Name },

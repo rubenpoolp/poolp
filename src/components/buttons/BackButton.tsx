@@ -14,7 +14,7 @@ const BackButton = ({ padding = true, theme = "dark" }: BackButtonProps) => {
 
   const onPress = () => {
     if (navigation.canGoBack()) navigation.goBack();
-    else navigation.navigate("DiscoverApp");
+    else navigation.navigate("Introduction");
   };
 
   return (
