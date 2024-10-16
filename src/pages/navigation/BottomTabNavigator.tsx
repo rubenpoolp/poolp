@@ -44,7 +44,7 @@ const BottomTabNavigator = () => {
             <View className="items-center justify-center h-full pt-3">
               {iconContent}
               {focused && (
-                <View className="absolute -bottom-[10px] w-[28px] h-[1px] bg-light" />
+                <View className="absolute bottom-0 w-[28px] h-[1px] bg-light" />
               )}
             </View>
           );
