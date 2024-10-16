@@ -8,7 +8,7 @@
     "skip": "skip"
   },
   "onboarding": {
-    "discoverApp": {
+    "introduction": {
       "title": "What's Poolp?",
 
       "item1": {
@@ -26,38 +26,6 @@
       "item4": {
         "title": "Circle sleeper? Wake them up!",
         "description": "Anonymously of course..."
-      }
-    },
-    "introduction": {
-      "title": "poolp",
-      "description1": {
-        "1": "Each day, you'll join a new group with 2-3 ",
-        "2": "random ",
-        "3": "students your age from your school."
-      },
-      "description2": {
-        "1": "They may be your best ",
-        "2": "friends",
-        "3": ", acquaintances or new people."
-      },
-      "description3": {
-        "1": "Discover by capturing ",
-        "2": "authentic ",
-        "3": "content."
-      },
-      "description4": {
-        "1": "Review ",
-        "2": "your daily connections."
-      },
-      "description5": {
-        "1": "The rest happens in ",
-        "2": "real life."
-      },
-      "byPassingLegal" : {
-        "1": "By passing, you’re agreeing to our ",
-        "2": "terms of service",
-        "3": " and ",
-        "4": "privacy policy"
       }
     },
     "name": {
