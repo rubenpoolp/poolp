@@ -18,7 +18,6 @@ export const onboardingRoutes: {
 }[] = [
   { name: "Loader", component: LoaderScreen },
   { name: "Introduction", component: Introduction },
-  { name: "HomeStack", component: BottomTabNavigator },
   { name: "Phone", component: Phone },
   { name: "VerificationCode", component: VerificationCode },
   { name: "Name", component: Name },
@@ -28,4 +27,5 @@ export const onboardingRoutes: {
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },
+  { name: "HomeStack", component: BottomTabNavigator },
 ];
