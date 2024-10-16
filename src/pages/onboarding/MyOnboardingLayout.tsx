@@ -39,7 +39,11 @@ const MyOnboardingLayout = ({
     <MyScreen padding>
       <MyKeyboardAvoidingView>
         <View className="flex-1">
-          <View className="mb-12 space-y-4 justify-center items-center">
+          <View
+            className={`space-y-2 justify-center items-center ${
+              title ? "mb-4" : "mb-8"
+            }`}
+          >
             <View className="flex-row justify-between items-center w-full">
               <View className="w-14">{canGoBack && <BackButton />}</View>
               {logo && (

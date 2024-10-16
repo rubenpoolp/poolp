@@ -1,10 +1,17 @@
 import assets from "@assets/index";
-import OnboardingCarouselItem from "@components/OnboardingCarouselItem";
+
+import OnboardingCarousel from "@components/OnboardingCarousel";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 
-const OnboardingCarouselContent = [
+export interface CarouselItem {
+  title: string;
+  description: string;
+  picture: any;
+}
+
+const OnboardingCarouselContent: CarouselItem[] = [
   {
     title: "onboarding.discoverApp.item1.title",
     description: "onboarding.discoverApp.item1.description",
@@ -13,17 +20,17 @@ const OnboardingCarouselContent = [
   {
     title: "onboarding.discoverApp.item2.title",
     description: "onboarding.discoverApp.item2.description",
-    picture: assets.onboarding1,
+    picture: assets.onboarding2,
   },
   {
     title: "onboarding.discoverApp.item3.title",
     description: "onboarding.discoverApp.item3.description",
-    picture: assets.onboarding1,
+    picture: assets.onboarding3,
   },
   {
     title: "onboarding.discoverApp.item4.title",
     description: "onboarding.discoverApp.item4.description",
-    picture: assets.onboarding1,
+    picture: assets.onboarding4,
   },
 ];
 
@@ -34,6 +41,7 @@ interface DiscoverAppProps {
 
 const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
   const { user, nextScreen } = route.params;
+  const [isLastItem, setIsLastItem] = useState(false);
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
@@ -43,24 +51,25 @@ const DiscoverApp = ({ navigation, route }: DiscoverAppProps) => {
     navigation.navigate(nextScreen, { user });
   };
 
+  const handleIndexChange = (index: number) => {
+    setIsLastItem(index === OnboardingCarouselContent.length - 1);
+  };
+
   return (
     <MyOnboardingLayout
       onNextPress={handleNext}
       logoSize="small"
       canGoBack={false}
       title="onboarding.discoverApp.title"
-      disableNextButton={true}
+      disableNextButton={!isLastItem}
       onSkipPress={handleSkip}
     >
-      {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
-      <View className="flex-1">
-        <OnboardingCarouselItem
-          title="onboarding.discoverApp.item1.title"
-          description="onboarding.discoverApp.item1.description"
-          picture={assets.onboarding1}
+      <View className="flex-1 justify-center items-center">
+        <OnboardingCarousel
+          items={OnboardingCarouselContent}
+          onIndexChange={handleIndexChange}
         />
       </View>
-      {/* </GestureHandlerRootView> */}
     </MyOnboardingLayout>
   );
 };
