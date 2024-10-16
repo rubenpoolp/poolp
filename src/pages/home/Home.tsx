@@ -49,6 +49,11 @@ const Home = () => {
         {/* <Picture /> */}
 
         <MyButton onPress={signOutWithThen} txt={"Sign out"} className="mb-2" />
+        <MyButton
+          onPress={() => navigation.navigate("Circles")}
+          txt={"Past circles"}
+          className="mb-2"
+        />
         <AppVersion />
       </View>
     </MyScreen>
