@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import {
   Extrapolation,
   interpolate,
