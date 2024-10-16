@@ -5,7 +5,8 @@
   "actions" : {
     "cancel": "Cancel",
     "delete": "Delete",
-    "invitePeers": "Invite peers"
+    "invitePeers": "Invite peers",
+    "openCircle": "Open circle"
   },
   "onboarding": {
     "introduction": {
@@ -89,6 +90,10 @@
         "placeholder": "Your name"
       }
     }
+  },
+
+  "home": {
+    "currentCircle": "Today's circle"
   },
   
   "profile": {
