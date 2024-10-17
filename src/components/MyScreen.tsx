@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
 import { Platform, View } from "react-native";
 import { Edges, SafeAreaView } from "react-native-safe-area-context";

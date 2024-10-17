@@ -41,7 +41,7 @@ const Profile = () => {
   const list = useProfile();
 
   return (
-    <MyScreen>
+    <MyScreen edges={["top"]}>
       <View className="px-4">
         <MyHeader />
       </View>

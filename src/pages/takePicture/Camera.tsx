@@ -5,7 +5,7 @@ import { View } from "react-native";
 
 const CameraPage = () => {
   return (
-    <MyScreen className="px-4">
+    <MyScreen edges={["top"]} className="px-4">
       <View className="flex-row justify-between items-center w-full">
         <View className="w-10" />
         <MyText className="text-3xl font-semibold">Camera</MyText>
