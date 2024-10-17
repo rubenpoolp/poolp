@@ -10,32 +10,23 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 const data = [
   {
     id: "1",
-    name: "John Doe",
-    pictures: [assets.test1, assets.test2],
+    name: "John",
+    pictures: [assets.test2, assets.test1],
   },
   {
     id: "2",
-    name: "Jane Smith",
-    pictures: [assets.test1, assets.test2, assets.test2],
+    name: "Jane",
+    pictures: [assets.test1, assets.test2, assets.test1],
   },
   {
     id: "3",
-    name: "Alice Johnson",
-    pictures: ["https://example.com/alice_1.jpg"],
+    name: "Alice",
+    pictures: [assets.test2, assets.test1],
   },
   {
     id: "4",
-    name: "Bob Williams",
-    pictures: ["https://example.com/bob_1.jpg"],
-  },
-  {
-    id: "5",
-    name: "Emma Brown",
-    pictures: [
-      "https://example.com/emma_1.jpg",
-      "https://example.com/emma_2.jpg",
-      "https://example.com/emma_3.jpg",
-    ],
+    name: "Bob",
+    pictures: [assets.test1, assets.test2],
   },
 ];
 

@@ -1,8 +1,9 @@
 import StoryBarLoader from "@components/animations/StoriesBarLoader";
-import MyImage from "@components/natives/MyImage";
+import RingButton from "@components/buttons/BellButton";
 import MyText from "@components/natives/MyText";
+import shadow from "@config/shadow";
 import React, { useState } from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, Image, ImageProps } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 // Définition de l'interface pour l'objet utilisateur
@@ -51,31 +52,49 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
       }}
     >
       <View
-        className="relative rounded-md border-4 border-gradient-primary-0 shadow-md shadow-gradient-primary-1 bg-gray-600"
-        style={{ width, height }}
+        className="relative rounded-md border-4 border-purple-100 bg-gray-600 z-10"
+        style={{
+          ...shadow.smallPurple,
+          width,
+          height,
+        }}
       >
+        {/* TODO: Add z index 10 to the container */}
         <View className="absolute w-full flex-1 h-full flex-row z-10">
           <Pressable className="flex-1" onPress={onLeft} />
           <Pressable className="flex-1" onPress={onRight} />
         </View>
 
-        <View className="flex-1 py-5 px-2">
-          <StoryBarLoader
-            index={actualIndex}
-            isStatic={true}
-            duration={10000}
-            total={user.pictures.length}
-          />
-
+        <View className="flex-1 ">
           {user.pictures.length > 0 && (
-            <MyImage
-              img={{ uri: user.pictures[actualIndex] }}
-              resizeMode="cover"
-            />
+            <View className="absolute top-0 left-0 right-0 bottom-0">
+              <Image
+                source={user.pictures[actualIndex] as unknown as ImageProps}
+                style={{ flex: 1, width: "100%" }}
+                resizeMode="cover"
+              />
+            </View>
           )}
-          <MyText className="absolute bottom-5 left-5 font-semibold text-xl">
-            {user.name}
-          </MyText>
+
+          <View className="flex-1 p-5 justify-between">
+            <StoryBarLoader
+              index={actualIndex}
+              isStatic={true}
+              duration={10000}
+              total={user.pictures.length}
+            />
+
+            <View className="flex-row items-center justify-between">
+              <MyText className="text-xl font-semibold">{user.name}</MyText>
+
+              <RingButton
+                onPress={() => {
+                  console.log("wizz user");
+                }}
+                containerStyle=""
+              />
+            </View>
+          </View>
         </View>
       </View>
     </Animated.View>

@@ -84,7 +84,7 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
         />
       )}
       customAnimation={animationStyle}
-      windowSize={3}
+      windowSize={2}
     />
   );
 };
