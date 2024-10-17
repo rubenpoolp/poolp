@@ -21,7 +21,7 @@ const StreakButton = ({ onPress, disabled = false }: StreakButtonProps) => {
           className=""
           style={shadow.orange}
         >
-          <View className="border border-orange rounded-full p-2 flex-row items-center justify-center py-0.5 px-2">
+          <View className="border border-orange rounded-full p-2 flex-row items-center justify-center py-0.5 px-2 space-x-1">
             <MyText className="text-sm">🔥</MyText>
             <MyText className="text-sm text-orange font-extrabold">12</MyText>
           </View>
