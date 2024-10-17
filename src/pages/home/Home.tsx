@@ -1,19 +1,14 @@
 import assets from "@assets/index";
-import StoryButton from "@components/buttons/StoryButton";
-import StackCarousel from "@components/carousel/StackCarousel";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
-import MyGradient from "@components/MyGradient";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
-import { Gradient } from "phosphor-react-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
@@ -83,13 +78,11 @@ const Home = () => {
   return (
     <MyScreen padding className="space-y-4">
       <LogoWithButtonHeader
-        onPress={signOutWithThen}
+        onPress={() => setState("newCircle")}
         txt={t("actions.invitePeers")}
       />
 
-      {state === "openCircle" && (
-        <TodayCircle onOpenCircle={() => setState("newCircle")} />
-      )}
+      {state === "openCircle" && <TodayCircle />}
 
       {state === "newCircle" && (
         <View className="flex-1 w-full space-y-10 justify-center">
