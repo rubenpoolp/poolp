@@ -4,39 +4,28 @@
   },
   "actions" : {
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "skip": "skip"
   },
   "onboarding": {
     "introduction": {
-      "title": "poolp",
-      "description1": {
-        "1": "Each day, you'll join a new group with 2-3 ",
-        "2": "random ",
-        "3": "students your age from your school."
+      "title": "What's Poolp?",
+
+      "item1": {
+        "title": "One notification every day",
+        "description": "To discover your circle by posting live content"
       },
-      "description2": {
-        "1": "They may be your best ",
-        "2": "friends",
-        "3": ", acquaintances or new people."
+      "item2": {
+        "title": "A new circle with random peers from your school",
+        "description": "Maximum age-gap of one year"
       },
-      "description3": {
-        "1": "Discover by capturing ",
-        "2": "authentic ",
-        "3": "content."
+      "item3": {
+        "title": "Post live authentic photos & videos in the circle",
+        "description": "Everything is better when it’s authentic & disapearing at the end of the circle..."
       },
-      "description4": {
-        "1": "Review ",
-        "2": "your daily connections."
-      },
-      "description5": {
-        "1": "The rest happens in ",
-        "2": "real life."
-      },
-      "byPassingLegal" : {
-        "1": "By passing, you’re agreeing to our ",
-        "2": "terms of service",
-        "3": " and ",
-        "4": "privacy policy"
+      "item4": {
+        "title": "Circle sleeper? Wake them up!",
+        "description": "Anonymously of course..."
       }
     },
     "name": {

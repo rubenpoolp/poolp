@@ -1,110 +1,74 @@
 import assets from "@assets/index";
-import StoryButton from "@components/buttons/StoryButton";
-import LogoWithText from "@components/LogoWithText";
-import MyText from "@components/natives/MyText";
+import OnboardingCarousel from "@components/OnboardingCarousel";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Linking, View } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 
-const Introduction = ({
-  navigation,
-  route,
-}: {
+export interface CarouselItem {
+  title: string;
+  description: string;
+  picture: any;
+}
+
+const OnboardingCarouselContent: CarouselItem[] = [
+  {
+    title: "onboarding.introduction.item1.title",
+    description: "onboarding.introduction.item1.description",
+    picture: assets.onboarding1,
+  },
+  {
+    title: "onboarding.introduction.item2.title",
+    description: "onboarding.introduction.item2.description",
+    picture: assets.onboarding2,
+  },
+  {
+    title: "onboarding.introduction.item3.title",
+    description: "onboarding.introduction.item3.description",
+    picture: assets.onboarding3,
+  },
+  {
+    title: "onboarding.introduction.item4.title",
+    description: "onboarding.introduction.item4.description",
+    picture: assets.onboarding4,
+  },
+];
+
+interface IntroductionProps {
   navigation: any;
   route: any;
-}) => {
-  const { t } = useTranslation();
+}
+
+const Introduction = ({ navigation, route }: IntroductionProps) => {
   const { user, nextScreen } = route.params;
+  const [isLastItem, setIsLastItem] = useState(false);
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
   };
 
+  const handleSkip = () => {
+    navigation.navigate(nextScreen, { user });
+  };
+
+  const handleIndexChange = (index: number) => {
+    setIsLastItem(index === OnboardingCarouselContent.length - 1);
+  };
+
   return (
     <MyOnboardingLayout
       onNextPress={handleNext}
-      contentContainerStyle="pt-20"
-      logo={false}
+      logoSize="small"
       canGoBack={false}
+      title="onboarding.introduction.title"
+      disableNextButton={!isLastItem}
+      onSkipPress={handleSkip}
     >
-      <LogoWithText />
-
-      <View className="flex items-center space-y-4">
-        <MyText className={"text-center"}>
-          {t("onboarding.introduction.description1.1")}
-          <MyText className="font-bold">
-            {t("onboarding.introduction.description1.2")}
-          </MyText>
-          {t("onboarding.introduction.description1.3")}
-        </MyText>
-
-        <MyText className={"text-center"}>
-          {t("onboarding.introduction.description2.1")}
-          <MyText className="font-bold">
-            {t("onboarding.introduction.description2.2")}
-          </MyText>
-          {t("onboarding.introduction.description2.3")}
-        </MyText>
-
-        <MyText className={"text-center"}>
-          {t("onboarding.introduction.description3.1")}
-          <MyText className="font-bold">
-            {t("onboarding.introduction.description3.2")}
-          </MyText>
-          {t("onboarding.introduction.description3.3")}
-        </MyText>
-        <MyText className={"text-center"}>
-          <MyText className="font-bold">
-            {t("onboarding.introduction.description4.1")}
-          </MyText>
-          {t("onboarding.introduction.description4.2")}
-        </MyText>
-        <MyText className={"text-center"}>
-          {t("onboarding.introduction.description5.1")}
-          <MyText className="font-bold">
-            {t("onboarding.introduction.description5.2")}
-          </MyText>
-        </MyText>
+      <View className="flex-1 justify-center items-center">
+        <OnboardingCarousel
+          items={OnboardingCarouselContent}
+          onIndexChange={handleIndexChange}
+        />
       </View>
-      <MyText
-        className={
-          "text-center w-full absolute bottom-3 text-[10px] text-gray-400"
-        }
-      >
-        {t("onboarding.introduction.byPassingLegal.1")}
-        <MyText
-          onPress={() => {
-            Linking.openURL("https://www.google.com");
-          }}
-          className="underline text-[10px] text-gray-400"
-        >
-          {t("onboarding.introduction.byPassingLegal.2")}
-        </MyText>
-        {t("onboarding.introduction.byPassingLegal.3")}
-        <MyText
-          onPress={() => {
-            Linking.openURL("https://www.google.com");
-          }}
-          className="underline text-[10px] text-gray-400"
-        >
-          {t("onboarding.introduction.byPassingLegal.4")}
-        </MyText>
-      </MyText>
-      <StoryButton
-        stories={[
-          {
-            firstName: "John",
-            img: assets.test1,
-          },
-          {
-            firstName: "Ruben",
-            img: assets.test2,
-          },
-        ]}
-      >
-        <MyText className="text-red">{"DEV See Stories"}</MyText>
-      </StoryButton>
     </MyOnboardingLayout>
   );
 };
