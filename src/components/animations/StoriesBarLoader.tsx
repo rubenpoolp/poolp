@@ -5,14 +5,12 @@ interface PaginationProps {
   index: number;
   duration: number;
   total: number;
-  isStatic?: boolean;
 }
 
 const StoryBarLoader = ({
   index,
   duration = 5000,
   total,
-  isStatic = false,
 }: PaginationProps): ReactElement => {
   const animationValue = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -33,10 +31,10 @@ const StoryBarLoader = ({
             <View
               key={i}
               className={`flex-1 h-1 rounded-full mx-1 ${
-                i < index && !isStatic ? "bg-light" : "bg-gray-300"
+                i < index ? "bg-light" : "bg-gray-200"
               }`}
             >
-              {i === index && !isStatic && (
+              {i === index && (
                 <Animated.View
                   key={i}
                   className={"bg-light h-1 rounded-full "}

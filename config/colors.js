@@ -14,7 +14,11 @@ module.exports = {
   },
 
   gradient: {
-    primary: ["#7826FD", "#A736FF"],
+    primary: ["#A736FF", "#7826FD"],
+  },
+
+  purple: {
+    100: "#8A2CFE",
   },
 
   pink: {

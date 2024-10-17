@@ -6,7 +6,7 @@ import { StyleProp, ViewStyle } from "react-native";
 const MyGradient = ({
   colors = gradient.primary,
   start = { x: 0, y: 0 },
-  end = { x: 1, y: 0 },
+  end = { x: 0.6, y: 0 },
   style,
 }: {
   colors?: string[];
