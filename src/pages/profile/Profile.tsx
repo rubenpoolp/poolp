@@ -41,15 +41,16 @@ const Profile = () => {
   const list = useProfile();
 
   return (
-    <MyScreen className="px-0">
+    <MyScreen>
       <View className="px-4">
-        <MyHeader canGoBack />
+        <MyHeader />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 0,
           paddingHorizontal: 32,
+          paddingBottom: 30,
         }}
       >
         <View className="flex space-y-4">
@@ -98,14 +99,15 @@ const Profile = () => {
             ))}
           </View>
         </View>
+
+        <View className="items-center">
+          <MyText className="text-gray-400 text-xs">
+            You joined your first circle 44 days ago.
+          </MyText>
+          <MyText className="text-gray-400 text-xs">On 25.09.2024</MyText>
+          <MyText>❤️</MyText>
+        </View>
       </ScrollView>
-      <View className="items-center absolute -bottom-12">
-        <MyText className="text-gray-400 text-xs">
-          You joined your first circle 44 days ago.
-        </MyText>
-        <MyText className="text-gray-400 text-xs">On 25.09.2024</MyText>
-        <MyText>❤️</MyText>
-      </View>
     </MyScreen>
   );
 };
