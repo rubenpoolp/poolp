@@ -2,13 +2,14 @@ import colors from "@config/colors";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import TabBarIcon from "@components/TabBarIcon";
-import { TabBarPages } from "@config/tabBarPages";
+import { TabBarPages, initialTab } from "@config/tabBarPages";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName={initialTab}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,

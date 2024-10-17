@@ -26,8 +26,8 @@ const Avatar = ({
     sizeClass = "w-24 h-24";
     textSizeClass = "text-5xl";
   } else {
-    sizeClass = "w-10 h-10";
-    textSizeClass = "text-xl";
+    sizeClass = "w-8 h-8";
+    textSizeClass = "text-lg";
   }
 
   const goToProfile = () => {

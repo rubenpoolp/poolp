@@ -22,7 +22,6 @@ const SkipButton = ({ onPress }: SkipButtonProps) => {
           hapticImpactStyle="medium"
           onPress={onPress}
           className="items-center justify-center bg-transparent"
-          style={shadow.purple}
         >
           <MyText className="text-gray-500 font-semibold text-xl">
             {t("actions.skip")}

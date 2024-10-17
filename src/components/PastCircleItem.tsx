@@ -23,8 +23,8 @@ const PastCircleItem = ({ item }: { item: (typeof circles)[0] }) => {
         }
       case 4:
         return {
-          left: (index % 2) * 24,
-          top: Math.floor(index / 2) * 24,
+          left: (index % 2) * 20,
+          top: Math.floor(index / 2) * 20,
         };
       default:
         return { left: 0, top: 0 };
@@ -50,7 +50,7 @@ const PastCircleItem = ({ item }: { item: (typeof circles)[0] }) => {
                   zIndex: index,
                 }}
               >
-                <Avatar size="sm" />
+                <Avatar />
               </View>
             );
           })}

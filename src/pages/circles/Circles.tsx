@@ -6,6 +6,8 @@ import { FlatList, View } from "react-native";
 import assets from "@assets/index";
 import StreakButton from "@components/buttons/StreakButton";
 import PastCircleItem from "@components/PastCircleItem";
+import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
+import { useTranslation } from "react-i18next";
 
 export const circles = [
   {
@@ -32,8 +34,11 @@ export const circles = [
 ];
 
 const Circles = () => {
+  const { t } = useTranslation();
+
   return (
     <MyScreen padding className="space-y-2">
+      <LogoWithButtonHeader onPress={() => {}} txt={t("actions.invitePeers")} />
       <View className="flex-row justify-between items-end w-full">
         <MyText className="text-sm font-bold text-white">LAST CIRCLES</MyText>
         <StreakButton onPress={() => {}} disabled />

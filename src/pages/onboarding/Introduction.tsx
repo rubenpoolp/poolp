@@ -47,7 +47,7 @@ const Introduction = ({ navigation, route }: IntroductionProps) => {
   };
 
   const handleSkip = () => {
-    navigation.navigate(nextScreen, { user });
+    navigation.navigate("HomeStack", { user });
   };
 
   const handleIndexChange = (index: number) => {
