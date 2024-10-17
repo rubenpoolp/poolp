@@ -116,19 +116,6 @@ const Home = () => {
           </View>
         </View>
       )}
-
-      {/* <View className="flex-row justify-between items-center w-full">
-        <View className="self-start">
-          <Picture />
-
-          <MyButton
-            onPress={signOutWithThen}
-            txt={"Sign out"}
-            className="mb-2"
-          />
-          <AppVersion />
-        </View>
-      </View> */}
     </MyScreen>
   );
 };
