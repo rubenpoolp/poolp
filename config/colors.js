@@ -9,6 +9,10 @@ module.exports = {
     dark: "#1C1D21",
   },
 
+  tabBar: {
+    background: "#1B1B1B",
+  },
+
   gradient: {
     primary: ["#7826FD", "#A736FF"],
   },

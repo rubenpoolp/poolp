@@ -1,9 +1,10 @@
 import LoaderScreen from "@pages/LoaderScreen";
+import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
 import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import AskPermissionNotifications from "@pages/onboarding/AskPermissionNotifications";
 import Birthday from "@pages/onboarding/Birthday";
-import Gender from "@pages/onboarding/Gender";
 import Introduction from "@pages/onboarding/Introduction";
+import Gender from "@pages/onboarding/Gender";
 import Name from "@pages/onboarding/Name";
 import Phone from "@pages/onboarding/Phone";
 import School from "@pages/onboarding/School";
@@ -26,5 +27,5 @@ export const onboardingRoutes: {
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },
-  { name: "HomeStack", component: HomeStackNavigator },
+  { name: "HomeStack", component: BottomTabNavigator },
 ];
