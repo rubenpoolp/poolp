@@ -5,6 +5,8 @@
   "actions" : {
     "cancel": "Cancel",
     "delete": "Delete",
+    "invitePeers": "Invite peers",
+    "openCircle": "Open circle",
     "skip": "skip"
   },
   "onboarding": {
@@ -78,7 +80,14 @@
       }
     }
   },
-  
+  "home": {
+    "currentCircle": "Today's circle",
+    "newCircleAvailable": "New circle available!",
+    "newCircleAvailableDescription": "Capture a photo or video to discover your circle for the day.",
+    "makeStory": "Make the 1st one sensational!",
+    "makeStoryDescription": "Make your best joke, tell a fun fact...",
+    "youreFree": "You're free!"
+  },
   "profile": {
     "name": "Name",
     "school": "School",

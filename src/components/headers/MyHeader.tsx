@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
-import BackButton from "./buttons/BackButton";
-import MyText from "./natives/MyText";
+import BackButton from "../buttons/BackButton";
+import MyText from "../natives/MyText";
 
 interface MyHeaderProps {
   tight?: boolean;
@@ -38,7 +38,7 @@ const MyHeader = ({
 
   return (
     <View
-      className={`w-full justify-between items-center flex-row pb-4 ${tight && "px-3"} ${className}`}
+      className={` w-full justify-between items-center flex-row pb-4 ${tight && "px-3"} ${className}`}
     >
       <View
         className={`${canGoBack && "-ml-2"} flex-row items-center justify-between`}
