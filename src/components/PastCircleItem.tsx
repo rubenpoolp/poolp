@@ -5,7 +5,12 @@ import { circles } from "@pages/circles/Circles";
 import { format } from "date-fns";
 import { View } from "react-native";
 
-const PastCircleItem = ({ item }: { item: (typeof circles)[0] }) => {
+interface PastCircleItemProps {
+  item: (typeof circles)[0];
+  index: number;
+}
+
+const PastCircleItem = ({ item, index }: PastCircleItemProps) => {
   const getAvatarPosition = (index: number, total: number) => {
     switch (total) {
       case 1:
@@ -34,10 +39,10 @@ const PastCircleItem = ({ item }: { item: (typeof circles)[0] }) => {
   return (
     <View
       className={`w-full flex-row items-center justify-between bg-gray-600 p-4 
-          ${item.id === 0 ? "rounded-t-lg" : ""} 
-          ${item.id === circles.length - 1 ? "rounded-b-lg" : "border-b border-gray-500"}`}
+          ${index === 0 ? "rounded-t-lg" : ""} 
+          ${index === circles.length - 1 ? "rounded-b-lg" : "border-b border-gray-500"}`}
     >
-      <View className="flex-row ">
+      <View className="flex-row">
         <View className="mr-3 w-16 h-16 relative">
           {item.participants.map((participant, index) => {
             const position = getAvatarPosition(index, item.participants.length);
@@ -59,7 +64,9 @@ const PastCircleItem = ({ item }: { item: (typeof circles)[0] }) => {
         <View className="flex-1 space-y-2">
           <MyText className="text-light">{item.name}</MyText>
 
-          <MyButton txt={"Details"} size="small" disabled />
+          <View className="w-1/2">
+            <MyButton txt={"Details"} size="small" disabled />
+          </View>
         </View>
 
         <MyText className="text-gray-400 text-sm">

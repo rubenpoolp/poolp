@@ -19,9 +19,9 @@ const StreakButton = ({ onPress, disabled = false }: StreakButtonProps) => {
           hapticImpactStyle="medium"
           onPress={onPress}
           className=""
-          style={shadow.purple}
+          style={shadow.orange}
         >
-          <View className="border border-orange rounded-full p-2 flex-row items-center justify-center py-0.5 px-2 shadow shadow-orange/40">
+          <View className="border border-orange rounded-full p-2 flex-row items-center justify-center py-0.5 px-2">
             <MyText className="text-sm">🔥</MyText>
             <MyText className="text-sm text-orange font-extrabold">12</MyText>
           </View>

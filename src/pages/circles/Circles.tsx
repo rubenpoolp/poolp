@@ -31,6 +31,35 @@ export const circles = [
       { id: 3, avatar: assets.defaultProfilePicture },
     ],
   },
+  {
+    id: 2,
+    name: "Past circle",
+    date: new Date(2023, 8, 22),
+    participants: [
+      { id: 0, avatar: assets.defaultProfilePicture },
+      { id: 1, avatar: assets.defaultProfilePicture },
+    ],
+  },
+  {
+    id: 3,
+    name: "Past circle",
+    date: new Date(2023, 8, 21),
+    participants: [
+      { id: 0, avatar: assets.defaultProfilePicture },
+      { id: 1, avatar: assets.defaultProfilePicture },
+    ],
+  },
+
+  {
+    id: 7,
+    name: "Past circle",
+    date: new Date(2023, 8, 17),
+    participants: [
+      { id: 0, avatar: assets.defaultProfilePicture },
+      { id: 1, avatar: assets.defaultProfilePicture },
+      { id: 2, avatar: assets.defaultProfilePicture },
+    ],
+  },
 ];
 
 const Circles = () => {
@@ -40,7 +69,7 @@ const Circles = () => {
     <MyScreen padding className="space-y-2">
       <LogoWithButtonHeader onPress={() => {}} txt={t("actions.invitePeers")} />
       <View className="flex-row justify-between items-end w-full">
-        <MyText className="text-sm font-bold text-white">LAST CIRCLES</MyText>
+        <MyText className="text-xs font-bold text-white">LAST CIRCLES</MyText>
         <StreakButton onPress={() => {}} disabled />
       </View>
 
@@ -48,10 +77,12 @@ const Circles = () => {
         className="flex-1"
         showsVerticalScrollIndicator={false}
         data={circles}
-        renderItem={({ item }) => <PastCircleItem item={item} />}
+        renderItem={({ item, index }) => (
+          <PastCircleItem item={item} index={index} />
+        )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{
-          paddingBottom: 140,
+          paddingBottom: 60,
         }}
       />
     </MyScreen>

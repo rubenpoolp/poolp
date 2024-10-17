@@ -9,6 +9,16 @@ const shadow = {
     shadowRadius: 15,
     elevation: 4,
   },
+  orange: {
+    shadowColor: "#FDA700",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
+    elevation: 4,
+  },
 };
 
 export default shadow;
