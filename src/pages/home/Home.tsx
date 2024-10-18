@@ -102,7 +102,6 @@ const Home = () => {
             <MyButton
               txt={t("home.makeStory")}
               txtClassName="font-bold text-lg"
-              size="small"
               onPress={() => setState("openCircle")}
             />
             <View className="items-center ">
