@@ -20,6 +20,7 @@ interface LayoutProps {
   title?: string;
   disableNextButton?: boolean;
   onSkipPress?: () => void;
+  padding?: boolean;
 }
 
 const MyOnboardingLayout = ({
@@ -32,11 +33,12 @@ const MyOnboardingLayout = ({
   title,
   disableNextButton = false,
   onSkipPress = () => {},
+  padding = true,
 }: LayoutProps) => {
   const { t } = useTranslation();
 
   return (
-    <MyScreen padding>
+    <MyScreen padding={padding}>
       <MyKeyboardAvoidingView>
         <View className="flex-1">
           <View
@@ -66,13 +68,13 @@ const MyOnboardingLayout = ({
           </View>
 
           <View className="flex-row justify-between items-center w-full">
-            <View className="flex-1">
-              <SkipButton onPress={onSkipPress} />
-            </View>
+            <View className="flex-1" />
             <View className="flex-1 items-center">
               <NextButton onPress={onNextPress} disabled={disableNextButton} />
             </View>
-            <View className="flex-1" />
+            <View className="flex-1">
+              <SkipButton onPress={onSkipPress} />
+            </View>
           </View>
         </View>
       </MyKeyboardAvoidingView>

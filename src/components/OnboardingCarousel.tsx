@@ -1,9 +1,10 @@
+import { CarouselItem } from "@pages/onboarding/Introduction";
 import React, { useState } from "react";
-import { View, Dimensions } from "react-native";
+import { Dimensions, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
+import CarouselPagination from "./CarouselPagination";
 import OnboardingCarouselItem from "./OnboardingCarouselItem";
-import { CarouselItem } from "@pages/onboarding/Introduction";
 
 interface OnboardingCarouselProps {
   items: CarouselItem[];
@@ -15,7 +16,8 @@ const OnboardingCarousel: React.FC<OnboardingCarouselProps> = ({
   onIndexChange,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const width = Dimensions.get("window").width * 0.9;
+  const width = Dimensions.get("window").width;
+  const scrollDuration = 500;
 
   const handleProgressChange = (_: any, absoluteProgress: number) => {
     const newIndex = Math.round(absoluteProgress);
@@ -26,14 +28,13 @@ const OnboardingCarousel: React.FC<OnboardingCarouselProps> = ({
   };
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <GestureHandlerRootView>
+    <GestureHandlerRootView className="flex-1 items-center justify-center">
+      <View className="h-[88%]">
         <Carousel
           loop={false}
           width={width}
-          height={700}
           data={items}
-          scrollAnimationDuration={1000}
+          scrollAnimationDuration={scrollDuration}
           onProgressChange={handleProgressChange}
           renderItem={({ item }: { item: CarouselItem }) => (
             <OnboardingCarouselItem
@@ -43,8 +44,13 @@ const OnboardingCarousel: React.FC<OnboardingCarouselProps> = ({
             />
           )}
         />
-      </GestureHandlerRootView>
-    </View>
+      </View>
+      <CarouselPagination
+        duration={scrollDuration}
+        itemsCount={items.length}
+        currentIndex={currentIndex}
+      />
+    </GestureHandlerRootView>
   );
 };
 

@@ -2,12 +2,12 @@
   "utils": {
     "enableNotifications": "Enable notifications"
   },
-  "actions" : {
+  "actions": {
     "cancel": "Cancel",
     "delete": "Delete",
     "invitePeers": "Invite peers",
     "openCircle": "Open circle",
-    "skip": "skip"
+    "skip": "Skip"
   },
   "onboarding": {
     "introduction": {
@@ -99,7 +99,6 @@
     "logout": {
       "title": "Log out",
       "areYouSure": "Are you sure you want to log out?"
-
     },
     "deletion": {
       "deleteAccount": "Delete my account",

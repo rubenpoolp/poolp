@@ -2,7 +2,6 @@ import assets from "@assets/index";
 import OnboardingCarousel from "@components/OnboardingCarousel";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React, { useState } from "react";
-import { View } from "react-native";
 
 export interface CarouselItem {
   title: string;
@@ -62,13 +61,12 @@ const Introduction = ({ navigation, route }: IntroductionProps) => {
       title="onboarding.introduction.title"
       disableNextButton={!isLastItem}
       onSkipPress={handleSkip}
+      padding={false}
     >
-      <View className="flex-1 justify-center items-center">
-        <OnboardingCarousel
-          items={OnboardingCarouselContent}
-          onIndexChange={handleIndexChange}
-        />
-      </View>
+      <OnboardingCarousel
+        items={OnboardingCarouselContent}
+        onIndexChange={handleIndexChange}
+      />
     </MyOnboardingLayout>
   );
 };
