@@ -18,8 +18,7 @@ const OnboardingCarouselItem = ({
 
   return (
     <View className="flex-1 items-center space-y-4">
-      {/* TODO: Change the size of the image */}
-      <MyImage img={picture} containerStyle="h-96 w-[150%]" />
+      <MyImage img={picture} containerStyle="h-[70%] w-full" />
 
       <View className="justify-center items-center space-y-2 w-3/4">
         <MyText className="text-2xl font-bold text-center">{t(title)}</MyText>

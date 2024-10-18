@@ -76,7 +76,7 @@ const Home = () => {
   };
 
   return (
-    <MyScreen edges={["top"]} padding className="space-y-4">
+    <MyScreen padding className="space-y-4">
       <LogoWithButtonHeader
         onPress={() => setState("newCircle")}
         txt={t("actions.invitePeers")}
