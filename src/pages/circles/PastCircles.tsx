@@ -15,9 +15,9 @@ export const circles = [
     name: "Past circle",
     date: new Date(2023, 8, 24),
     participants: [
-      { id: 0, avatar: assets.defaultProfilePicture },
-      { id: 1, avatar: assets.defaultProfilePicture },
-      { id: 2, avatar: assets.defaultProfilePicture },
+      { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
+      { id: 2, avatar: assets.defaultProfilePicture, name: "John Doe" },
     ],
   },
   {
@@ -25,10 +25,10 @@ export const circles = [
     name: "Past circle",
     date: new Date(2023, 8, 23),
     participants: [
-      { id: 0, avatar: assets.defaultProfilePicture },
-      { id: 1, avatar: assets.defaultProfilePicture },
-      { id: 2, avatar: assets.defaultProfilePicture },
-      { id: 3, avatar: assets.defaultProfilePicture },
+      { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
+      { id: 2, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 3, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
     ],
   },
   {
@@ -36,8 +36,8 @@ export const circles = [
     name: "Past circle",
     date: new Date(2023, 8, 22),
     participants: [
-      { id: 0, avatar: assets.defaultProfilePicture },
-      { id: 1, avatar: assets.defaultProfilePicture },
+      { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
     ],
   },
   {
@@ -45,8 +45,8 @@ export const circles = [
     name: "Past circle",
     date: new Date(2023, 8, 21),
     participants: [
-      { id: 0, avatar: assets.defaultProfilePicture },
-      { id: 1, avatar: assets.defaultProfilePicture },
+      { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
     ],
   },
 
@@ -55,14 +55,14 @@ export const circles = [
     name: "Past circle",
     date: new Date(2023, 8, 17),
     participants: [
-      { id: 0, avatar: assets.defaultProfilePicture },
-      { id: 1, avatar: assets.defaultProfilePicture },
-      { id: 2, avatar: assets.defaultProfilePicture },
+      { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
+      { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
+      { id: 2, avatar: assets.defaultProfilePicture, name: "John Doe" },
     ],
   },
 ];
 
-const Circles = () => {
+const PastCircles = () => {
   const { t } = useTranslation();
 
   return (
@@ -93,4 +93,4 @@ const Circles = () => {
   );
 };
 
-export default Circles;
+export default PastCircles;

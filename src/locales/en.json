@@ -7,7 +7,8 @@
     "delete": "Delete",
     "invitePeers": "Invite peers",
     "openCircle": "Open circle",
-    "skip": "Skip"
+    "skip": "Skip",
+    "details": "Details"
   },
   "inputs": {
     "search": "Search"
@@ -90,6 +91,9 @@
     "makeStory": "Make the 1st one sensational!",
     "makeStoryDescription": "Make your best joke, tell a fun fact...",
     "youreFree": "You're free!"
+  },
+  "pastCircle": {
+    "title": "Past circle"
   },
   "profile": {
     "name": "Name",
