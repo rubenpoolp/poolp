@@ -15,7 +15,7 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: colors.tabBar.background,
-          paddingHorizontal: 40,
+          paddingHorizontal: 24,
         },
         tabBarIcon: ({ focused }) => (
           <TabBarIcon focused={focused} route={route} />

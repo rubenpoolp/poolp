@@ -5,7 +5,6 @@ import CameraPage from "@pages/takePicture/Camera";
 import { Camera, CirclesFour, UserFocus } from "phosphor-react-native";
 
 export const TabBarPages = [
-  { name: "Circles", component: Circles, Icon: UserFocus },
   { name: "Home", component: Home, Icon: CirclesFour },
   { name: "Camera", component: CameraPage, Icon: Camera },
   { name: "Profile", component: Profile, Icon: null },
