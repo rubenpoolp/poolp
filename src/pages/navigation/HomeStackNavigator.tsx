@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Home from "@pages/home/Home";
-import Circles from "@pages/circles/Circles";
+import PastCircles from "@pages/circles/PastCircles";
+import PastCirclesDetails from "@pages/circles/PastCircleDetails";
 import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
 const HomeStack = createNativeStackNavigator();
 
@@ -13,7 +14,11 @@ const HomeStackNavigator = () => {
         component={BottomTabNavigator}
       />
       <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="PastCircles" component={Circles} />
+      <HomeStack.Screen name="PastCircles" component={PastCircles} />
+      <HomeStack.Screen
+        name="PastCircleDetails"
+        component={PastCirclesDetails}
+      />
     </HomeStack.Navigator>
   );
 };

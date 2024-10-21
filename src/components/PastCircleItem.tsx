@@ -1,8 +1,10 @@
 import Avatar from "@components/Avatar";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
-import { circles } from "@pages/circles/Circles";
+import { circles } from "@pages/circles/PastCircles";
+import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 interface PastCircleItemProps {
@@ -11,6 +13,13 @@ interface PastCircleItemProps {
 }
 
 const PastCircleItem = ({ item, index }: PastCircleItemProps) => {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate("PastCircleDetails", { circle: item });
+  };
+
   const getAvatarPosition = (index: number, total: number) => {
     switch (total) {
       case 1:
@@ -65,7 +74,11 @@ const PastCircleItem = ({ item, index }: PastCircleItemProps) => {
           <MyText className="text-light">{item.name}</MyText>
 
           <View className="w-1/2">
-            <MyButton txt={"Details"} size="small" disabled />
+            <MyButton
+              txt={t("actions.details")}
+              size="small"
+              onPress={onPress}
+            />
           </View>
         </View>
 

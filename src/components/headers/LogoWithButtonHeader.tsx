@@ -8,6 +8,7 @@ import colors from "@config/colors";
 import MyPressable from "@components/natives/MyPressable";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "@components/buttons/BackButton";
+import { ca } from "date-fns/locale";
 
 interface LogoWithButtonHeaderProps {
   onPress: () => void;
