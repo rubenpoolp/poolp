@@ -80,6 +80,7 @@ const Home = () => {
       <LogoWithButtonHeader
         onPress={() => setState("newCircle")}
         txt={t("actions.invitePeers")}
+        pastCircleButton
       />
 
       {state === "openCircle" && <TodayCircle />}

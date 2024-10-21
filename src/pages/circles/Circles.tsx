@@ -67,7 +67,11 @@ const Circles = () => {
 
   return (
     <MyScreen edges={["top"]} padding className="space-y-2">
-      <LogoWithButtonHeader onPress={() => {}} txt={t("actions.invitePeers")} />
+      <LogoWithButtonHeader
+        onPress={() => {}}
+        txt={t("actions.invitePeers")}
+        canGoBack
+      />
       <View className="flex-row justify-between items-end w-full">
         <MyText className="text-xs font-bold text-white">LAST CIRCLES</MyText>
         <StreakButton onPress={() => {}} disabled />

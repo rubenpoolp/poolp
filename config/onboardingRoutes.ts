@@ -27,5 +27,5 @@ export const onboardingRoutes: {
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
   { name: "Share", component: Share },
   { name: "WaitingRoom", component: WaitingRoom },
-  { name: "HomeStack", component: BottomTabNavigator },
+  { name: "HomeStack", component: HomeStackNavigator },
 ];
