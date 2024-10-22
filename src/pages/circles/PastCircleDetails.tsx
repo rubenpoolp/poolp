@@ -32,7 +32,7 @@ const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
           <MyText className="text-3xl font-semibold">
             {t("pastCircle.title")}
           </MyText>
-          <MyText className="text-3xl text-pink-100">
+          <MyText className="text-3xl text-pink-200 font-semibold">
             {format(circle.date, "d MMMM yyyy", { locale: dateFnsLocale })}
           </MyText>
         </View>

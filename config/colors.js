@@ -23,6 +23,7 @@ module.exports = {
 
   pink: {
     100: "#ECDEF6",
+    200: "#CBAAFF"
   },
 
   red: "#FF5A5A",
