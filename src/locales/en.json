@@ -9,6 +9,9 @@
     "openCircle": "Open circle",
     "skip": "Skip"
   },
+  "inputs": {
+    "search": "Search"
+  },  
   "onboarding": {
     "introduction": {
       "title": "What's Poolp?",

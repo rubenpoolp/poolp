@@ -1,11 +1,11 @@
-import { getFlagEmoji } from "@utils/i18n";
-// import { normalizeAccents } from "@/utils/string";
-// import { black } from "@constants/colors";
-import MyTextInput from "@components/inputs/MyTextInput";
+import CloseModalButton from "@components/buttons/CloseModalButton";
+import MySearchInput from "@components/inputs/MySearchInput";
+import MyModal from "@components/modals/MyModal";
 import MyScreen from "@components/MyScreen";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { background } from "@config/colors";
+import { getFlagEmoji } from "@utils/i18n";
 import { t } from "i18next";
 import {
   CountryCode,
@@ -13,87 +13,114 @@ import {
   getCountryCallingCode,
 } from "libphonenumber-js";
 import { Check } from "phosphor-react-native";
-import { useState } from "react";
-import { FlatList } from "react-native";
-import MyModal from "./MyModal";
+import React, { useMemo, useState } from "react";
+import { FlatList, Platform, View } from "react-native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 interface CountryCodeModalProps {
   isVisible: boolean;
+  onClose: () => void;
+
   countryCode: CountryCode;
   setCountryCode: (countryCode: CountryCode) => void;
   resetValue: () => void;
-  onClose: () => void;
 }
 
 const CountryCodeModal = ({
   isVisible,
+  onClose,
   countryCode,
   setCountryCode,
   resetValue,
-  onClose,
 }: CountryCodeModalProps) => {
-  const countryCodes = getCountries();
-  const [search, setSearch] = useState("");
+  const insets = useSafeAreaInsets();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const countries = countryCodes.map((code) => {
-    return {
+  const countryCodes = getCountries();
+
+  const countries = useMemo(() => {
+    return countryCodes.map((code) => ({
       code,
       prefix: `+${getCountryCallingCode(code)}`,
       name: t(`countries:${code}` as any),
       flag: getFlagEmoji(code),
-    };
-  });
+    }));
+  }, []);
 
-  const sortedCountries = countries.sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
-
-  const filterCountries = sortedCountries.filter(
-    (country) =>
-      // normalizeAccents(country.name).includes(normalizeAccents(search)),
-      country,
-  );
+  const filteredCountries = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+    return countries.filter(
+      (country) =>
+        country.name.toLowerCase().includes(query) ||
+        country.prefix.includes(query),
+    );
+  }, [countries, searchQuery]);
 
   const onSelectCountryCode = (newCode: CountryCode) => {
     if (newCode !== countryCode) resetValue();
     setCountryCode(newCode);
+    resetValue();
+    setSearchQuery("");
     onClose();
   };
 
   return (
     <MyModal
-      animationIn={"slideInUp"}
-      animationOut={"slideOutDown"}
       isVisible={isVisible}
+      className="flex-1"
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
     >
-      <MyScreen>
-        <MyTextInput
-          className="w-full text-3xl mb-4"
-          placeholder={t("inputs.search")}
-          autoCapitalize="sentences"
-          value={search}
-          onChangeText={setSearch}
-          autoFocus
-        />
-        <FlatList
-          className="flex-1 w-full"
-          data={filterCountries}
-          keyboardShouldPersistTaps="always"
-          renderItem={({ item }) => (
-            <MyPressable
-              className="py-1 flex-row items-center justify-between w-full"
-              onPress={() => onSelectCountryCode(item.code)}
-            >
-              <MyText
-                className={`${countryCode === item.code && "font-semibold"}`}
-              >
-                {`${item.flag} ${item.name} `}
-                <MyText className="text-gray-300">{item.prefix}</MyText>
-              </MyText>
-              {countryCode === item.code && <Check color={background.light} />}
-            </MyPressable>
-          )}
-        />
+      <MyScreen padding>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            paddingTop: Platform.OS === "ios" ? insets.top : 0,
+          }}
+        >
+          <View className="flex-1">
+            <View className="flex-row justify-between w-full mb-2">
+              <View className="w-14">
+                <CloseModalButton onPress={onClose} />
+              </View>
+
+              <View className="w-14" />
+            </View>
+
+            <View className="flex-1 space-y-4">
+              <MySearchInput
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholder={t("inputs.search")}
+                autoFocus
+              />
+              <FlatList
+                data={filteredCountries}
+                renderItem={({ item }) => (
+                  <MyPressable
+                    onPress={() => onSelectCountryCode(item.code)}
+                    className={`${countryCode === item.code && "bg-gray-400"} py-1 rounded px-2 flex-row justify-between items-center w-full`}
+                  >
+                    <MyText
+                      className={`${countryCode === item.code && "font-semibold"}`}
+                    >
+                      {`${item.flag} ${item.name} `}
+                      <MyText className="text-gray-300">{item.prefix}</MyText>
+                    </MyText>
+
+                    {countryCode === item.code && (
+                      <Check color={background.light} size={18} weight="bold" />
+                    )}
+                  </MyPressable>
+                )}
+                keyExtractor={(item) => item.code}
+              />
+            </View>
+          </View>
+        </SafeAreaView>
       </MyScreen>
     </MyModal>
   );
