@@ -23,7 +23,7 @@ const Avatar = ({
     sizeClass = "w-6 h-6";
     textSizeClass = "text-base";
   } else if (size === "lg") {
-    sizeClass = "w-24 h-24";
+    sizeClass = "w-28 h-28";
     textSizeClass = "text-5xl";
   } else {
     sizeClass = "w-8 h-8";

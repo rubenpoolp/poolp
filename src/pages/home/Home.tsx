@@ -47,7 +47,6 @@ const Home = () => {
                 txt={t("home.makeStory")}
                 txtClassName="font-bold text-lg"
                 onPress={() => setState("openCircle")}
-                size="large"
               />
             </CornerSparkles>
 

@@ -3,11 +3,11 @@ import shadow from "@config/shadow";
 import React, { ComponentProps } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { SvgProps } from "react-native-svg";
-import MyGradient from "../MyGradient";
-import MyPressable from "./MyPressable";
+import MyGradient from "@components/MyGradient";
+import MyPressable from "@components/natives/MyPressable";
 
 interface MyButtonProps extends ComponentProps<typeof Pressable> {
-  variant?: "gradient" | "pink";
+  variant?: "gradient" | "pink" | "gold";
   size?: "small" | "medium" | "large";
   txtClassName?: string;
   LeftComponent?: (props: SvgProps) => JSX.Element;
@@ -21,12 +21,13 @@ interface MyButtonProps extends ComponentProps<typeof Pressable> {
 const variantStyle = {
   gradient: { container: "", text: "text-white" },
   pink: { container: "bg-pink-100", text: "text-[#391952]" },
+  gold: { container: "bg-gray-400", text: "text-gold-100" },
 };
 
 const sizeStyle = {
   small: { container: "py-1.5 px-4", text: "text-sm" },
-  medium: { container: "py-3 px-10", text: "text-lg" },
-  large: { container: "py-3 px-4", text: "text-xl" },
+  medium: { container: "py-2 px-6", text: "text-lg" },
+  large: { container: "py-3 px-10", text: "text-lg" },
 };
 
 const MyButton = ({
@@ -52,6 +53,7 @@ const MyButton = ({
         props.style,
         { elevation: 10 },
         variant === "gradient" && shadow.purple,
+        variant === "gold" && shadow.gold,
       ]}
     >
       {badge && (

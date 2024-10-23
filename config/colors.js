@@ -21,6 +21,11 @@ module.exports = {
     100: "#8A2CFE",
   },
 
+  gold: {
+    100: "#FDECAB",
+    200: "#D79639",
+  },
+
   pink: {
     100: "#ECDEF6",
     200: "#CBAAFF"

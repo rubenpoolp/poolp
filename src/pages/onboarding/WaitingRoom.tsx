@@ -45,11 +45,13 @@ const WaitingRoom = ({
           className="mb-20 w-4/5"
           txt={t("utils.enableNotifications")}
           onPress={handleEnableNotifications}
+          size="large"
         />
       )}
       <MyButton
         txt={t("waitingRoom.inviteYourSchoolPeers")}
         onPress={handleInvite}
+        size="large"
       />
       {__DEV__ && (
         <MyPressable className="absolute top-20 right-4" onPress={handleNext}>

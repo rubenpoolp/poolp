@@ -5,6 +5,7 @@ import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import colors from "@config/colors";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
@@ -26,7 +27,7 @@ const DisplayInfo = ({
 
   return (
     <MyPressable
-      className="w-full flex-row justify-between items-center mb-6"
+      className="w-full flex-row justify-between items-center mb-7"
       onPress={onPress}
     >
       <MyText className={`text-lg font-semibold ${txtClassName}`}>
@@ -44,35 +45,36 @@ const Profile = () => {
   const navigation = useNavigation();
 
   return (
-    <MyScreen edges={["top"]}>
-      <View className="px-4">
+    <MyScreen edges={["top"]} padding>
+      <View>
         <MyHeader />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 0,
-          paddingHorizontal: 32,
-          paddingBottom: 30,
+          paddingHorizontal: 16,
+          paddingBottom: 32,
         }}
       >
-        <View className="flex space-y-4">
-          <View className="relative flex items-center justify-center">
-            <Avatar disabled size="lg" />
+        <View className="flex space-y-16">
+          <View className="relative flex items-center justify-center space-y-16">
+            <View className="relative w-full items-center">
+              <Avatar disabled size="lg" />
 
-            <View className="relative -translate-y-4">
-              <Bump scaleValue={0.95}>
-                <MyButton
-                  onPress={() => {
-                    navigation.navigate("ProfilePicture");
-                  }}
-                  txt="Add pictures"
-                  size="small"
-                  txtClassName="font-semibold"
-                  className="px-6"
-                  badge
-                />
-              </Bump>
+              <View className="absolute -bottom-5">
+                <Bump scaleValue={0.95}>
+                  <MyButton
+                    onPress={() => {
+                      navigation.navigate("ProfilePicture");
+                    }}
+                    txt="Add pictures"
+                    txtClassName="font-semibold text-base"
+                    className="px-6"
+                    badge
+                  />
+                </Bump>
+              </View>
             </View>
 
             <View className="flex items-center justify-center">
@@ -80,13 +82,13 @@ const Profile = () => {
                 <MyButton
                   onPress={() => {}}
                   txt={t("profile.seeWhoLikedYou")}
-                  size="small"
-                  txtClassName="font-semibold text-gray-500"
-                  variant="pink"
+                  size="medium"
+                  txtClassName="font-lg text-gold-100"
+                  variant="gold"
                   className="mb-2"
                 />
               </Bump>
-              <MyText className="text-gray-400 font-thin">
+              <MyText className="text-gold-100 font-light">
                 Available in 7 circles
               </MyText>
             </View>
