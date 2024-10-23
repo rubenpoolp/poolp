@@ -21,7 +21,7 @@ const CornerSparkles: React.FC<CornerSparklesProps> = ({
         case "topLeft":
           return "rotate-0";
         case "topRight":
-          return "rotate-90";
+          return "rotate-[110deg]";
         case "bottomRight":
           return "rotate-180";
         case "bottomLeft":
