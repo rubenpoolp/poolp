@@ -1,10 +1,6 @@
 import { Bump } from "@components/animations/Bump";
-import MyGradient from "@components/MyGradient";
-import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
-import shadow from "@config/shadow";
-import { ArrowRight } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 

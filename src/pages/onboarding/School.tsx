@@ -1,7 +1,5 @@
 import { Bump } from "@components/animations/Bump";
-import MyModal from "@components/modals/MyModal";
 import SchoolListModal from "@components/modals/SchoolListModal";
-import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
