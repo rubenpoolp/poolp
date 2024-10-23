@@ -32,7 +32,7 @@ const LogoWithButtonHeader = ({
   return (
     <MyHeader
       titleComponent={
-        <View className="flex-row justify-between items-center">
+        <View className="flex-row justify-between items-start">
           {pastCircleButton && (
             <MyPressable
               onPress={handlePastCirclePress}
