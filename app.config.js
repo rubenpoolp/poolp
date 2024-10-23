@@ -41,12 +41,10 @@ export default {
         },
       ],
       [
-        "expo-media-library",
+        "expo-image-picker",
         {
-          photosPermission: "Allow poolp to access your photos.",
-          savePhotosPermission: "Allow poolp to save photos.",
-          isAccessMediaLocationEnabled: true,
-        },
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
       ],
       [
         "@sentry/react-native/expo",
