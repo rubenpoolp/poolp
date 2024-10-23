@@ -4,6 +4,7 @@ import Home from "@pages/home/Home";
 import PastCircles from "@pages/circles/PastCircles";
 import PastCirclesDetails from "@pages/circles/PastCircleDetails";
 import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
+import ProfilePicture from "@pages/profile/ProfilePicture";
 const HomeStack = createNativeStackNavigator();
 
 const HomeStackNavigator = () => {
@@ -19,6 +20,7 @@ const HomeStackNavigator = () => {
         name="PastCircleDetails"
         component={PastCirclesDetails}
       />
+      <HomeStack.Screen name="ProfilePicture" component={ProfilePicture} />
     </HomeStack.Navigator>
   );
 };

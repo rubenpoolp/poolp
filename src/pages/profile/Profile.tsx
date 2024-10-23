@@ -6,6 +6,7 @@ import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import useProfile from "@hooks/useProfile";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
@@ -40,6 +41,8 @@ const Profile = () => {
   const { t } = useTranslation();
   const list = useProfile();
 
+  const navigation = useNavigation();
+
   return (
     <MyScreen edges={["top"]}>
       <View className="px-4">
@@ -60,7 +63,9 @@ const Profile = () => {
             <View className="relative -translate-y-4">
               <Bump scaleValue={0.95}>
                 <MyButton
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigation.navigate("ProfilePicture");
+                  }}
                   txt="Add pictures"
                   size="small"
                   txtClassName="font-semibold"
