@@ -60,6 +60,7 @@ const Introduction = ({ navigation, route }: IntroductionProps) => {
       canGoBack={false}
       title="onboarding.introduction.title"
       disableNextButton={!isLastItem}
+      skipButton={true}
       onSkipPress={handleSkip}
       padding={false}
     >

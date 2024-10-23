@@ -21,6 +21,7 @@ interface LayoutProps {
   disableNextButton?: boolean;
   onSkipPress?: () => void;
   padding?: boolean;
+  skipButton?: boolean;
 }
 
 const MyOnboardingLayout = ({
@@ -32,6 +33,7 @@ const MyOnboardingLayout = ({
   contentContainerStyle,
   title,
   disableNextButton = false,
+  skipButton = false,
   onSkipPress = () => {},
   padding = true,
 }: LayoutProps) => {
@@ -72,8 +74,9 @@ const MyOnboardingLayout = ({
             <View className="flex-1 items-center">
               <NextButton onPress={onNextPress} disabled={disableNextButton} />
             </View>
+
             <View className="flex-1">
-              <SkipButton onPress={onSkipPress} />
+              {skipButton && <SkipButton onPress={onSkipPress} />}
             </View>
           </View>
         </View>
