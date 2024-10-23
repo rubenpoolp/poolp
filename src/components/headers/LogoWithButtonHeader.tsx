@@ -37,8 +37,9 @@ const LogoWithButtonHeader = ({
             <MyPressable
               onPress={handlePastCirclePress}
               hapticImpactStyle="medium"
+              className="bg-gray-100 rounded-full p-1.5"
             >
-              <UserFocus size={32} />
+              <UserFocus size={24} color={colors.background.dark} />
             </MyPressable>
           )}
 
@@ -56,7 +57,7 @@ const LogoWithButtonHeader = ({
             </View>
           </View>
 
-          {pastCircleButton && <View className="w-8" />}
+          {pastCircleButton && <View className="w-7" />}
           {canGoBack && <View className="w-7" />}
         </View>
       }

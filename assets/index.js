@@ -27,6 +27,9 @@ const assets = {
   // profilePictures
   "defaultProfilePicture": require("./profilePictures/defaultProfilePicture.png"),
 
+  // cornerLines
+  "sparkles": require("././sparkles.png"),
+
   // onboarding
   "onboarding1": require("./onboarding/1.png"),
   "onboarding2": require("./onboarding/2.png"),
