@@ -48,7 +48,7 @@ const MyOnboardingLayout = ({
               title ? "mb-4" : "mb-8"
             }`}
           >
-            <View className="flex-row justify-between items-center w-full">
+            <View className="flex-row justify-between items-center w-full px-2">
               <View className="w-14">{canGoBack && <BackButton />}</View>
               {logo && (
                 <MyImage
@@ -58,7 +58,9 @@ const MyOnboardingLayout = ({
                   }
                 />
               )}
-              <View className="w-14" />
+              <View className="w-14">
+                {skipButton && <SkipButton onPress={onSkipPress} />}
+              </View>
             </View>
             {title && (
               <MyText className="text-2xl font-bold">{t(title)}</MyText>
@@ -69,15 +71,8 @@ const MyOnboardingLayout = ({
             {children}
           </View>
 
-          <View className="flex-row justify-between items-center w-full">
-            <View className="flex-1" />
-            <View className="flex-1 items-center">
-              <NextButton onPress={onNextPress} disabled={disableNextButton} />
-            </View>
-
-            <View className="flex-1">
-              {skipButton && <SkipButton onPress={onSkipPress} />}
-            </View>
+          <View className="w-full items-center">
+            <NextButton onPress={onNextPress} disabled={disableNextButton} />
           </View>
         </View>
       </MyKeyboardAvoidingView>

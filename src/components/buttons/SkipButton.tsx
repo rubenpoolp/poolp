@@ -19,9 +19,7 @@ const SkipButton = ({ onPress }: SkipButtonProps) => {
           onPress={onPress}
           className="items-center justify-center bg-transparent"
         >
-          <MyText className="text-gray-500 font-semibold text-xl">
-            {t("actions.skip")}
-          </MyText>
+          <MyText className="text-gray-500">{t("actions.skip")}</MyText>
         </MyPressable>
       </Bump>
     </View>
