@@ -50,8 +50,8 @@ export default {
         "@sentry/react-native/expo",
         {
           url: "https://sentry.io/",
-          project: "poolp",
-          organization: "poolp",
+          project: "react-native",
+          organization: "poolp-rp",
         },
       ],
       [

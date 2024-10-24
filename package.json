@@ -17,11 +17,11 @@
     "@sentry/react-native": "~5.24.3",
     "@supabase/supabase-js": "^2.44.2",
     "date-fns": "^3.3.1",
-    "expo": "~51.0.36",
+    "expo": "~51.0.38",
     "expo-application": "~5.9.1",
     "expo-av": "~14.0.7",
     "expo-constants": "~16.0.2",
-    "expo-dev-client": "~4.0.27",
+    "expo-dev-client": "~4.0.28",
     "expo-device": "~6.0.2",
     "expo-file-system": "~17.0.1",
     "expo-font": "~12.0.9",
@@ -35,7 +35,7 @@
     "expo-splash-screen": "~0.27.6",
     "expo-status-bar": "~1.12.1",
     "expo-tracking-transparency": "~4.0.2",
-    "expo-updates": "~0.25.26",
+    "expo-updates": "~0.25.27",
     "i18next": "^23.12.2",
     "libphonenumber-js": "^1.11.11",
     "nativewind": "^2.0.11",
@@ -54,8 +54,8 @@
     "react-native-screens": "3.31.1",
     "react-native-svg": "15.2.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-vision-camera": "^4.5.3",
-    "expo-media-library": "~16.0.5"
+    "expo-media-library": "~16.0.5",
+    "react-native-vision-camera": "^4.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
