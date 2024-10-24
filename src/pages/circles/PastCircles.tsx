@@ -82,7 +82,11 @@ const PastCircles = () => {
         showsVerticalScrollIndicator={false}
         data={circles}
         renderItem={({ item, index }) => (
-          <PastCircleItem item={item} index={index} />
+          <PastCircleItem
+            item={item}
+            listLength={circles.length}
+            index={index}
+          />
         )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{

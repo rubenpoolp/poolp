@@ -1,18 +1,18 @@
 import Avatar from "@components/Avatar";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
-import { circles } from "@pages/circles/PastCircles";
 import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 interface PastCircleItemProps {
-  item: (typeof circles)[0];
+  item: any;
+  listLength: number;
   index: number;
 }
 
-const PastCircleItem = ({ item, index }: PastCircleItemProps) => {
+const PastCircleItem = ({ item, listLength, index }: PastCircleItemProps) => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -49,11 +49,11 @@ const PastCircleItem = ({ item, index }: PastCircleItemProps) => {
     <View
       className={`w-full flex-row items-center justify-between bg-gray-600 p-4 
           ${index === 0 ? "rounded-t-lg" : ""} 
-          ${index === circles.length - 1 ? "rounded-b-lg" : "border-b border-gray-500"}`}
+          ${index === listLength - 1 ? "rounded-b-lg" : "border-b border-gray-500"}`}
     >
       <View className="flex-row">
         <View className="mr-3 w-16 h-16 relative">
-          {item.participants.map((participant, index) => {
+          {item.participants.map((participant: any, index: number) => {
             const position = getAvatarPosition(index, item.participants.length);
             return (
               <View
