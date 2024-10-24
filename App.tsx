@@ -8,8 +8,11 @@ import useNotifications from "@hooks/useNotifications";
 import OnboardingNavigator from "@pages/navigation/OnboardingNavigator";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import i18n from "@utils/i18n";
 import "@utils/sentry";
+import { supabase } from "@utils/supabase";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -29,6 +32,8 @@ const myTheme = {
     background: background.dark,
   },
 };
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const [fontLoaded] = useFonts(fonts);
@@ -60,30 +65,34 @@ const App = () => {
 
   return (
     <View className="flex-1" onLayout={onLayoutRootView}>
-      <I18nextProvider i18n={i18n}>
-        <StatusBar style="light" />
-        <SafeAreaProvider>
-          <IsLoadingProvider>
-            <IconContext.Provider
-              value={{
-                color: light,
-                size: 24,
-                weight: "regular",
-              }}
-            >
-              <AuthProvider>
-                <NavigationContainer theme={myTheme}>
-                  {/* <MyPostHogProvider> */}
-                  <OnboardingNavigator />
-                  <UpdateModal />
-                  {/* </MyPostHogProvider> */}
-                </NavigationContainer>
-              </AuthProvider>
-              <LoaderModal />
-            </IconContext.Provider>
-          </IsLoadingProvider>
-        </SafeAreaProvider>
-      </I18nextProvider>
+      <SessionContextProvider supabaseClient={supabase}>
+        <QueryClientProvider client={queryClient}>
+          <I18nextProvider i18n={i18n}>
+            <StatusBar style="light" />
+            <SafeAreaProvider>
+              <IsLoadingProvider>
+                <IconContext.Provider
+                  value={{
+                    color: light,
+                    size: 24,
+                    weight: "regular",
+                  }}
+                >
+                  <AuthProvider>
+                    <NavigationContainer theme={myTheme}>
+                      {/* <MyPostHogProvider> */}
+                      <OnboardingNavigator />
+                      <UpdateModal />
+                      {/* </MyPostHogProvider> */}
+                    </NavigationContainer>
+                  </AuthProvider>
+                  <LoaderModal />
+                </IconContext.Provider>
+              </IsLoadingProvider>
+            </SafeAreaProvider>
+          </I18nextProvider>
+        </QueryClientProvider>
+      </SessionContextProvider>
     </View>
   );
 };

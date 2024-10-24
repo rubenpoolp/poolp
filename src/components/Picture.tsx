@@ -39,7 +39,6 @@ const Picture = () => {
   const takePhoto = async () => {
     if (!camera.current) return;
     const photo = await camera.current.takePhoto();
-    console.log(photo);
   };
 
   if (!__DEV__) return null;

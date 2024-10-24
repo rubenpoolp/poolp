@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/react-native";
+import { PostgrestError } from "@supabase/supabase-js";
 import * as Application from "expo-application";
 import * as Updates from "expo-updates";
 
@@ -13,6 +14,6 @@ Sentry.init({
   enabled: true,
 });
 
-export const myCaptureException = (error: Error) => {
+export const myCaptureException = (error: Error | PostgrestError) => {
   Sentry.captureException(error);
 };

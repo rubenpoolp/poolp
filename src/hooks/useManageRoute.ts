@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 const useManageRoute = () => {
   const navigation = useNavigation();
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
     const manageRoute = async () => {
-      if (loading) return;
+      if (isLoading) return;
 
       if (!user) {
         resetTo(navigation, "Introduction");
@@ -20,7 +20,7 @@ const useManageRoute = () => {
     };
 
     manageRoute();
-  }, [navigation, user, loading]);
+  }, [navigation, user, isLoading]);
 };
 
 export default useManageRoute;

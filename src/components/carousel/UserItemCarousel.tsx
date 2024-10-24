@@ -3,7 +3,7 @@ import RingButton from "@components/buttons/BellButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
 import React, { useState } from "react";
-import { View, Pressable, Image, ImageProps } from "react-native";
+import { Image, ImageProps, Pressable, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 // Définition de l'interface pour l'objet utilisateur
@@ -33,13 +33,11 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   const onLeft = () => {
     if (actualIndex <= 0) return;
     setActualIndex(actualIndex - 1);
-    console.log("onLeft", actualIndex);
   };
 
   const onRight = () => {
     if (actualIndex >= user.pictures.length - 1) return;
     setActualIndex(actualIndex + 1);
-    console.log("onRight", actualIndex);
   };
 
   return (
@@ -87,12 +85,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
             <View className="flex-row items-center justify-between">
               <MyText className="text-xl font-semibold">{user.name}</MyText>
 
-              <RingButton
-                onPress={() => {
-                  console.log("wizz user");
-                }}
-                containerStyle=""
-              />
+              <RingButton onPress={() => {}} containerStyle="" />
             </View>
           </View>
         </View>

@@ -49,7 +49,6 @@ const Gender = ({ navigation, route }: { navigation: any; route: any }) => {
       return;
     }
     const userWithGender = { ...user, gender: selectedGender };
-    console.log(userWithGender);
     signUp(userWithGender);
     navigation.navigate(nextScreen, {
       user,

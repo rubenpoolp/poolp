@@ -22,9 +22,9 @@ const useInitialization = () => {
 const LoaderScreen = () => {
   useInitialization();
   useManageRoute();
-  const { loading } = useAuth();
+  const { isLoading } = useAuth();
 
-  if (loading) {
+  if (isLoading) {
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" color={red} />

@@ -44,9 +44,8 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
           .then(() => {
             goNext(formattedPhoneNumber);
           })
-          .catch((error) => {
+          .catch(() => {
             // TODO: handle error
-            console.log("error", error);
           })
           .finally(() => {
             setIsLoading(false);

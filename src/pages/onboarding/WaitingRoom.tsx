@@ -22,9 +22,7 @@ const WaitingRoom = ({
     navigation.navigate(nextScreen, { user });
   };
 
-  const handleInvite = () => {
-    console.log("Invite");
-  };
+  const handleInvite = () => {};
 
   const handleEnableNotifications = () => {
     setNotificationEnabled(true);

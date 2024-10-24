@@ -1,19 +1,15 @@
+import useGetMyAccount from "@api/auth/getMyAccount.hook";
 import { createAccount, getAccountById } from "@queries/account.query";
+import { useSession } from "@supabase/auth-helpers-react";
 import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@utils/supabase";
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext } from "react";
 
 type AuthContextType = {
   user: User | null;
   isAdmin: boolean;
   session: Session | null;
-  loading: boolean;
+  isLoading: boolean;
   sendSMS: (phone: string) => Promise<{ data: any; error: any }>;
   checkCode: (
     phone: string,
@@ -30,60 +26,9 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const session = useSession();
 
-  useEffect(() => {
-    let mounted = true;
-
-    async function getInitialSession() {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-
-      if (!mounted) return;
-      if (error)
-        console.error("Error fetching initial session:", error.message);
-      if (session) {
-        setSession(session);
-        await getAccountById(session.user.id)
-          .then(({ account }) => {
-            setUser(account);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
-    }
-
-    getInitialSession();
-
-    const { data } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        if (mounted) {
-          setSession(session);
-          if (session)
-            getAccountById(session.user.id)
-              .then(({ account }) => {
-                setUser(account);
-              })
-              .finally(() => {
-                setLoading(false);
-              });
-          else setLoading(false);
-        }
-      },
-    );
-
-    return () => {
-      mounted = false;
-      data?.subscription.unsubscribe();
-    };
-  }, []);
+  const getMyAccount = useGetMyAccount(session?.user?.id);
 
   const sendSMS = async (phone: string) => {
     const { data, error } = await supabase.auth.signInWithOtp({
@@ -105,7 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (error) throw error;
 
     const userId = data?.session?.user?.id;
-    setSession(data?.session);
+    // setSession(data?.session);
     if (!userId) throw new Error("No user id");
 
     const { account: accountResult } = await getAccountById(userId);
@@ -120,7 +65,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       school_id: "94638a44-0395-4ce5-95a0-a74a58dac0d5",
     })
       .then((result) => {
-        setUser(result.account);
+        // setSession(session);
+        // setUser(result.account);
       })
       .catch((error) => {
         console.warn("Error creating account:", error);
@@ -130,15 +76,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
-    setUser(null);
-    setSession(null);
+    getMyAccount.refetch();
   };
 
   const value: AuthContextType = {
-    user,
-    isAdmin: user?.role === "admin",
+    user: getMyAccount.data,
+    isAdmin: getMyAccount.data?.role === "admin",
     session,
-    loading,
+    isLoading: getMyAccount.isFetching,
     sendSMS,
     checkCode,
     signUp,
@@ -150,8 +95,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+
+  if (context === undefined)
     throw new Error("useAuth must be used within an AuthProvider");
-  }
   return context;
 };

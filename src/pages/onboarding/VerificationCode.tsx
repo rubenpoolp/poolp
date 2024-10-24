@@ -24,8 +24,7 @@ const VerificationCode = ({
   const { user, nextScreen } = route.params;
   const { setIsLoading } = useIsLoading();
 
-  const goNext = (codeFromInput: string) => {
-    console.log("user", user);
+  const goNext = () => {
     navigation.navigate(nextScreen, { user }); // We do not need the confirmation code
   };
 
@@ -42,7 +41,6 @@ const VerificationCode = ({
     checkCode(user.phone, codeFromInput)
       .then((data) => {
         if (data.error) {
-          console.log("error in check code", data.error);
           throw data.error;
         }
         if (data.hasAccount) navigation.navigate("Loader");

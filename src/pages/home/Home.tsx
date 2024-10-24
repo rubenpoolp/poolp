@@ -1,19 +1,19 @@
 import assets from "@assets/index";
+import CornerSparkles from "@components/CornerSparkles";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
 import MyText from "@components/natives/MyText";
 import TodayCircle from "@components/TodayCircle";
-import { useAuth } from "@context/Auth";
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-import CornerSparkles from "@components/CornerSparkles";
 
 const Home = () => {
   const { t } = useTranslation();
+  // const { user } = useAuth();
+  // const { data } = useGetMyDailyCircle(user?.id);
 
   const [state, setState] = useState<"newCircle" | "openCircle">("newCircle");
 

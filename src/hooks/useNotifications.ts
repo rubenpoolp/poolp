@@ -98,8 +98,7 @@ const useNotifications = () => {
         });
 
       responseListener.current = Notifications
-        .addNotificationResponseReceivedListener((response) => {
-          // console.log(response);
+        .addNotificationResponseReceivedListener(() => {
         });
 
       return () => {
