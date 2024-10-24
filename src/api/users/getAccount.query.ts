@@ -2,12 +2,11 @@ import i18n from "@/utils/i18n";
 import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
-async function getMyDailyCircleQuery(user_id: string) {
-  // user_ids is a column of the circles table that contains the user_ids of the users in the circle
+async function getAccount(user_id: string | undefined) {
   const { data, error } = await supabase
-    .from("circles")
+    .from("account")
     .select("*")
-    .contains("user_ids", [user_id])
+    .eq("id", user_id)
     .single();
 
   if (error) {
@@ -18,4 +17,4 @@ async function getMyDailyCircleQuery(user_id: string) {
   return data;
 }
 
-export default getMyDailyCircleQuery;
+export default getAccount;

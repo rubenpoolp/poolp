@@ -12,9 +12,6 @@ import { View } from "react-native";
 
 const Home = () => {
   const { t } = useTranslation();
-  // const { user } = useAuth();
-  // const { data } = useGetMyDailyCircle(user?.id);
-
   const [state, setState] = useState<"newCircle" | "openCircle">("newCircle");
 
   return (

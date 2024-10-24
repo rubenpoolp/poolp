@@ -2,12 +2,11 @@ import i18n from "@/utils/i18n";
 import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
-async function getMyAccount(user_id: string) {
+async function getAccounts(user_ids: string[]) {
   const { data, error } = await supabase
     .from("account")
     .select("*")
-    .eq("id", user_id)
-    .single();
+    .in("id", user_ids);
 
   if (error) {
     myCaptureException(error);
@@ -17,4 +16,4 @@ async function getMyAccount(user_id: string) {
   return data;
 }
 
-export default getMyAccount;
+export default getAccounts;

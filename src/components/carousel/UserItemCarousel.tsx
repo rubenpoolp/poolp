@@ -77,7 +77,6 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
           <View className="flex-1 p-5 justify-between">
             <StoryBarLoader
               index={actualIndex}
-              isStatic={true}
               duration={10000}
               total={user.pictures.length}
             />

@@ -1,4 +1,4 @@
-import useGetMyAccount from "@api/auth/getMyAccount.hook";
+import useGetAccount from "@api/users/getAccount.hook";
 import { createAccount, getAccountById } from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
 import { Session, User } from "@supabase/supabase-js";
@@ -28,7 +28,7 @@ type AuthProviderProps = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const session = useSession();
 
-  const getMyAccount = useGetMyAccount(session?.user?.id);
+  const getAccount = useGetAccount(session?.user?.id);
 
   const sendSMS = async (phone: string) => {
     const { data, error } = await supabase.auth.signInWithOtp({
@@ -76,14 +76,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
-    getMyAccount.refetch();
+    getAccount.refetch();
   };
 
   const value: AuthContextType = {
-    user: getMyAccount.data,
-    isAdmin: getMyAccount.data?.role === "admin",
+    user: getAccount.data,
+    isAdmin: getAccount.data?.role === "admin",
     session,
-    isLoading: getMyAccount.isFetching,
+    isLoading: getAccount.isFetching,
     sendSMS,
     checkCode,
     signUp,
