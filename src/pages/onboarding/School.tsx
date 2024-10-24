@@ -7,6 +7,7 @@ import { GraduationCap, Plus } from "phosphor-react-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
+import { School as SchoolType } from "@supabase_types";
 
 const School = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
       <SchoolListModal
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
-        onSelect={(_school: any) => {
+        onSelect={(_school: SchoolType) => {
           setSchool(_school);
           setIsVisible(false);
         }}
