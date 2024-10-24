@@ -6,7 +6,7 @@ import { useAuth } from "@context/Auth";
 const useTodayCircle = () => {
   const { user } = useAuth();
   const { data: circle } = useGetMyDailyCircle(user?.id);
-  const { data: users } = useGetAccounts(circle?.user_ids);
+  const { data: users } = useGetAccounts(circle?.user_ids ?? []);
 
   return {
     stories: users?.map((user, index) => ({

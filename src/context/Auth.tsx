@@ -2,11 +2,12 @@ import useGetAccount from "@api/users/getAccount.hook";
 import { createAccount, getAccountById } from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
 import { Session, User } from "@supabase/supabase-js";
+import { Account } from "@supabase_types";
 import { supabase } from "@utils/supabase";
 import React, { createContext, ReactNode, useContext } from "react";
 
 type AuthContextType = {
-  user: User | null;
+  user: Account | undefined;
   isAdmin: boolean;
   session: Session | null;
   isLoading: boolean;

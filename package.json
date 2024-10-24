@@ -6,7 +6,8 @@
     "start": "expo start -c",
     "ios": "expo start --ios",
     "android": "expo start --android",
-    "import:assets": "cd assets && node import_assets.js"
+    "import:assets": "cd assets && node import_assets.js",
+    "gen-types": "supabase gen types typescript --linked > database.d.ts && cp database.d.ts supabase/functions/_shared/database.d.ts"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",

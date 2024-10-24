@@ -1,4 +1,5 @@
 import i18n from "@/utils/i18n";
+import { Circle } from "@supabase_types";
 import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
@@ -8,6 +9,7 @@ async function getMyDailyCircleQuery(user_id: string) {
     .from("circles")
     .select("*")
     .contains("user_ids", [user_id])
+    .returns<Circle[]>()
     .single();
 
   if (error) {
