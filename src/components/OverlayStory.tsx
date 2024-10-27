@@ -37,7 +37,7 @@ const AvatarNameTime = ({
         userProfilePictureUrl={userProfilePictureUrl}
       />
       <MyText className="text-sm">{username}</MyText>
-      <MyText className="text-sm">{date}</MyText>
+      <MyText className="text-xs text-gray-100">{date}</MyText>
     </View>
   );
 };
