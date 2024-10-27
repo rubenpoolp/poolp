@@ -1,15 +1,16 @@
+import { UserStories } from "@/types/story";
+import UserItemCarousel from "@components/carousel/UserItemCarousel";
 import * as React from "react";
-import { View, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import {
   Extrapolation,
   interpolate,
   useSharedValue,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import UserItemCarousel from "@components/carousel/UserItemCarousel";
 
 interface StackCarouselProps {
-  data: any[];
+  data: UserStories[];
   enabled?: boolean;
 }
 
@@ -76,10 +77,10 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
       width={PAGE_WIDTH}
       height={PAGE_HEIGHT}
       data={data}
-      renderItem={({ index, item }) => (
+      renderItem={({ item: story, index }) => (
         <UserItemCarousel
           key={index}
-          user={item}
+          userStories={story}
           dimensions={{ width, height }}
         />
       )}

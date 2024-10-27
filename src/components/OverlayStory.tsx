@@ -1,30 +1,61 @@
+import { UserStories } from "@types/story";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
-import { ImageProps, Pressable, SafeAreaView, View } from "react-native";
+import { Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "./animations/StoriesBarLoader";
+import Avatar from "./Avatar";
+import MyButton from "./natives/MyButton";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
 
+export type VariantOverlayStoryModal = "story" | "user";
+
 interface OverlayStoryModalProps {
+  variant?: VariantOverlayStoryModal;
   onClose: () => void;
-  stories: { img: ImageProps["source"] }[];
+  stories: UserStories;
   actualIndex: number;
   duration: number;
   onLeft: () => void;
   onRight: () => void;
-  firstName: string;
 }
 
+const AvatarNameTime = ({
+  userProfilePictureUrl,
+  username,
+  date,
+}: {
+  userProfilePictureUrl: string;
+  username: string;
+  date: string;
+}) => {
+  return (
+    <View className="flex-row items-center space-x-2">
+      <Avatar
+        size="sm"
+        username={username}
+        userProfilePictureUrl={userProfilePictureUrl}
+      />
+      <MyText className="text-sm">{username}</MyText>
+      <MyText className="text-sm">{date}</MyText>
+    </View>
+  );
+};
+
 const OverlayStoryModal = ({
+  variant = "user",
   onClose,
   stories,
   actualIndex,
   duration,
   onLeft,
   onRight,
-  firstName,
 }: OverlayStoryModalProps) => {
   return (
-    <SafeAreaView className="absolute flex-1 w-full h-full">
+    <SafeAreaView
+      edges={variant === "user" ? ["top", "bottom"] : ["top"]}
+      className="absolute w-full h-full"
+    >
       <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-row z-10">
         <Pressable className="flex-1 " onPress={onLeft} />
         <Pressable className="flex-1" onPress={onRight} />
@@ -36,17 +67,34 @@ const OverlayStoryModal = ({
             duration={duration}
             total={stories.length}
           />
-          <View className="self-end mr-2 flex-row space-x-2">
-            <MyPressable onPress={onClose}>
-              <DotsThree />
-            </MyPressable>
-            <MyPressable onPress={onClose}>
-              <X />
-            </MyPressable>
+          <View className="flex-row justify-between items-center">
+            {variant === "user" ? (
+              <View />
+            ) : (
+              <AvatarNameTime
+                userProfilePictureUrl={
+                  stories[actualIndex].userProfilePictureUrl
+                }
+                username={stories[actualIndex].userName}
+                date={stories[actualIndex].createdAt}
+              />
+            )}
+            <View className="self-end mr-2 flex-row space-x-2">
+              <MyPressable onPress={onClose}>
+                <DotsThree />
+              </MyPressable>
+              <MyPressable onPress={onClose}>
+                <X />
+              </MyPressable>
+            </View>
           </View>
         </View>
-        <View>
-          <MyText className="text-3xl font-semibold mb-4">{firstName}</MyText>
+      </View>
+      {variant === "user" ? (
+        <View className="px-4">
+          <MyText className="text-3xl font-semibold mb-4">
+            {stories[actualIndex].userName}
+          </MyText>
 
           <MyPressable onPress={onClose}>
             <View className="self-center">
@@ -54,7 +102,15 @@ const OverlayStoryModal = ({
             </View>
           </MyPressable>
         </View>
-      </View>
+      ) : (
+        <View className="w-full bg-background-dark pt-5 pb-10">
+          <MyButton
+            className="self-center w-1/2"
+            txt="Reply"
+            onPress={onClose}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

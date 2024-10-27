@@ -11,6 +11,7 @@ const TodayCircle = () => {
   const { stories } = useTodayCircle();
 
   if (!stories) return null;
+
   return (
     <View className="flex-1 items-center">
       <MyText className="text-3xl font-bold text-center">
@@ -19,7 +20,7 @@ const TodayCircle = () => {
 
       <StackCarousel data={stories} />
 
-      <StoryButton stories={stories}>
+      <StoryButton stories={stories} variant="story">
         <Animated.View
           entering={FadeInDown.duration(300)}
           className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"

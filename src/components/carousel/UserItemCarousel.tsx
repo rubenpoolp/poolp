@@ -1,20 +1,15 @@
+import { UserStories } from "@/types/story";
 import StoryBarLoader from "@components/animations/StoriesBarLoader";
 import RingButton from "@components/buttons/BellButton";
+import StoryButton from "@components/buttons/StoryButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
 import React, { useState } from "react";
-import { Image, ImageProps, Pressable, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-// Définition de l'interface pour l'objet utilisateur
-interface UserItem {
-  name: string;
-  pictures: string[];
-}
-
-// Mise à jour de l'interface pour les props du composant
 interface UserItemCarouselProps {
-  user: UserItem;
+  userStories: UserStories;
   dimensions: {
     width: number;
     height: number;
@@ -22,7 +17,7 @@ interface UserItemCarouselProps {
 }
 
 const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
-  user,
+  userStories,
   dimensions,
 }) => {
   const width = dimensions.width * 0.9;
@@ -31,14 +26,18 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   const [actualIndex, setActualIndex] = useState<number>(0);
 
   const onLeft = () => {
-    if (actualIndex <= 0) return;
+    if (actualIndex - 1 < 0) return;
     setActualIndex(actualIndex - 1);
   };
 
   const onRight = () => {
-    if (actualIndex >= user.pictures.length - 1) return;
+    if (actualIndex + 1 >= userStories.length) return;
     setActualIndex(actualIndex + 1);
   };
+
+  const storiesOfOnlyActualUser = userStories
+    .flat()
+    .filter((s) => s.userName === userStories[actualIndex].userName);
 
   return (
     <Animated.View
@@ -58,16 +57,16 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
         }}
       >
         {/* TODO: Add z index 10 to the container */}
-        <View className="absolute w-full flex-1 h-full flex-row z-10">
+        <View className="absolute w-full flex-1 h-full flex-row z-0">
           <Pressable className="flex-1" onPress={onLeft} />
           <Pressable className="flex-1" onPress={onRight} />
         </View>
 
-        <View className="flex-1 ">
-          {user.pictures.length > 0 && (
+        <View className="flex-1">
+          {userStories.length > 0 && (
             <View className="absolute top-0 left-0 right-0 bottom-0">
               <Image
-                source={user.pictures[actualIndex] as unknown as ImageProps}
+                source={userStories[actualIndex].picture}
                 style={{ flex: 1, width: "100%" }}
                 resizeMode="cover"
               />
@@ -78,13 +77,17 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
             <StoryBarLoader
               index={actualIndex}
               duration={10000}
-              total={user.pictures.length}
+              total={userStories.length}
             />
 
             <View className="flex-row items-center justify-between">
-              <MyText className="text-xl font-semibold">{user.name}</MyText>
+              <MyText className="text-xl font-semibold">
+                {userStories[actualIndex].userName}
+              </MyText>
 
-              <RingButton onPress={() => {}} containerStyle="" />
+              <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}>
+                <RingButton onPress={() => {}} containerStyle="" />
+              </StoryButton>
             </View>
           </View>
         </View>

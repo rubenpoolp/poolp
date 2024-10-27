@@ -9,13 +9,17 @@ import MyText from "./natives/MyText";
 const Avatar = ({
   disabled = false,
   size = "md",
+  username = "",
+  userProfilePictureUrl = "",
 }: {
   disabled?: boolean;
   size?: "sm" | "md" | "lg";
+  username?: string;
+  userProfilePictureUrl?: string;
 }) => {
   const { user } = useAuth();
   const navigation = useNavigation();
-  const letter = user?.name ? user.name.charAt(0) : "L";
+  const letter = username ? username.charAt(0) : user?.name.charAt(0);
 
   let sizeClass = "";
   let textSizeClass = "";
@@ -45,10 +49,10 @@ const Avatar = ({
           containerStyle={`w-10 h-10 rounded-full absolute overflow-hidden ${sizeClass}`}
           img={assets.defaultProfilePicture}
         />
-        {user?.profile_picture_url ? (
+        {user?.profile_picture_url || userProfilePictureUrl ? (
           <MyImage
             containerStyle={`rounded-full absolute overflow-hidden ${sizeClass}`}
-            img={{ uri: user?.profile_picture_url }}
+            img={{ uri: user?.profile_picture_url || userProfilePictureUrl }}
           />
         ) : (
           <MyText
