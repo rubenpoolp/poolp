@@ -1,14 +1,13 @@
 import assets from "@assets/index";
+import BackButton from "@components/buttons/BackButton";
+import MyHeader from "@components/headers/MyHeader";
 import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
-import { View } from "react-native";
-import MyHeader from "@components/headers/MyHeader";
-import { ArrowLeft, UserFocus } from "phosphor-react-native";
-import colors from "@config/colors";
 import MyPressable from "@components/natives/MyPressable";
+import colors from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
-import BackButton from "@components/buttons/BackButton";
-import { ca } from "date-fns/locale";
+import { ClockCounterClockwise } from "phosphor-react-native";
+import { View } from "react-native";
 
 interface LogoWithButtonHeaderProps {
   onPress: () => void;
@@ -37,9 +36,9 @@ const LogoWithButtonHeader = ({
             <MyPressable
               onPress={handlePastCirclePress}
               hapticImpactStyle="medium"
-              className="bg-gray-100 rounded-full p-1.5"
+              // className="bg-gray-100 rounded-full p-1.5"
             >
-              <UserFocus size={24} color={colors.background.dark} />
+              <ClockCounterClockwise size={24} color={colors.light} />
             </MyPressable>
           )}
 
