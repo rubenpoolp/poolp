@@ -10,6 +10,8 @@
     "skip": "Skip",
     "details": "Details",
     "select": "Select",
+    "camera": "Camera",
+    "gallery": "Photo Library",
     "maybeLater": "Maybe later",
     "sureThing": "Sure thing!"
   },
@@ -20,6 +22,10 @@
     "photoAccessNeeded": {
       "title": "Smile for the camera! 📸",
       "message": "Hey there! We'd love to see your awesome profile pic. Mind if we take a peek at your photo gallery?"
+    },
+    "cameraAccessNeeded": {
+      "title": "Camera access needed",
+      "message": "We need access to your camera to take a photo or choose one from your gallery."
     }
   },
   "onboarding": {

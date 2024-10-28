@@ -6,6 +6,9 @@ import MyImage from "./natives/MyImage";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import ActionSheet from "react-native-actions-sheet";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import { Camera } from "phosphor-react-native";
 
 interface ProfilePictureItemProps {
   picture?: string;
@@ -22,6 +25,7 @@ const ProfilePictureItem = ({
     picture,
   );
   const { t } = useTranslation();
+  const { showActionSheetWithOptions } = useActionSheet();
 
   const handleImageSelection = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -41,7 +45,6 @@ const ProfilePictureItem = ({
       return;
     }
 
-    // Open gallery
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -57,11 +60,41 @@ const ProfilePictureItem = ({
     }
   };
 
+  const handleCameraSelection = async () => {};
+
   const handleDelete = () => {
     setSelectedImage(undefined);
     if (onDelete) {
       onDelete();
     }
+  };
+
+  const onPress = () => {
+    const options = [
+      t("actions.camera"),
+      t("actions.gallery"),
+      t("actions.cancel"),
+    ];
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            handleCameraSelection();
+            break;
+          case 1:
+            handleImageSelection();
+            break;
+          case cancelButtonIndex:
+            break;
+        }
+      },
+    );
   };
 
   return (
@@ -78,7 +111,7 @@ const ProfilePictureItem = ({
           </MyPressable>
         ) : (
           <MyPressable
-            onPress={handleImageSelection}
+            onPress={onPress}
             hapticImpactStyle="medium"
             className="bg-purple-100 border border-light h-7 w-7 rounded-full justify-center items-center"
           >

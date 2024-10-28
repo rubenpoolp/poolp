@@ -21,6 +21,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -67,30 +68,32 @@ const App = () => {
     <View className="flex-1" onLayout={onLayoutRootView}>
       <SessionContextProvider supabaseClient={supabase}>
         <QueryClientProvider client={queryClient}>
-          <I18nextProvider i18n={i18n}>
-            <StatusBar style="light" />
-            <SafeAreaProvider>
-              <IsLoadingProvider>
-                <IconContext.Provider
-                  value={{
-                    color: light,
-                    size: 24,
-                    weight: "regular",
-                  }}
-                >
-                  <AuthProvider>
-                    <NavigationContainer theme={myTheme}>
-                      {/* <MyPostHogProvider> */}
-                      <OnboardingNavigator />
-                      <UpdateModal />
-                      {/* </MyPostHogProvider> */}
-                    </NavigationContainer>
-                  </AuthProvider>
-                  <LoaderModal />
-                </IconContext.Provider>
-              </IsLoadingProvider>
-            </SafeAreaProvider>
-          </I18nextProvider>
+          <ActionSheetProvider>
+            <I18nextProvider i18n={i18n}>
+              <StatusBar style="light" />
+              <SafeAreaProvider>
+                <IsLoadingProvider>
+                  <IconContext.Provider
+                    value={{
+                      color: light,
+                      size: 24,
+                      weight: "regular",
+                    }}
+                  >
+                    <AuthProvider>
+                      <NavigationContainer theme={myTheme}>
+                        {/* <MyPostHogProvider> */}
+                        <OnboardingNavigator />
+                        <UpdateModal />
+                        {/* </MyPostHogProvider> */}
+                      </NavigationContainer>
+                    </AuthProvider>
+                    <LoaderModal />
+                  </IconContext.Provider>
+                </IsLoadingProvider>
+              </SafeAreaProvider>
+            </I18nextProvider>
+          </ActionSheetProvider>
         </QueryClientProvider>
       </SessionContextProvider>
     </View>
