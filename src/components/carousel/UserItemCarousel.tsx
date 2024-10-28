@@ -7,6 +7,7 @@ import shadow from "@config/shadow";
 import React, { useState } from "react";
 import { Image, Pressable, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 
 interface UserItemCarouselProps {
   userStories: UserStories;
@@ -26,12 +27,20 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   const [actualIndex, setActualIndex] = useState<number>(0);
 
   const onLeft = () => {
-    if (actualIndex - 1 < 0) return;
+    if (actualIndex - 1 < 0) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      return;
+    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setActualIndex(actualIndex - 1);
   };
 
   const onRight = () => {
-    if (actualIndex + 1 >= userStories.length) return;
+    if (actualIndex + 1 >= userStories.length) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      return;
+    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setActualIndex(actualIndex + 1);
   };
 
@@ -57,7 +66,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
         }}
       >
         {/* TODO: Add z index 10 to the container */}
-        <View className="absolute w-full flex-1 h-full flex-row z-0">
+        <View className="absolute w-full flex-1 h-full flex-row z-20">
           <Pressable className="flex-1" onPress={onLeft} />
           <Pressable className="flex-1" onPress={onRight} />
         </View>
@@ -76,7 +85,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
           <View className="flex-1 p-5 justify-between">
             <StoryBarLoader
               index={actualIndex}
-              duration={10000}
+              duration={0}
               total={userStories.length}
             />
 
