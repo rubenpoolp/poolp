@@ -68,7 +68,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
         {/* TODO: Add z index 10 to the container */}
         <View className="absolute w-full flex-1 h-full flex-row z-20">
           <Pressable className="flex-1" onPress={onLeft} />
-          <Pressable className="flex-1" onPress={onRight} />
+          <Pressable className="flex-1 h-4/5" onPress={onRight} />
         </View>
 
         <View className="flex-1">
@@ -94,9 +94,14 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
                 {userStories[actualIndex].userName}
               </MyText>
 
-              <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}>
-                <RingButton onPress={() => {}} containerStyle="" />
-              </StoryButton>
+              {/* <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}> */}
+              <RingButton
+                onPress={() => {
+                  console.log("onPress");
+                }}
+                containerStyle=""
+              />
+              {/* </StoryButton> */}
             </View>
           </View>
         </View>
