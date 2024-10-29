@@ -13,7 +13,10 @@
     "camera": "Camera",
     "gallery": "Photo Library",
     "maybeLater": "Maybe later",
-    "sureThing": "Sure thing!"
+    "sureThing": "Sure thing!",
+    "block": "Block",
+    "report": "Report",
+    "ring": "Ring"
   },
   "inputs": {
     "search": "Search"

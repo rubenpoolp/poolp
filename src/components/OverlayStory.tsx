@@ -7,6 +7,8 @@ import Avatar from "./Avatar";
 import MyButton from "./natives/MyButton";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
+import { useTranslation } from "react-i18next";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 export type VariantOverlayStoryModal = "story" | "user";
 
@@ -51,6 +53,38 @@ const OverlayStoryModal = ({
   onLeft,
   onRight,
 }: OverlayStoryModalProps) => {
+  const { t } = useTranslation();
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const onPressDotsThree = () => {
+    const options = [
+      t("actions.block"),
+      t("actions.report"),
+      t("actions.ring"),
+      t("actions.cancel"),
+    ];
+    const cancelButtonIndex = 3;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case cancelButtonIndex:
+            break;
+        }
+      },
+    );
+  };
+
   return (
     <SafeAreaView
       edges={variant === "user" ? ["top", "bottom"] : ["top"]}
@@ -80,7 +114,7 @@ const OverlayStoryModal = ({
               />
             )}
             <View className="self-end mr-2 flex-row space-x-2">
-              <MyPressable onPress={onClose}>
+              <MyPressable onPress={onPressDotsThree}>
                 <DotsThree />
               </MyPressable>
               <MyPressable onPress={onClose}>
