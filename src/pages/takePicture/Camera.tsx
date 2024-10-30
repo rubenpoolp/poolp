@@ -91,7 +91,10 @@ const CameraPage = () => {
   }
 
   return (
-    <MyScreen edges={["top"]} className="flex-1 bg-black">
+    <MyScreen
+      edges={["top"]}
+      className="flex-1 rounded-t-[32px] overflow-hidden"
+    >
       <SafeAreaProvider>
         <View className="flex-1">
           <Camera
@@ -100,7 +103,6 @@ const CameraPage = () => {
             isActive={!photo}
             photo
             zoom={currentZoom}
-            className="flex-1"
             style={{ width: SCREEN_WIDTH, height: "100%" }}
           />
 

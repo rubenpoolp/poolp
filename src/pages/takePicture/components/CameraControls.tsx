@@ -1,6 +1,6 @@
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
-import { ArrowsCounterClockwise, Flashlight } from "phosphor-react-native";
+import { ArrowsClockwise, Lightning } from "phosphor-react-native";
 import React from "react";
 import { View } from "react-native";
 import ShutterButton from "./ShutterButton";
@@ -24,33 +24,32 @@ const CameraControls: React.FC<CameraControlsProps> = ({
 }) => {
   return (
     <View className="absolute w-full h-full flex-1 p-5 justify-between">
-      <View className="flex items-end space-y-4">
+      <View className="flex items-end space-y-6">
         <MyPressable
           onPress={onToggleFlash}
-          className="w-12 h-12 rounded-full items-center justify-center"
+          className="w-9 h-9 rounded-full items-center justify-center"
         >
-          <Flashlight
+          <Lightning
             color="white"
+            size={30}
             weight={flashMode === "on" ? "fill" : "regular"}
           />
         </MyPressable>
-      </View>
-      <View className="flex-row justify-between items-center">
         <MyPressable
           onPress={onCycleZoom}
-          className="border border-light rounded-full items-center justify-center mr-4 w-10 h-10"
+          className="border border-light rounded-full items-center justify-center w-9 h-9"
         >
-          <MyText className="text-light">{currentZoom}x</MyText>
+          <MyText className="text-light">x{currentZoom}</MyText>
         </MyPressable>
-
-        <ShutterButton onPress={takePhoto} />
-
         <MyPressable
           onPress={onToggleCameraPosition}
-          className="rounded-full items-center justify-center ml-4 bg-overlay/50 p-2"
+          className="w-9 h-9 rounded-full items-center justify-center"
         >
-          <ArrowsCounterClockwise color="white" />
+          <ArrowsClockwise size={30} color="white" />
         </MyPressable>
+      </View>
+      <View className="flex-row justify-center items-center">
+        <ShutterButton onPress={takePhoto} />
       </View>
     </View>
   );
