@@ -20,7 +20,7 @@ const MyScreen = ({
 }: MyScreenProps) => (
   <SafeAreaView
     edges={edges}
-    className={`flex-1 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
+    className={`flex-1 pt-2 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
   >
     <View
       className={`flex-1 items-center justify-between ${padding && "px-4"}`}

@@ -9,36 +9,25 @@ import {
 import React, { useCallback, useRef, useState } from "react";
 import { Alert, Dimensions, TouchableOpacity, View } from "react-native";
 import {
-  Gesture,
-  GestureDetector,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
-import Animated, {
-  interpolate,
-  useAnimatedProps,
-  useSharedValue,
-} from "react-native-reanimated";
-import {
   Camera,
   CameraPosition,
+  CameraRuntimeError,
   useCameraDevice,
   useCameraPermission,
 } from "react-native-vision-camera";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const ZOOM_LEVELS = [1, 2, 4];
-
-const AnimatedCamera = Animated.createAnimatedComponent(Camera);
+const SHUTTER_BUTTON_BORDER_COLOR = "rgba(255, 255, 255, 0.5)";
 
 const CameraPage = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
   const [cameraPosition, setCameraPosition] = useState<CameraPosition>("back");
   const [flashMode, setFlashMode] = useState<"off" | "on">("off");
-  const [currentZoomIndex, setCurrentZoomIndex] = useState(0);
+  const [currentZoom, setCurrentZoom] = useState(ZOOM_LEVELS[0]);
 
   const camera = useRef<Camera>(null);
   const device = useCameraDevice(cameraPosition);
-  const zoom = useSharedValue(0);
 
   // Request camera permission if not granted
   React.useEffect(() => {
@@ -52,26 +41,9 @@ const CameraPage = () => {
     }
   }, [hasPermission, requestPermission]);
 
-  // Pinch to zoom gesture
-  const pinchGesture = Gesture.Pinch().onUpdate((event) => {
-    const newZoom = interpolate(
-      event.scale,
-      [0.5, 1, 2],
-      [
-        0,
-        ZOOM_LEVELS[currentZoomIndex],
-        ZOOM_LEVELS[Math.min(currentZoomIndex + 1, ZOOM_LEVELS.length - 1)],
-      ],
-    );
-    zoom.value = Math.min(Math.max(newZoom, 0), device?.maxZoom || 1);
-  });
-
-  const cameraAnimatedProps = useAnimatedProps(() => ({
-    zoom: zoom.value,
-  }));
-
   const toggleCameraPosition = useCallback(() => {
     setCameraPosition((current) => (current === "back" ? "front" : "back"));
+    setCurrentZoom(ZOOM_LEVELS[0]);
   }, []);
 
   const toggleFlash = useCallback(() => {
@@ -79,9 +51,28 @@ const CameraPage = () => {
   }, []);
 
   const cycleZoom = useCallback(() => {
-    setCurrentZoomIndex((current) => (current + 1) % ZOOM_LEVELS.length);
-    zoom.value = ZOOM_LEVELS[(currentZoomIndex + 1) % ZOOM_LEVELS.length];
-  }, [currentZoomIndex]);
+    setCurrentZoom((current) => {
+      const currentIndex = ZOOM_LEVELS.indexOf(current);
+      const nextIndex = (currentIndex + 1) % ZOOM_LEVELS.length;
+      return ZOOM_LEVELS[nextIndex];
+    });
+  }, []);
+
+  const takePhoto = useCallback(async () => {
+    try {
+      if (camera.current) {
+        const photo = await camera.current.takePhoto({
+          flash: flashMode,
+          enableAutoRedEyeReduction: true,
+        });
+        console.log("Photo taken:", photo);
+      }
+    } catch (e) {
+      if (e instanceof CameraRuntimeError) {
+        console.error("Camera error:", e);
+      }
+    }
+  }, [flashMode]);
 
   if (!hasPermission || !device) {
     return (
@@ -121,58 +112,66 @@ const CameraPage = () => {
   }
 
   return (
-    <GestureHandlerRootView className="flex-1 items-center justify-center">
-      <MyScreen edges={["top"]} className="flex-1 bg-black">
-        <GestureDetector gesture={pinchGesture}>
-          <View className="flex-1">
-            <AnimatedCamera
-              ref={camera}
-              device={device}
-              isActive={true}
-              photo={true}
-              enableZoomGesture={false}
-              flashMode={flashMode}
-              animatedProps={cameraAnimatedProps}
-              className="flex-1"
-              style={{ width: SCREEN_WIDTH, height: "100%" }}
+    <MyScreen edges={["top"]} className="flex-1 bg-black">
+      <View className="flex-1">
+        <Camera
+          ref={camera}
+          device={device}
+          isActive={true}
+          photo={true}
+          zoom={currentZoom}
+          className="flex-1"
+          style={{ width: SCREEN_WIDTH, height: "100%" }}
+        />
+
+        {/* Camera Controls Overlay */}
+        <View className="absolute top-10 right-4 flex items-end space-y-4">
+          <TouchableOpacity
+            onPress={toggleCameraPosition}
+            className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
+          >
+            <ArrowsCounterClockwise size={24} color="white" weight="bold" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={toggleFlash}
+            className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
+          >
+            <Flashlight
+              size={24}
+              color="white"
+              weight={flashMode === "on" ? "fill" : "bold"}
             />
+          </TouchableOpacity>
 
-            {/* Camera Controls Overlay */}
-            <View className="absolute top-10 right-4 flex items-end space-y-4">
-              <TouchableOpacity
-                onPress={toggleCameraPosition}
-                className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
-              >
-                <ArrowsCounterClockwise size={24} color="white" weight="bold" />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={toggleFlash}
-                className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
-              >
-                <Flashlight
-                  size={24}
-                  color="white"
-                  weight={flashMode === "on" ? "fill" : "bold"}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={cycleZoom}
-                className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
-              >
-                <View className="items-center">
-                  <MagnifyingGlassPlus size={24} color="white" weight="bold" />
-                  <View className="text-white text-xs mt-1">
-                    {ZOOM_LEVELS[currentZoomIndex]}x
-                  </View>
-                </View>
-              </TouchableOpacity>
+          <TouchableOpacity
+            onPress={cycleZoom}
+            className="w-12 h-12 bg-black/50 rounded-full items-center justify-center"
+          >
+            <View className="items-center">
+              <MagnifyingGlassPlus size={24} color="white" weight="bold" />
+              <View className="text-white text-xs mt-1">
+                <MyText>{currentZoom}x</MyText>
+              </View>
             </View>
-          </View>
-        </GestureDetector>
-      </MyScreen>
-    </GestureHandlerRootView>
+          </TouchableOpacity>
+        </View>
+
+        {/* Shutter Button */}
+        <View className="absolute bottom-10 left-0 right-0 items-center">
+          <TouchableOpacity
+            onPress={takePhoto}
+            className="w-20 h-20 bg-white rounded-full items-center justify-center"
+            style={{
+              borderWidth: 4,
+              borderColor: SHUTTER_BUTTON_BORDER_COLOR,
+            }}
+          >
+            <View className="w-16 h-16 bg-white rounded-full" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </MyScreen>
   );
 };
 
