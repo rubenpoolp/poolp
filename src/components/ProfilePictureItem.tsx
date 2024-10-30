@@ -1,14 +1,12 @@
 import colors from "@config/colors";
-import { Plus, X } from "phosphor-react-native";
-import { View, Alert, Linking } from "react-native";
-import MyPressable from "./natives/MyPressable";
-import MyImage from "./natives/MyImage";
-import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import ActionSheet from "react-native-actions-sheet";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { Camera } from "phosphor-react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Plus, X } from "phosphor-react-native";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Alert, Linking, View } from "react-native";
+import MyImage from "./natives/MyImage";
+import MyPressable from "./natives/MyPressable";
 
 interface ProfilePictureItemProps {
   picture?: string;
@@ -26,6 +24,10 @@ const ProfilePictureItem = ({
   );
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
+
+  useEffect(() => {
+    setSelectedImage(picture);
+  }, [picture]);
 
   const handleImageSelection = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -97,6 +99,7 @@ const ProfilePictureItem = ({
     );
   };
 
+  console.log("picture sel", picture, selectedImage);
   return (
     <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
       {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}
