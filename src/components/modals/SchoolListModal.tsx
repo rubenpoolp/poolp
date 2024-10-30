@@ -1,3 +1,4 @@
+import useGetSchools from "@api/schools/getSchools.hook";
 import { Bump } from "@components/animations/Bump";
 import CloseModalButton from "@components/buttons/CloseModalButton";
 import MySearchInput from "@components/inputs/MySearchInput";
@@ -13,7 +14,6 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import MyModal from "./MyModal";
-import useGetSchools from "@api/schools/getSchools.hook";
 
 const EmptyList = () => {
   return (
@@ -49,7 +49,6 @@ const SchoolListModal = ({
   const { t } = useTranslation();
 
   const { data } = useGetSchools();
-  console.log(data);
 
   return (
     <MyModal

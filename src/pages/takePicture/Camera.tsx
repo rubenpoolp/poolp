@@ -77,7 +77,7 @@ const CameraPage = () => {
 
   const handleSend = useCallback(() => {
     // Handle sending the photo
-    console.log("Sending photo:", photo);
+    // console.log("Sending photo:", photo);
     setPhoto(null);
   }, [photo]);
 

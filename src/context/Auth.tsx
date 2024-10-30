@@ -1,7 +1,7 @@
 import useGetAccount from "@api/users/getAccount.hook";
 import { createAccount, getAccountById } from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
-import { Session, User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import { Account } from "@supabase_types";
 import { supabase } from "@utils/supabase";
 import React, { createContext, ReactNode, useContext } from "react";
@@ -16,7 +16,7 @@ type AuthContextType = {
     phone: string,
     token: string,
   ) => Promise<{ hasAccount: boolean; error: any }>;
-  signUp: (onboardingUser: User) => Promise<void>;
+  signUp: (onboardingUser: Account) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -59,11 +59,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return { hasAccount: !!accountResult, error };
   };
 
-  const signUp = async (onboardingUser: User) => {
+  const signUp = async (onboardingUser: Account) => {
     await createAccount({
       ...onboardingUser,
       id: session?.user?.id,
-      school_id: "94638a44-0395-4ce5-95a0-a74a58dac0d5",
     })
       .then((result) => {
         // setSession(session);

@@ -1,13 +1,12 @@
 import { UserStories } from "@/types/story";
 import StoryBarLoader from "@components/animations/StoriesBarLoader";
 import RingButton from "@components/buttons/BellButton";
-import StoryButton from "@components/buttons/StoryButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
+import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
 import { Image, Pressable, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import * as Haptics from "expo-haptics";
 
 interface UserItemCarouselProps {
   userStories: UserStories;
@@ -95,12 +94,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
               </MyText>
 
               {/* <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}> */}
-              <RingButton
-                onPress={() => {
-                  console.log("onPress");
-                }}
-                containerStyle=""
-              />
+              <RingButton onPress={() => {}} containerStyle="" />
               {/* </StoryButton> */}
             </View>
           </View>

@@ -2,16 +2,18 @@ import { Bump } from "@components/animations/Bump";
 import SchoolListModal from "@components/modals/SchoolListModal";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import { Account, School as SchoolType } from "@supabase_types";
 import { GraduationCap, Plus } from "phosphor-react-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
-import { School as SchoolType } from "@supabase_types";
 
 const School = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const { user, nextScreen } = route.params;
+  const { signUp } = useAuth();
 
   const [school, setSchool] = useState<any>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -21,6 +23,10 @@ const School = ({ navigation, route }: { navigation: any; route: any }) => {
       Alert.alert(t("onboarding.school.error"));
       return;
     }
+    const userWithSchool: Account = { ...user, school_id: school.id };
+
+    signUp(userWithSchool);
+
     navigation.navigate(nextScreen, { user: { ...user } });
   };
 
