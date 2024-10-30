@@ -3,11 +3,20 @@ import MyText from "@components/natives/MyText";
 import {
   ArrowsCounterClockwise,
   CameraPlus,
+  Check,
   Flashlight,
   MagnifyingGlassPlus,
+  X,
 } from "phosphor-react-native";
 import React, { useCallback, useRef, useState } from "react";
-import { Alert, Dimensions, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  Image,
+  Modal,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   Camera,
   CameraPosition,
@@ -25,6 +34,7 @@ const CameraPage = () => {
   const [cameraPosition, setCameraPosition] = useState<CameraPosition>("back");
   const [flashMode, setFlashMode] = useState<"off" | "on">("off");
   const [currentZoom, setCurrentZoom] = useState(ZOOM_LEVELS[0]);
+  const [photo, setPhoto] = useState<{ path: string } | null>(null);
 
   const camera = useRef<Camera>(null);
   const device = useCameraDevice(cameraPosition);
@@ -65,7 +75,7 @@ const CameraPage = () => {
           flash: flashMode,
           enableAutoRedEyeReduction: true,
         });
-        console.log("Photo taken:", photo);
+        setPhoto(photo);
       }
     } catch (e) {
       if (e instanceof CameraRuntimeError) {
@@ -73,6 +83,16 @@ const CameraPage = () => {
       }
     }
   }, [flashMode]);
+
+  const handleRetake = useCallback(() => {
+    setPhoto(null);
+  }, []);
+
+  const handleSend = useCallback(() => {
+    // Handle sending the photo
+    console.log("Sending photo:", photo);
+    setPhoto(null);
+  }, [photo]);
 
   if (!hasPermission || !device) {
     return (
@@ -117,7 +137,7 @@ const CameraPage = () => {
         <Camera
           ref={camera}
           device={device}
-          isActive={true}
+          isActive={!photo}
           photo={true}
           zoom={currentZoom}
           className="flex-1"
@@ -170,6 +190,33 @@ const CameraPage = () => {
             <View className="w-16 h-16 bg-white rounded-full" />
           </TouchableOpacity>
         </View>
+
+        {/* Photo Preview Modal */}
+        <Modal visible={!!photo} transparent={true} animationType="slide">
+          <View className="flex-1 bg-black">
+            {photo && (
+              <Image
+                source={{ uri: `file://${photo.path}` }}
+                className="flex-1"
+                resizeMode="contain"
+              />
+            )}
+            <View className="absolute bottom-10 left-0 right-0 flex-row justify-center space-x-8">
+              <TouchableOpacity
+                onPress={handleRetake}
+                className="w-16 h-16 bg-red-500 rounded-full items-center justify-center"
+              >
+                <X size={32} color="white" weight="bold" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleSend}
+                className="w-16 h-16 bg-green-500 rounded-full items-center justify-center"
+              >
+                <Check size={32} color="white" weight="bold" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     </MyScreen>
   );
