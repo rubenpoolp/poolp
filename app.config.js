@@ -19,6 +19,10 @@ export default {
       config: {
         usesNonExemptEncryption: false,
       },
+      infoPlist: {
+        NSLocationWhenInUseUsageDescription:
+          "Poolp needs access to location when open to give you the best experience.",
+      },
     },
     android: {
       googleServicesFile: "./google-services.json",
@@ -43,8 +47,9 @@ export default {
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
-        }
+          photosPermission:
+            "The app accesses your photos to let you share them with your friends.",
+        },
       ],
       [
         "@sentry/react-native/expo",
