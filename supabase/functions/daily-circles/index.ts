@@ -8,6 +8,7 @@ console.log("Hello from Daily Circles Function!")
 
 function divideIntoGroups(n: number): number[] {
   const groups = [];
+  
   while (n > 0) {
     if (n % 3 === 0) {
       for (let i = 0; i < n / 3; i++) {
@@ -47,41 +48,108 @@ const handler = async (request: Request) => {
       Deno.env.get("SUPABASE_ANON_KEY") ?? "",
     );
     
-    // Récupération des utilisateurs actifs
     const { data: users, error } = await supabaseClient
       .from('account')
-      .select('id')
-      // .eq('is_active', true);
+      .select('id, school_id')
+      .order('school_id')
 
     if (error) throw error;
     if (!users?.length) {
       return new Response(JSON.stringify({ message: 'No active users found.' }), { status: 200 });
     }
 
-    // Création des groupes
-    const shuffledUsers = shuffleArray(users);
-    const groups = divideIntoGroups(shuffledUsers.length);
-    const userGroups = groups.reduce<string[][]>((acc, size) => {
-      const start = acc.flat().length;
-      acc.push(shuffledUsers.slice(start, start + size).map(user => user.id));
+    // Group users by school
+    const usersBySchool = users.reduce<Record<string, string[]>>((acc, user) => {
+      acc[user.school_id] = [...(acc[user.school_id] ?? []), user.id];
       return acc;
     }, []);
 
-    // Création des cercles
+    // Shuffle users by school
+    const shuffledUsersBySchool = Object.fromEntries(
+      Object.entries(usersBySchool).map(([schoolId, users]) => [
+        schoolId,
+        shuffleArray(users)
+      ])
+    );
+
+    console.log("Shuffled users by school:", shuffledUsersBySchool);
+
+    // Define group sizes by school
+    const lengthGroupsBySchool = Object.fromEntries(
+      Object.entries(shuffledUsersBySchool).map(([schoolId, users]) => [
+        schoolId,
+        divideIntoGroups(users.length)
+      ])
+    );
+    
+    console.log("User groups by school:", lengthGroupsBySchool);
+
+    // Create user groups by school
+    const userGroupsBySchool = Object.fromEntries(
+      Object.entries(shuffledUsersBySchool).map(([schoolId, users]) => {
+        const groupSizes = lengthGroupsBySchool[schoolId];
+        const groups = [];
+        let currentIndex = 0;
+
+        // For each group size defined
+        for (const size of groupSizes) {
+          // Extract a subarray of users of the specified size
+          const group = users.slice(currentIndex, currentIndex + size);
+          groups.push(group);
+          currentIndex += size;
+        }
+
+        return [schoolId, groups];
+      })
+    );
+
+    console.log("Final user groups by school:", userGroupsBySchool);
+    
+    // Check for duplicates, it's not necessary but I think it's a good thing.
+    const checkForDuplicates = () => {
+      for (const [schoolId, groups] of Object.entries(userGroupsBySchool)) {
+        const allUsersInGroups = groups.flat();
+        const uniqueUsers = new Set(allUsersInGroups);
+        
+        if (allUsersInGroups.length !== uniqueUsers.size) {
+          throw new Error(`Duplicate users found in school ${schoolId}`);
+        }
+
+        // Vérifier que tous les utilisateurs originaux sont présents
+        const originalUsers = new Set(shuffledUsersBySchool[schoolId]);
+        if (uniqueUsers.size !== originalUsers.size) {
+          throw new Error(`Missing users in groups for school ${schoolId}`);
+        }
+
+        for (const user of uniqueUsers) {
+          if (!originalUsers.has(user)) {
+            throw new Error(`Unknown user ${user} in groups for school ${schoolId}`);
+          }
+        }
+      }
+      console.log("No duplicates found");
+    };
+
+    checkForDuplicates();
+
+    // Créer les cercles pour chaque groupe de chaque école
     const createdCircles = await Promise.all(
-      userGroups.map(group => 
-        supabaseClient
-          .from('circles')
-          .insert({ 
-            created_at: new Date().toISOString(), 
-            user_ids: group, 
-            name: "Daily Circle" 
-          })
-          .select()
-          .single()
+      Object.entries(userGroupsBySchool).flatMap(([schoolId, groups]) =>
+        groups.map(group =>
+          supabaseClient
+            .from('circles')
+            .insert({
+              created_at: new Date().toISOString(),
+              user_ids: group,
+              name: "Daily Circle",
+            })
+            .select()
+            .single()
+        )
       )
     );
 
+    // Vérifier s'il y a des erreurs
     const errors = createdCircles.filter(result => result.error);
     if (errors.length) {
       throw new Error(`Failed to create some circles: ${JSON.stringify(errors)}`);
@@ -89,8 +157,6 @@ const handler = async (request: Request) => {
 
     return new Response(JSON.stringify({ 
       message: 'Success', 
-      totalUsers: users.length,
-      createdCircles: createdCircles.length
     }), { status: 200 });
 
   } catch (error) {
