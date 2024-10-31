@@ -4,7 +4,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
 import { supabaseClient as supabaseServiceClient } from "../_shared/supabase_client.ts";
 
 
-console.log("Hello from Daily Circles Function!")
+// console.log("Hello from Daily Circles Function!")
 
 function divideIntoGroups(n: number): number[] {
   const groups = [];
@@ -45,8 +45,9 @@ const handler = async (request: Request) => {
   try {
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-    );
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      { global: { headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` } } });
     
     const { data: users, error } = await supabaseClient
       .from('account')
@@ -72,8 +73,6 @@ const handler = async (request: Request) => {
       ])
     );
 
-    console.log("Shuffled users by school:", shuffledUsersBySchool);
-
     // Define group sizes by school
     const lengthGroupsBySchool = Object.fromEntries(
       Object.entries(shuffledUsersBySchool).map(([schoolId, users]) => [
@@ -81,8 +80,6 @@ const handler = async (request: Request) => {
         divideIntoGroups(users.length)
       ])
     );
-    
-    console.log("User groups by school:", lengthGroupsBySchool);
 
     // Create user groups by school
     const userGroupsBySchool = Object.fromEntries(
@@ -102,8 +99,6 @@ const handler = async (request: Request) => {
         return [schoolId, groups];
       })
     );
-
-    console.log("Final user groups by school:", userGroupsBySchool);
     
     // Check for duplicates, it's not necessary but I think it's a good thing.
     const checkForDuplicates = () => {
@@ -127,7 +122,6 @@ const handler = async (request: Request) => {
           }
         }
       }
-      console.log("No duplicates found");
     };
 
     checkForDuplicates();
