@@ -25,7 +25,6 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
   const { data: profilePics } = useGetProfilePics(user?.id);
   const { setIsLoading } = useIsLoading();
 
-  console.log("profilePics", profilePics);
   useEffect(() => {
     setPictures(profilePics || []);
   }, [profilePics]);
@@ -34,7 +33,7 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
     try {
       setIsLoading(true);
       const UUID = Crypto.randomUUID();
-      const url = `${user?.id}/${UUID}`;
+      const url = `${user?.id}/${UUID}.jpg`;
       const { data, error } = await upload(url, uri);
       if (error) {
         throw error;
@@ -56,7 +55,6 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
   };
 
   const onDelete = async (url: string) => {
-    console.log("url", url);
     try {
       setIsLoading(true);
       await supabase.storage.from("profilePics").remove([url]);
@@ -76,7 +74,6 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
     }
   };
 
-  console.log("pictures", pictures);
   return (
     <MyScreen padding>
       <MyHeader canGoBack>

@@ -12,7 +12,6 @@ async function addProfilePic(userId: string, urls: string[]) {
   );
 
   if (error) {
-    console.log("error", error);
     myCaptureException(error);
     throw new Error(i18n.t("errors.didNotWorkPleaseRetry"), { cause: error });
   }

@@ -14,7 +14,7 @@ const useAddProfilePic = (userId?: string) => {
       return addProfilePic(userId, urls);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["profilePic", userId] });
+      queryClient.invalidateQueries({ queryKey: ["profilePics", userId] });
     },
     onError: (error) => {
       myCaptureException(error);

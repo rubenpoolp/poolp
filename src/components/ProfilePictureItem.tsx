@@ -105,7 +105,6 @@ const ProfilePictureItem = ({
     );
   };
 
-  console.log("selectedImage", selectedImage);
   return (
     <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
       {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}
