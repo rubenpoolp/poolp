@@ -102,6 +102,32 @@ export type Database = {
         };
         Relationships: [];
       };
+      profile_pics: {
+        Row: {
+          id: string;
+          urls: string[] | null;
+          user_id: string;
+        };
+        Insert: {
+          id?: string;
+          urls?: string[] | null;
+          user_id?: string;
+        };
+        Update: {
+          id?: string;
+          urls?: string[] | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "profilePics_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       schools: {
         Row: {
           address: Json;

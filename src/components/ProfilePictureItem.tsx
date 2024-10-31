@@ -1,5 +1,6 @@
 import colors from "@config/colors";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { supabase } from "@utils/supabase";
 import * as ImagePicker from "expo-image-picker";
 import { Plus, X } from "phosphor-react-native";
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import MyPressable from "./natives/MyPressable";
 
 interface ProfilePictureItemProps {
   picture?: string;
-  onDelete?: () => void;
+  onDelete?: (url: string) => void;
   onAdd?: (uri: string) => void;
 }
 
@@ -20,13 +21,20 @@ const ProfilePictureItem = ({
   onAdd,
 }: ProfilePictureItemProps) => {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    picture,
+    undefined,
   );
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
 
   useEffect(() => {
-    setSelectedImage(picture);
+    if (!picture) {
+      setSelectedImage(undefined);
+      return;
+    }
+
+    const publicUrl = supabase.storage.from("profilePics").getPublicUrl(picture)
+      .data.publicUrl;
+    setSelectedImage(publicUrl);
   }, [picture]);
 
   const handleImageSelection = async () => {
@@ -55,7 +63,6 @@ const ProfilePictureItem = ({
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
       if (onAdd) {
         onAdd(result.assets[0].uri);
       }
@@ -65,9 +72,8 @@ const ProfilePictureItem = ({
   const handleCameraSelection = async () => {};
 
   const handleDelete = () => {
-    setSelectedImage(undefined);
-    if (onDelete) {
-      onDelete();
+    if (onDelete && picture) {
+      onDelete(picture);
     }
   };
 
@@ -99,7 +105,7 @@ const ProfilePictureItem = ({
     );
   };
 
-  console.log("picture sel", picture, selectedImage);
+  console.log("selectedImage", selectedImage);
   return (
     <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
       {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}

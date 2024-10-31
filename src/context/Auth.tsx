@@ -4,6 +4,7 @@ import { useSession } from "@supabase/auth-helpers-react";
 import { Session } from "@supabase/supabase-js";
 import { Account } from "@supabase_types";
 import { supabase } from "@utils/supabase";
+import { User } from "phosphor-react-native";
 import React, { createContext, ReactNode, useContext } from "react";
 
 type AuthContextType = {

@@ -13,3 +13,4 @@ export type Circle = Database["public"]["Tables"]["circles"]["Row"];
 export type School = Database["public"]["Tables"]["schools"]["Row"] & {
   address: Address;
 };
+export type ProfilePic = Database["public"]["Tables"]["profile_pics"]["Row"];

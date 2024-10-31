@@ -7,7 +7,7 @@ const upload = async (path: string, uri: string) => {
     const fileInfo = await FileSystem.getInfoAsync(uri);
     if (!fileInfo.exists) {
       console.error("File doesn't exist");
-      return;
+      return { data: null, error: "File doesn't exist" };
     }
 
     const base64 = await FileSystem.readAsStringAsync(uri, {
@@ -21,26 +21,24 @@ const upload = async (path: string, uri: string) => {
       bytes[i] = binaryString.charCodeAt(i);
     }
 
-    console.log("URI", uri);
-    console.log("File size:", bytes.length);
-
     // Upload the binary data
     const { data, error } = await supabase.storage
       .from("profilePics")
       .upload(path, bytes, {
         contentType: "image/jpeg",
         cacheControl: "3600",
-        upsert: false,
+        upsert: true,
       });
 
     if (error) {
       console.error("Upload error:", error);
-      return;
+      return { data: null, error };
     }
 
-    console.log("Upload successful:", data);
-  } catch (err) {
-    console.error("Error processing image:", err);
+    return { data, error };
+  } catch (error) {
+    console.error("Error processing image:", error);
+    return { data: null, error };
   }
 };
 

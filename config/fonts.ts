@@ -1,8 +1,9 @@
 import assets from "@assets/index";
 
 const fonts = {
-  NeueHaasDisplayLight: assets.NeueHaasDisplayLight,
-  NeueHaasDisplayMedium: assets.NeueHaasDisplayMedium,
+  SFProDisplayLight: assets.SFProDisplayLight,
+  SFProDisplayMedium: assets.SFProDisplayMedium,
+  SFProDisplaySemibold: assets.SFProDisplaySemibold,
 };
 
 export default fonts;

@@ -12,14 +12,14 @@ const imageFileNames = (dir) => {
   const array = [];
   fs.readdirSync(dir).map((file) => {
     if (
-      file.endsWith(".ttf") ||
+      file.endsWith(".otf") ||
       file.endsWith(".pdf") ||
       file.endsWith(".svg") ||
       file.endsWith(".mp3") ||
       file.endsWith(".png")
     ) {
       file = file
-        .replace(".ttf", "")
+        .replace(".otf", "")
         .replace(".pdf", "")
         .replace(".svg", "")
         .replace(".mp3", "")
@@ -42,7 +42,7 @@ const generate = () => {
             ? ".png"
             : fs.existsSync(`./${directory}/${name}.mp3`)
               ? ".mp3"
-              : ".ttf";
+              : ".otf";
         return `"${name}": require("./${directory}/${name}${extension}")`;
       })
       .join(",\n  ");
