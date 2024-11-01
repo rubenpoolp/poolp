@@ -1,8 +1,8 @@
+import TabBarIcon from "@components/TabBarIcon";
 import colors from "@config/colors";
+import { TabBarPages, initialTab } from "@config/tabBarPages";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import TabBarIcon from "@components/TabBarIcon";
-import { TabBarPages, initialTab } from "@config/tabBarPages";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,8 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: colors.tabBar.background,
-          paddingHorizontal: 24,
+          paddingHorizontal: 32,
+          height: 96,
         },
         tabBarIcon: ({ focused }) => (
           <TabBarIcon focused={focused} route={route} />

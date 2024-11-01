@@ -6,11 +6,23 @@ import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
 import MyText from "@components/natives/MyText";
 import TodayCircle from "@components/TodayCircle";
+import { useAuth } from "@context/Auth";
+import { useNavigation } from "@react-navigation/native";
+import resetTo from "@utils/resetTo";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
+const useRedirectIfNotLoggedIn = () => {
+  const { user } = useAuth();
+  const navigation = useNavigation();
+
+  console.log("user", user);
+  if (!user) resetTo(navigation, "Loader");
+};
+
 const Home = () => {
+  useRedirectIfNotLoggedIn();
   const { t } = useTranslation();
   const [state, setState] = useState<"newCircle" | "openCircle">("newCircle");
 
