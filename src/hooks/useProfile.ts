@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
 import { t } from "i18next";
 import { FC } from "react";
-import { Alert, Linking } from "react-native";
+import { Alert, Linking, Share } from "react-native";
 
 const useProfile = () => {
   const navigation = useNavigation();
@@ -20,30 +20,29 @@ const useProfile = () => {
   };
   const list: {
     name: string;
-    onPress: () => void;
+    onPress?: () => void;
     icon?: FC;
     value?: string;
     txtClassName?: string;
   }[] = [
     {
       name: "profile.name",
-      onPress: () => {
-        Linking.openURL("mailto:ruben@gmail.com"); // TODO: change to the right email
-      },
       value: user?.name ?? "Lola",
     },
     {
       name: "profile.school",
-      onPress: () => Linking.openURL("https://google.com"),
       value: "Sebeweiss High School",
     },
     {
       name: "profile.invite",
-      onPress: () => Linking.openURL("https://google.com"),
+      onPress: () =>
+        Share.share({
+          message: "https://www.google.com",
+        }),
     },
     {
       name: "profile.pushNotifications",
-      onPress: () => Linking.openURL("https://google.com"),
+      onPress: () => Linking.openSettings(),
     },
     {
       name: "profile.help",

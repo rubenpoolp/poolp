@@ -1,6 +1,7 @@
 import MyScreen from "@components/MyScreen";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import { light } from "@config/colors";
 import { CameraPlus } from "phosphor-react-native";
 import React from "react";
 import { View } from "react-native";
@@ -16,12 +17,11 @@ const CameraPermissionView: React.FC<CameraPermissionViewProps> = ({
 }) => {
   return (
     <MyScreen edges={["top"]} className="items-center justify-center">
-      <CameraPlus size={48} color="#666" />
       <View className="h-4" />
       <View className="px-8">
-        <View className="bg-gray-100 rounded-lg p-4">
+        <View className="rounded-lg p-4">
           <View className="items-center">
-            <CameraPlus size={24} color="#666" />
+            <CameraPlus size={40} color={light} />
             <View className="items-center">
               <View className="text-center">
                 {!hasPermission ? (
@@ -31,13 +31,13 @@ const CameraPermissionView: React.FC<CameraPermissionViewProps> = ({
                     </MyText>
                     <MyPressable
                       onPress={onRequestPermission}
-                      className="mt-4 bg-blue-500 px-4 py-2 rounded-full"
+                      className="mt-4 px-4 py-2 rounded-full"
                     >
                       <MyText className="text-white">Grant Permission</MyText>
                     </MyPressable>
                   </View>
                 ) : (
-                  <MyText className="text-sm text-gray-600">
+                  <MyText className="text-sm text-light mt-1">
                     Unable to access camera device.
                   </MyText>
                 )}

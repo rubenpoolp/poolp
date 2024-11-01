@@ -17,7 +17,6 @@ const useRedirectIfNotLoggedIn = () => {
   const { user } = useAuth();
   const navigation = useNavigation();
 
-  console.log("user", user);
   if (!user) resetTo(navigation, "Loader");
 };
 

@@ -5,7 +5,6 @@ import MyScreen from "@components/MyScreen";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
-import colors from "@config/colors";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
@@ -29,6 +28,7 @@ const DisplayInfo = ({
     <MyPressable
       className="w-full flex-row justify-between items-center mb-7"
       onPress={onPress}
+      disabledFull={!onPress}
     >
       <MyText className={`text-lg font-semibold ${txtClassName}`}>
         {t(title)}
