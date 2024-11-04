@@ -46,7 +46,7 @@ const useProfile = () => {
     },
     {
       name: "profile.help",
-      onPress: () => Linking.openURL("https://google.com"),
+      onPress: () => Linking.openURL("mailto:help@poolp.app"),
     },
     {
       name: "profile.rate",
@@ -54,14 +54,14 @@ const useProfile = () => {
     },
     {
       name: "profile.aboutUs",
-      onPress: () => Linking.openURL("https://google.com"),
+      onPress: () => Linking.openURL("https://poolp.app"),
     },
 
     {
       name: "profile.logout.title",
       onPress: () => {
         Alert.alert(
-          "Are you sure you want to sign out?",
+          "Do you really want to sign out?",
           "",
           [
             {
