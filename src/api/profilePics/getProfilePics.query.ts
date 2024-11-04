@@ -12,6 +12,7 @@ async function getProfilePics(userId: string) {
     .single();
 
   if (error) {
+    if (error.code === "PGRST116") return; // no data found
     myCaptureException(error);
     throw new Error(i18n.t("errors.didNotWorkPleaseRetry"));
   }

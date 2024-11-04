@@ -1,5 +1,7 @@
-import { UserStories } from "@types/story";
+import { UserProfilePics, UserStories } from "@/types/story";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
+import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "./animations/StoriesBarLoader";
@@ -7,15 +9,11 @@ import Avatar from "./Avatar";
 import MyButton from "./natives/MyButton";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
-import { useTranslation } from "react-i18next";
-import { useActionSheet } from "@expo/react-native-action-sheet";
-
-export type VariantOverlayStoryModal = "story" | "user";
 
 interface OverlayStoryModalProps {
-  variant?: VariantOverlayStoryModal;
   onClose: () => void;
-  stories: UserStories;
+  stories?: UserStories;
+  userProfilePics?: UserProfilePics;
   actualIndex: number;
   duration: number;
   onLeft: () => void;
@@ -33,11 +31,7 @@ const AvatarNameTime = ({
 }) => {
   return (
     <View className="flex-row items-center space-x-2">
-      <Avatar
-        size="sm"
-        username={username}
-        userProfilePictureUrl={userProfilePictureUrl}
-      />
+      <Avatar size="sm" username={username} picture={userProfilePictureUrl} />
       <MyText className="text-sm">{username}</MyText>
       <MyText className="text-xs text-gray-100">{date}</MyText>
     </View>
@@ -45,13 +39,13 @@ const AvatarNameTime = ({
 };
 
 const OverlayStoryModal = ({
-  variant = "user",
   onClose,
   stories,
   actualIndex,
   duration,
   onLeft,
   onRight,
+  userProfilePics,
 }: OverlayStoryModalProps) => {
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
@@ -87,7 +81,7 @@ const OverlayStoryModal = ({
 
   return (
     <SafeAreaView
-      edges={variant === "user" ? ["top", "bottom"] : ["top"]}
+      edges={userProfilePics ? ["top", "bottom"] : ["top"]}
       className="absolute w-full h-full"
     >
       <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-row z-10">
@@ -99,19 +93,29 @@ const OverlayStoryModal = ({
           <StoryBarLoader
             index={actualIndex}
             duration={duration}
-            total={stories.length}
+            total={
+              userProfilePics && userProfilePics.urls
+                ? userProfilePics.urls.length
+                : stories
+                  ? stories.length
+                  : 0
+            }
           />
           <View className="flex-row justify-between items-center">
-            {variant === "user" ? (
+            {userProfilePics ? (
               <View />
             ) : (
-              <AvatarNameTime
-                userProfilePictureUrl={
-                  stories[actualIndex].userProfilePictureUrl
-                }
-                username={stories[actualIndex].userName}
-                date={stories[actualIndex].createdAt}
-              />
+              <>
+                {stories && (
+                  <AvatarNameTime
+                    userProfilePictureUrl={
+                      stories?.[actualIndex].userProfilePictureUrl ?? ""
+                    }
+                    username={stories?.[actualIndex].userName}
+                    date={stories?.[actualIndex].createdAt}
+                  />
+                )}
+              </>
             )}
             <View className="self-end mr-2 flex-row space-x-2">
               <MyPressable onPress={onPressDotsThree}>
@@ -124,10 +128,10 @@ const OverlayStoryModal = ({
           </View>
         </View>
       </View>
-      {variant === "user" ? (
+      {userProfilePics ? (
         <View className="px-4">
           <MyText className="text-3xl font-semibold mb-4">
-            {stories[actualIndex].userName}
+            {stories?.[actualIndex].userName}
           </MyText>
 
           <MyPressable onPress={onClose}>

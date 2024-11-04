@@ -1,5 +1,6 @@
 import { UserStories } from "@/types/story";
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
+import useGetUsersProfilePics from "@api/profilePics/getUsersProfilePics.hook";
 import useGetAccounts from "@api/users/getAccounts.hook";
 import assets from "@assets/index";
 import { useAuth } from "@context/Auth";
@@ -12,6 +13,9 @@ const useTodayCircle = () => {
   const { user } = useAuth();
   const { data: circle } = useGetMyDailyCircle(user?.id);
   const { data: users } = useGetAccounts(circle?.user_ids ?? []);
+  const { data: usersProfilePics } = useGetUsersProfilePics(
+    users?.map((u) => u.id),
+  );
   const stories = users?.map((user, index) => {
     const stories: UserStories = example_assets.map((pic, picIndex) => ({
       id: picIndex + index,
@@ -19,14 +23,18 @@ const useTodayCircle = () => {
       createdAt: formatStoryDate(subDays(new Date(), 1)),
       updatedAt: formatStoryDate(subHours(new Date(), 1)),
       userName: user?.name,
-      userProfilePictureUrl:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
+      userProfilePictureUrl: usersProfilePics?.find(
+        (p) => p.user_id === user.id,
+      )?.urls?.[0],
     }));
     return stories;
   });
 
+  if (!usersProfilePics) return { stories };
+
   return {
     stories,
+    usersProfilePics,
   };
 };
 

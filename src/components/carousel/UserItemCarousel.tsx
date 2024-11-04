@@ -1,6 +1,6 @@
-import { UserStories } from "@/types/story";
-import StoryBarLoader from "@components/animations/StoriesBarLoader";
+import { UserProfilePics } from "@/types/story";
 import RingButton from "@components/buttons/BellButton";
+import StoryButton from "@components/buttons/StoryButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
 import * as Haptics from "expo-haptics";
@@ -9,7 +9,7 @@ import { Image, Pressable, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 interface UserItemCarouselProps {
-  userStories: UserStories;
+  userProfilePics: UserProfilePics;
   dimensions: {
     width: number;
     height: number;
@@ -17,7 +17,7 @@ interface UserItemCarouselProps {
 }
 
 const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
-  userStories,
+  userProfilePics,
   dimensions,
 }) => {
   const width = dimensions.width * 0.9;
@@ -35,7 +35,10 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   };
 
   const onRight = () => {
-    if (actualIndex + 1 >= userStories.length) {
+    if (
+      userProfilePics.urls &&
+      actualIndex + 1 >= userProfilePics.urls.length
+    ) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
       return;
     }
@@ -43,64 +46,59 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
     setActualIndex(actualIndex + 1);
   };
 
-  const storiesOfOnlyActualUser = userStories
-    .flat()
-    .filter((s) => s.userName === userStories[actualIndex].userName);
-
   return (
-    <Animated.View
-      entering={FadeInDown.duration(300)}
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <View
-        className="relative rounded-md border-4 border-purple-100 bg-gray-600 z-10"
-        style={{
-          ...shadow.smallPurple,
-          width,
-          height,
-        }}
+    <StoryButton className="flex-1" userProfilePics={userProfilePics}>
+      <Animated.View
+        entering={FadeInDown.duration(100)}
+        className="flex-1 items-center justify-center"
       >
-        {/* TODO: Add z index 10 to the container */}
-        <View className="absolute w-full flex-1 h-full flex-row z-20">
-          <Pressable className="flex-1" onPress={onLeft} />
-          <Pressable className="flex-1 h-4/5" onPress={onRight} />
-        </View>
+        <View
+          className="relative rounded-md border-4 border-purple-100 bg-gray-600 z-10"
+          style={{
+            ...shadow.smallPurple,
+            width,
+            height,
+          }}
+        >
+          {/* TODO: Add z index 10 to the container */}
+          <View className="absolute w-full flex-1 h-full flex-row z-20">
+            <Pressable className="flex-1" disabled onPress={onLeft} />
+            <Pressable className="flex-1 h-4/5" disabled onPress={onRight} />
+          </View>
 
-        <View className="flex-1">
-          {userStories.length > 0 && (
-            <View className="absolute top-0 left-0 right-0 bottom-0">
-              <Image
-                source={userStories[actualIndex].picture}
-                style={{ flex: 1, width: "100%" }}
-                resizeMode="cover"
-              />
-            </View>
-          )}
+          <View className="flex-1">
+            {userProfilePics.urls && userProfilePics.urls.length > 0 && (
+              <View className="absolute top-0 left-0 right-0 bottom-0">
+                <Image
+                  source={{ uri: userProfilePics.urls[actualIndex] }}
+                  style={{ flex: 1, width: "100%" }}
+                  resizeMode="cover"
+                />
+              </View>
+            )}
 
-          <View className="flex-1 p-5 justify-between">
-            <StoryBarLoader
+            <View className="flex-1 p-5 justify-between">
+              {/* <StoryBarLoader
               index={actualIndex}
               duration={0}
               total={userStories.length}
-            />
+            /> */}
+              <View />
 
-            <View className="flex-row items-center justify-between">
-              <MyText className="text-xl font-semibold">
-                {userStories[actualIndex].userName}
-              </MyText>
+              <View className="flex-row items-center justify-between">
+                <MyText className="text-xl font-semibold">
+                  {userProfilePics.user_name}
+                </MyText>
 
-              {/* <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}> */}
-              <RingButton onPress={() => {}} containerStyle="" />
-              {/* </StoryButton> */}
+                {/* <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}> */}
+                <RingButton onPress={() => {}} containerStyle="" />
+                {/* </StoryButton> */}
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </StoryButton>
   );
 };
 

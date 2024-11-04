@@ -1,16 +1,13 @@
 import useTodayCircle from "@hooks/useTodayCircle";
 import { t } from "i18next";
 import { View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
-import StoryButton from "./buttons/StoryButton";
 import StackCarousel from "./carousel/StackCarousel";
-import MyGradient from "./MyGradient";
 import MyText from "./natives/MyText";
 
 const TodayCircle = () => {
-  const { stories } = useTodayCircle();
+  const { stories, usersProfilePics } = useTodayCircle();
 
-  if (!stories) return null;
+  if (!stories || !usersProfilePics) return null;
 
   return (
     <View className="flex-1 items-center">
@@ -18,9 +15,9 @@ const TodayCircle = () => {
         {t("home.currentCircle")}
       </MyText>
 
-      <StackCarousel data={stories} />
+      {usersProfilePics && <StackCarousel data={usersProfilePics} />}
 
-      <StoryButton stories={stories} variant="story">
+      {/* <StoryButton stories={stories} variant="story">
         <Animated.View
           entering={FadeInDown.duration(300)}
           className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"
@@ -30,7 +27,7 @@ const TodayCircle = () => {
             {t("actions.openCircle")}
           </MyText>
         </Animated.View>
-      </StoryButton>
+      </StoryButton> */}
     </View>
   );
 };

@@ -11,18 +11,30 @@ import MyText from "./natives/MyText";
 
 const Avatar = ({
   disabled = false,
+  username,
+  picture,
   size = "md",
 }: {
   disabled?: boolean;
+  username?: string;
+  picture?: string;
   size?: "sm" | "md" | "lg";
 }) => {
   const { user } = useAuth();
   const navigation = useNavigation();
-  const letter = user ? user.name.charAt(0) : "";
+  const letter = username
+    ? username.charAt(0)
+    : user
+      ? user.name.charAt(0)
+      : "";
   const { data: profilePics } = useGetProfilePics(user?.id);
   const [profilePic, setProfilePic] = useState<string | null>(null);
 
   useEffect(() => {
+    if (picture) {
+      setProfilePic(picture);
+      return;
+    }
     const profilePic =
       profilePics && profilePics.length > 0 ? profilePics[0] : null;
     if (!profilePic) {

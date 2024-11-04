@@ -1,4 +1,4 @@
-import { UserStories } from "@/types/story";
+import { UserProfilePics } from "@/types/story";
 import UserItemCarousel from "@components/carousel/UserItemCarousel";
 import * as React from "react";
 import { useWindowDimensions } from "react-native";
@@ -10,7 +10,7 @@ import {
 import Carousel from "react-native-reanimated-carousel";
 
 interface StackCarouselProps {
-  data: UserStories[];
+  data: UserProfilePics[];
   enabled?: boolean;
 }
 
@@ -80,7 +80,7 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
       renderItem={({ item: story, index }) => (
         <UserItemCarousel
           key={index}
-          userStories={story}
+          userProfilePics={story}
           dimensions={{ width, height }}
         />
       )}
