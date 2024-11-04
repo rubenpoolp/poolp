@@ -3,9 +3,6 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
 import { supabaseClient as supabaseServiceClient } from "../_shared/supabase_client.ts";
 
-
-// console.log("Hello from Daily Circles Function!")
-
 function divideIntoGroups(n: number): number[] {
   const groups = [];
   
@@ -136,6 +133,7 @@ const handler = async (request: Request) => {
               created_at: new Date().toISOString(),
               user_ids: group,
               name: "Daily Circle",
+              school_id: schoolId,
             })
             .select()
             .single()
