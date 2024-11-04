@@ -6,11 +6,13 @@ import MyScreen from "@components/MyScreen";
 import MyImage from "@components/natives/MyImage";
 import MyText from "@components/natives/MyText";
 import ProfilePictureItem from "@components/ProfilePictureItem";
+import colors from "@config/colors";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import { supabase } from "@utils/supabase";
 import upload from "@utils/upload";
 import * as Crypto from "expo-crypto";
+import { ArrowBendDownRight } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
@@ -85,7 +87,20 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
           {t("profile.editPictures")}
         </MyText>
 
-        <View className=" space-y-4 w-full items-center">
+        <View className="relative space-y-4 w-full items-center">
+          <View className="absolute top-10 left-0 items-end">
+            <MyText
+              className="text-gray-500 text-left"
+              style={{ maxWidth: 120 }}
+            >
+              {t("profile.principalPicture")}
+            </MyText>
+            <ArrowBendDownRight
+              size={32}
+              color={colors.gray[500]}
+              style={{ transform: [{ rotate: "-25deg" }], marginRight: -15 }}
+            />
+          </View>
           <ProfilePictureItem
             onAdd={onAdd}
             onDelete={onDelete}
