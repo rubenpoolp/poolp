@@ -1,11 +1,11 @@
 import { UserProfilePics } from "@/types/story";
 import RingButton from "@components/buttons/BellButton";
-import StoryButton from "@components/buttons/StoryButton";
+import UserProfileButton from "@components/buttons/UserProfileButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
-import * as Haptics from "expo-haptics";
-import React, { useState } from "react";
-import { Image, Pressable, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { Image, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 interface UserItemCarouselProps {
@@ -23,31 +23,8 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   const width = dimensions.width * 0.9;
   const height = dimensions.height * 0.5;
 
-  const [actualIndex, setActualIndex] = useState<number>(0);
-
-  const onLeft = () => {
-    if (actualIndex - 1 < 0) {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-      return;
-    }
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    setActualIndex(actualIndex - 1);
-  };
-
-  const onRight = () => {
-    if (
-      userProfilePics.urls &&
-      actualIndex + 1 >= userProfilePics.urls.length
-    ) {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-      return;
-    }
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    setActualIndex(actualIndex + 1);
-  };
-
   return (
-    <StoryButton className="flex-1" userProfilePics={userProfilePics}>
+    <UserProfileButton className="flex-1" userProfilePics={userProfilePics}>
       <Animated.View
         entering={FadeInDown.duration(100)}
         className="flex-1 items-center justify-center"
@@ -60,29 +37,18 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
             height,
           }}
         >
-          {/* TODO: Add z index 10 to the container */}
-          <View className="absolute w-full flex-1 h-full flex-row z-20">
-            <Pressable className="flex-1" disabled onPress={onLeft} />
-            <Pressable className="flex-1 h-4/5" disabled onPress={onRight} />
-          </View>
-
           <View className="flex-1">
             {userProfilePics.urls && userProfilePics.urls.length > 0 && (
               <View className="absolute top-0 left-0 right-0 bottom-0">
                 <Image
-                  source={{ uri: userProfilePics.urls[actualIndex] }}
+                  source={{ uri: userProfilePics.urls[0] }}
                   style={{ flex: 1, width: "100%" }}
                   resizeMode="cover"
                 />
               </View>
             )}
 
-            <View className="flex-1 p-5 justify-between">
-              {/* <StoryBarLoader
-              index={actualIndex}
-              duration={0}
-              total={userStories.length}
-            /> */}
+            <View className="flex-1 p-5 justify-between z-10">
               <View />
 
               <View className="flex-row items-center justify-between">
@@ -90,15 +56,18 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
                   {userProfilePics.user_name}
                 </MyText>
 
-                {/* <StoryButton variant="user" stories={[storiesOfOnlyActualUser]}> */}
                 <RingButton onPress={() => {}} containerStyle="" />
-                {/* </StoryButton> */}
               </View>
             </View>
+
+            <LinearGradient
+              colors={["transparent", "rgba(0,0,0,0.4)"]}
+              className="absolute bottom-0 w-full h-1/2"
+            />
           </View>
         </View>
       </Animated.View>
-    </StoryButton>
+    </UserProfileButton>
   );
 };
 

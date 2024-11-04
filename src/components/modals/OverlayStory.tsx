@@ -4,11 +4,11 @@ import { CaretUp, DotsThree, X } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import StoryBarLoader from "./animations/StoriesBarLoader";
-import Avatar from "./Avatar";
-import MyButton from "./natives/MyButton";
-import MyPressable from "./natives/MyPressable";
-import MyText from "./natives/MyText";
+import StoryBarLoader from "../animations/StoriesBarLoader";
+import Avatar from "../Avatar";
+import MyButton from "../natives/MyButton";
+import MyPressable from "../natives/MyPressable";
+import MyText from "../natives/MyText";
 
 interface OverlayStoryModalProps {
   onClose: () => void;

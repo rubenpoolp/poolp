@@ -1,7 +1,10 @@
 import useTodayCircle from "@hooks/useTodayCircle";
 import { t } from "i18next";
 import { View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import StoryButton from "./buttons/StoryButton";
 import StackCarousel from "./carousel/StackCarousel";
+import MyGradient from "./MyGradient";
 import MyText from "./natives/MyText";
 
 const TodayCircle = () => {
@@ -17,7 +20,7 @@ const TodayCircle = () => {
 
       {usersProfilePics && <StackCarousel data={usersProfilePics} />}
 
-      {/* <StoryButton stories={stories} variant="story">
+      <StoryButton stories={stories}>
         <Animated.View
           entering={FadeInDown.duration(300)}
           className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"
@@ -27,7 +30,7 @@ const TodayCircle = () => {
             {t("actions.openCircle")}
           </MyText>
         </Animated.View>
-      </StoryButton> */}
+      </StoryButton>
     </View>
   );
 };

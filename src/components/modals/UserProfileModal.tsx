@@ -1,31 +1,39 @@
-import { UserStories } from "@/types/story";
+import { UserProfilePics } from "@/types/story";
 import React, { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import MyModal from "./MyModal";
-import OverlayStoryModal from "./OverlayStory";
+import OverlayUserProfile from "./OverlayUserProfile";
 
-interface StoryModalProps {
+interface UserProfileModalProps {
   isVisible: boolean;
   onClose: () => void;
-  stories: UserStories[];
+  userProfilePics: UserProfilePics;
 }
 
 const storyDuration = 5000;
 
-const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
+const UserProfileModal = ({
+  isVisible,
+  onClose,
+  userProfilePics,
+}: UserProfileModalProps) => {
   const [actualIndex, setActualIndex] = useState(0);
-  const flattenStories = stories?.flat();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  if (!userProfilePics.urls || userProfilePics.urls.length === 0) return null;
 
   useEffect(() => {
     timerRef.current = setTimeout(() => {
-      if (!flattenStories || actualIndex >= flattenStories.length - 1) {
+      if (
+        !userProfilePics.urls ||
+        actualIndex >= userProfilePics.urls.length - 1
+      ) {
         return;
       }
       setActualIndex(actualIndex + 1);
     }, storyDuration);
-  }, [actualIndex, flattenStories]);
+  }, [actualIndex, userProfilePics]);
 
   useEffect(() => {
     if (isVisible) {
@@ -40,7 +48,8 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   };
 
   const onRight = () => {
-    if (!flattenStories || actualIndex >= flattenStories.length - 1) return;
+    if (!userProfilePics.urls || actualIndex >= userProfilePics.urls.length - 1)
+      return;
     setActualIndex(actualIndex + 1);
     // timerRef.current?.refresh();
   };
@@ -51,17 +60,17 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
         {/* need this for the SafeAreaView */}
         <SafeAreaProvider>
           <Image
-            source={flattenStories?.[actualIndex].picture}
+            source={{ uri: userProfilePics.urls[actualIndex] }}
             className="flex-1 w-full bg-gray-600"
             resizeMode="cover"
           />
-          <OverlayStoryModal
+          <OverlayUserProfile
             onClose={onClose}
             duration={storyDuration}
             actualIndex={actualIndex}
+            userProfilePics={userProfilePics}
             onLeft={onLeft}
             onRight={onRight}
-            stories={flattenStories}
           />
         </SafeAreaProvider>
       </View>
@@ -69,4 +78,4 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   );
 };
 
-export default StoryModal;
+export default UserProfileModal;

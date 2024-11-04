@@ -7,6 +7,7 @@ interface MyPressableProps extends ComponentProps<typeof Pressable> {
   /** Keep the opacity when disabled */
   disabledFull?: boolean;
   hapticImpactStyle?: HapticImpactStyle;
+  opacity?: number;
 }
 
 function MyPressable(props: MyPressableProps) {
@@ -14,6 +15,7 @@ function MyPressable(props: MyPressableProps) {
     disabled,
     disabledFull = false,
     hapticImpactStyle = "light",
+    opacity = 0.3,
     ...otherProps
   } = props;
 
@@ -41,7 +43,7 @@ function MyPressable(props: MyPressableProps) {
       // @ts-ignore
       style={({ pressed }) => [
         {
-          opacity: pressed || disabled ? 0.3 : hovered ? 0.7 : 1,
+          opacity: pressed || disabled ? opacity : hovered ? 0.7 : 1,
         },
         otherProps.style,
       ]}
