@@ -56,7 +56,6 @@ const useProfile = () => {
       name: "profile.aboutUs",
       onPress: () => Linking.openURL("https://poolp.app"),
     },
-
     {
       name: "profile.logout.title",
       onPress: () => {

@@ -1,4 +1,3 @@
-import colors from "@config/colors";
 import { TabBarPages } from "@config/tabBarPages";
 import { View } from "react-native";
 
@@ -12,13 +11,8 @@ const TabBarIcon = ({ focused, route }: TabBarIconProps) => {
 
   return (
     <View className="items-center justify-center h-full">
-      {tab?.Icon && (
-        <tab.Icon
-          size={28}
-          color={colors.light}
-          weight={focused ? "fill" : "regular"}
-        />
-      )}
+      {tab?.Icon && focused && <tab.Icon />}
+      {tab?.IconFilled && !focused && <tab.IconFilled />}
       {focused && (
         <View className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-gradient-primary-1" />
       )}
