@@ -55,7 +55,11 @@ const UserProfileModal = ({
   };
 
   return (
-    <MyModal isVisible={isVisible}>
+    <MyModal
+      isVisible={isVisible}
+      onSwipeComplete={onClose}
+      swipeDirection={"down"}
+    >
       <View className="flex-1 bg-overlay w-full h-full">
         {/* need this for the SafeAreaView */}
         <SafeAreaProvider>

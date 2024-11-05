@@ -6,6 +6,7 @@ const directories = [
   "logo",
   "social_networks",
   "profilePictures",
+  "onboarding",
 ];
 
 const imageFileNames = (dir) => {
