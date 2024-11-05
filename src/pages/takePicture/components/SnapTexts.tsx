@@ -1,0 +1,115 @@
+import MyPressable from "@components/natives/MyPressable";
+import { useEffect, useState } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  View,
+} from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+
+const SnapText = ({
+  text,
+  onChangeText,
+}: {
+  text: string;
+  onChangeText: (text: string) => void;
+}) => {
+  const translateY = useSharedValue(0);
+
+  const drag = Gesture.Pan().onChange((event) => {
+    translateY.value += event.changeY;
+  });
+
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
+
+  return (
+    <GestureDetector gesture={drag}>
+      <Animated.View
+        style={containerStyle}
+        className={"w-full bg-background-dark/80 py-1"}
+      >
+        <TextInput
+          autoFocus
+          className="text-sm text-light w-full text-center"
+          value={text}
+          onChangeText={onChangeText}
+        />
+      </Animated.View>
+    </GestureDetector>
+  );
+};
+
+const SnapTexts = () => {
+  const [textStories, setTextStories] = useState<TextStory[]>([]);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setIsKeyboardVisible(true),
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setIsKeyboardVisible(false),
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const newTextStory = () => {
+    setTextStories([...textStories, { text: "", position: { y: 0 } }]);
+  };
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      className="w-full h-full flex-1 absolute"
+    >
+      <MyPressable
+        opacity={1}
+        className="w-full h-full space-y-4 justify-end z-50"
+        onPress={() => {
+          if (isKeyboardVisible) {
+            Keyboard.dismiss();
+            return;
+          }
+          newTextStory();
+        }}
+      >
+        <View className="bottom-80">
+          {textStories.map((textStory, index) => (
+            <SnapText
+              key={index}
+              {...textStory}
+              onChangeText={(text) => {
+                const newTextStories = [...textStories];
+                newTextStories[index].text = text;
+                if (text === "") newTextStories.splice(index, 1);
+                setTextStories(newTextStories);
+              }}
+            />
+          ))}
+        </View>
+      </MyPressable>
+    </KeyboardAvoidingView>
+  );
+};
+
+export default SnapTexts;

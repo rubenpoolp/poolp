@@ -61,7 +61,8 @@
     "react-native-svg": "15.2.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vision-camera": "^4.5.3",
-    "expo-crypto": "~13.0.2"
+    "expo-crypto": "~13.0.2",
+    "react-native-view-shot": "3.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

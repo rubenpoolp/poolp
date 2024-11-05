@@ -1,7 +1,7 @@
 import * as FileSystem from "expo-file-system";
 import { supabase } from "./supabase";
 
-const upload = async (path: string, uri: string) => {
+const upload = async (path: string, uri: string, bucket: string) => {
   try {
     // Read the file as base64
     const fileInfo = await FileSystem.getInfoAsync(uri);
@@ -23,7 +23,7 @@ const upload = async (path: string, uri: string) => {
 
     // Upload the binary data
     const { data, error } = await supabase.storage
-      .from("profilePics")
+      .from(bucket)
       .upload(path, bytes, {
         contentType: "image/jpeg",
         cacheControl: "3600",

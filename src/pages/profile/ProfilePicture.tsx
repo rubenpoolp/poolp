@@ -9,6 +9,7 @@ import ProfilePictureItem from "@components/ProfilePictureItem";
 import colors from "@config/colors";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
+import { PROFILE_PICS_BUCKET } from "@supabase_types";
 import { supabase } from "@utils/supabase";
 import upload from "@utils/upload";
 import * as Crypto from "expo-crypto";
@@ -23,8 +24,8 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [pictures, setPictures] = useState<string[]>([]);
-  const addProfilePic = useAddProfilePic(user?.id);
-  const { data: profilePics } = useGetProfilePics(user?.id);
+  const addProfilePic = useAddProfilePic();
+  const { data: profilePics } = useGetProfilePics();
   const { setIsLoading } = useIsLoading();
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
       setIsLoading(true);
       const UUID = Crypto.randomUUID();
       const url = `${user?.id}/${UUID}.jpg`;
-      const { data, error } = await upload(url, uri);
+      const { data, error } = await upload(url, uri, PROFILE_PICS_BUCKET);
       if (error) {
         throw error;
       }
@@ -59,7 +60,7 @@ const ProfilePicture = ({}: ProfilePictureProps) => {
   const onDelete = async (url: string) => {
     try {
       setIsLoading(true);
-      await supabase.storage.from("profilePics").remove([url]);
+      await supabase.storage.from(PROFILE_PICS_BUCKET).remove([url]);
       const newPictures = pictures.filter((p) => p !== url);
       await addProfilePic.mutateAsync({
         urls: newPictures,

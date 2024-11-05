@@ -1,5 +1,8 @@
 import { Database } from "database";
 
+export const PROFILE_PICS_BUCKET = "profilePics";
+export const CIRCLE_PICS_BUCKET = "circle_pics";
+
 export type Address = {
   street: string;
   city: string;
@@ -14,3 +17,4 @@ export type School = Database["public"]["Tables"]["schools"]["Row"] & {
   address: Address;
 };
 export type ProfilePic = Database["public"]["Tables"]["profile_pics"]["Row"];
+export type CirclePic = Database["public"]["Tables"]["circle_pics"]["Row"];

@@ -4,32 +4,20 @@ import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { light } from "@config/colors";
 import { CameraPlus } from "phosphor-react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Linking, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 
 interface CameraPermissionViewProps {
   onRequestPermission: () => void;
   hasPermission: boolean;
 }
 
-type TextStory = {
-  text: string;
-  position: { y: number };
-};
-
 const CameraPermissionView: React.FC<CameraPermissionViewProps> = ({
   onRequestPermission,
   hasPermission,
 }) => {
-  const [textStories, setTextStories] = useState<TextStory[]>([]);
-
   const openSettings = () => {
     Linking.openSettings();
-  };
-  const newTextStory = () => {
-    console.log("new text story");
-    setTextStories([...textStories, { text: "Hello", position: { y: 0 } }]);
   };
 
   return (
@@ -55,20 +43,6 @@ const CameraPermissionView: React.FC<CameraPermissionViewProps> = ({
                   </View>
                 ) : (
                   <View className="items-center w-full">
-                    <MyPressable
-                      opacity={1}
-                      className="bg-red h-10 w-10"
-                      onPress={newTextStory}
-                    />
-                    {textStories.map((textStory, index) => (
-                      <TextInput
-                        autoFocus
-                        key={index}
-                        className="text-sm text-light w-full text-center bg-red"
-                      >
-                        {textStory.text}
-                      </TextInput>
-                    ))}
                     <MyText className="text-sm text-light mt-1 mb-2">
                       Unable to access camera device.
                     </MyText>

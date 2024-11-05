@@ -2,8 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import i18n from "@utils/i18n";
 import { myCaptureException } from "@utils/sentry";
 import addProfilePic from "./addProfilePics.query";
+import { useAuth } from "@context/Auth";
 
-const useAddProfilePic = (userId?: string) => {
+const useAddProfilePic = () => {
+  const auth = useAuth();
+  const userId = auth.user?.id;
   const queryClient = useQueryClient();
 
   return useMutation({

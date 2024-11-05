@@ -1,17 +1,21 @@
 import i18n from "@/utils/i18n";
+import { useAuth } from "@context/Auth";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import getMyDailyCircleQuery from "./getMyDailyCircle.query";
 
-const useGetMyDailyCircle = (user_id: string | undefined) => {
-  return useQuery({
-    queryKey: ["circle", user_id, format(new Date(), "yyyy-MM-dd")], // Date of the day
-    queryFn: () => {
-      if (user_id === undefined) throw new Error(i18n.t("errors.pleaseLogin"));
+const useGetMyDailyCircle = () => {
+  const auth = useAuth();
+  const userId = auth.user?.id;
 
-      return getMyDailyCircleQuery(user_id);
+  return useQuery({
+    queryKey: ["circle", userId, format(new Date(), "yyyy-MM-dd")], // Date of the day
+    queryFn: () => {
+      if (userId === undefined) throw new Error(i18n.t("errors.pleaseLogin"));
+
+      return getMyDailyCircleQuery(userId);
     },
-    enabled: !!user_id,
+    enabled: !!userId,
     initialData: undefined,
   });
 };

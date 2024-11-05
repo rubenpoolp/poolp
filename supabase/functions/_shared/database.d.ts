@@ -78,24 +78,66 @@ export type Database = {
           },
         ];
       };
+      circle_pics: {
+        Row: {
+          circle_id: string | null;
+          created_at: string;
+          deleted_at: string | null;
+          id: string;
+          url: string;
+          user_id: string | null;
+        };
+        Insert: {
+          circle_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          url: string;
+          user_id?: string | null;
+        };
+        Update: {
+          circle_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          url?: string;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "circle_pics_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "circle_pics_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       circles: {
         Row: {
           created_at: string;
-          id: number;
+          id: string;
           last_interaction_at: string | null;
           name: string | null;
           user_ids: string[] | null;
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          id?: string;
           last_interaction_at?: string | null;
           name?: string | null;
           user_ids?: string[] | null;
         };
         Update: {
           created_at?: string;
-          id?: number;
+          id?: string;
           last_interaction_at?: string | null;
           name?: string | null;
           user_ids?: string[] | null;
