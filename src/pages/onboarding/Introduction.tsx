@@ -1,6 +1,4 @@
 import assets from "@assets/index";
-import MyPressable from "@components/natives/MyPressable";
-import MyText from "@components/natives/MyText";
 import OnboardingCarousel from "@components/OnboardingCarousel";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import React, { useState } from "react";
@@ -70,12 +68,6 @@ const Introduction = ({ navigation, route }: IntroductionProps) => {
         items={OnboardingCarouselContent}
         onIndexChange={handleIndexChange}
       />
-
-      {__DEV__ && (
-        <MyPressable className="absolute bottom-4 left-6" onPress={handleSkip}>
-          <MyText className="text-gray-500">DEV - Skip</MyText>
-        </MyPressable>
-      )}
     </MyOnboardingLayout>
   );
 };

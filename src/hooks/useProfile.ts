@@ -1,11 +1,13 @@
+import { CONTACT_EMAIL } from "@config/config";
 import { useAuth } from "@context/Auth";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
+import * as Linking from "expo-linking";
 import { t } from "i18next";
 import { FC } from "react";
-import { Alert, Linking, Share } from "react-native";
+import { Alert, Share } from "react-native";
 
 const useProfile = () => {
   const navigation = useNavigation();
@@ -46,7 +48,21 @@ const useProfile = () => {
     },
     {
       name: "profile.help",
-      onPress: () => Linking.openURL("mailto:help@poolp.app"),
+      onPress: () => {
+        const email = CONTACT_EMAIL;
+        return Linking.canOpenURL(`mailto:${email}`)
+          .then((supported: boolean) => {
+            if (supported) {
+              Linking.openURL(`mailto:${email}`);
+            } else {
+              Alert.alert("Error", "Unable to open email");
+            }
+          })
+          .catch((error: Error) => {
+            console.log(error);
+            Alert.alert("Error", error.message);
+          });
+      },
     },
     {
       name: "profile.rate",

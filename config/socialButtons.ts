@@ -17,12 +17,7 @@ const socialButtons = [
   {
     asset: assets.whatsapp,
     color: "#00DC60",
-    onPress: (message: string) => {},
-    // Share.shareSingle({
-    //   title: "Shared on Whatsapp",
-    //   social: Share.Social.WHATSAPP,
-    //   message,
-    // }),
+    onPress: () => {},
   },
   {
     asset: assets.message,

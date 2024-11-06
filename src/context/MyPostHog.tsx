@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 const MyPostHogProvider = ({ children }: { children: ReactNode }) => {
   return (
     <PostHogProvider
-      apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
+      apiKey={process.env.POSTHOG_API_KEY}
       options={{
         host: "https://eu.i.posthog.com",
         disabled: __DEV__,

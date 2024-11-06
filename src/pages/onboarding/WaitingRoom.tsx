@@ -1,7 +1,6 @@
 import assets from "@assets/index";
 import MyButton from "@components/natives/MyButton";
 import MyImage from "@components/natives/MyImage";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -51,11 +50,6 @@ const WaitingRoom = ({
         onPress={handleInvite}
         size="large"
       />
-      {__DEV__ && (
-        <MyPressable className="absolute top-20 right-4" onPress={handleNext}>
-          <MyText>DEV - Skip</MyText>
-        </MyPressable>
-      )}
     </View>
   );
 };

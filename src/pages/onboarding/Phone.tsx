@@ -1,5 +1,4 @@
 import PhoneNumberInput from "@components/inputs/PhoneNumberInput";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
@@ -79,16 +78,6 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
           onSubmitEditing={handleNext}
         />
       </View>
-      {__DEV__ && (
-        <MyPressable
-          className="absolute -top-20 right-4"
-          onPress={() =>
-            goNext(process.env.EXPO_PUBLIC_TEST_PHONE_NUMBER ?? "")
-          }
-        >
-          <MyText>DEV - Skip</MyText>
-        </MyPressable>
-      )}
     </MyOnboardingLayout>
   );
 };

@@ -5,6 +5,7 @@ import MyUserAvatar from "@components/MyUserAvatar";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import { useIsLoading } from "@context/IsLoading";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
@@ -23,11 +24,18 @@ const DisplayInfo = ({
   txtClassName?: string;
 }) => {
   const { t } = useTranslation();
+  const { setIsLoading } = useIsLoading();
+
+  const handlePress = () => {
+    setIsLoading(true);
+    onPress?.();
+    setIsLoading(false);
+  };
 
   return (
     <MyPressable
       className="w-full flex-row justify-between items-center mb-7"
-      onPress={onPress}
+      onPress={handlePress}
       disabledFull={!onPress}
     >
       <MyText className={`text-lg font-semibold ${txtClassName}`}>
