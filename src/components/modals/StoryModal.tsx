@@ -1,4 +1,4 @@
-import { UserStories } from "@/types/story";
+import { Story } from "@/types/story";
 import React, { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -8,24 +8,23 @@ import OverlayStoryModal from "./OverlayStory";
 interface StoryModalProps {
   isVisible: boolean;
   onClose: () => void;
-  stories: UserStories[];
+  stories: Story[];
 }
 
 const storyDuration = 5000;
 
 const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   const [actualIndex, setActualIndex] = useState(0);
-  const flattenStories = stories?.flat();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     timerRef.current = setTimeout(() => {
-      if (!flattenStories || actualIndex >= flattenStories.length - 1) {
+      if (!stories || actualIndex >= stories.length - 1) {
         return;
       }
       setActualIndex(actualIndex + 1);
     }, storyDuration);
-  }, [actualIndex, flattenStories]);
+  }, [actualIndex, stories]);
 
   useEffect(() => {
     if (isVisible) {
@@ -40,7 +39,7 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   };
 
   const onRight = () => {
-    if (!flattenStories || actualIndex >= flattenStories.length - 1) return;
+    if (!stories || actualIndex >= stories.length - 1) return;
     setActualIndex(actualIndex + 1);
     // timerRef.current?.refresh();
   };
@@ -51,7 +50,7 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
         {/* need this for the SafeAreaView */}
         <SafeAreaProvider>
           <Image
-            source={flattenStories?.[actualIndex].picture}
+            source={{ uri: stories?.[actualIndex].url }}
             className="flex-1 w-full bg-gray-600"
             resizeMode="cover"
           />
@@ -61,7 +60,7 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
             actualIndex={actualIndex}
             onLeft={onLeft}
             onRight={onRight}
-            stories={flattenStories}
+            stories={stories}
           />
         </SafeAreaProvider>
       </View>

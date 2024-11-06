@@ -1,9 +1,9 @@
-export type Story = {
-  picture: ImageProps["source"];
-  createdAt: string;
-  updatedAt: string;
+import { CirclePic } from "@supabase_types";
+
+export type Story = CirclePic & {
   userName: string;
   userProfilePictureUrl?: string;
+  createdAtFormatted: string;
 };
 
 export type UserProfilePics = {
@@ -11,5 +11,3 @@ export type UserProfilePics = {
   user_id: string;
   user_name: string;
 };
-
-export type UserStories = Story[];

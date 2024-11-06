@@ -1,18 +1,19 @@
-import { UserProfilePics, UserStories } from "@/types/story";
+import { Story, UserProfilePics } from "@/types/story";
+import Avatar from "@components/Avatar";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { LinearGradient } from "expo-linear-gradient";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
-import Avatar from "../Avatar";
 import MyButton from "../natives/MyButton";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
 
 interface OverlayStoryModalProps {
   onClose: () => void;
-  stories?: UserStories;
+  stories?: Story[];
   userProfilePics?: UserProfilePics;
   actualIndex: number;
   duration: number;
@@ -29,6 +30,7 @@ const AvatarNameTime = ({
   username: string;
   date: string;
 }) => {
+  console.log("userProfilePictureUrl", userProfilePictureUrl);
   return (
     <View className="flex-row items-center space-x-2">
       <Avatar size="sm" username={username} picture={userProfilePictureUrl} />
@@ -79,6 +81,7 @@ const OverlayStoryModal = ({
     );
   };
 
+  console.log(stories?.[actualIndex].userProfilePictureUrl);
   return (
     <SafeAreaView
       edges={userProfilePics ? ["top", "bottom"] : ["top"]}
@@ -88,6 +91,10 @@ const OverlayStoryModal = ({
         <Pressable className="flex-1 " onPress={onLeft} />
         <Pressable className="flex-1" onPress={onRight} />
       </View>
+      <LinearGradient
+        colors={["rgba(0,0,0,0.5)", "transparent"]}
+        className="absolute w-full h-1/2"
+      />
       <View className="flex-1 px-4 justify-between">
         <View className="space-y-4">
           <StoryBarLoader
@@ -112,7 +119,7 @@ const OverlayStoryModal = ({
                       stories?.[actualIndex].userProfilePictureUrl ?? ""
                     }
                     username={stories?.[actualIndex].userName}
-                    date={stories?.[actualIndex].createdAt}
+                    date={stories?.[actualIndex].createdAtFormatted}
                   />
                 )}
               </>

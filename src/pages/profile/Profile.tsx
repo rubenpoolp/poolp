@@ -1,7 +1,7 @@
 import { Bump } from "@components/animations/Bump";
-import Avatar from "@components/Avatar";
 import MyHeader from "@components/headers/MyHeader";
 import MyScreen from "@components/MyScreen";
+import MyUserAvatar from "@components/MyUserAvatar";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
@@ -60,7 +60,7 @@ const Profile = () => {
         <View className="flex space-y-16">
           <View className="relative flex items-center justify-center space-y-16">
             <View className="relative w-full items-center">
-              <Avatar disabled size="lg" />
+              <MyUserAvatar disabled size="lg" />
 
               <View className="absolute -bottom-5">
                 <Bump scaleValue={0.95}>

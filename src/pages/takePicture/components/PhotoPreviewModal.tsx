@@ -31,7 +31,6 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
     });
 
     await MediaLibrary.saveToLibraryAsync(localUri);
-    console.log(localUri);
     if (localUri) {
       Alert.alert("Image saved to library");
     }

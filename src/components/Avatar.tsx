@@ -1,52 +1,21 @@
-import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import assets from "@assets/index";
-import { useAuth } from "@context/Auth";
-import { useNavigation } from "@react-navigation/native";
-import { supabase } from "@utils/supabase";
-import { useEffect, useState } from "react";
 import { Bump } from "./animations/Bump";
 import MyImage from "./natives/MyImage";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
 
 const Avatar = ({
-  disabled = false,
+  onPress,
   username,
   picture,
   size = "md",
 }: {
-  disabled?: boolean;
+  onPress?: () => void;
   username?: string;
   picture?: string;
   size?: "sm" | "md" | "lg";
 }) => {
-  const { user } = useAuth();
-  const navigation = useNavigation();
-  const letter = username
-    ? username.charAt(0)
-    : user
-      ? user.name.charAt(0)
-      : "";
-  const { data: profilePics } = useGetProfilePics(user?.id);
-  const [profilePic, setProfilePic] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (picture) {
-      setProfilePic(picture);
-      return;
-    }
-    const profilePic =
-      profilePics && profilePics.length > 0 ? profilePics[0] : null;
-    if (!profilePic) {
-      setProfilePic(null);
-      return;
-    }
-
-    const { data } = supabase.storage
-      .from("profilePics")
-      .getPublicUrl(profilePic);
-    setProfilePic(data?.publicUrl);
-  }, [profilePics]);
+  const letter = username ? username.charAt(0) : "";
 
   let sizeClass = "";
   let textSizeClass = "";
@@ -61,23 +30,21 @@ const Avatar = ({
     textSizeClass = "text-lg";
   }
 
-  const goToProfile = () => navigation.navigate("Profile");
-
   return (
-    <Bump scaleValue={0.9} disabled={disabled}>
+    <Bump scaleValue={0.9} disabled={!onPress}>
       <MyPressable
-        disabledFull={disabled}
-        onPress={goToProfile}
+        disabledFull={!onPress}
+        onPress={onPress}
         className={`rounded-full bg-light items-center justify-center ${sizeClass}`}
       >
         <MyImage
           containerStyle={`rounded-full absolute overflow-hidden ${sizeClass}`}
           img={assets.defaultProfilePicture}
         />
-        {profilePic ? (
+        {picture ? (
           <MyImage
             containerStyle={`rounded-full absolute overflow-hidden ${sizeClass}`}
-            img={{ uri: profilePic }}
+            img={{ uri: picture }}
             resizeMode="cover"
           />
         ) : (
