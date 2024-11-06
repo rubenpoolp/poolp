@@ -30,7 +30,6 @@ const AvatarNameTime = ({
   username: string;
   date: string;
 }) => {
-  console.log("userProfilePictureUrl", userProfilePictureUrl);
   return (
     <View className="flex-row items-center space-x-2">
       <Avatar size="sm" username={username} picture={userProfilePictureUrl} />
@@ -81,7 +80,6 @@ const OverlayStoryModal = ({
     );
   };
 
-  console.log(stories?.[actualIndex].userProfilePictureUrl);
   return (
     <SafeAreaView
       edges={userProfilePics ? ["top", "bottom"] : ["top"]}

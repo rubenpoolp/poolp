@@ -2,10 +2,7 @@ import useGetCirclePics from "@api/circles/getCirclePics.hook";
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import useGetUsersProfilePics from "@api/profilePics/getUsersProfilePics.hook";
 import useGetAccounts from "@api/users/getAccounts.hook";
-import assets from "@assets/index";
 import { formatStoryDate } from "@utils/dates";
-
-const example_assets = [assets.test1, assets.test2];
 
 const useTodayCircle = () => {
   const { data: circle } = useGetMyDailyCircle();
@@ -23,7 +20,6 @@ const useTodayCircle = () => {
     )?.urls?.[0],
     createdAtFormatted: formatStoryDate(new Date(pic.created_at)),
   }));
-  console.log("mappedStories", mappedStories);
   const stories = mappedStories.sort((a, b) =>
     a?.user_id === b?.user_id ? 1 : 0
   );

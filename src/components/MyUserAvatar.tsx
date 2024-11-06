@@ -17,7 +17,6 @@ const MyUserAvatar = ({
   const { data: profilePics } = useGetProfilePics();
   const [profilePic, setProfilePic] = useState<string | null>(null);
 
-  console.log(profilePic);
   useEffect(() => {
     const profilePic =
       profilePics && profilePics.length > 0 ? profilePics[0] : null;
@@ -27,7 +26,6 @@ const MyUserAvatar = ({
     }
 
     getProfilePicsStorageUrl(profilePic).then((url) => {
-      console.log("My User Avatar url", url);
       setProfilePic(url);
     });
   }, [profilePic, profilePics]);
