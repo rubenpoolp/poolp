@@ -6,11 +6,13 @@ import Modal from "react-native-modal";
 interface MyModalProps extends Partial<ComponentProps<typeof Modal>> {
   showAfterMs?: number;
   showInstantly?: boolean;
+  backdropOpacity?: number;
 }
 
 const MyModal = ({
   showAfterMs = 300,
   showInstantly,
+  backdropOpacity = 0.2,
   ...props
 }: MyModalProps) => {
   const [isVisibleWithTimer, setIsVisibleWithTimer] = useState(false);

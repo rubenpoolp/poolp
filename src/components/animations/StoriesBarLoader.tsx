@@ -31,7 +31,7 @@ const StoryBarLoader = ({
             <View
               key={i}
               className={`flex-1 h-1 rounded-full mx-1 ${
-                i < index ? "bg-light" : "bg-gray-200"
+                i < index ? "bg-light" : "bg-gray-400"
               }`}
             >
               {i === index && (

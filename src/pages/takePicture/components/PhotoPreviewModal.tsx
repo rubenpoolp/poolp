@@ -1,11 +1,10 @@
 import MyModal from "@components/modals/MyModal";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
-import * as MediaLibrary from "expo-media-library";
 import { t } from "i18next";
 import { CaretLeft } from "phosphor-react-native";
 import React, { useRef } from "react";
-import { Alert, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { captureRef } from "react-native-view-shot";
 import SnapTexts from "./SnapTexts";
@@ -27,14 +26,11 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
     if (!photo) return;
 
     const localUri = await captureRef(imageAndTextRef, {
-      quality: 1,
+      quality: 0.5,
+      format: "jpg",
     });
 
-    await MediaLibrary.saveToLibraryAsync(localUri);
-    if (localUri) {
-      Alert.alert("Image saved to library");
-    }
-    onSend(photo.path);
+    onSend(localUri);
   };
 
   return (
@@ -56,7 +52,7 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
       </SafeAreaView>
 
       <SafeAreaView className="absolute w-full bottom-0 bg-background-dark px-5 items-center pt-4 pb-14">
-        <MyButton onPress={onSaveImage} txt={t("send")} />
+        <MyButton onPress={onSaveImage} txt={t("camera.send")} />
       </SafeAreaView>
     </MyModal>
   );

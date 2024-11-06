@@ -21,6 +21,7 @@ const upload = async (path: string, uri: string, bucket: string) => {
       bytes[i] = binaryString.charCodeAt(i);
     }
 
+    console.log("Uploading to supabase", bucket, path);
     // Upload the binary data
     const { data, error } = await supabase.storage
       .from(bucket)

@@ -16,9 +16,11 @@ import Animated, {
 const SnapText = ({
   text,
   onChangeText,
+  remove,
 }: {
   text: string;
   onChangeText: (text: string) => void;
+  remove: () => void;
 }) => {
   const translateY = useSharedValue(0);
 
@@ -44,6 +46,9 @@ const SnapText = ({
       >
         <TextInput
           autoFocus
+          onBlur={() => {
+            if (text === "") remove();
+          }}
           className="text-sm text-light w-full text-center"
           value={text}
           onChangeText={onChangeText}
@@ -54,7 +59,7 @@ const SnapText = ({
 };
 
 const SnapTexts = () => {
-  const [textStories, setTextStories] = useState<TextStory[]>([]);
+  const [textStories, setTextStories] = useState<string[]>([]);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -74,7 +79,7 @@ const SnapTexts = () => {
   }, []);
 
   const newTextStory = () => {
-    setTextStories([...textStories, { text: "", position: { y: 0 } }]);
+    setTextStories([...textStories, ""]);
   };
 
   return (
@@ -97,11 +102,15 @@ const SnapTexts = () => {
           {textStories.map((textStory, index) => (
             <SnapText
               key={index}
-              {...textStory}
+              text={textStory}
+              remove={() => {
+                const newTextStories = [...textStories];
+                newTextStories.splice(index, 1);
+                setTextStories(newTextStories);
+              }}
               onChangeText={(text) => {
                 const newTextStories = [...textStories];
-                newTextStories[index].text = text;
-                if (text === "") newTextStories.splice(index, 1);
+                newTextStories[index] = text;
                 setTextStories(newTextStories);
               }}
             />

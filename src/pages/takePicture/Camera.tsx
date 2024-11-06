@@ -23,14 +23,14 @@ const CameraPage = () => {
     takePhoto,
     reset,
   } = useCamera();
-  const { uploadProfilePic } = useCirclePic();
+  const { uploadPic } = useCirclePic();
 
   const handleSend = useCallback(
     (uriScreenshot: string) => {
-      uploadProfilePic(uriScreenshot);
+      uploadPic(uriScreenshot);
       reset();
     },
-    [reset, uploadProfilePic],
+    [reset, uploadPic],
   );
 
   // Initialize camera permissions

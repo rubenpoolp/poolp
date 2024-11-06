@@ -52,8 +52,11 @@ const Profile = () => {
   const { t } = useTranslation();
   const list = useProfile();
   const auth = useAuth();
-  const days = getDaysFromNow(new Date(auth.user?.created_at ?? ""));
-  const date = formatBasicDate(new Date(auth.user?.created_at ?? ""));
+  const createdAt = auth.user?.created_at
+    ? new Date(auth.user.created_at)
+    : new Date();
+  const days = getDaysFromNow(createdAt);
+  const date = formatBasicDate(createdAt);
 
   const navigation = useNavigation();
 
