@@ -1,3 +1,4 @@
+import useAutoCapturePostHog from "@hooks/useAutoCapturePosthog";
 import { ReactNode } from "react";
 import { Platform, View } from "react-native";
 import { Edges, SafeAreaView } from "react-native-safe-area-context";
@@ -17,18 +18,22 @@ const MyScreen = ({
   edges = ["top", "bottom"],
   style,
   padding = false,
-}: MyScreenProps) => (
-  <SafeAreaView
-    edges={edges}
-    className={`flex-1 pt-2 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
-  >
-    <View
-      className={`flex-1 items-center justify-between ${padding && "px-4"}`}
-      style={style}
+}: MyScreenProps) => {
+  useAutoCapturePostHog();
+
+  return (
+    <SafeAreaView
+      edges={edges}
+      className={`flex-1 pt-2 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
     >
-      {children}
-    </View>
-  </SafeAreaView>
-);
+      <View
+        className={`flex-1 items-center justify-between ${padding && "px-4"}`}
+        style={style}
+      >
+        {children}
+      </View>
+    </SafeAreaView>
+  );
+};
 
 export default MyScreen;

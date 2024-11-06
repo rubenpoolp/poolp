@@ -1,8 +1,6 @@
 const assets = {
   // .
   "sparkles": require("././sparkles.png"),
-  "test1": require("././test1.png"),
-  "test2": require("././test2.png"),
 
   // fonts
   "SFProDisplayLight": require("./fonts/SFProDisplayLight.otf"),

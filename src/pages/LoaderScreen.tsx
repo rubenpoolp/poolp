@@ -3,6 +3,7 @@ import assets from "@assets/index";
 import MyImage from "@components/natives/MyImage";
 import { red } from "@config/colors";
 import { useAuth } from "@context/Auth";
+import useAnalytics from "@hooks/useAnalytics";
 import useManageRoute from "@hooks/useManageRoute";
 import { setAsyncStorage } from "@utils/asyncStorage";
 import { initializeRevenueCatApiKeys } from "@utils/purchase";
@@ -11,14 +12,14 @@ import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 const useInitialization = () => {
-  // const { identify } = useAnalytics();
+  const { identify } = useAnalytics();
   const { user } = useAuth();
-  useGetProfilePics(user?.id); // This will set the profile pics in the query client
+  useGetProfilePics(); // This will set the profile pics in the query client
 
   useEffect(() => {
     if (!user) return;
 
-    // identify(user.id, user.email || "anonymous@user.com");
+    identify(user.id, user.phone || "anonymous");
 
     const storageUrl = supabase.storage
       .from("")
@@ -27,7 +28,7 @@ const useInitialization = () => {
     setAsyncStorage("STORAGE_URL", storageUrl);
 
     initializeRevenueCatApiKeys(user.id);
-  }, [user]);
+  }, [identify, user]);
 };
 
 const LoaderScreen = () => {

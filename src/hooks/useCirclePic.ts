@@ -7,9 +7,9 @@ const useCirclePic = () => {
   const { data: circle } = useGetMyDailyCircle();
   const addCirclePic = useAddCirclePic();
 
-  if (!circle) throw new Error("Circle not found");
-
   const uploadProfilePic = (uri: string) => {
+    if (!circle) throw new Error("Circle not found");
+
     const url = `${circle.id}-${Date.now()}`;
     upload(url, uri, CIRCLE_PICS_BUCKET);
     addCirclePic.mutateAsync({ circleId: circle.id, url });

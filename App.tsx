@@ -4,6 +4,7 @@ import { background, light } from "@config/colors";
 import fonts from "@config/fonts";
 import { AuthProvider } from "@context/Auth";
 import IsLoadingProvider from "@context/IsLoading";
+import MyPostHogProvider from "@context/MyPostHog";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import useNotifications from "@hooks/useNotifications";
 import OnboardingNavigator from "@pages/navigation/OnboardingNavigator";
@@ -84,10 +85,10 @@ const App = () => {
                     >
                       <AuthProvider>
                         <NavigationContainer theme={myTheme}>
-                          {/* <MyPostHogProvider> */}
-                          <OnboardingNavigator />
-                          <UpdateModal />
-                          {/* </MyPostHogProvider> */}
+                          <MyPostHogProvider>
+                            <OnboardingNavigator />
+                            <UpdateModal />
+                          </MyPostHogProvider>
                         </NavigationContainer>
                       </AuthProvider>
                       <LoaderModal />
