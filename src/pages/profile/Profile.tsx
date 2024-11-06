@@ -74,8 +74,8 @@ const Profile = () => {
         }}
       >
         <View className="flex space-y-16">
-          <View className="relative flex items-center justify-center space-y-16">
-            <View className="relative w-full items-center">
+          <View className="flex items-center justify-center space-y-16">
+            <View className="w-full items-center">
               <MyUserAvatar disabled size="lg" />
 
               <View className="absolute -bottom-5">
@@ -99,14 +99,9 @@ const Profile = () => {
                   onPress={() => {}}
                   txt={t("profile.seeWhoLikedYou")}
                   size="medium"
-                  txtClassName="font-lg text-gold-100"
                   variant="gold"
-                  className="mb-2"
                 />
               </Bump>
-              <MyText className="text-gold-100 font-light">
-                Available in 7 circles
-              </MyText>
             </View>
           </View>
 

@@ -1,10 +1,11 @@
+import MyGradient from "@components/MyGradient";
+import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import { gradient } from "@config/colors";
 import shadow from "@config/shadow";
 import React, { ComponentProps } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { SvgProps } from "react-native-svg";
-import MyGradient from "@components/MyGradient";
-import MyPressable from "@components/natives/MyPressable";
 
 interface MyButtonProps extends ComponentProps<typeof Pressable> {
   variant?: "gradient" | "pink" | "gold";
@@ -21,7 +22,7 @@ interface MyButtonProps extends ComponentProps<typeof Pressable> {
 const variantStyle = {
   gradient: { container: "", text: "text-white" },
   pink: { container: "bg-pink-100", text: "text-[#391952]" },
-  gold: { container: "bg-gray-400", text: "text-gold-100" },
+  gold: { container: "bg-gray-400", text: "text-white" },
 };
 
 const sizeStyle = {
@@ -60,6 +61,9 @@ const MyButton = ({
         <View className="h-4 w-4 bg-red rounded-full absolute -right-1 -top-1 z-10" />
       )}
       {variant === "gradient" && <MyGradient className="rounded-full" />}
+      {variant === "gold" && (
+        <MyGradient colors={gradient.gold} className="rounded-full" />
+      )}
       {RightComponent && !LeftComponent && (
         <View className="opacity-0">
           <RightComponent />

@@ -15,6 +15,7 @@ module.exports = {
 
   gradient: {
     primary: ["#A736FF", "#7826FD"],
+    gold: ["#F5DA93", "#D38F2F"],
   },
 
   purple: {
@@ -28,7 +29,7 @@ module.exports = {
 
   pink: {
     100: "#ECDEF6",
-    200: "#CBAAFF"
+    200: "#CBAAFF",
   },
 
   red: "#FF5A5A",
