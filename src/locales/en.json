@@ -133,6 +133,8 @@
       "accountDeletedDescription": "Your account has been deleted."
     },
     "seeWhoLikedYou": "See who liked you 🤍",
+    "joinedDaysAgo": "You joined your first circle {{days}} days ago",
+    "onDay": "On {{date}}",
     "editPictures": "Edit pictures"
   },
   "askPermissionNotifications": {

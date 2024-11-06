@@ -5,9 +5,11 @@ import MyUserAvatar from "@components/MyUserAvatar";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
+import { formatBasicDate, getDaysFromNow } from "@utils/dates";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
@@ -49,6 +51,9 @@ const DisplayInfo = ({
 const Profile = () => {
   const { t } = useTranslation();
   const list = useProfile();
+  const auth = useAuth();
+  const days = getDaysFromNow(new Date(auth.user?.created_at ?? ""));
+  const date = formatBasicDate(new Date(auth.user?.created_at ?? ""));
 
   const navigation = useNavigation();
 
@@ -117,9 +122,11 @@ const Profile = () => {
 
         <View className="items-center">
           <MyText className="text-gray-400 text-xs">
-            You joined your first circle 44 days ago.
+            {t("profile.joinedDaysAgo", { days })}
           </MyText>
-          <MyText className="text-gray-400 text-xs">On 25.09.2024</MyText>
+          <MyText className="text-gray-400 text-xs">
+            {t("profile.onDay", { date })}
+          </MyText>
           <MyText>❤️</MyText>
         </View>
       </ScrollView>

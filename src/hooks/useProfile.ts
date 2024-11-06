@@ -59,14 +59,14 @@ const useProfile = () => {
             }
           })
           .catch((error: Error) => {
-            console.log(error);
-            Alert.alert("Error", error.message);
+            console.error(error);
           });
       },
     },
     {
       name: "profile.rate",
-      onPress: () => Linking.openURL("https://google.com"),
+      onPress: () =>
+        process.env.APP_STORE_URI && Linking.openURL(process.env.APP_STORE_URI),
     },
     {
       name: "profile.aboutUs",

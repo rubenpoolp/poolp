@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow } from "date-fns";
+import { differenceInDays, format, formatDistanceToNow } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 export const readableDate = (date: Date) => {
@@ -11,4 +11,12 @@ export const onlyHours = (date: Date) => {
 
 export const formatStoryDate = (date: Date) => {
   return formatDistanceToNow(date, { locale: enUS });
+};
+
+export const getDaysFromNow = (date: Date) => {
+  return differenceInDays(new Date(), date);
+};
+
+export const formatBasicDate = (date: Date) => {
+  return format(date, "dd/MM/yyyy", { locale: enUS });
 };
