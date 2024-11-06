@@ -138,7 +138,8 @@
     "editPictures": "Edit pictures"
   },
   "camera": {
-    "send": "Send"
+    "send": "Send",
+    "reply": "Reply"
   },
   "askPermissionNotifications": {
     "title": "Tap on the notification to receive it for your next circle !",

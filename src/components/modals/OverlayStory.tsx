@@ -1,6 +1,7 @@
 import { Story, UserProfilePics } from "@/types/story";
 import Avatar from "@components/Avatar";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
@@ -48,6 +49,7 @@ const OverlayStoryModal = ({
   onRight,
   userProfilePics,
 }: OverlayStoryModalProps) => {
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -149,8 +151,11 @@ const OverlayStoryModal = ({
         <View className="w-full bg-background-dark pt-5 pb-10">
           <MyButton
             className="self-center w-1/2"
-            txt="Reply"
-            onPress={onClose}
+            txt={t("camera.reply")}
+            onPress={() => {
+              onClose();
+              navigation.navigate("Camera");
+            }}
           />
         </View>
       )}
