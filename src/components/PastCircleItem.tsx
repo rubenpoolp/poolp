@@ -64,7 +64,10 @@ const PastCircleItem = ({ item, listLength, index }: PastCircleItemProps) => {
                   zIndex: index,
                 }}
               >
-                <Avatar username={participant.name} />
+                <Avatar
+                  username={participant.name}
+                  picture={participant.avatar}
+                />
               </View>
             );
           })}

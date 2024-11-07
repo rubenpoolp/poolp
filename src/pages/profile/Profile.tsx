@@ -76,7 +76,7 @@ const Profile = () => {
         <View className="flex space-y-16">
           <View className="flex items-center justify-center space-y-16">
             <View className="w-full items-center">
-              <MyUserAvatar disabled size="lg" />
+              <MyUserAvatar disabled size="xl" />
 
               <View className="absolute -bottom-5">
                 <Bump scaleValue={0.95}>

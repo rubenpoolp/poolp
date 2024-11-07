@@ -13,7 +13,7 @@ const Avatar = ({
   onPress?: () => void;
   username?: string;
   picture?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 }) => {
   const letter = username ? username.charAt(0) : "";
 
@@ -23,6 +23,9 @@ const Avatar = ({
     sizeClass = "w-6 h-6";
     textSizeClass = "text-base";
   } else if (size === "lg") {
+    sizeClass = "w-16 h-16";
+    textSizeClass = "text-2xl";
+  } else if (size === "xl") {
     sizeClass = "w-28 h-28";
     textSizeClass = "text-5xl";
   } else {

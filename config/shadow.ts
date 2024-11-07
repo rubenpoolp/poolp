@@ -26,8 +26,8 @@ const shadow = {
       width: 0,
       height: 0,
     },
-    shadowOpacity: 0.8,
-    shadowRadius: 15,
+    shadowOpacity: 0.4,
+    shadowRadius: 7,
     elevation: 4,
   },
   gold: {

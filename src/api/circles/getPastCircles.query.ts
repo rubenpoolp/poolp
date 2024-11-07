@@ -3,7 +3,7 @@ import { Circle } from "@supabase_types";
 import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
-async function getOldCirclesQuery(user_id: string) {
+async function getPastCirclesQuery(user_id: string) {
   // user_ids is a column of the circles table that contains the user_ids of the users in the circle
   const { data, error } = await supabase
     .from("circles")
@@ -21,4 +21,4 @@ async function getOldCirclesQuery(user_id: string) {
   return data;
 }
 
-export default getOldCirclesQuery;
+export default getPastCirclesQuery;

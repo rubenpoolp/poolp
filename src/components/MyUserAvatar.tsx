@@ -10,7 +10,7 @@ const MyUserAvatar = ({
   size,
 }: {
   disabled?: boolean;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 }) => {
   const auth = useAuth();
   const navigation = useNavigation();

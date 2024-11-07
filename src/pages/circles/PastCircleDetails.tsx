@@ -1,3 +1,4 @@
+import Avatar from "@components/Avatar";
 import GradientLogoHeader from "@components/headers/GradientLogoHeader";
 import MyScreen from "@components/MyScreen";
 import MyPressable from "@components/natives/MyPressable";
@@ -37,7 +38,11 @@ const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
               key={participant.id}
             >
               <View className="flex-row items-center space-x-4">
-                <View className="w-16 h-16 rounded-full bg-light" />
+                <Avatar
+                  size="lg"
+                  username={participant.name}
+                  picture={participant.avatar}
+                />
                 <MyText className="text-light font-semibold text-lg">
                   {participant.name}
                 </MyText>
