@@ -1,4 +1,4 @@
-import useGetAccount from "@api/users/getAccount.hook";
+import useGetAccount from "@api/account/getAccount.hook";
 import { createAccount, getAccountById } from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
 import { Session } from "@supabase/supabase-js";

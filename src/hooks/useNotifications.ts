@@ -1,3 +1,6 @@
+import useUpdateAccount from "@api/account/updateAccount.hook";
+import { updateAccount } from "@api/account/updateAccount.query";
+import { useAuth } from "@context/Auth";
 import { User } from "@supabase/supabase-js";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
@@ -56,10 +59,10 @@ async function pushTokenToUser(
   // On enlève le ExponentPushToken[ et le ] à la fin pour n'avoir que le token et pas surcharger la DB pour rien
   const newPushToken = pushToken.replace("ExponentPushToken[", "").slice(0, -1);
 
-  if (newPushToken !== user.pushToken && token) {
+  if (newPushToken !== user.push_token && token) {
     try {
-      const user = await QueryUserUpdate(token, {
-        pushToken: newPushToken,
+      const user = await updateAccount({
+        push_token: newPushToken,
       });
 
       if (user) {
@@ -78,18 +81,23 @@ const useNotifications = () => {
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef();
 
+  const auth = useAuth();
+  const updateAccount = useUpdateAccount();
+
+
   useEffect(() => {
     (async () => {
       const pushToken = await registerForPushNotificationsAsync();
 
       if (pushToken?.data) {
-        // await pushTokenToUser(
-        //   pushToken.data,
-        //   auth.authenticationToken,
-        //   auth.user,
-        //   (user: User) => setAuth({ ...auth, user }),
-        //   (isLoading: boolean) => setUtils({ isLoading }),
-        // );
+        
+      await pushTokenToUser(
+          pushToken.data,
+          auth.authenticationToken,
+          auth.user,
+          (user: User) => setAuth({ ...auth, user }),
+          (isLoading: boolean) => setUtils({ isLoading }),
+        );
       }
 
       notificationListener.current = Notifications
