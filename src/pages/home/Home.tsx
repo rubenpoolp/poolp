@@ -7,6 +7,7 @@ import MyImage from "@components/natives/MyImage";
 import MyText from "@components/natives/MyText";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
+import useNotifications from "@hooks/useNotifications";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
 import React, { useState } from "react";
@@ -24,6 +25,7 @@ const Home = () => {
   useRedirectIfNotLoggedIn();
   const { t } = useTranslation();
   const [state, setState] = useState<"newCircle" | "openCircle">("newCircle");
+  useNotifications();
 
   return (
     <MyScreen padding className="space-y-4">

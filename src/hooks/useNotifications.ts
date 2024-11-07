@@ -2,6 +2,8 @@ import useUpdateAccount from "@api/account/updateAccount.hook";
 import { updateAccount } from "@api/account/updateAccount.query";
 import { useAuth } from "@context/Auth";
 import { User } from "@supabase/supabase-js";
+import { Account } from "@supabase_types";
+import { UseMutationResult } from "@tanstack/react-query";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -51,28 +53,24 @@ async function registerForPushNotificationsAsync() {
 
 async function pushTokenToUser(
   pushToken: string,
-  token: string,
-  user: User,
-  setUser: any,
-  setLoading: any,
+  updateAccount: UseMutationResult<any, Error, { data: Partial<Account> }, unknown>,
+  userPushToken: string | null,
 ) {
   // On enlève le ExponentPushToken[ et le ] à la fin pour n'avoir que le token et pas surcharger la DB pour rien
   const newPushToken = pushToken.replace("ExponentPushToken[", "").slice(0, -1);
 
-  if (newPushToken !== user.push_token && token) {
-    try {
-      const user = await updateAccount({
-        push_token: newPushToken,
-      });
+  if (newPushToken === userPushToken) {
+    return;
+  }
 
-      if (user) {
-        setUser(user);
-      }
-    } catch (error) {
-      console.warn("pushTokenToUser", error);
-    } finally {
-      setLoading(false);
-    }
+  try {
+    await updateAccount.mutateAsync({
+      data: {
+        push_token: newPushToken,
+      },
+    });
+  } catch (error) {
+    console.warn("pushTokenToUser", error);
   }
 }
 
@@ -89,17 +87,13 @@ const useNotifications = () => {
     (async () => {
       const pushToken = await registerForPushNotificationsAsync();
 
-      if (pushToken?.data) {
-        
-      await pushTokenToUser(
+      if (pushToken?.data && auth.user) {
+        await pushTokenToUser(
           pushToken.data,
-          auth.authenticationToken,
-          auth.user,
-          (user: User) => setAuth({ ...auth, user }),
-          (isLoading: boolean) => setUtils({ isLoading }),
+          updateAccount,
+          auth.user.push_token,
         );
       }
-
       notificationListener.current = Notifications
         .addNotificationReceivedListener((notification) => {
           setNotification(notification);

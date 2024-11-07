@@ -1,6 +1,6 @@
 import i18n from "@/utils/i18n";
 import getProfilePics from "@api/profilePics/getProfilePics.query";
-import getAccounts from "@api/users/getAccounts.query";
+import getAccounts from "@api/account/getAccounts.query";
 import { useAuth } from "@context/Auth";
 import { useQuery } from "@tanstack/react-query";
 import { formatPastCircleDate, formatPastCircleLittleDate } from "@utils/dates";

@@ -41,7 +41,6 @@ const queryClient = new QueryClient();
 const App = () => {
   const [fontLoaded] = useFonts(fonts);
   const [appIsReady, setAppIsReady] = useState(false);
-  useNotifications();
 
   useEffect(() => {
     async function prepare() {
