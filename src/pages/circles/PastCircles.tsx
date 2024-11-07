@@ -3,6 +3,7 @@ import MyText from "@components/natives/MyText";
 import React from "react";
 import { FlatList, View } from "react-native";
 
+import useGetOldCircles from "@api/circles/getOldCircles.hook";
 import assets from "@assets/index";
 import StreakButton from "@components/buttons/StreakButton";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
@@ -64,7 +65,10 @@ export const circles = [
 
 const PastCircles = () => {
   const { t } = useTranslation();
+  const { data: oldCircles } = useGetOldCircles();
+  // const { data: accounts } = useGetAccounts(oldCircles[0].user_ids);
 
+  console.log(oldCircles);
   return (
     <MyScreen edges={["top"]} padding className="space-y-2">
       <LogoWithButtonHeader
@@ -80,11 +84,11 @@ const PastCircles = () => {
       <FlatList
         className="flex-1"
         showsVerticalScrollIndicator={false}
-        data={circles}
+        data={oldCircles}
         renderItem={({ item, index }) => (
           <PastCircleItem
             item={item}
-            listLength={circles.length}
+            listLength={oldCircles?.length ?? 0}
             index={index}
           />
         )}

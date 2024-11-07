@@ -20,3 +20,11 @@ export const getDaysFromNow = (date: Date) => {
 export const formatBasicDate = (date: Date) => {
   return format(date, "dd/MM/yyyy", { locale: enUS });
 };
+
+export const formatPastCircleLittleDate = (date: Date) => {
+  return format(date, "dd.MM", { locale: enUS });
+};
+
+export const formatPastCircleDate = (date: Date) => {
+  return format(date, "d MMMM yyyy", { locale: enUS });
+};

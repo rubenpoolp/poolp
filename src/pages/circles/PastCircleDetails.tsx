@@ -2,7 +2,8 @@ import GradientLogoHeader from "@components/headers/GradientLogoHeader";
 import MyScreen from "@components/MyScreen";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
-import { format, Locale } from "date-fns";
+import { PastCircle } from "@types/circles";
+import { Locale } from "date-fns";
 import * as dateFnsLocales from "date-fns/locale";
 import { DotsThree } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
@@ -15,7 +16,7 @@ interface PastCircleDetailsProps {
 const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
   const { t, i18n } = useTranslation();
 
-  const { circle } = route.params;
+  const { circle } = route.params as { circle: PastCircle };
 
   const currentLocale = i18n.language;
   // Convert i18n locale to date-fns locale
@@ -33,7 +34,7 @@ const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
             {t("pastCircle.title")}
           </MyText>
           <MyText className="text-3xl text-pink-200 font-semibold">
-            {format(circle.date, "d MMMM yyyy", { locale: dateFnsLocale })}
+            {circle.formattedDate}
           </MyText>
         </View>
 

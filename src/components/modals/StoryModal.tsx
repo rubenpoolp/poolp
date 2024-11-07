@@ -44,6 +44,8 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
     // timerRef.current?.refresh();
   };
 
+  if (!stories || stories.length === 0) return null;
+
   return (
     <MyModal isVisible={isVisible}>
       <View className="flex-1 bg-overlay w-full h-full">

@@ -1,13 +1,13 @@
+import { PastCircle } from "@/types/circles";
 import Avatar from "@components/Avatar";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import { useNavigation } from "@react-navigation/native";
-import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 interface PastCircleItemProps {
-  item: any;
+  item: PastCircle;
   listLength: number;
   index: number;
 }
@@ -83,7 +83,7 @@ const PastCircleItem = ({ item, listLength, index }: PastCircleItemProps) => {
         </View>
 
         <MyText className="text-gray-400 text-sm">
-          {format(item.date, "dd.MM")}
+          {item.littleFormattedDate}
         </MyText>
       </View>
     </View>
