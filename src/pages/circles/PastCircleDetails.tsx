@@ -3,8 +3,6 @@ import MyScreen from "@components/MyScreen";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { PastCircle } from "@types/circles";
-import { Locale } from "date-fns";
-import * as dateFnsLocales from "date-fns/locale";
 import { DotsThree } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
@@ -14,15 +12,9 @@ interface PastCircleDetailsProps {
 }
 
 const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { circle } = route.params as { circle: PastCircle };
-
-  const currentLocale = i18n.language;
-  // Convert i18n locale to date-fns locale
-  const dateFnsLocale =
-    (dateFnsLocales as Record<string, Locale>)[currentLocale] ||
-    dateFnsLocales.enUS;
 
   return (
     <MyScreen padding>

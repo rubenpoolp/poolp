@@ -38,7 +38,12 @@ const useGetUsersProfilePics = (userIds?: string[]) => {
         (p) => p?.user_id !== user?.id,
       );
 
-      return withoutCurrentUser;
+      // Sort users with profile pics first
+      const sortedUsers = withoutCurrentUser.sort((a, b) =>
+        !a.urls ? 1 : !b.urls ? -1 : 0
+      );
+
+      return sortedUsers;
     },
     initialData: undefined,
     enabled: !!userIds,
