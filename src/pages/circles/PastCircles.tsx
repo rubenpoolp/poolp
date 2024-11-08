@@ -76,7 +76,11 @@ const PastCircles = () => {
       />
       <View className="flex-row justify-between items-end w-full">
         <MyText className="text-xs font-bold text-white">LAST CIRCLES</MyText>
-        <StreakButton onPress={() => {}} disabled />
+        <StreakButton
+          onPress={() => {}}
+          disabled
+          nbStreak={pastCircles?.length ?? 0}
+        />
       </View>
 
       <FlatList

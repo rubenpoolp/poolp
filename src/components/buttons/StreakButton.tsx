@@ -7,9 +7,14 @@ import { View } from "react-native";
 interface StreakButtonProps {
   onPress: () => void;
   disabled?: boolean;
+  nbStreak: number;
 }
 
-const StreakButton = ({ onPress, disabled = false }: StreakButtonProps) => {
+const StreakButton = ({
+  onPress,
+  disabled = false,
+  nbStreak,
+}: StreakButtonProps) => {
   return (
     <View className="items-center">
       <Bump disabled={disabled}>
@@ -19,7 +24,9 @@ const StreakButton = ({ onPress, disabled = false }: StreakButtonProps) => {
             style={shadow.orange}
           >
             <MyText className="text-sm">🔥</MyText>
-            <MyText className="text-sm text-orange font-extrabold">12</MyText>
+            <MyText className="text-sm text-orange font-extrabold">
+              {nbStreak}
+            </MyText>
           </View>
         </MyPressable>
       </Bump>
