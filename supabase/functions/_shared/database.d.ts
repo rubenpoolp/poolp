@@ -40,6 +40,7 @@ export type Database = {
           created_at: string
           gender: Database["public"]["Enums"]["gender"]
           id: string
+          last_interaction_at: string | null
           name: string
           phone: string
           push_token: string | null
@@ -51,6 +52,7 @@ export type Database = {
           created_at?: string
           gender: Database["public"]["Enums"]["gender"]
           id: string
+          last_interaction_at?: string | null
           name: string
           phone: string
           push_token?: string | null
@@ -62,6 +64,7 @@ export type Database = {
           created_at?: string
           gender?: Database["public"]["Enums"]["gender"]
           id?: string
+          last_interaction_at?: string | null
           name?: string
           phone?: string
           push_token?: string | null
@@ -126,6 +129,7 @@ export type Database = {
           id: string
           last_interaction_at: string | null
           name: string | null
+          school_id: string
           user_ids: string[] | null
         }
         Insert: {
@@ -133,6 +137,7 @@ export type Database = {
           id?: string
           last_interaction_at?: string | null
           name?: string | null
+          school_id: string
           user_ids?: string[] | null
         }
         Update: {
@@ -140,9 +145,18 @@ export type Database = {
           id?: string
           last_interaction_at?: string | null
           name?: string | null
+          school_id?: string
           user_ids?: string[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "circles_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profile_pics: {
         Row: {
