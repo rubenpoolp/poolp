@@ -39,8 +39,6 @@ const handler = async (req: Request) => {
 
     const tokens = await fetchPushTokensFromUserIds(supabaseClient, userIds);
 
-    console.log("tokens", tokens);
-
     // send notifications in parallel
     const notificationPromises = tokens.map((token) => 
       fetch('https://exp.host/--/api/v2/push/send', {
@@ -60,7 +58,6 @@ const handler = async (req: Request) => {
     // wait for all notifications to be sent
     const results = await Promise.all(notificationPromises);
     
-    console.log("results", results);
     // check results
     const failedNotifications = [];
     for (let i = 0; i < results.length; i++) {
