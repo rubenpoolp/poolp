@@ -4,8 +4,8 @@ import MyText from "@components/natives/MyText";
 import socialButtons from "@config/socialButtons";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import i18n from "@utils/i18n";
-import { t } from "i18next";
-import { Image, Share as ShareRN, View } from "react-native";
+import { shareToInviteFriends } from "@utils/share";
+import { Image, View } from "react-native";
 
 const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
   return (
@@ -31,14 +31,7 @@ const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
 const ShareButtons = () => {
   return (
     <Bump scaleValue={0.9}>
-      <MyPressable
-        onPress={() => {
-          ShareRN.share({
-            message: t("onboarding.share.message"),
-          });
-        }}
-        className="items-center"
-      >
+      <MyPressable onPress={shareToInviteFriends} className="items-center">
         <View className="flex-row justify-center mb-3" style={{ gap: 24 }}>
           {socialButtons.slice(0, 3).map((item, index) => (
             <SocialButton key={index} item={item} />

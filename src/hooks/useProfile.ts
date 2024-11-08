@@ -4,10 +4,11 @@ import deleteAuthUser from "@queries/deleteAuthUser.query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
+import { shareToInviteFriends } from "@utils/share";
 import * as Linking from "expo-linking";
 import { t } from "i18next";
 import { FC } from "react";
-import { Alert, Share } from "react-native";
+import { Alert } from "react-native";
 
 const useProfile = () => {
   const navigation = useNavigation();
@@ -37,10 +38,7 @@ const useProfile = () => {
     },
     {
       name: "profile.invite",
-      onPress: () =>
-        Share.share({
-          message: "https://www.google.com",
-        }),
+      onPress: shareToInviteFriends,
     },
     {
       name: "profile.pushNotifications",

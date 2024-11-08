@@ -1,6 +1,7 @@
 {
   "utils": {
-    "enableNotifications": "Enable notifications"
+    "enableNotifications": "Enable notifications",
+    "messageInviteFriends": "Come to Poolp with me! https://www.google.com"
   },
   "actions": {
     "cancel": "Cancel",

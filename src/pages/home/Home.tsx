@@ -10,6 +10,7 @@ import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
 import { useNavigation } from "@react-navigation/native";
 import resetTo from "@utils/resetTo";
+import { shareToInviteFriends } from "@utils/share";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
@@ -30,7 +31,7 @@ const Home = () => {
   return (
     <MyScreen padding className="space-y-4">
       <LogoWithButtonHeader
-        onPress={() => setState("newCircle")}
+        onPress={shareToInviteFriends}
         txt={t("actions.invitePeers")}
         pastCircleButton
       />

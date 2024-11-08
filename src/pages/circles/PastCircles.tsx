@@ -9,6 +9,7 @@ import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import PastCircleItem from "@components/PastCircleItem";
 import usePastCircles from "@hooks/usePastCircles";
 import { useTranslation } from "react-i18next";
+import { shareToInviteFriends } from "@utils/share";
 
 export const circles = [
   {
@@ -70,17 +71,13 @@ const PastCircles = () => {
   return (
     <MyScreen edges={["top"]} padding className="space-y-2">
       <LogoWithButtonHeader
-        onPress={() => {}}
+        onPress={shareToInviteFriends}
         txt={t("actions.invitePeers")}
         canGoBack
       />
       <View className="flex-row justify-between items-end w-full">
         <MyText className="text-xs font-bold text-white">LAST CIRCLES</MyText>
-        <StreakButton
-          onPress={() => {}}
-          disabled
-          nbStreak={pastCircles?.length ?? 0}
-        />
+        <StreakButton nbStreak={pastCircles?.length ?? 0} />
       </View>
 
       <FlatList
