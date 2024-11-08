@@ -31,6 +31,21 @@ const handler = async (req: Request) => {
   try {
     const { userIds, title, body } = await req.json();
 
+    // validate inputs
+    if (!Array.isArray(userIds) || userIds.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "userIds doit être un tableau non vide" }), 
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!title || !body) {
+      return new Response(
+        JSON.stringify({ error: "title et body sont requis" }), 
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
