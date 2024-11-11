@@ -31,17 +31,16 @@ const handler = async (req: Request) => {
   try {
     const { userIds, title, body } = await req.json();
 
-    // validate inputs
     if (!Array.isArray(userIds) || userIds.length === 0) {
       return new Response(
-        JSON.stringify({ error: "userIds doit être un tableau non vide" }), 
+        JSON.stringify({ error: "userIds must be a non-empty array" }), 
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
     if (!title || !body) {
       return new Response(
-        JSON.stringify({ error: "title et body sont requis" }), 
+        JSON.stringify({ error: "title and body are required" }), 
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -54,6 +53,12 @@ const handler = async (req: Request) => {
 
     const tokens = await fetchPushTokensFromUserIds(supabaseClient, userIds);
 
+    if (tokens.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "No tokens found" }), 
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
     // send notifications in parallel
     const notificationPromises = tokens.map((token) => 
       fetch('https://exp.host/--/api/v2/push/send', {

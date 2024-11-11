@@ -1,4 +1,5 @@
 import { UserProfilePics } from "@/types/story";
+import useRingUser from "@api/notifications/ringUser.hook";
 import RingButton from "@components/buttons/BellButton";
 import UserProfileButton from "@components/buttons/UserProfileButton";
 import MyText from "@components/natives/MyText";
@@ -22,6 +23,8 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
 }) => {
   const width = dimensions.width * 0.9;
   const height = dimensions.height * 0.5;
+
+  const ringUser = useRingUser();
 
   return (
     <UserProfileButton className="flex-1" userProfilePics={userProfilePics}>
@@ -56,7 +59,13 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
                   {userProfilePics.user_name}
                 </MyText>
 
-                <RingButton onPress={() => {}} containerStyle="" />
+                <RingButton
+                  onPress={() => {
+                    ringUser.mutate({
+                      userIds: [userProfilePics.user_id],
+                    });
+                  }}
+                />
               </View>
             </View>
 
