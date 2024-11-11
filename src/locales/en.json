@@ -165,8 +165,12 @@
       "body": "🔔 Someone in the circle wants you to post!"
     },
     "newCircle": {
+      "title": "💜 New circle to discover!",
+      "body": "Post to find who is in your circle today!"
+    },
+    "onReply": {
       "title": "Poolp",
-      "body": "💜 New circle to discover! Post to find who is in your circle today!"
+      "body": "{{username}} posted in the circle."
     }
   }
 }

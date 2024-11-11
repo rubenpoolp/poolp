@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { myCaptureException } from "@utils/sentry";
-import { ringUser } from "./ringUser.query";
+
+import { sendNotif } from "@api/notifications/sendNotif.query";
+import i18n from "@utils/i18n";
 
 const useRingUser = () => {
   return useMutation({
@@ -11,7 +13,7 @@ const useRingUser = () => {
         throw new Error("No users selected");
       }
 
-      return ringUser(userIds);
+      return sendNotif(userIds, i18n.t("notifications.newCircle.title"), i18n.t("notifications.newCircle.body"));
     },
     onError: (error: Error) => {
       myCaptureException(error);

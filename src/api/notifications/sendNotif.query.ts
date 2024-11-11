@@ -1,7 +1,8 @@
-import i18next from "i18next";
 
-export const ringUser = async (
-  userIds: string[]
+export const  sendNotif = async (
+  userIds: string[],
+  title: string,
+  body: string
 ): Promise<{ success: boolean; error: Error | null }> => {
   try {
     const response = await fetch('https://huvdrbcqskkoflotlavi.supabase.co/functions/v1/send_notification', {
@@ -11,8 +12,8 @@ export const ringUser = async (
       },
       body: JSON.stringify({
         userIds,
-        title: i18next.t('notifications.ring.title'),
-        body: i18next.t('notifications.ring.body')
+        title: title,
+        body: body
       }),
     });
 

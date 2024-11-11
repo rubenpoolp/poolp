@@ -1,5 +1,6 @@
 import useAddCirclePic from "@api/circles/addCirclePic.hook";
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
+import useSendNotifOnReply from "@api/notifications/sendNotifOnReply.hook";
 import { useIsLoading } from "@context/IsLoading";
 import { CIRCLE_PICS_BUCKET } from "@supabase_types";
 import upload from "@utils/upload";
@@ -7,6 +8,7 @@ import upload from "@utils/upload";
 const useCirclePic = () => {
   const { data: circle } = useGetMyDailyCircle();
   const addCirclePic = useAddCirclePic();
+  const sendNotifOnReply = useSendNotifOnReply();
   const { setIsLoading } = useIsLoading();
 
   const uploadPic = async (uri: string) => {
@@ -21,7 +23,10 @@ const useCirclePic = () => {
       setIsLoading(false);
       return;
     }
+
     await addCirclePic.mutateAsync({ circleId: circle.id, url });
+    await sendNotifOnReply.mutateAsync(circle.user_ids!);
+
     setIsLoading(false);
   };
 
