@@ -1,3 +1,4 @@
+import useGetSchools from "@api/schools/getSchools.hook";
 import { CONTACT_EMAIL } from "@config/config";
 import { useAuth } from "@context/Auth";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
@@ -14,6 +15,8 @@ const useProfile = () => {
   const navigation = useNavigation();
   const { signOut } = useAuth();
   const { user } = useAuth();
+  const { data: schools } = useGetSchools();
+  const userSchool = schools?.find((school) => school.id === user?.school_id);
 
   const signOutWithThen = () => {
     signOut().then(() => {
@@ -34,7 +37,7 @@ const useProfile = () => {
     },
     {
       name: "profile.school",
-      value: "Sebeweiss High School",
+      value: userSchool?.name ?? "",
     },
     {
       name: "profile.invite",

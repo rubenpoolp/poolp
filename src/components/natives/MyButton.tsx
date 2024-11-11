@@ -27,8 +27,8 @@ const variantStyle = {
 
 const sizeStyle = {
   small: { container: "py-1.5 px-4", text: "text-sm" },
-  medium: { container: "py-2 px-6", text: "text-lg" },
-  large: { container: "py-3 px-10", text: "text-lg" },
+  medium: { container: "py-2 px-6", text: "text-lg font-semibold" },
+  large: { container: "py-3 px-10", text: "text-lg font-semibold" },
 };
 
 const MyButton = ({
