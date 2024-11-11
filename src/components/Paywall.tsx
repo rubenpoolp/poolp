@@ -26,7 +26,7 @@ const Paywall = ({
       hapticImpact("heavy");
       setTimeout(() => {
         bottomSheetRef.current?.present();
-      }, 2000);
+      }, 1200);
     } else {
       bottomSheetRef.current?.dismiss();
     }
