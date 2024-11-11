@@ -13,7 +13,7 @@ const useRingUser = () => {
         throw new Error("No users selected");
       }
 
-      return sendNotif(userIds, i18n.t("notifications.newCircle.title"), i18n.t("notifications.newCircle.body"));
+      return sendNotif(userIds, i18n.t("notifications.ring.title"), i18n.t("notifications.ring.body"));
     },
     onError: (error: Error) => {
       myCaptureException(error);
