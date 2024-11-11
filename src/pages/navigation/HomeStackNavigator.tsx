@@ -1,10 +1,11 @@
+import PastCirclesDetails from "@pages/circles/PastCircleDetails";
+import PastCircles from "@pages/circles/PastCircles";
+import Home from "@pages/home/Home";
+import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
+import DiscoverPeople from "@pages/profile/DiscoverPeople";
+import ProfilePicture from "@pages/profile/ProfilePicture";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import Home from "@pages/home/Home";
-import PastCircles from "@pages/circles/PastCircles";
-import PastCirclesDetails from "@pages/circles/PastCircleDetails";
-import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
-import ProfilePicture from "@pages/profile/ProfilePicture";
 const HomeStack = createNativeStackNavigator();
 
 const HomeStackNavigator = () => {
@@ -21,6 +22,7 @@ const HomeStackNavigator = () => {
         component={PastCirclesDetails}
       />
       <HomeStack.Screen name="ProfilePicture" component={ProfilePicture} />
+      <HomeStack.Screen name="DiscoverPeople" component={DiscoverPeople} />
     </HomeStack.Navigator>
   );
 };

@@ -1,12 +1,13 @@
 import Check from "@components/SVGs/Check";
+import { t } from "i18next";
 import { View } from "react-native";
 import MyText from "../natives/MyText";
 
 const features = [
-  "Discover who liked you",
-  "Discover who wanted you to post",
-  "Know before reviewing your connections",
-  "No ads",
+  "discoverWhoLikedYou",
+  "discoverWhoWantedYouToPost",
+  "knowBeforeReviewingYourConnections",
+  "noAds",
 ];
 
 const PaywallFeatures = () => {
@@ -17,7 +18,9 @@ const PaywallFeatures = () => {
           <View className="w-5 h-5 items-center justify-center mr-3">
             <Check />
           </View>
-          <MyText className="font-bold">{feature}</MyText>
+          <MyText className="font-bold">
+            {t(`paywall.features.${feature}`)}
+          </MyText>
         </View>
       ))}
     </View>

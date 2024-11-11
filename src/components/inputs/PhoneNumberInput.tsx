@@ -81,7 +81,7 @@ const PhoneNumberInput = ({
         onChangeText={onChangeText}
         maxLength={exampleNumber?.length}
         autoFocus
-        placeholderTextColor={gray[400]}
+        placeholderTextColor={gray[500]}
         {...props}
       />
       <CountryCodeModal

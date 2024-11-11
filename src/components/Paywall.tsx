@@ -1,7 +1,9 @@
 import assets from "@assets/index";
 import colors from "@config/colors";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import { useNavigation } from "@react-navigation/native";
 import { hapticImpact } from "@utils/haptics";
+import { t } from "i18next";
 import { useEffect, useRef, useState } from "react";
 import { Image, Linking, View } from "react-native";
 import Hearts from "./animations/Hearts";
@@ -20,6 +22,7 @@ const Paywall = ({
 }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [selectedPlan, setSelectedPlan] = useState("month");
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (isVisible) {
@@ -40,6 +43,11 @@ const Paywall = ({
     hapticImpact("medium");
     bottomSheetRef.current?.dismiss();
     onClose();
+    navigation.navigate("DiscoverPeople");
+  };
+
+  const openTerms = () => {
+    Linking.openURL("https://unblur.app");
   };
 
   return (
@@ -65,32 +73,43 @@ const Paywall = ({
             <PaywallPlan
               isSelected={selectedPlan === "month"}
               onSelect={() => setSelectedPlan("month")}
-              period="1 month"
-              price="€0,13/day"
+              period={t("paywall.month")}
+              price={t("paywall.dayPrice", {
+                price: "€0,13",
+              })}
               isBestValue={true}
             />
 
             <PaywallPlan
               isSelected={selectedPlan === "week"}
               onSelect={() => setSelectedPlan("week")}
-              period="1 week"
-              price="€0,28/day"
+              period={t("paywall.week")}
+              price={t("paywall.dayPrice", {
+                price: "€0,28",
+              })}
             />
           </View>
-          <MyPressable onPress={() => Linking.openURL("https://unblur.app")}>
-            <MyText className="text-center mb-2 text-xs text-gray-400 font-regular">
-              Recurring billing. Cancel anytime. Terms & Privacy
+          <View className="flex-row justify-center items-baseline mb-4 mt-1">
+            <MyText className="text-center text-xs text-gray-400 font-regular mr-0.5">
+              {t("paywall.recurring")}
             </MyText>
-          </MyPressable>
+            <MyPressable onPress={openTerms}>
+              <MyText className=" font-regular text-gray-400 text-xs font-semibold">
+                {t("paywall.terms")}
+              </MyText>
+            </MyPressable>
+          </View>
           <MyButton
             variant="gold"
             size="large"
             onPress={onPress}
             txtClassName="font-bold"
-            txt="UNBLUR NOW 👀"
+            txt={t("paywall.button")}
           />
           <MyText className="text-center mt-1 text-sm mb-2">
-            {`${selectedPlan === "month" ? "€4,03" : "€8,68"}/month`}
+            {t("paywall.monthPrice", {
+              price: selectedPlan === "month" ? "€4,03" : "€8,68",
+            })}
           </MyText>
         </BottomSheetView>
       </BottomSheetModal>

@@ -172,5 +172,21 @@
       "title": "Poolp",
       "body": "{{username}} posted in the circle."
     }
+  },
+  "paywall": {
+    "discoverPeople": "The rest happens in real life",
+    "month": "1 month",
+    "week": "1 week",
+    "recurring": "Recurring billing. Cancel anytime.",
+    "terms": "Terms & Privacy",
+    "button": "UNBLUR NOW 👀",
+    "monthPrice": "{{price}}/month",
+    "dayPrice": "{{price}}/day",
+    "features": {
+      "discoverWhoLikedYou": "Discover who liked you",
+      "discoverWhoWantedYouToPost": "Discover who wanted you to post",
+      "knowBeforeReviewingYourConnections": "Know before reviewing your connections",
+      "noAds": "No ads"
+    }
   }
 }
