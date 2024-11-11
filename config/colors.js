@@ -7,6 +7,7 @@ module.exports = {
   background: {
     light: "#FFFFFF",
     dark: "#1C1D21",
+    gold: "#161307",
   },
 
   tabBar: {

@@ -1,6 +1,7 @@
 import shadow from "@config/shadow";
 import { useEffect, useRef } from "react";
 import { Animated, Dimensions, View } from "react-native";
+import { Easing } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 
 const { width, height } = Dimensions.get("window");
@@ -23,7 +24,7 @@ const Heart = ({ style }: { style: any }) => (
 );
 
 const Hearts = ({ isVisible }: { isVisible: boolean }) => {
-  const hearts = Array(24)
+  const hearts = Array(40)
     .fill(0)
     .map(() => ({
       position: useRef(new Animated.Value(height - 120)).current,
@@ -40,6 +41,8 @@ const Hearts = ({ isVisible }: { isVisible: boolean }) => {
           Animated.timing(heart.position, {
             toValue: -150,
             duration: heart.duration,
+            easing: Easing.out(Easing.bezierFn(0.79, 0.4, 0.83, 0.65)),
+
             useNativeDriver: true,
           }),
         ]).start(() => {

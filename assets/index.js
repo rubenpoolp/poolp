@@ -14,6 +14,7 @@ const assets = {
   "gradientTypoLogo": require("./logo/gradientTypoLogo.png"),
   "icon": require("./logo/icon.png"),
   "logoCropped": require("./logo/logoCropped.png"),
+  "logoPlus": require("./logo/logoPlus.png"),
   "splash": require("./logo/splash.png"),
 
   // social_networks

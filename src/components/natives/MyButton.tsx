@@ -44,7 +44,7 @@ const MyButton = ({
 }: MyButtonProps): React.ReactElement => {
   return (
     <MyPressable
-      className={`rounded-full items-center justify-center bg-light w-full ${(LeftComponent || RightComponent) && "flex-row w-full justify-between relative"} ${
+      className={`rounded-full items-center justify-center bg-light w-full ${(LeftComponent || RightComponent) && "flex-row justify-between relative"} ${
         variantStyle[variant].container
       } ${sizeStyle[size].container}`}
       {...props}

@@ -6,6 +6,7 @@ import { AuthProvider } from "@context/Auth";
 import IsLoadingProvider from "@context/IsLoading";
 import MyPostHogProvider from "@context/MyPostHog";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import OnboardingNavigator from "@pages/navigation/OnboardingNavigator";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
@@ -75,36 +76,38 @@ const App = () => {
   return (
     <View className="flex-1" onLayout={onLayoutRootView}>
       <GestureHandlerRootView>
-        <SessionContextProvider supabaseClient={supabase}>
-          <QueryClientProvider client={queryClient}>
-            <ActionSheetProvider>
-              <I18nextProvider i18n={i18n}>
-                <StatusBar style="light" />
-                <SafeAreaProvider>
-                  <IsLoadingProvider>
-                    <IconContext.Provider
-                      value={{
-                        color: light,
-                        size: 24,
-                        weight: "regular",
-                      }}
-                    >
-                      <AuthProvider>
-                        <NavigationContainer theme={myTheme}>
-                          <MyPostHogProvider>
-                            <OnboardingNavigator />
-                            <UpdateModal />
-                          </MyPostHogProvider>
-                        </NavigationContainer>
-                      </AuthProvider>
-                      <LoaderModal />
-                    </IconContext.Provider>
-                  </IsLoadingProvider>
-                </SafeAreaProvider>
-              </I18nextProvider>
-            </ActionSheetProvider>
-          </QueryClientProvider>
-        </SessionContextProvider>
+        <BottomSheetModalProvider>
+          <SessionContextProvider supabaseClient={supabase}>
+            <QueryClientProvider client={queryClient}>
+              <ActionSheetProvider>
+                <I18nextProvider i18n={i18n}>
+                  <StatusBar style="light" />
+                  <SafeAreaProvider>
+                    <IsLoadingProvider>
+                      <IconContext.Provider
+                        value={{
+                          color: light,
+                          size: 24,
+                          weight: "regular",
+                        }}
+                      >
+                        <AuthProvider>
+                          <NavigationContainer theme={myTheme}>
+                            <MyPostHogProvider>
+                              <OnboardingNavigator />
+                              <UpdateModal />
+                            </MyPostHogProvider>
+                          </NavigationContainer>
+                        </AuthProvider>
+                        <LoaderModal />
+                      </IconContext.Provider>
+                    </IsLoadingProvider>
+                  </SafeAreaProvider>
+                </I18nextProvider>
+              </ActionSheetProvider>
+            </QueryClientProvider>
+          </SessionContextProvider>
+        </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </View>
   );
