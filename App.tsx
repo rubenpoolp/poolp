@@ -6,7 +6,6 @@ import { AuthProvider } from "@context/Auth";
 import IsLoadingProvider from "@context/IsLoading";
 import MyPostHogProvider from "@context/MyPostHog";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-import useNotifications from "@hooks/useNotifications";
 import OnboardingNavigator from "@pages/navigation/OnboardingNavigator";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
@@ -16,12 +15,13 @@ import i18n from "@utils/i18n";
 import "@utils/sentry";
 import { supabase } from "@utils/supabase";
 import { useFonts } from "expo-font";
+import * as NavigationBar from "expo-navigation-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -62,6 +62,13 @@ const App = () => {
   useEffect(() => {
     if (appIsReady) SplashScreen.hideAsync();
   }, [appIsReady]);
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    NavigationBar.setPositionAsync("absolute");
+    NavigationBar.setBackgroundColorAsync("#ffffff01");
+    NavigationBar.setButtonStyleAsync("dark");
+  }, []);
 
   if (!fontLoaded || !appIsReady) return null;
 

@@ -25,7 +25,7 @@ export default {
       },
     },
     android: {
-      googleServicesFile: "./google-services.json",
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       adaptiveIcon: {
         foregroundImage: "./assets/logo/adaptiveIcon.png",
         backgroundImage: "./assets/logo/backgroundImage.png",

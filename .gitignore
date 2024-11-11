@@ -40,3 +40,5 @@ punctuation.txt
 .env.local
 *.sql
 .vscode/launch.json
+
+google-services.json

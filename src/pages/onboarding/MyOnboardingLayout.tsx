@@ -8,7 +8,7 @@ import MyImage from "@components/natives/MyImage";
 import MyText from "@components/natives/MyText";
 import React, { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 interface LayoutProps {
   children: ReactNode;
@@ -40,7 +40,10 @@ const MyOnboardingLayout = ({
   const { t } = useTranslation();
 
   return (
-    <MyScreen padding={padding}>
+    <MyScreen
+      padding={padding}
+      className={`${Platform.OS === "android" && "py-6"}`}
+    >
       <MyKeyboardAvoidingView>
         <View className="flex-1">
           <View

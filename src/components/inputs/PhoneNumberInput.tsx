@@ -1,5 +1,6 @@
 import CountryCodeModal from "@components/modals/CountryCodeModal";
 import MyPressable from "@components/natives/MyPressable";
+import { gray } from "@config/colors";
 import {
   AsYouType,
   CountryCode,
@@ -65,7 +66,7 @@ const PhoneNumberInput = ({
             value={`+${getCountryCallingCode(countryCode)}`}
             textAlign="center"
             editable={false}
-            className="text-gray-400"
+            className="text-gray-400 text-base"
             {...props}
           />
         </View>
@@ -80,6 +81,7 @@ const PhoneNumberInput = ({
         onChangeText={onChangeText}
         maxLength={exampleNumber?.length}
         autoFocus
+        placeholderTextColor={gray[400]}
         {...props}
       />
       <CountryCodeModal
