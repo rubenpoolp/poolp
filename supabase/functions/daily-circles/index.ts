@@ -1,7 +1,17 @@
-import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
 import { supabaseClient as supabaseServiceClient } from "../_shared/supabase_client.ts";
+
+function sendNotification(userIds: string[]) {
+  supabaseServiceClient.functions.invoke('send_notification', {
+    body: { 
+      userIds,
+      title: "💜 New circle to discover!",
+      body: "Post to find who is in your circle today!"
+    }
+  });
+}
 
 function divideIntoGroups(n: number): number[] {
   const groups = [];
@@ -146,6 +156,8 @@ const handler = async (request: Request) => {
     if (errors.length) {
       throw new Error(`Failed to create some circles: ${JSON.stringify(errors)}`);
     }
+
+    sendNotification(createdCircles.map(circle => circle.data?.user_ids).flat());
 
     return new Response(JSON.stringify({ 
       message: 'Success', 
