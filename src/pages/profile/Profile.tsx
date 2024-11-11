@@ -5,12 +5,13 @@ import MyUserAvatar from "@components/MyUserAvatar";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import Paywall from "@components/Paywall";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
 import { formatBasicDate, getDaysFromNow } from "@utils/dates";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
 
@@ -49,6 +50,7 @@ const DisplayInfo = ({
 };
 
 const Profile = () => {
+  const [isPaywallVisible, setIsPaywallVisible] = useState(false);
   const { t } = useTranslation();
   const list = useProfile();
   const auth = useAuth();
@@ -61,7 +63,7 @@ const Profile = () => {
   const navigation = useNavigation();
 
   return (
-    <MyScreen edges={["top"]} padding>
+    <MyScreen edges={["top"]}>
       <View>
         <MyHeader />
       </View>
@@ -69,7 +71,7 @@ const Profile = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 0,
-          paddingHorizontal: 16,
+          paddingHorizontal: 32,
           paddingBottom: 32,
         }}
       >
@@ -96,7 +98,7 @@ const Profile = () => {
             <View className="flex items-center justify-center">
               <Bump scaleValue={0.95}>
                 <MyButton
-                  onPress={() => {}}
+                  onPress={() => setIsPaywallVisible(true)}
                   txt={t("profile.seeWhoLikedYou")}
                   size="medium"
                   variant="gold"
@@ -128,6 +130,10 @@ const Profile = () => {
           <MyText>❤️</MyText>
         </View>
       </ScrollView>
+      <Paywall
+        isVisible={isPaywallVisible}
+        onClose={() => setIsPaywallVisible(false)}
+      />
     </MyScreen>
   );
 };
