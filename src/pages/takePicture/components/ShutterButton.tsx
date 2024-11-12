@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withRepeat,
+  withSequence,
   withTiming,
 } from "react-native-reanimated";
 
-const HOLD_TIME_FOR_VIDEO = 1000;
+const HOLD_TIME_FOR_VIDEO = 500;
+
 export const AnimatedPlayPauseButton = ({
   onPress,
   onEndHold,
@@ -15,47 +18,78 @@ export const AnimatedPlayPauseButton = ({
   onPress: () => void;
   onEndHold: () => void;
 }) => {
-  const [animate, setAnimate] = useState(false);
-  const pressed = useSharedValue(false);
   const [timeHolded, setTimeHolded] = useState(0);
+  const [isPressed, setIsPressed] = useState(false);
+  const isHolding = useSharedValue(false);
+  const rotation = useSharedValue(0);
 
-  const primaryButtonAnimatedStyle = useAnimatedStyle(
-    () => ({
-      borderRadius: withTiming(animate ? 5 : 30),
-      width: withSpring(animate ? 30 : 52),
-      height: withSpring(animate ? 30 : 52),
-      transform: [
-        { scale: withSpring(pressed.value ? 0.8 : 1, { mass: 0.1 }) },
-      ],
-    }),
-    [animate, pressed.value],
-  );
+  useEffect(() => {
+    let holdTimer: NodeJS.Timeout;
+
+    if (isPressed && timeHolded !== 0) {
+      holdTimer = setTimeout(() => {
+        isHolding.value = true;
+        rotation.value = withRepeat(
+          withSequence(
+            withTiming(360, {
+              duration: 2000,
+              easing: Easing.linear,
+            }),
+          ),
+          -1,
+        );
+      }, HOLD_TIME_FOR_VIDEO);
+    }
+
+    return () => {
+      if (holdTimer) {
+        clearTimeout(holdTimer);
+      }
+    };
+  }, [isPressed, timeHolded]);
+
+  const circleAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotateZ: `${rotation.value}deg` }],
+      opacity: isHolding.value ? 1 : 0,
+    };
+  });
+
+  const stopHoldAnimation = () => {
+    isHolding.value = false;
+    rotation.value = withTiming(0);
+  };
 
   return (
     <Pressable
       className="items-center justify-center h-20"
       onPressIn={() => {
+        setIsPressed(true);
         setTimeHolded(new Date().getTime());
-        pressed.value = true;
       }}
       onPressOut={() => {
-        const pressOut = setTimeout(() => {
-          pressed.value = false;
-        }, 500);
-        return () => clearTimeout(pressOut);
+        setIsPressed(false);
+        stopHoldAnimation();
       }}
       onTouchEnd={() => {
-        if (timeHolded < new Date().getTime() - HOLD_TIME_FOR_VIDEO)
+        const currentTime = new Date().getTime();
+        if (timeHolded < currentTime - HOLD_TIME_FOR_VIDEO) {
           onEndHold();
-        else onPress();
+        } else {
+          onPress();
+        }
         setTimeHolded(0);
       }}
     >
-      <View className="w-20 h-20 border-[6px] border-gray-200 rounded-full absolute" />
-      <Animated.View
-        className={`items-center justify-center ${pressed.value === true ? "bg-gray-200" : ""}`}
-        style={primaryButtonAnimatedStyle}
+      <View
+        className={`w-20 h-20 border-[6px] border-gray-200 rounded-full absolute`}
       />
+      <Animated.View
+        className="w-20 h-20 rounded-full absolute bg-[#B595E9]"
+        style={circleAnimatedStyle}
+      >
+        <View className="w-3 h-3 bg-[#7826FD] rounded-full absolute left-1/2 transform -translate-x-1.5" />
+      </Animated.View>
     </Pressable>
   );
 };
