@@ -3,29 +3,33 @@
 // This enables autocomplete, go to definition, etc.
 
 // Setup type definitions for built-in Supabase Runtime APIs
-import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
-import { supabaseClient as supabaseServiceClient } from "../_shared/supabase_client.ts";
 
 const handler = async (req: Request) => {
   try {
-    const { user_id } = await req.json();
-    
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
       { global: { headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` } } });
     
-    const { data: user, error } = await supabaseClient
+    const { data: user, error: userError } = await supabaseClient
       .from('account')
-      .select('id, school_id')
-      .eq('id', user_id)
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(1)
       .single();
 
-    if (error) throw error;
-    if (!user) throw new Error('User not found');
+    if (userError) throw userError;
+    
+    if (!user) {
+      throw new Error('No user found')
+      return new Response(JSON.stringify({ error: 'No user found', userError: userError, user: user }), { status: 400 });
+    };
+
+    const user_id = user.id;
 
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     
@@ -33,6 +37,7 @@ const handler = async (req: Request) => {
       .from('circles')
       .select('id, user_ids')
       .eq('school_id', user.school_id)
+      .order('created_at', { ascending: false })
       .gte('created_at', twentyFourHoursAgo);
 
     if (circlesError) throw circlesError;
@@ -51,8 +56,9 @@ const handler = async (req: Request) => {
 
     // filter circles with less than 4 participants
     const availableCircles = recentCircles.filter(circle => 
-      (circle.user_ids?.length || 0) < 4
+      (circle.user_ids.length) < 4
     );
+
 
     if (availableCircles.length === 0) {
       // Create a new circle if all existing circles are full
@@ -60,9 +66,9 @@ const handler = async (req: Request) => {
         .from('circles')
         .insert([
           { 
-            school_id: user.school_id,
-            user_ids: [user_id],
             name: "Daily Circle",
+            user_ids: [user_id],
+            school_id: user.school_id,
             created_at: new Date().toISOString()
           }
         ])
@@ -122,6 +128,5 @@ Deno.serve(handler)
   curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/add-new-user-circle' \
     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
     --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
-
+    
 */
