@@ -67,7 +67,7 @@ const OverlayUserProfile = ({
         edges={userProfilePics ? ["top", "bottom"] : ["top"]}
         className={`absolute w-full h-full z-10 ${Platform.OS === "android" && "pt-6"}`}
       >
-        <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-rowz-20">
+        <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-row z-20">
           <Pressable className="flex-1" onPress={onLeft} />
           <Pressable className="flex-1" onPress={onRight} />
         </View>

@@ -33,6 +33,11 @@ const UserProfileModal = ({
       }
       setActualIndex(actualIndex + 1);
     }, storyDuration);
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [actualIndex, userProfilePics]);
 
   useEffect(() => {
