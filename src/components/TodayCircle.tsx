@@ -20,17 +20,19 @@ const TodayCircle = () => {
 
       {usersProfilePics && <StackCarousel data={usersProfilePics} />}
 
-      <StoryButton stories={stories}>
-        <Animated.View
-          entering={FadeInDown.duration(300)}
-          className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"
-        >
-          <MyGradient className="rounded-lg" />
-          <MyText className="font-semibold text-md">
-            {t("actions.openCircle")}
-          </MyText>
-        </Animated.View>
-      </StoryButton>
+      {stories.length > 0 && (
+        <StoryButton stories={stories}>
+          <Animated.View
+            entering={FadeInDown.duration(300)}
+            className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"
+          >
+            <MyGradient className="rounded-lg" />
+            <MyText className="font-semibold text-md">
+              {t("actions.openCircle")}
+            </MyText>
+          </Animated.View>
+        </StoryButton>
+      )}
     </View>
   );
 };

@@ -1,7 +1,7 @@
+import useGetAccounts from "@api/account/getAccounts.hook";
 import useGetCirclePics from "@api/circles/getCirclePics.hook";
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import useGetUsersProfilePics from "@api/profilePics/getUsersProfilePics.hook";
-import useGetAccounts from "@api/account/getAccounts.hook";
 import { formatStoryDate } from "@utils/dates";
 
 const useTodayCircle = () => {
@@ -14,7 +14,7 @@ const useTodayCircle = () => {
 
   const mappedStories = circlePics.map((pic) => ({
     ...pic,
-    userName: users?.find((u) => u.id === pic.user_id)?.name,
+    userName: users?.find((u) => u.id === pic.user_id)?.name ?? "",
     userProfilePictureUrl: usersProfilePics?.find(
       (p) => p.user_id === pic.user_id,
     )?.urls?.[0],
