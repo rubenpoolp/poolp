@@ -24,6 +24,9 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
       }
       setActualIndex(actualIndex + 1);
     }, storyDuration);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [actualIndex, stories]);
 
   useEffect(() => {
