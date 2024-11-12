@@ -1,3 +1,4 @@
+import TailVideoShutter from "@components/SVGs/TailVideoShutter";
 import React, { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated, {
@@ -88,7 +89,8 @@ export const AnimatedPlayPauseButton = ({
         className="w-20 h-20 rounded-full absolute bg-[#B595E9]"
         style={circleAnimatedStyle}
       >
-        <View className="w-3 h-3 bg-[#7826FD] rounded-full absolute left-1/2 transform -translate-x-1.5" />
+        <TailVideoShutter />
+        <View className="w-2 h-2 bg-[#7826FD] rounded-full absolute left-1/2 transform -translate-x-1.5" />
       </Animated.View>
     </Pressable>
   );

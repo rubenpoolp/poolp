@@ -49,7 +49,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         </MyPressable>
       </View>
       <View className="flex-row justify-center items-center">
-        <ShutterButton onPress={takePhoto} />
+        <ShutterButton onPressPicture={takePhoto} onHoldVideo={() => {}} />
       </View>
     </View>
   );
