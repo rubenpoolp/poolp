@@ -7,14 +7,17 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+const HOLD_TIME_FOR_VIDEO = 1000;
 export const AnimatedPlayPauseButton = ({
-  animate,
   onPress,
+  onEndHold,
 }: {
-  animate: boolean;
   onPress: () => void;
+  onEndHold: () => void;
 }) => {
+  const [animate, setAnimate] = useState(false);
   const pressed = useSharedValue(false);
+  const [timeHolded, setTimeHolded] = useState(0);
 
   const primaryButtonAnimatedStyle = useAnimatedStyle(
     () => ({
@@ -31,18 +34,26 @@ export const AnimatedPlayPauseButton = ({
   return (
     <Pressable
       className="items-center justify-center h-20"
-      onPress={onPress}
-      onPressIn={() => (pressed.value = true)}
+      onPressIn={() => {
+        setTimeHolded(new Date().getTime());
+        pressed.value = true;
+      }}
       onPressOut={() => {
         const pressOut = setTimeout(() => {
           pressed.value = false;
         }, 500);
         return () => clearTimeout(pressOut);
       }}
+      onTouchEnd={() => {
+        if (timeHolded < new Date().getTime() - HOLD_TIME_FOR_VIDEO)
+          onEndHold();
+        else onPress();
+        setTimeHolded(0);
+      }}
     >
-      <View className="w-16 h-16 border-2 border-gray-200 rounded-full absolute" />
+      <View className="w-20 h-20 border-[6px] border-gray-200 rounded-full absolute" />
       <Animated.View
-        className="bg-gray-200 items-center justify-center"
+        className={`items-center justify-center ${pressed.value === true ? "bg-gray-200" : ""}`}
         style={primaryButtonAnimatedStyle}
       />
     </Pressable>
@@ -50,21 +61,16 @@ export const AnimatedPlayPauseButton = ({
 };
 
 interface ShutterButtonProps {
-  onPress: () => void;
+  onPressPicture: () => void;
+  onHoldVideo: () => void;
 }
 
-const ShutterButton: React.FC<ShutterButtonProps> = ({ onPress }) => {
-  const [animate, setAnimate] = useState(false);
-
+const ShutterButton: React.FC<ShutterButtonProps> = ({
+  onPressPicture,
+  onHoldVideo,
+}) => {
   return (
-    <AnimatedPlayPauseButton
-      animate={animate}
-      onPress={() => {
-        setAnimate(true);
-        onPress();
-        setTimeout(() => setAnimate(false), 50);
-      }}
-    />
+    <AnimatedPlayPauseButton onPress={onPressPicture} onEndHold={onHoldVideo} />
   );
 };
 

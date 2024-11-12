@@ -6,6 +6,7 @@ import { light } from "@config/colors";
 import { CameraPlus } from "phosphor-react-native";
 import React from "react";
 import { Linking, View } from "react-native";
+import ShutterButton from "./ShutterButton";
 
 interface CameraPermissionViewProps {
   onRequestPermission: () => void;
@@ -49,6 +50,10 @@ const CameraPermissionView: React.FC<CameraPermissionViewProps> = ({
                     <MyButton txt="Open Settings" onPress={openSettings} />
                   </View>
                 )}
+                <ShutterButton
+                  onPressPicture={() => console.log("pic")}
+                  onHoldVideo={() => console.log("video")}
+                />
               </View>
             </View>
           </View>
