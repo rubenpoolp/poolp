@@ -1,6 +1,7 @@
 import assets from "@assets/index";
 import colors from "@config/colors";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import usePayment from "@hooks/usePayment";
 import { useNavigation } from "@react-navigation/native";
 import { hapticImpact } from "@utils/haptics";
 import { t } from "i18next";
@@ -23,6 +24,7 @@ const Paywall = ({
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [selectedPlan, setSelectedPlan] = useState("month");
   const navigation = useNavigation();
+  const { packages } = usePayment();
 
   useEffect(() => {
     if (isVisible) {

@@ -6,6 +6,7 @@ import { useAuth } from "@context/Auth";
 import useAnalytics from "@hooks/useAnalytics";
 import useManageRoute from "@hooks/useManageRoute";
 import { setAsyncStorage } from "@utils/asyncStorage";
+import { initializeRevenueCatApiKeys } from "@utils/purchase";
 import { supabase } from "@utils/supabase";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -26,7 +27,7 @@ const useInitialization = () => {
       .data.publicUrl.slice(0, -1); // remove last /
     setAsyncStorage("STORAGE_URL", storageUrl);
 
-    // initializeRevenueCatApiKeys(user.id);
+    initializeRevenueCatApiKeys(user.id);
   }, [identify, user]);
 };
 

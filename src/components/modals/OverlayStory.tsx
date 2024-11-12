@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
-import { Pressable, View } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
 import MyButton from "../natives/MyButton";
@@ -85,7 +85,7 @@ const OverlayStoryModal = ({
   return (
     <SafeAreaView
       edges={userProfilePics ? ["top", "bottom"] : ["top"]}
-      className="absolute w-full h-full"
+      className={`absolute w-full h-full ${Platform.OS === "android" && "pt-6"}`}
     >
       <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-row z-10">
         <Pressable className="flex-1 " onPress={onLeft} />

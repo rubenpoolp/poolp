@@ -1,10 +1,10 @@
 import { UserProfilePics } from "@/types/story";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { LinearGradient } from "expo-linear-gradient";
-import { CaretUp, DotsThree, X } from "phosphor-react-native";
+import { DotsThree, X } from "phosphor-react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, View } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
 import MyPressable from "../natives/MyPressable";
@@ -65,7 +65,7 @@ const OverlayUserProfile = ({
     <>
       <SafeAreaView
         edges={userProfilePics ? ["top", "bottom"] : ["top"]}
-        className="absolute w-full h-full z-10"
+        className={`absolute w-full h-full z-10 ${Platform.OS === "android" && "pt-6"}`}
       >
         <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-rowz-20">
           <Pressable className="flex-1" onPress={onLeft} />
@@ -96,12 +96,6 @@ const OverlayUserProfile = ({
             <MyText className="text-3xl font-semibold mb-4">
               {userProfilePics.user_name}
             </MyText>
-
-            <MyPressable onPress={onClose}>
-              <View className="self-center">
-                <CaretUp size={28} />
-              </View>
-            </MyPressable>
           </View>
         )}
       </SafeAreaView>
