@@ -30,6 +30,10 @@
     "cameraAccessNeeded": {
       "title": "Camera access needed",
       "message": "We need access to your camera to take a photo or choose one from your gallery."
+    },
+    "notificationsNeeded": {
+      "title": "🔔 Stay in the loop!",
+      "message": "Enable notifications to never miss important updates and stay connected with what matters to you."
     }
   },
   "onboarding": {
@@ -150,8 +154,7 @@
     "advantages": [
       "Your circle change",
       "Someone posts",
-      "Someone likes",
-      "Someone screenshots"
+      "Someone likes"
     ]
   },
   "waitingRoom": {

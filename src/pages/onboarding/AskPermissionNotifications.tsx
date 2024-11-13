@@ -1,6 +1,7 @@
 import { Bump } from "@components/animations/Bump";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
+import useNotifications from "@hooks/useNotifications";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { ArrowDown } from "phosphor-react-native";
 import React from "react";
@@ -14,7 +15,10 @@ const DisplayNiceNotification = ({
   title: string;
   description: string;
 }) => {
-  const onPress = () => {};
+  const { initializeNotifications } = useNotifications();
+  const onPress = () => {
+    initializeNotifications();
+  };
 
   return (
     <Bump scaleValue={0.95}>

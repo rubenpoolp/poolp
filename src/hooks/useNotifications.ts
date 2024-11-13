@@ -1,14 +1,13 @@
 import useUpdateAccount from "@api/account/updateAccount.hook";
-import { updateAccount } from "@api/account/updateAccount.query";
 import { useAuth } from "@context/Auth";
-import { User } from "@supabase/supabase-js";
 import { Account } from "@supabase_types";
 import { UseMutationResult } from "@tanstack/react-query";
+import i18n from "@utils/i18n";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
-import { Platform } from "react-native";
+import { Alert, Linking, Platform } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -19,6 +18,7 @@ Notifications.setNotificationHandler({
 });
 
 async function registerForPushNotificationsAsync() {
+
   if (!Device.isDevice) {
     // alert("Must use physical device for Push Notifications");
     return;
@@ -30,7 +30,17 @@ async function registerForPushNotificationsAsync() {
     const { status } = await Notifications.requestPermissionsAsync();
 
     if (status !== "granted") {
-      alert("Failed to get push token for push notification!");
+      Alert.alert(
+        i18n.t("alerts.notificationsNeeded.title"),
+        i18n.t("alerts.notificationsNeeded.message"),
+        [
+          { text: i18n.t("actions.maybeLater"), style: "cancel" },
+          {
+            text: i18n.t("actions.sureThing"),
+            onPress: () => Linking.openSettings(),
+          },
+        ],
+      );
       return;
     }
   }
@@ -75,44 +85,57 @@ async function pushTokenToUser(
 }
 
 const useNotifications = () => {
-  const [notification, setNotification] = useState(null);
+  const [notification, setNotification] = useState<Notifications.Notification | null>(null);
   const notificationListener = useRef<Notifications.Subscription>();
-  const responseListener = useRef();
+  const responseListener = useRef<Notifications.Subscription>();
 
   const auth = useAuth();
   const updateAccount = useUpdateAccount();
 
+  const initializeNotifications = async () => {
+    const pushToken = await registerForPushNotificationsAsync();
 
-  useEffect(() => {
-    (async () => {
-      const pushToken = await registerForPushNotificationsAsync();
+    if (pushToken?.data && auth.user) {
+      await pushTokenToUser(
+        pushToken.data,
+        updateAccount,
+        auth.user.push_token,
+      );
+    }
 
-      if (pushToken?.data && auth.user) {
-        await pushTokenToUser(
-          pushToken.data,
-          updateAccount,
-          auth.user.push_token,
-        );
+    notificationListener.current = Notifications
+      .addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current = Notifications
+      .addNotificationResponseReceivedListener(() => {
+      });
+
+    // Cleanup function
+    return () => {
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
       }
-      notificationListener.current = Notifications
-        .addNotificationReceivedListener((notification) => {
-          setNotification(notification);
-        });
-
-      responseListener.current = Notifications
-        .addNotificationResponseReceivedListener(() => {
-        });
-
-      return () => {
-        Notifications.removeNotificationSubscription(
-          notificationListener.current,
-        );
+      if (responseListener.current) {
         Notifications.removeNotificationSubscription(responseListener.current);
-      };
-    })();
+      }
+    };
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+      }
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    };
   }, []);
 
-  return { notification };
+  return { notification, initializeNotifications };
 };
 
 export default useNotifications;
