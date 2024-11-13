@@ -5,7 +5,7 @@ import { t } from "i18next";
 import { CaretLeft } from "phosphor-react-native";
 import React, { useRef } from "react";
 import { Image, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { captureRef } from "react-native-view-shot";
 import SnapTexts from "./SnapTexts";
 
@@ -35,25 +35,36 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
 
   return (
     <MyModal isVisible={!!photo} className="flex-1 bg-background-dark">
-      {photo && (
-        <View ref={imageAndTextRef} className="w-full h-full">
-          <Image
-            source={{ uri: `file://${photo.path}` }}
-            className="w-full h-full"
-            resizeMode="cover"
-          />
-          <SnapTexts />
-        </View>
-      )}
-      <SafeAreaView edges={["top"]} className="absolute w-full top-0 pt-16">
-        <MyPressable className="ml-5" onPress={onRetake}>
-          <CaretLeft />
-        </MyPressable>
-      </SafeAreaView>
+      <SafeAreaProvider className="flex-1 w-full h-full">
+        <SafeAreaView
+          edges={["top", "bottom"]}
+          className="flex-1 w-full h-full justify-between"
+        >
+          <View className="flex-1">
+            {photo && (
+              <View ref={imageAndTextRef} className="flex-1 ">
+                <Image
+                  source={{ uri: `file://${photo.path}` }}
+                  className="w-full h-full rounded-t-[32px]"
+                  resizeMode="cover"
+                />
+                <SnapTexts />
+              </View>
+            )}
 
-      <SafeAreaView className="absolute w-full bottom-0 bg-background-dark px-5 items-center pt-4 pb-14">
-        <MyButton onPress={onSaveImage} txt={t("camera.send")} />
-      </SafeAreaView>
+            <MyPressable
+              className="absolute top-3 left-3 p-2"
+              onPress={onRetake}
+            >
+              <CaretLeft />
+            </MyPressable>
+          </View>
+
+          <View className="w-full px-5 items-center pt-4">
+            <MyButton onPress={onSaveImage} txt={t("camera.send")} />
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
     </MyModal>
   );
 };

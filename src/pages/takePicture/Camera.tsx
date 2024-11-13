@@ -4,7 +4,6 @@ import { useCamera } from "@hooks/useCamera";
 import useCirclePic from "@hooks/useCirclePic";
 import React, { useCallback, useEffect } from "react";
 import { View } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import CameraPermissionView from "./components/CameraPermissionView";
 import PhotoPreviewModal from "./components/PhotoPreviewModal";
 
@@ -52,28 +51,21 @@ const CameraPage = () => {
       edges={["top"]}
       className="flex-1 rounded-t-[32px] overflow-hidden"
     >
-      <SafeAreaProvider>
-        <View className="flex-1">
-          <MyCamera
-            cameraRef={camera}
-            device={device}
-            isActive={!photo}
-            zoom={currentZoom}
-            flashMode={flashMode}
-            currentZoom={currentZoom}
-            onToggleCameraPosition={toggleCameraPosition}
-            onToggleFlash={toggleFlash}
-            onCycleZoom={cycleZoom}
-            onTakePhoto={takePhoto}
-          />
-
-          <PhotoPreviewModal
-            photo={photo}
-            onRetake={reset}
-            onSend={handleSend}
-          />
-        </View>
-      </SafeAreaProvider>
+      <View className="flex-1">
+        <MyCamera
+          cameraRef={camera}
+          device={device}
+          isActive={!photo}
+          zoom={currentZoom}
+          flashMode={flashMode}
+          currentZoom={currentZoom}
+          onToggleCameraPosition={toggleCameraPosition}
+          onToggleFlash={toggleFlash}
+          onCycleZoom={cycleZoom}
+          onTakePhoto={takePhoto}
+        />
+        <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} />
+      </View>
     </MyScreen>
   );
 };
