@@ -11,13 +11,17 @@ import { View } from "react-native";
 const DisplayNiceNotification = ({
   title,
   description,
+  onActivate,
 }: {
   title: string;
   description: string;
+  onActivate: () => void;
 }) => {
   const { initializeNotifications } = useNotifications();
   const onPress = () => {
-    initializeNotifications();
+    initializeNotifications().then(() => {
+      onActivate();
+    });
   };
 
   return (
@@ -63,6 +67,7 @@ const AskPermissionNotifications = ({
       <DisplayNiceNotification
         title={t("askPermissionNotifications.notifTitle")}
         description={t("askPermissionNotifications.notifDescription")}
+        onActivate={handleNext}
       />
 
       <MyText className="text-sm text-gray-400 text-center mb-2">
