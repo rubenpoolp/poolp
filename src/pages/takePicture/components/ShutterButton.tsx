@@ -68,14 +68,13 @@ export const AnimatedPlayPauseButton = ({
         setIsPressed(true);
         setTimeHolded(new Date().getTime());
       }}
-      onPressOut={() => {
-        setIsPressed(false);
-        stopHoldAnimation();
-      }}
       onTouchEnd={() => {
+        setIsPressed(false);
         const currentTime = new Date().getTime();
+
         if (timeHolded < currentTime - HOLD_TIME_FOR_VIDEO) {
           onEndHold();
+          stopHoldAnimation();
         } else {
           onPress();
         }
