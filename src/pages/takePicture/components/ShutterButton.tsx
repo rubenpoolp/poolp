@@ -111,36 +111,6 @@ export const AnimatedPlayPauseButton = ({
         }}
       />
 
-      <Svg
-        style={{
-          width: CIRCLE_RADIUS * 2,
-          height: CIRCLE_RADIUS * 2,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <LinearGradient
-          id="a"
-          x1={9.333}
-          x2={73.333}
-          y1={65.333}
-          y2={18}
-          gradientUnits="userSpaceOnUse"
-        >
-          <Stop stopColor="#7826FD" />
-          <Stop offset={1} stopColor="#A736FF" />
-        </LinearGradient>
-        <AnimatedCircle
-          cx={CIRCLE_RADIUS}
-          cy={CIRCLE_RADIUS}
-          fill="transparent"
-          stroke="url(#a)"
-          strokeWidth={STROKE_WIDTH}
-          strokeLinecap="round"
-          r={CIRCLE_RADIUS - STROKE_WIDTH / 2}
-          {...animatedProps}
-        />
-      </Svg>
       <Animated.View
         className={`rounded-full absolute bg-[#B595E9]`}
         style={[
@@ -151,6 +121,36 @@ export const AnimatedPlayPauseButton = ({
           },
         ]}
       >
+        <Svg
+          style={{
+            width: CIRCLE_RADIUS * 2,
+            height: CIRCLE_RADIUS * 2,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <LinearGradient
+            id="a"
+            x1={9.333}
+            x2={73.333}
+            y1={65.333}
+            y2={18}
+            gradientUnits="userSpaceOnUse"
+          >
+            <Stop stopColor="#7826FD" />
+            <Stop offset={1} stopColor="#A736FF" />
+          </LinearGradient>
+          <AnimatedCircle
+            cx={CIRCLE_RADIUS}
+            cy={CIRCLE_RADIUS}
+            fill="transparent"
+            stroke="url(#a)"
+            strokeWidth={STROKE_WIDTH}
+            strokeLinecap="round"
+            r={CIRCLE_RADIUS - STROKE_WIDTH / 2}
+            {...animatedProps}
+          />
+        </Svg>
         <View className="w-2 h-2 bg-[#7826FD] rounded-full absolute left-1/2 transform -translate-x-1.5" />
       </Animated.View>
     </Pressable>
