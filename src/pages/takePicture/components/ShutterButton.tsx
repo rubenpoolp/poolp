@@ -1,3 +1,4 @@
+import { hapticImpact } from "@utils/haptics";
 import React, { useEffect, useState } from "react";
 import { Pressable } from "react-native";
 import Animated, {
@@ -54,6 +55,9 @@ export const AnimatedPlayPauseButton = ({
           -1,
           false,
         );
+        setTimeout(() => {
+          hapticImpact("rigid");
+        }, maxDuration - HOLD_TIME_FOR_VIDEO);
       }, HOLD_TIME_FOR_VIDEO);
     }
 
