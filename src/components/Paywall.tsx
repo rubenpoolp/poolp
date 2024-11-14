@@ -4,9 +4,12 @@ import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import usePayment from "@hooks/usePayment";
 import { useNavigation } from "@react-navigation/native";
 import { hapticImpact } from "@utils/haptics";
+import i18n from "@utils/i18n";
+import { myCaptureException } from "@utils/sentry";
 import { t } from "i18next";
 import { useEffect, useRef, useState } from "react";
-import { Image, Linking, View } from "react-native";
+import { Alert, Image, Linking, View } from "react-native";
+import { PACKAGE_TYPE } from "react-native-purchases";
 import Hearts from "./animations/Hearts";
 import MyButton from "./natives/MyButton";
 import MyPressable from "./natives/MyPressable";
@@ -22,9 +25,12 @@ const Paywall = ({
   onClose: () => void;
 }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const [selectedPlan, setSelectedPlan] = useState("month");
+  const [selectedPlan, setSelectedPlan] = useState("monthly");
   const navigation = useNavigation();
-  const { packages } = usePayment();
+  const { packages, purchase } = usePayment();
+  const monthPackage = packages.find((p: any) => p.packageType === "MONTHLY");
+  const weekPackage = packages.find((p: any) => p.packageType === "WEEKLY");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
@@ -41,11 +47,37 @@ const Paywall = ({
     onClose();
   };
 
-  const onPress = () => {
+  const onPress = async () => {
     hapticImpact("medium");
-    bottomSheetRef.current?.dismiss();
-    onClose();
-    navigation.navigate("DiscoverPeople");
+    setIsLoading(true);
+    const result = await purchase(
+      selectedPlan === "monthly" ? PACKAGE_TYPE.MONTHLY : PACKAGE_TYPE.WEEKLY,
+    );
+    setIsLoading(false);
+    if (result.isSuccess) {
+      Alert.alert(
+        i18n.t("paywall.successTitle"),
+        i18n.t("paywall.successMessage"),
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              bottomSheetRef.current?.dismiss();
+              onClose();
+              navigation.navigate("WhoLikedYou");
+            },
+          },
+        ],
+      );
+    } else {
+      if ("error" in result) {
+        myCaptureException(result.error);
+        Alert.alert(
+          i18n.t("paywall.errorTitle"),
+          i18n.t("paywall.errorMessage"),
+        );
+      }
+    }
   };
 
   const openTerms = () => {
@@ -57,7 +89,7 @@ const Paywall = ({
       <Hearts isVisible={isVisible} />
 
       <BottomSheetModal
-        enablePanDownToClose
+        enablePanDownToClose={!isLoading}
         ref={bottomSheetRef}
         backgroundStyle={{ backgroundColor: colors.background.gold }}
         handleIndicatorStyle={{ backgroundColor: colors.gray[600] }}
@@ -73,21 +105,21 @@ const Paywall = ({
 
           <View>
             <PaywallPlan
-              isSelected={selectedPlan === "month"}
-              onSelect={() => setSelectedPlan("month")}
+              isSelected={selectedPlan === "monthly"}
+              onSelect={() => setSelectedPlan("monthly")}
               period={t("paywall.month")}
               price={t("paywall.dayPrice", {
-                price: "€0,13",
+                price: monthPackage?.priceByDayString,
               })}
               isBestValue={true}
             />
 
             <PaywallPlan
-              isSelected={selectedPlan === "week"}
-              onSelect={() => setSelectedPlan("week")}
+              isSelected={selectedPlan === "weekly"}
+              onSelect={() => setSelectedPlan("weekly")}
               period={t("paywall.week")}
               price={t("paywall.dayPrice", {
-                price: "€0,28",
+                price: weekPackage?.priceByDayString,
               })}
             />
           </View>
@@ -104,14 +136,19 @@ const Paywall = ({
           <MyButton
             variant="gold"
             size="large"
+            disabled={isLoading}
             onPress={onPress}
             txtClassName="font-bold"
-            txt={t("paywall.button")}
+            txt={isLoading ? "Loading..." : t("paywall.button")}
           />
           <MyText className="text-center mt-1 text-sm mb-2">
-            {t("paywall.monthPrice", {
-              price: selectedPlan === "month" ? "€4,03" : "€8,68",
-            })}
+            {selectedPlan === "monthly"
+              ? t("paywall.monthPrice", {
+                  price: monthPackage?.price,
+                })
+              : t("paywall.weekPrice", {
+                  price: weekPackage?.price,
+                })}
           </MyText>
         </BottomSheetView>
       </BottomSheetModal>

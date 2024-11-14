@@ -2,8 +2,8 @@ import PastCirclesDetails from "@pages/circles/PastCircleDetails";
 import PastCircles from "@pages/circles/PastCircles";
 import Home from "@pages/home/Home";
 import BottomTabNavigator from "@pages/navigation/BottomTabNavigator";
-import DiscoverPeople from "@pages/profile/DiscoverPeople";
 import ProfilePicture from "@pages/profile/ProfilePicture";
+import WhoLikedYou from "@pages/profile/WhoLikedYou";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 const HomeStack = createNativeStackNavigator();
@@ -22,7 +22,7 @@ const HomeStackNavigator = () => {
         component={PastCirclesDetails}
       />
       <HomeStack.Screen name="ProfilePicture" component={ProfilePicture} />
-      <HomeStack.Screen name="DiscoverPeople" component={DiscoverPeople} />
+      <HomeStack.Screen name="WhoLikedYou" component={WhoLikedYou} />
     </HomeStack.Navigator>
   );
 };

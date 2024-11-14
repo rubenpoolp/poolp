@@ -8,10 +8,12 @@ import MyText from "@components/natives/MyText";
 import Paywall from "@components/Paywall";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
+import useAppState from "@hooks/useAppState";
 import useProfile from "@hooks/useProfile";
 import { useNavigation } from "@react-navigation/native";
 import { formatBasicDate, getDaysFromNow } from "@utils/dates";
-import React, { useState } from "react";
+import { getIsSubscribed } from "@utils/purchase";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
 
@@ -59,8 +61,17 @@ const Profile = () => {
     : new Date();
   const days = getDaysFromNow(createdAt);
   const date = formatBasicDate(createdAt);
-
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const navigation = useNavigation();
+  const appState = useAppState();
+
+  useEffect(() => {
+    const checkSubscription = async () => {
+      const isSubscribed = await getIsSubscribed();
+      setIsSubscribed(isSubscribed);
+    };
+    checkSubscription();
+  }, [appState]);
 
   return (
     <MyScreen edges={["top"]}>
@@ -98,7 +109,13 @@ const Profile = () => {
             <View className="flex items-center justify-center">
               <Bump scaleValue={0.95}>
                 <MyButton
-                  onPress={() => setIsPaywallVisible(true)}
+                  onPress={() => {
+                    if (isSubscribed) {
+                      navigation.navigate("WhoLikedYou");
+                    } else {
+                      setIsPaywallVisible(true);
+                    }
+                  }}
                   txt={t("profile.seeWhoLikedYou")}
                   size="medium"
                   variant="gold"

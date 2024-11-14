@@ -44,7 +44,7 @@ const User = ({ item }: { item: UserToDiscover }) => {
   );
 };
 
-const DiscoverPeople = () => {
+const WhoLikedYou = () => {
   const usersToDiscover: UserToDiscover[] = [
     {
       name: "John Doe",
@@ -98,7 +98,7 @@ const DiscoverPeople = () => {
         className="mb-14 mt-8 text-xl font-semibold"
         style={shadow.purple}
       >
-        {i18n.t("paywall.discoverPeople")}
+        {i18n.t("paywall.whoLikedYou")}
       </MyText>
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -110,4 +110,4 @@ const DiscoverPeople = () => {
   );
 };
 
-export default DiscoverPeople;
+export default WhoLikedYou;

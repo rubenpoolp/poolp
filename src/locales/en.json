@@ -151,11 +151,7 @@
     "notifTitle": "💜 New circle to discover!",
     "notifDescription": "This is how Poolp will notify you to discover your new circle.",
     "byEnablingNotifications": "By enabling notifications, you will know everyday when :",
-    "advantages": [
-      "Your circle change",
-      "Someone posts",
-      "Someone likes"
-    ]
+    "advantages": ["Your circle change", "Someone posts", "Someone likes"]
   },
   "waitingRoom": {
     "title": "You are in the waiting room",
@@ -177,12 +173,13 @@
     }
   },
   "paywall": {
-    "discoverPeople": "The rest happens in real life",
+    "whoLikedYou": "The rest happens in real life",
     "month": "1 month",
     "week": "1 week",
     "recurring": "Recurring billing. Cancel anytime.",
     "terms": "Terms & Privacy",
     "button": "UNBLUR NOW 👀",
+    "weekPrice": "{{price}}/week",
     "monthPrice": "{{price}}/month",
     "dayPrice": "{{price}}/day",
     "features": {
@@ -190,6 +187,10 @@
       "discoverWhoWantedYouToPost": "Discover who wanted you to post",
       "knowBeforeReviewingYourConnections": "Know before reviewing your connections",
       "noAds": "No ads"
-    }
+    },
+    "successTitle": "Welcome to the club!",
+    "successMessage": "You can now discover who liked you and who wanted you to post!",
+    "errorTitle": "Oops!",
+    "errorMessage": "Something went wrong. Please try again."
   }
 }

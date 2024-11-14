@@ -1,4 +1,4 @@
-import { Alert, Platform } from "react-native";
+import { Platform } from "react-native";
 import Purchases, { LOG_LEVEL, PurchasesPackage } from "react-native-purchases";
 import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
 
@@ -39,32 +39,17 @@ export const getPackages = async () => {
         p.product.priceString,
       );
 
-      let nbMonths = 3;
-      switch (p.packageType) {
-        case "MONTHLY":
-          nbMonths = 1;
-          break;
-        case "THREE_MONTH":
-          nbMonths = 3;
-          break;
-        case "ANNUAL":
-          nbMonths = 12;
-          break;
-        default:
-          nbMonths = 1;
-          break;
-      }
+      const nbDays = p.packageType === "MONTHLY" ? 30 : 7;
 
       return {
         ...p,
-        nbMonths,
         priceString: `${
           Number(p.product.price).toFixed(
             2,
           )
         }${characterCurrency}`,
-        priceByMonthString: `${
-          (p.product.price / nbMonths)
+        priceByDayString: `${
+          (p.product.price / nbDays)
             .toFixed(3)
             .slice(0, -1)
         }${characterCurrency}`,
@@ -75,40 +60,19 @@ export const getPackages = async () => {
   }
 };
 
-const t = (key: string) => key;
-
-export const pay = async (
-  selectedPackage: PurchasesPackage,
-  onSuccess: () => void,
-) => {
-  return Purchases.purchasePackage(selectedPackage)
+export const pay = async (selectedPackage: PurchasesPackage) => {
+  return await Purchases.purchasePackage(selectedPackage)
     .then(({ customerInfo }) => {
       if (customerInfo.entitlements.all["Subscription"]?.isActive) {
-        Alert.alert(
-          "Bravo",
-          "Tu as souscrit à l'abonnement, tu peux maintenant profiter de toutes les fonctionnalités de l'application",
-          [
-            {
-              text: "OK",
-              onPress: onSuccess,
-            },
-          ],
-        );
+        return { isSuccess: true };
       } else {
-        Alert.alert(
-          "Erreur",
-          "Une erreur est survenue lors de la souscription à l'abonnement, nous en sommes informer. Tu peux réessayer plus tard.",
-        );
+        return { isSuccess: false };
       }
     })
     .catch((error: any) => {
-      console.warn("ERROR", error);
-      if (error.message.includes("cancel")) return;
+      if (error.message.includes("cancel")) return { isSuccess: false };
 
-      Alert.alert(
-        t("account:payment.failure"),
-        t("account:payment.failureMessage"),
-      );
+      return { isSuccess: false, error: error.message };
     });
 };
 
