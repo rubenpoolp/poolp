@@ -1,19 +1,29 @@
 import { useMutation } from "@tanstack/react-query";
 import { myCaptureException } from "@utils/sentry";
 
-import { sendNotif } from "@api/notifications/sendNotif.query";
+import getMyDailyCircleQuery from "@api/circles/getMyDailyCircle.query";
+import { useAuth } from "@context/Auth";
 import i18n from "@utils/i18n";
+import { ringUser } from "./ringUser.query";
+import { sendNotif } from "./sendNotif.query";
 
 const useRingUser = () => {
+
+  const auth = useAuth();
+
   return useMutation({
     mutationKey: ["ringUser"],
-    mutationFn: async (userData: { userIds: string[] }) => {
-      const { userIds } = userData;
-      if (!userIds.length) {
+    mutationFn: async ({userId}: {userId: string}) => {
+      if (!userId) {
         throw new Error("No users selected");
       }
+      const circle = await getMyDailyCircleQuery(auth.user?.id!);
+      if (!circle) {
+        throw new Error("No circle found");
+      }
 
-      return sendNotif(userIds, i18n.t("notifications.ring.title"), i18n.t("notifications.ring.body"));
+      ringUser(circle.id, auth.user?.id!, userId);
+      return sendNotif([userId], i18n.t("notifications.ring.title"), i18n.t("notifications.ring.body"));
     },
     onError: (error: Error) => {
       myCaptureException(error);
@@ -21,6 +31,7 @@ const useRingUser = () => {
     },
     onSuccess: () => {
       // TODO: Add success message to user
+      // Alert.alert('Success', 'You have successfully sent a notification to the user');
     },
   });
 };

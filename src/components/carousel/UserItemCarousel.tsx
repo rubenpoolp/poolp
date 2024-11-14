@@ -61,8 +61,8 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
 
                 <RingButton
                   onPress={() => {
-                    ringUser.mutate({
-                      userIds: [userProfilePics.user_id],
+                    ringUser.mutateAsync({
+                      userId: userProfilePics.user_id,
                     });
                   }}
                 />

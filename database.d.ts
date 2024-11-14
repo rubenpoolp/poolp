@@ -158,6 +158,52 @@ export type Database = {
           },
         ]
       }
+      likes: {
+        Row: {
+          circle_id: string | null
+          created_at: string
+          id: string
+          liked_by_user_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          circle_id?: string | null
+          created_at?: string
+          id?: string
+          liked_by_user_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          circle_id?: string | null
+          created_at?: string
+          id?: string
+          liked_by_user_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_liked_by_user_id_fkey"
+            columns: ["liked_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profile_pics: {
         Row: {
           id: string
@@ -179,6 +225,52 @@ export type Database = {
             foreignKeyName: "profilePics_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: true
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rings: {
+        Row: {
+          circle_id: string | null
+          created_at: string
+          id: string
+          ring_by_user_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          circle_id?: string | null
+          created_at?: string
+          id?: string
+          ring_by_user_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          circle_id?: string | null
+          created_at?: string
+          id?: string
+          ring_by_user_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rings_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rings_ring_by_user_id_fkey"
+            columns: ["ring_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "account"
             referencedColumns: ["id"]
           },
