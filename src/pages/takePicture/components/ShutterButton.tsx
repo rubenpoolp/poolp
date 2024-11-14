@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
 import Animated, {
   Easing,
   useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withSequence,
   withTiming,
 } from "react-native-reanimated";
 import Svg, { Circle, LinearGradient, Stop } from "react-native-svg";
@@ -14,21 +13,32 @@ import Svg, { Circle, LinearGradient, Stop } from "react-native-svg";
 const HOLD_TIME_FOR_VIDEO = 500;
 const CIRCLE_RADIUS = 40;
 const STROKE_WIDTH = 8;
+const CIRCLE_DIAMETER = CIRCLE_RADIUS * 2;
+const CIRCLE_LENGTH = 2 * Math.PI * CIRCLE_RADIUS;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export const AnimatedPlayPauseButton = ({
   onPress,
   onEndHold,
+  maxDuration,
 }: {
   onPress: () => void;
   onEndHold: () => void;
+  maxDuration: number;
 }) => {
   const [timeHolded, setTimeHolded] = useState(0);
   const [isPressed, setIsPressed] = useState(false);
   const isHolding = useSharedValue(false);
-  const rotation = useSharedValue(0);
   const progress = useSharedValue(0);
+
+  const animatedProps = useAnimatedProps(() => ({
+    strokeDashoffset: CIRCLE_LENGTH * (1 - progress.value),
+  }));
+
+  const opacity = useAnimatedStyle(() => ({
+    opacity: progress.value !== 0 ? 1 : 0,
+  }));
 
   useEffect(() => {
     let holdTimer: NodeJS.Timeout;
@@ -38,19 +48,11 @@ export const AnimatedPlayPauseButton = ({
         isHolding.value = true;
         progress.value = withRepeat(
           withTiming(1, {
-            duration: 2000,
+            duration: maxDuration,
             easing: Easing.linear,
           }),
           -1,
-        );
-        rotation.value = withRepeat(
-          withSequence(
-            withTiming(360, {
-              duration: 2000,
-              easing: Easing.linear,
-            }),
-          ),
-          -1,
+          false,
         );
       }, HOLD_TIME_FOR_VIDEO);
     }
@@ -62,29 +64,19 @@ export const AnimatedPlayPauseButton = ({
     };
   }, [isPressed, timeHolded]);
 
-  const circleAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ rotateZ: `${rotation.value}deg` }],
-      opacity: isHolding.value ? 1 : 0,
-    };
-  });
-
   const stopHoldAnimation = () => {
     isHolding.value = false;
-    rotation.value = withTiming(0);
     progress.value = withTiming(0);
   };
 
-  const animatedProps = useAnimatedProps(() => {
-    return {
-      strokeDashoffset: progress.value * (CIRCLE_RADIUS * 2),
-      backgroundColor: "#7826FD",
-    };
-  });
-
   return (
     <Pressable
-      className="items-center justify-center h-20"
+      className="items-center justify-center border-gray-200 rounded-full"
+      style={{
+        width: CIRCLE_DIAMETER,
+        height: CIRCLE_DIAMETER,
+        borderWidth: STROKE_WIDTH,
+      }}
       onPressIn={() => {
         setIsPressed(true);
         setTimeHolded(new Date().getTime());
@@ -102,31 +94,13 @@ export const AnimatedPlayPauseButton = ({
         setTimeHolded(0);
       }}
     >
-      <View
-        className={`border-gray-200 rounded-full absolute`}
-        style={{
-          width: CIRCLE_RADIUS * 2,
-          height: CIRCLE_RADIUS * 2,
-          borderWidth: STROKE_WIDTH,
-        }}
-      />
-
-      <Animated.View
-        className={`rounded-full absolute bg-[#B595E9]`}
-        style={[
-          circleAnimatedStyle,
-          {
-            width: CIRCLE_RADIUS * 2,
-            height: CIRCLE_RADIUS * 2,
-          },
-        ]}
-      >
+      <Animated.View style={opacity} className={"bg-[#B595E9] rounded-full"}>
         <Svg
+          width={CIRCLE_DIAMETER}
+          height={CIRCLE_DIAMETER}
+          viewBox={`0 0 ${CIRCLE_DIAMETER} ${CIRCLE_DIAMETER}`}
           style={{
-            width: CIRCLE_RADIUS * 2,
-            height: CIRCLE_RADIUS * 2,
-            alignItems: "center",
-            justifyContent: "center",
+            transform: [{ rotate: "-90deg" }],
           }}
         >
           <LinearGradient
@@ -143,15 +117,15 @@ export const AnimatedPlayPauseButton = ({
           <AnimatedCircle
             cx={CIRCLE_RADIUS}
             cy={CIRCLE_RADIUS}
-            fill="transparent"
-            stroke="url(#a)"
-            strokeWidth={STROKE_WIDTH}
             strokeLinecap="round"
             r={CIRCLE_RADIUS - STROKE_WIDTH / 2}
-            {...animatedProps}
+            stroke="url(#a)"
+            strokeWidth={STROKE_WIDTH}
+            fill={"transparent"}
+            strokeDasharray={CIRCLE_LENGTH}
+            animatedProps={animatedProps}
           />
         </Svg>
-        <View className="w-2 h-2 bg-[#7826FD] rounded-full absolute left-1/2 transform -translate-x-1.5" />
       </Animated.View>
     </Pressable>
   );
@@ -160,14 +134,20 @@ export const AnimatedPlayPauseButton = ({
 interface ShutterButtonProps {
   onPressPicture: () => void;
   onHoldVideo: () => void;
+  maxDuration?: number;
 }
 
 const ShutterButton: React.FC<ShutterButtonProps> = ({
   onPressPicture,
   onHoldVideo,
+  maxDuration = 5000,
 }) => {
   return (
-    <AnimatedPlayPauseButton onPress={onPressPicture} onEndHold={onHoldVideo} />
+    <AnimatedPlayPauseButton
+      onPress={onPressPicture}
+      onEndHold={onHoldVideo}
+      maxDuration={maxDuration}
+    />
   );
 };
 
