@@ -113,7 +113,14 @@
     "newCircleAvailableDescription": "Capture a photo or video to discover your circle for the day.",
     "makeStory": "Make the 1st one sensational!",
     "makeStoryDescription": "Make your best joke, tell a fun fact...",
-    "youreFree": "You're free!"
+    "youreFree": "You're free!",
+    "reviewNow": "Review your previous circle first!"
+  },
+  "review": {
+    "title": "It's the end of",
+    "description": "Users can't see if you like them unless they unlock their likes.Other choice remain hidden.",
+    "neutral": "Neutral",
+    "like": "Like"
   },
   "pastCircle": {
     "title": "Past circle"

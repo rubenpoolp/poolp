@@ -1,19 +1,23 @@
-import assets from "@assets/index";
-import CornerSparkles from "@components/CornerSparkles";
+import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
-import MyButton from "@components/natives/MyButton";
-import MyImage from "@components/natives/MyImage";
-import MyText from "@components/natives/MyText";
+import NewCircleAvailable from "@components/NewCircleAvailable";
+import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
 import { useNavigation } from "@react-navigation/native";
+import {
+  getDateLastCircleReviewed,
+  getDateLastTimeWentOnCircle,
+  setDateLastCircleReviewed,
+  setDateLastTimeWentOnCircle,
+} from "@utils/circles";
 import resetTo from "@utils/resetTo";
 import { shareToInviteFriends } from "@utils/share";
+import { getTime, parseISO } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
 
 const useRedirectIfNotLoggedIn = () => {
   const { user } = useAuth();
@@ -25,12 +29,56 @@ const useRedirectIfNotLoggedIn = () => {
 const Home = () => {
   useRedirectIfNotLoggedIn();
   const { t } = useTranslation();
-  const [state, setState] = useState<"newCircle" | "openCircle">("newCircle");
+  const [state, setState] = useState<
+    "newCircle" | "openCircle" | "reviewPastCircle"
+  >("openCircle");
   const { initializeNotifications } = useNotifications();
+  const { data: circle } = useGetMyDailyCircle();
 
   useEffect(() => {
     initializeNotifications();
   }, []);
+
+  useEffect(() => {
+    const checkDates = async () => {
+      const lastCircleReviewed = await getDateLastCircleReviewed();
+      const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
+
+      if (!circle?.created_at) {
+        setState("newCircle");
+        return;
+      }
+
+      const circleCreatedAt = getTime(parseISO(circle.created_at));
+
+      if (lastCircleReviewed) {
+        if (Number(lastCircleReviewed) > circleCreatedAt) {
+          setState("reviewPastCircle");
+          return;
+        }
+
+        if (lastTimeWentOnCircle) {
+          if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+            setState("openCircle");
+          } else {
+            setState("newCircle");
+          }
+        }
+      }
+    };
+
+    checkDates();
+  }, []);
+
+  const closeReviewPastCircle = () => {
+    setDateLastCircleReviewed();
+    setState("newCircle");
+  };
+
+  const openCircle = () => {
+    setState("openCircle");
+    setDateLastTimeWentOnCircle();
+  };
 
   return (
     <MyScreen padding className="space-y-4">
@@ -41,41 +89,13 @@ const Home = () => {
       />
 
       {state === "openCircle" && <TodayCircle />}
+      {/* <MyButton txt="test" onPress={() => setDateLastCircleReviewed()} /> */}
 
-      {state === "newCircle" && (
-        <View className="flex-1 w-full space-y-10 justify-center">
-          <MyImage img={assets.logoCropped} containerStyle="h-24" />
-
-          <View className="items-center space-y-4">
-            <MyText className="text-3xl font-semibold">
-              {t("home.newCircleAvailable")}
-            </MyText>
-
-            <MyText className="text-center font-thin text-lg">
-              {t("home.newCircleAvailableDescription")}
-            </MyText>
-          </View>
-
-          <View className="space-y-4 px-4">
-            <CornerSparkles>
-              <MyButton
-                txt={t("home.makeStory")}
-                txtClassName="font-bold text-lg"
-                onPress={() => setState("openCircle")}
-              />
-            </CornerSparkles>
-
-            <View className="items-center ">
-              <MyText className="text-center text-sm text-gray-400 font-light">
-                {t("home.makeStoryDescription")}
-              </MyText>
-              <MyText className="text-center text-sm text-gray-400 font-light">
-                {t("home.youreFree")}
-              </MyText>
-            </View>
-          </View>
-        </View>
+      {state === "reviewPastCircle" && (
+        <ReviewPastCircle onClose={closeReviewPastCircle} />
       )}
+
+      {state === "newCircle" && <NewCircleAvailable onPress={openCircle} />}
     </MyScreen>
   );
 };
