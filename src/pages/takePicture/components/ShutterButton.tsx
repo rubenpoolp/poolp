@@ -1,3 +1,4 @@
+import shadow from "@config/shadow";
 import { hapticImpact } from "@utils/haptics";
 import React, { useEffect, useState } from "react";
 import { Pressable } from "react-native";
@@ -80,6 +81,7 @@ export const AnimatedPlayPauseButton = ({
         width: CIRCLE_DIAMETER,
         height: CIRCLE_DIAMETER,
         borderWidth: STROKE_WIDTH,
+        ...shadow.purple,
       }}
       onPressIn={() => {
         setIsPressed(true);
