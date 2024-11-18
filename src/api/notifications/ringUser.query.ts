@@ -3,7 +3,7 @@ import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
 export const ringUser = async (circleId: string, ringByUserId: string, userId: string) => {
-  const insertData: Rings = {
+  const insertData: Partial<Rings> = {
     circle_id: circleId,
     ring_by_user_id: ringByUserId,
     user_id: userId,
