@@ -1,3 +1,4 @@
+import updateLastInteraction from "@api/account/updateLastInteraction.query";
 import { useAuth } from "@context/Auth";
 import { useMutation } from "@tanstack/react-query";
 import i18n from "@utils/i18n";
@@ -14,6 +15,7 @@ const useAddCirclePic = () => {
         throw new Error("User id is required to update circle pic");
       }
 
+      updateLastInteraction(auth.user.id);
       return addCirclePic(circleId, auth.user.id, url);
     },
     onSuccess: () => {

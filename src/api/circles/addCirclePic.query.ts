@@ -4,7 +4,7 @@ import { myCaptureException } from "@utils/sentry";
 import { supabase } from "@utils/supabase";
 
 async function addCirclePic(circleId: string, userId: string, url: string) {
-  const insertData: CirclePic = {
+  const insertData: Partial<CirclePic> = {
     circle_id: circleId,
     user_id: userId,
     url,
