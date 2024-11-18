@@ -1,6 +1,6 @@
 import assets from "@assets/index";
 import usePastCircles from "@hooks/usePastCircles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import CornerSparkles from "./CornerSparkles";
@@ -27,18 +27,23 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
     setState("reviewing");
   };
 
-  if (!lastPastCircle) onClose();
+  useEffect(() => {
+    if (lastPastCircle) return;
+    onClose();
+  }, [lastPastCircle]);
 
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
       {state === "beforeReview" && (
-        <>
-          <MyImage img={assets.logoCropped} containerStyle="h-24" />
+        <View className="flex-1 w-full space-y-14 justify-center">
+          <View className="space-y-6">
+            <MyImage img={assets.logoCropped} containerStyle="h-24" />
 
-          <View className="items-center space-y-4">
-            <MyText className="text-3xl font-semibold">
-              {t("home.newCircleAvailable")}
-            </MyText>
+            <View className="items-center space-y-4">
+              <MyText className="text-3xl font-semibold">
+                {t("home.newCircleAvailable")}
+              </MyText>
+            </View>
           </View>
 
           <View className="space-y-4 px-4">
@@ -50,7 +55,7 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
               />
             </CornerSparkles>
           </View>
-        </>
+        </View>
       )}
 
       {state === "reviewing" && (

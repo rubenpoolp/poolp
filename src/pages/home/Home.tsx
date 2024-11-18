@@ -31,7 +31,7 @@ const Home = () => {
   const { t } = useTranslation();
   const [state, setState] = useState<
     "newCircle" | "openCircle" | "reviewPastCircle"
-  >("openCircle");
+  >("reviewPastCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
 
@@ -44,12 +44,16 @@ const Home = () => {
       const lastCircleReviewed = await getDateLastCircleReviewed();
       const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
 
+      console.log("lastCircleReviewed", lastCircleReviewed);
+      console.log("lastTimeWentOnCircle", lastTimeWentOnCircle);
+
       if (!circle?.created_at) {
         setState("newCircle");
         return;
       }
 
       const circleCreatedAt = getTime(parseISO(circle.created_at));
+      console.log("circleCreatedAt", circleCreatedAt);
 
       if (lastCircleReviewed) {
         if (Number(lastCircleReviewed) > circleCreatedAt) {
@@ -70,6 +74,8 @@ const Home = () => {
     checkDates();
   }, []);
 
+  console.log("state :", state);
+
   const closeReviewPastCircle = () => {
     setDateLastCircleReviewed();
     setState("newCircle");
@@ -89,10 +95,13 @@ const Home = () => {
       />
 
       {state === "openCircle" && <TodayCircle />}
-      {/* <MyButton txt="test" onPress={() => setDateLastCircleReviewed()} /> */}
 
       {state === "reviewPastCircle" && (
-        <ReviewPastCircle onClose={closeReviewPastCircle} />
+        <ReviewPastCircle
+          onClose={() => {
+            closeReviewPastCircle();
+          }}
+        />
       )}
 
       {state === "newCircle" && <NewCircleAvailable onPress={openCircle} />}

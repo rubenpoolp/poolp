@@ -38,6 +38,7 @@ const LastCircleReviewModal = ({
 
     if (currentIndex === pastCircle.participants.length - 1) {
       onClose();
+      return;
     } else {
       setCurrentIndex(currentIndex + 1);
     }
