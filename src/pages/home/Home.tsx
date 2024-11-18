@@ -44,16 +44,12 @@ const Home = () => {
       const lastCircleReviewed = await getDateLastCircleReviewed();
       const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
 
-      console.log("lastCircleReviewed", lastCircleReviewed);
-      console.log("lastTimeWentOnCircle", lastTimeWentOnCircle);
-
       if (!circle?.created_at) {
         setState("newCircle");
         return;
       }
 
       const circleCreatedAt = getTime(parseISO(circle.created_at));
-      console.log("circleCreatedAt", circleCreatedAt);
 
       if (lastCircleReviewed) {
         if (Number(lastCircleReviewed) > circleCreatedAt) {
@@ -73,8 +69,6 @@ const Home = () => {
 
     checkDates();
   }, []);
-
-  console.log("state :", state);
 
   const closeReviewPastCircle = () => {
     setDateLastCircleReviewed();

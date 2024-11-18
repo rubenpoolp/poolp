@@ -1,4 +1,5 @@
 import { PastCircle } from "@/types/circles";
+import useLike from "@api/likes/like.hook";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
 import { useState } from "react";
@@ -20,22 +21,23 @@ const LastCircleReviewModal = ({
 }: LastCircleReviewModalProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const like = useLike();
 
   const currentParticipant = pastCircle.participants[currentIndex];
 
   const handleLike = () => {
-    console.log("like");
-
     if (currentIndex === pastCircle.participants.length - 1) {
       onClose();
     } else {
+      like.mutateAsync({
+        circleId: pastCircle.id,
+        userId: currentParticipant.id,
+      });
       setCurrentIndex(currentIndex + 1);
     }
   };
 
   const handleNeutral = () => {
-    console.log("neutral");
-
     if (currentIndex === pastCircle.participants.length - 1) {
       onClose();
       return;
