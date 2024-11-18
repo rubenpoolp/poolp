@@ -1,6 +1,5 @@
 import useGetPastCircles from "@/api/circles/getPastCircles.hook";
 import { PastCircle } from "@/types/circles";
-import { useIsLoading } from "@context/IsLoading";
 import { useEffect, useState } from "react";
 
 const usePastCircles = () => {
@@ -10,14 +9,11 @@ const usePastCircles = () => {
   // const { data: usersProfilePics } = useGetUsersProfilePics(
   //   users?.map((u) => u.id),
   // );
-  const { setIsLoading } = useIsLoading();
 
   useEffect(() => {
-    setIsLoading(true);
     if (!pastCirclesData) return;
     setPastCircles(pastCirclesData);
-    setIsLoading(false);
-  }, [pastCirclesData, setIsLoading]);
+  }, [pastCirclesData]);
 
   return { pastCircles };
 };

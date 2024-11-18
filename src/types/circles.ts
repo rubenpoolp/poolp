@@ -1,6 +1,6 @@
 export type Participant = {
   id: string;
-  avatar: string;
+  avatar?: string;
   name: string;
 };
 
