@@ -14,6 +14,7 @@ const useGetAccount = (user_id: string | undefined) => {
     },
     enabled: !!user_id,
     initialData: undefined,
+    refetchOnWindowFocus: true,
   });
 };
 

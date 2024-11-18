@@ -28,6 +28,7 @@ const useGetCirclePics = (circleId?: string) => {
     },
     initialData: [],
     enabled: !!circleId,
+    refetchOnWindowFocus: true,
   });
 };
 
