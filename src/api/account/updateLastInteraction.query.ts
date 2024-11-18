@@ -3,7 +3,7 @@ import { supabase } from "@utils/supabase";
 
 async function updateLastInteraction(userId: string) {
   const { data, error } = await supabase
-    .from("users")
+    .from("account")
     .update({ last_interaction_at: new Date() })
     .eq("id", userId);
 
