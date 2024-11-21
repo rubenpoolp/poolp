@@ -10,8 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import {
   getDateLastCircleReviewed,
   getDateLastTimeWentOnCircle,
-  setDateLastCircleReviewed,
-  setDateLastTimeWentOnCircle,
+  setDateLastCircleReviewed
 } from "@utils/circles";
 import resetTo from "@utils/resetTo";
 import { shareToInviteFriends } from "@utils/share";
@@ -54,10 +53,6 @@ const Home = () => {
       if (!lastCircleReviewed) return;
       if (!lastTimeWentOnCircle) return;
 
-      // si la date de review est plus ancienne que le nouveau groupe => review
-      // si la date de review est plus récente que le nouveau groupe && si la date d'ouverture est plus ancienne que le nouveau groupe => new circle
-      // si la date d'ouverture est plus récente que le nouveau groupe => open circle
-
       if (
         Number(lastCircleReviewed) > circleCreatedAt &&
         Number(lastTimeWentOnCircle) < circleCreatedAt
@@ -80,7 +75,6 @@ const Home = () => {
 
   const openCircle = () => {
     setState("openCircle");
-    setDateLastTimeWentOnCircle();
   };
 
   return (

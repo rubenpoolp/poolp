@@ -1,4 +1,6 @@
 import { Story } from "@/types/story";
+import { getDateLastTimeWentOnCircle, setDateLastTimeWentOnCircle } from "@utils/circles";
+import { format } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -17,12 +19,20 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   const [actualIndex, setActualIndex] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const displayNextStory = () => {
+    if (!stories || actualIndex >= stories.length - 1) {
+      return;
+    }
+    setActualIndex(actualIndex + 1);
+    setDateLastTimeWentOnCircle();
+  }
+
   useEffect(() => {
     timerRef.current = setTimeout(() => {
       if (!stories || actualIndex >= stories.length - 1) {
         return;
       }
-      setActualIndex(actualIndex + 1);
+      displayNextStory();
     }, storyDuration);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -30,9 +40,19 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   }, [actualIndex, stories]);
 
   useEffect(() => {
-    if (isVisible) {
-      setActualIndex(0);
-    }
+    const fetchLastViewedDate = async () => {
+      if (isVisible) {
+        const lastViewedDate = await getDateLastTimeWentOnCircle();
+        if (!lastViewedDate) return;
+
+        const index = stories.findIndex((story) => {
+          return Number(format(story.created_at, "t")) > Number(lastViewedDate);
+        });
+        setActualIndex(index >= 0 ? index : stories.length === 0 ? 0 : stories.length - 1);
+      }
+    };
+
+    fetchLastViewedDate();
   }, [isVisible]);
 
   const onLeft = () => {
@@ -43,8 +63,7 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
 
   const onRight = () => {
     if (!stories || actualIndex >= stories.length - 1) return;
-    setActualIndex(actualIndex + 1);
-    // timerRef.current?.refresh();
+    displayNextStory();
   };
 
   if (!stories || stories.length === 0) return null;
