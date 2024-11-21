@@ -50,9 +50,6 @@ const Home = () => {
 
       const circleCreatedAt = Number(format(circle.created_at, "t"));
 
-      if (!lastCircleReviewed) return;
-      if (!lastTimeWentOnCircle) return;
-
       if (
         Number(lastCircleReviewed) > circleCreatedAt &&
         Number(lastTimeWentOnCircle) < circleCreatedAt
