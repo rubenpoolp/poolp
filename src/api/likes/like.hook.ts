@@ -4,7 +4,7 @@ import { like } from "./like.query";
 
 const useLike = () => {
   return useMutation({
-    mutationKey: ["like"],
+    mutationKey: ["likes"],
     mutationFn: ({circleId, userId}: {circleId: string, userId: string}) => {
       return like(circleId, userId);
     },
