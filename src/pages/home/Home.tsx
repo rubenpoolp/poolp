@@ -15,7 +15,7 @@ import {
 } from "@utils/circles";
 import resetTo from "@utils/resetTo";
 import { shareToInviteFriends } from "@utils/share";
-import { getTime, parseISO } from "date-fns";
+import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -31,7 +31,7 @@ const Home = () => {
   const { t } = useTranslation();
   const [state, setState] = useState<
     "newCircle" | "openCircle" | "reviewPastCircle"
-  >("reviewPastCircle");
+  >("newCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
 
@@ -49,26 +49,29 @@ const Home = () => {
         return;
       }
 
-      const circleCreatedAt = getTime(parseISO(circle.created_at));
+      const circleCreatedAt = Number(format(circle.created_at, "t"));
 
-      if (lastCircleReviewed) {
-        if (Number(lastCircleReviewed) > circleCreatedAt) {
-          setState("reviewPastCircle");
-          return;
-        }
+      if (!lastCircleReviewed) return;
+      if (!lastTimeWentOnCircle) return;
 
-        if (lastTimeWentOnCircle) {
-          if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
-            setState("openCircle");
-          } else {
-            setState("newCircle");
-          }
-        }
+      // si la date de review est plus ancienne que le nouveau groupe => review
+      // si la date de review est plus récente que le nouveau groupe && si la date d'ouverture est plus ancienne que le nouveau groupe => new circle
+      // si la date d'ouverture est plus récente que le nouveau groupe => open circle
+
+      if (
+        Number(lastCircleReviewed) > circleCreatedAt &&
+        Number(lastTimeWentOnCircle) < circleCreatedAt
+      ) {
+        setState("reviewPastCircle");
+      } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+        setState("newCircle");
+      } else {
+        setState("openCircle");
       }
     };
 
     checkDates();
-  }, []);
+  }, [circle]);
 
   const closeReviewPastCircle = () => {
     setDateLastCircleReviewed();

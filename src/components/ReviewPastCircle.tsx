@@ -1,6 +1,6 @@
 import assets from "@assets/index";
 import usePastCircles from "@hooks/usePastCircles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import CornerSparkles from "./CornerSparkles";
@@ -26,11 +26,6 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
   const handleReview = () => {
     setState("reviewing");
   };
-
-  useEffect(() => {
-    if (lastPastCircle) return;
-    onClose();
-  }, [lastPastCircle]);
 
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
