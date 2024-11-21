@@ -9,6 +9,7 @@ async function getCirclePics(circleId: string, userId: string) {
     .select("*")
     .eq("circle_id", circleId)
     .not("user_id", "eq", userId)
+    .order("created_at", { ascending: true })
     .returns<CirclePic[]>();
 
   if (error) {
