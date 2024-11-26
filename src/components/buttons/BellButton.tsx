@@ -1,34 +1,49 @@
-import { Bump } from "@components/animations/Bump";
-import MyPressable from "@components/natives/MyPressable";
-import colors from "@config/colors";
-import { BellRinging } from "phosphor-react-native";
+import BellRinging from "@components/SVGs/BellRinging";
+import { hapticImpact } from "@utils/haptics";
 import React from "react";
-import { View } from "react-native";
+import { Animated, TouchableOpacity, View } from "react-native";
 
 interface BellButtonProps {
   onPress: () => void;
   disabled?: boolean;
-  containerStyle?: string;
 }
 
 const BellButton = ({
   onPress,
   disabled = false,
-  containerStyle = "",
 }: BellButtonProps) => {
+
+  const animation = new Animated.Value(0);
+  const inputRange = [0, 1];
+  const outputRange = [1, 2];
+  const scale = animation.interpolate({inputRange, outputRange});
+
+  const onPressIn = () => {
+    Animated.spring(animation, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+  const onPressOut = () => {
+    Animated.spring(animation, {
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
+    hapticImpact("medium");
+  };
   return (
-    <View className={`items-center ${containerStyle}`}>
-      <Bump>
-        <MyPressable
-          hapticImpactStyle="medium"
+    <View>
+      <Animated.View className="rounded-full w-16 aspect-square items-center justify-center bg-tabBar-background" style={[{transform: [{scale}]}]}>
+        <TouchableOpacity
+          className="flex justify-center items-center"
+          activeOpacity={1}
+          onPressIn={onPressIn}
+          onPressOut={onPressOut}
           onPress={onPress}
-          disabled={disabled}
-          className="rounded-full w-12 aspect-square items-center justify-center bg-tabBar-background"
-        >
-          {/* <MyGradient className="rounded-full" /> */}
-          <BellRinging color={colors.gradient.primary[1]} size={24} />
-        </MyPressable>
-      </Bump>
+          disabled={disabled}>
+          <BellRinging width={32} height={32}/>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };

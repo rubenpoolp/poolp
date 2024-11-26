@@ -1,6 +1,6 @@
 import { UserProfilePics } from "@/types/story";
 import useRingUser from "@api/notifications/ringUser.hook";
-import RingButton from "@components/buttons/BellButton";
+import BellButton from "@components/buttons/BellButton";
 import UserProfileButton from "@components/buttons/UserProfileButton";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
@@ -59,7 +59,7 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
                   {userProfilePics.user_name}
                 </MyText>
 
-                <RingButton
+                <BellButton
                   onPress={() => {
                     ringUser.mutateAsync({
                       userId: userProfilePics.user_id,
