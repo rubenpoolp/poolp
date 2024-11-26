@@ -179,8 +179,8 @@
       "body": "{{username}} posted in the circle."
     },
     "ringExcessive": {
-      "title": "Too many rings",
-      "body": "You can only ring one user every 5 minutes."
+      "title": "Whoa, slow down! 🔔",
+      "body": "Hey there! Please wait 5 minutes before ringing another friend. We want to keep things fun for everyone! 😊"
     }
   },
   "paywall": {
