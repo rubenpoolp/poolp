@@ -5,10 +5,9 @@ import NewCircleAvailable from "@components/NewCircleAvailable";
 import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
-import useAppState from "@hooks/useAppState";
 import useNotifications from "@hooks/useNotifications";
+import useReload from "@hooks/useReload";
 import { useNavigation } from "@react-navigation/native";
-import { useQueryClient } from "@tanstack/react-query";
 import {
   getDateLastCircleReviewed,
   getDateLastTimeWentOnCircle,
@@ -35,16 +34,7 @@ const Home = () => {
   >("newCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
-  const appState = useAppState();
-  const queryClient = useQueryClient();
-  const auth = useAuth();
-
-  useEffect(() => {
-    if (appState === "active" && auth.user && circle) {
-      queryClient.invalidateQueries({ queryKey: ["circle", auth.user.id, format(new Date(), "yyyy-MM-dd")] });
-      queryClient.invalidateQueries({ queryKey: ["getCirclePics", circle.id] });
-    }
-  }, [appState]);
+  useReload();
 
   useEffect(() => {
     initializeNotifications();
