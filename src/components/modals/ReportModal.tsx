@@ -100,7 +100,7 @@ const ReportModal = ({ isVisible, onClose, toUserId }: ReportModalProps) => {
 
               {selectedReason && (
                 <View className="px-6">
-                  <View className="bg-light rounded-2xl px-3 py-2 mb-4">
+                  <View className="bg-light rounded-xl px-3 py-2 mb-4">
                     <MyText className="text-background-dark text-sm">{selectedReason}</MyText>
                   </View>
                   <MyTextAreaInput placeholder={t("reportModal.addMoreDetails")} value={description} onChangeText={setDescription}/>
