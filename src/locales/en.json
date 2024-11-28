@@ -115,7 +115,10 @@
     "makeStory": "Make the 1st one sensational!",
     "makeStoryDescription": "Make your best joke, tell a fun fact...",
     "youreFree": "You're free!",
-    "reviewNow": "Review your previous circle first!"
+    "reviewNow": "Review your previous circle first!",
+    "noCircle": "No active circle today",
+    "noCircleDescription": "Come back tomorrow to discover your new circle!",
+    "noCircleButton": "Tap here to get back in the next circle!"
   },
   "review": {
     "title": "It's the end of",

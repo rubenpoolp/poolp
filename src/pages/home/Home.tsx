@@ -2,6 +2,7 @@ import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
 import NewCircleAvailable from "@components/NewCircleAvailable";
+import NoCircle from "@components/NoCircle";
 import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
@@ -11,7 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import {
   getDateLastCircleReviewed,
   getDateLastTimeWentOnCircle,
-  setDateLastCircleReviewed
+  setDateLastCircleReviewed,
+  setDateLastTimeWentOnCircle
 } from "@utils/circles";
 import resetTo from "@utils/resetTo";
 import { shareToInviteFriends } from "@utils/share";
@@ -30,7 +32,7 @@ const Home = () => {
   useRedirectIfNotLoggedIn();
   const { t } = useTranslation();
   const [state, setState] = useState<
-    "newCircle" | "openCircle" | "reviewPastCircle"
+    "newCircle" | "openCircle" | "reviewPastCircle" | "noCircle"
   >("newCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
@@ -42,25 +44,43 @@ const Home = () => {
 
   useEffect(() => {
     const checkDates = async () => {
-      const lastCircleReviewed = await getDateLastCircleReviewed();
-      const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-
-      if (!circle?.created_at) {
-        setState("newCircle");
+      if (!circle) {
+        setState("noCircle");
         return;
       }
 
+      const lastCircleReviewed = await getDateLastCircleReviewed();
+      const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
+
+      if (lastCircleReviewed === null) {
+        setDateLastCircleReviewed();
+        checkDates();
+      }
       const circleCreatedAt = Number(format(circle.created_at, "t"));
 
-      if (
-        Number(lastCircleReviewed) > circleCreatedAt &&
-        Number(lastTimeWentOnCircle) < circleCreatedAt
-      ) {
+      
+      
+      // if (
+      //   Number(lastCircleReviewed) > circleCreatedAt &&
+      //   Number(lastTimeWentOnCircle) < circleCreatedAt
+      // ) {
+      //   console.log("reviewPastCircle", lastCircleReviewed, lastTimeWentOnCircle, circleCreatedAt);
+      //   setState("reviewPastCircle");
+      // } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+      //   setState("newCircle");
+      // } else {
+      //   setState("openCircle");
+      // }
+
+      if (Number(lastCircleReviewed) < circleCreatedAt) {
         setState("reviewPastCircle");
+        return;
       } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
         setState("newCircle");
-      } else {
+        return;
+      } else if (Number(lastTimeWentOnCircle) >= circleCreatedAt){
         setState("openCircle");
+        return;
       }
     };
 
@@ -73,6 +93,7 @@ const Home = () => {
   };
 
   const openCircle = () => {
+    setDateLastTimeWentOnCircle();
     setState("openCircle");
   };
 
@@ -95,6 +116,7 @@ const Home = () => {
       )}
 
       {state === "newCircle" && <NewCircleAvailable onPress={openCircle} />}
+      {state === "noCircle" && <NoCircle />}
     </MyScreen>
   );
 };
