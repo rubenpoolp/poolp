@@ -20,3 +20,4 @@ export type ProfilePic = Database["public"]["Tables"]["profile_pics"]["Row"];
 export type CirclePic = Database["public"]["Tables"]["circle_pics"]["Row"];
 export type Rings = Database["public"]["Tables"]["rings"]["Row"];
 export type Likes = Database["public"]["Tables"]["likes"]["Row"];
+export type Reports = Database["public"]["Tables"]["reports"]["Row"];

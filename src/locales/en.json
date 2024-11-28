@@ -17,7 +17,8 @@
     "sureThing": "Sure thing!",
     "block": "Block",
     "report": "Report",
-    "ring": "Ring"
+    "ring": "Ring",
+    "send": "Send"
   },
   "inputs": {
     "search": "Search"
@@ -203,5 +204,16 @@
     "successMessage": "You can now discover who liked you and who wanted you to post!",
     "errorTitle": "Oops!",
     "errorMessage": "Something went wrong. Please try again."
+  },
+  "reportModal": {
+    "description": "Why are you reporting this user?",
+    "subDescription": "Your report is anonymous and will be reviewed by our team.",
+    "addMoreDetails": "Describe the situation",
+    "reportReasons": [
+      "Nudity or sexual content",
+      "Offensive content",
+      "Scam, fraud or spam",
+      "Other"
+    ]
   }
 }

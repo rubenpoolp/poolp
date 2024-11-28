@@ -230,6 +230,51 @@ export type Database = {
           },
         ]
       }
+      reports: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          from_user_id: string
+          id: number
+          managed: boolean
+          reason: string
+          to_user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          from_user_id?: string
+          id?: number
+          managed?: boolean
+          reason: string
+          to_user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          from_user_id?: string
+          id?: number
+          managed?: boolean
+          reason?: string
+          to_user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_from_user_id_fkey"
+            columns: ["from_user_id"]
+            isOneToOne: false
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_to_user_id_fkey"
+            columns: ["to_user_id"]
+            isOneToOne: false
+            referencedRelation: "account"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rings: {
         Row: {
           circle_id: string | null

@@ -4,6 +4,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { CaretUp, DotsThree, X } from "phosphor-react-native";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,6 +12,7 @@ import StoryBarLoader from "../animations/StoriesBarLoader";
 import MyButton from "../natives/MyButton";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
+import ReportModal from "./ReportModal";
 
 interface OverlayStoryModalProps {
   onClose: () => void;
@@ -52,15 +54,15 @@ const OverlayStoryModal = ({
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
+  const [isReportModalVisible, setIsReportModalVisible] = useState<boolean>(false);
 
   const onPressDotsThree = () => {
     const options = [
-      t("actions.block"),
       t("actions.report"),
       t("actions.ring"),
       t("actions.cancel"),
     ];
-    const cancelButtonIndex = 3;
+    const cancelButtonIndex = 2;
 
     showActionSheetWithOptions(
       {
@@ -70,10 +72,9 @@ const OverlayStoryModal = ({
       (selectedIndex?: number) => {
         switch (selectedIndex) {
           case 0:
+            setIsReportModalVisible(true);
             break;
           case 1:
-            break;
-          case 2:
             break;
           case cancelButtonIndex:
             break;
@@ -135,6 +136,15 @@ const OverlayStoryModal = ({
           </View>
         </View>
       </View>
+      
+      <ReportModal
+        isVisible={isReportModalVisible}
+        onClose={() => {
+          setIsReportModalVisible(false);
+        }}
+        toUserId={stories?.[actualIndex].user_id!}
+      />
+
       {userProfilePics ? (
         <View className="px-4">
           <MyText className="text-3xl font-semibold mb-4">
