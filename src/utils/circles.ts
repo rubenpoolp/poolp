@@ -6,7 +6,8 @@ export const setDateLastCircleReviewed = () => {
 };
 
 export const getDateLastCircleReviewed = async () => {
-  return await getAsyncStorage("USER_REVIEWED_CIRCLE_DATE");
+  const date = await getAsyncStorage("USER_REVIEWED_CIRCLE_DATE");
+  return date ? date : null;
 };
 
 export const setDateLastTimeWentOnCircle = () => {
@@ -14,5 +15,6 @@ export const setDateLastTimeWentOnCircle = () => {
 };
 
 export const getDateLastTimeWentOnCircle = async () => {
-  return await getAsyncStorage("USER_LAST_TIME_WENT_ON_CIRCLE");
+  const date = await getAsyncStorage("USER_LAST_TIME_WENT_ON_CIRCLE");
+  return date ? date : null;
 };

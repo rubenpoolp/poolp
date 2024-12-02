@@ -49,21 +49,21 @@ const Home = () => {
         return;
       }
 
-      const lastCircleReviewed = await getDateLastCircleReviewed();
-      const lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-
-      if (lastCircleReviewed === null) {
-        setDateLastCircleReviewed();
-        checkDates();
-      }
+      let lastCircleReviewed = await getDateLastCircleReviewed();
+      let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
 
       if (lastTimeWentOnCircle === null) {
         setDateLastTimeWentOnCircle();
-        checkDates();
+        lastTimeWentOnCircle = format(new Date(), "t");
+      }
+      
+      if (lastCircleReviewed === null) {
+        setDateLastCircleReviewed();
+        lastCircleReviewed = format(new Date(), "t");
       }
 
+
       const circleCreatedAt = Number(format(circle.created_at, "t"));
-      
       
       // if (
       //   Number(lastCircleReviewed) > circleCreatedAt &&
