@@ -56,8 +56,13 @@ const Home = () => {
         setDateLastCircleReviewed();
         checkDates();
       }
-      const circleCreatedAt = Number(format(circle.created_at, "t"));
 
+      if (lastTimeWentOnCircle === null) {
+        setDateLastTimeWentOnCircle();
+        checkDates();
+      }
+
+      const circleCreatedAt = Number(format(circle.created_at, "t"));
       
       
       // if (
