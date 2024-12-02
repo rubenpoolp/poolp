@@ -1,6 +1,7 @@
 import { MyCamera } from "@components/camera/MyCamera";
 import MyScreen from "@components/MyScreen";
 
+import MyButton from "@components/natives/MyButton";
 import { useCamera } from "@hooks/useCamera";
 import useCirclePic from "@hooks/useCirclePic";
 import React, { useCallback, useEffect } from "react";
@@ -78,6 +79,9 @@ const CameraPage = () => {
         {video && (
           <VideoPlayer loop={false} isMobile autoPlay={true} />
         )}
+        <MyButton onPress={() => {
+          reset();
+        }} txt="taler"/>
       </View>
     </MyScreen>
   );

@@ -4,7 +4,6 @@ import VideoPlayerProvider, {
 } from "@context/VideoPlayer";
 import { useNavigation } from "@react-navigation/native";
 import i18n from "@utils/i18n";
-import resetTo from "@utils/resetTo";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useEffect } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -82,6 +81,7 @@ const VideoPlayerWithContext = ({
             setPositionMillis(0);
             ref.current?.setPositionAsync(0);
           }}
+          
           onPlaybackStatusUpdate={(status) => {
             console.log("onPlaybackStatusUpdate", status);
             if (!status.isLoaded) {
@@ -91,12 +91,10 @@ const VideoPlayerWithContext = ({
                   i18n.t("utils.error"),
                   i18n.t("errors.errorOccured"),
                 );
-                resetTo(navigation, "/");
               }
               return;
             }
             setIsLoading(false);
-
             onPlaybackStatusUpdate(status);
           }}
           onError={(error) => {

@@ -95,6 +95,7 @@ export const useCamera = () => {
 
   const reset = useCallback(() => {
     setPhoto(null);
+    setVideo(null);
   }, []);
 
   return {
