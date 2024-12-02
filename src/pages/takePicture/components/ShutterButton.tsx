@@ -22,11 +22,17 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export const AnimatedPlayPauseButton = ({
   onPress,
-  onEndHold,
+
+  onTakeVideo,
+  onEndTakeVideo,
+
   maxDuration,
 }: {
   onPress: () => void;
-  onEndHold: () => void;
+  
+  onTakeVideo: () => void;
+  onEndTakeVideo: () => void;
+
   maxDuration: number;
 }) => {
   const [timeHolded, setTimeHolded] = useState(0);
@@ -48,6 +54,7 @@ export const AnimatedPlayPauseButton = ({
     if (isPressed && timeHolded !== 0) {
       holdTimer = setTimeout(() => {
         isHolding.value = true;
+        onTakeVideo();
         progress.value = withRepeat(
           withTiming(1, {
             duration: maxDuration,
@@ -92,7 +99,7 @@ export const AnimatedPlayPauseButton = ({
         const currentTime = new Date().getTime();
 
         if (timeHolded < currentTime - HOLD_TIME_FOR_VIDEO) {
-          onEndHold();
+          onEndTakeVideo();
           stopHoldAnimation();
         } else {
           onPress();
@@ -139,19 +146,22 @@ export const AnimatedPlayPauseButton = ({
 
 interface ShutterButtonProps {
   onPressPicture: () => void;
-  onHoldVideo: () => void;
+  onTakeVideo: () => void;
+  onEndTakeVideo: () => void;
   maxDuration?: number;
 }
 
 const ShutterButton: React.FC<ShutterButtonProps> = ({
   onPressPicture,
-  onHoldVideo,
-  maxDuration = 5000,
+  onTakeVideo,
+  onEndTakeVideo,
+  maxDuration = 10000,
 }) => {
   return (
     <AnimatedPlayPauseButton
       onPress={onPressPicture}
-      onEndHold={onHoldVideo}
+      onTakeVideo={onTakeVideo}
+      onEndTakeVideo={onEndTakeVideo}
       maxDuration={maxDuration}
     />
   );

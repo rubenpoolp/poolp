@@ -28,3 +28,18 @@ export const formatPastCircleLittleDate = (date: Date) => {
 export const formatPastCircleDate = (date: Date) => {
   return format(date, "d MMMM yyyy", { locale: enUS });
 };
+
+export const formatTime = (positionMillis: number, durationMillis: number): string => {
+  const position = Math.floor(positionMillis / 1000);
+  const duration = Math.floor(durationMillis / 1000);
+  const minutes = Math.floor(position / 60);
+  const seconds = position % 60;
+  const durationMinutes = Math.floor(duration / 60);
+  const durationSeconds = duration % 60;
+
+  return `${minutes.toString().padStart(2, '0')}:${seconds
+    .toString()
+    .padStart(2, '0')} / ${durationMinutes.toString().padStart(2, '0')}:${durationSeconds
+    .toString()
+    .padStart(2, '0')}`;
+}; 

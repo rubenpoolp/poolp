@@ -12,6 +12,9 @@ interface CameraControlsProps {
   flashMode: "off" | "on";
   currentZoom: number;
   takePhoto: () => void;
+
+  onTakeVideo: () => void;
+  onEndTakeVideo: () => void;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
@@ -21,6 +24,9 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   flashMode,
   currentZoom,
   takePhoto,
+  
+  onTakeVideo,
+  onEndTakeVideo,
 }) => {
   return (
     <View className="absolute w-full h-full flex-1 p-5 justify-between">
@@ -49,7 +55,11 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         </MyPressable>
       </View>
       <View className="flex-row justify-center items-center">
-        <ShutterButton onPressPicture={takePhoto} onHoldVideo={() => {}} />
+        <ShutterButton
+          onPressPicture={takePhoto}
+          onTakeVideo={onTakeVideo}
+          onEndTakeVideo={onEndTakeVideo}
+        />
       </View>
     </View>
   );

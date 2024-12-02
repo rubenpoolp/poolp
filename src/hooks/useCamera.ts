@@ -6,6 +6,7 @@ import {
   CameraRuntimeError,
   useCameraDevice,
   useCameraPermission,
+  VideoFile,
 } from "react-native-vision-camera";
 
 const ZOOM_LEVELS = [1, 2, 4];
@@ -16,7 +17,7 @@ export const useCamera = () => {
   const [flashMode, setFlashMode] = useState<"off" | "on">("off");
   const [currentZoom, setCurrentZoom] = useState(ZOOM_LEVELS[0]);
   const [photo, setPhoto] = useState<{ path: string } | null>(null);
-
+  const [video, setVideo] = useState<VideoFile | null>(null);
   const camera = useRef<Camera>(null);
   const device = useCameraDevice(cameraPosition);
 
@@ -65,6 +66,33 @@ export const useCamera = () => {
     }
   }, [flashMode]);
 
+  const onEndTakeVideo = useCallback(async () => {
+    await camera.current?.stopRecording();
+    console.log("onEndTakeVideo");
+    // setVideo(null);
+  }, []);
+
+  const onTakeVideo = useCallback(() => {
+    try {
+      if (camera.current) {
+        camera.current.startRecording({
+          flash: flashMode,
+          onRecordingError: (error) => {
+            console.error("Camera error:", error);
+          },
+          onRecordingFinished: (video) => {
+            console.log("Video recorded:", video);
+            setVideo(video);
+          },
+        });
+      }
+    } catch (e) {
+      if (e instanceof CameraRuntimeError) {
+        console.error("Camera error:", e);
+      }
+    }
+  }, [flashMode]);
+
   const reset = useCallback(() => {
     setPhoto(null);
   }, []);
@@ -77,11 +105,14 @@ export const useCamera = () => {
     flashMode,
     currentZoom,
     photo,
+    video,
     initializeCamera,
     toggleCameraPosition,
     toggleFlash,
     cycleZoom,
     takePhoto,
+    onEndTakeVideo,
+    onTakeVideo,
     reset,
   };
 };

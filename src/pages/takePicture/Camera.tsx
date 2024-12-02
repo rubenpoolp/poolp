@@ -1,11 +1,13 @@
 import { MyCamera } from "@components/camera/MyCamera";
 import MyScreen from "@components/MyScreen";
+
 import { useCamera } from "@hooks/useCamera";
 import useCirclePic from "@hooks/useCirclePic";
 import React, { useCallback, useEffect } from "react";
 import { View } from "react-native";
 import CameraPermissionView from "./components/CameraPermissionView";
 import PhotoPreviewModal from "./components/PhotoPreviewModal";
+import VideoPlayer from "./components/VideoPlayer";
 
 const CameraPage = () => {
   const {
@@ -13,6 +15,7 @@ const CameraPage = () => {
     device,
     hasPermission,
     photo,
+    video,
     flashMode,
     currentZoom,
     initializeCamera,
@@ -20,6 +23,8 @@ const CameraPage = () => {
     toggleFlash,
     cycleZoom,
     takePhoto,
+    onTakeVideo,
+    onEndTakeVideo,
     reset,
   } = useCamera();
   const { uploadPic, isInCircle } = useCirclePic();
@@ -52,6 +57,7 @@ const CameraPage = () => {
       className="flex-1 rounded-t-[32px] overflow-hidden"
     >
       <View className="flex-1">
+
         <MyCamera
           cameraRef={camera}
           device={device}
@@ -63,13 +69,15 @@ const CameraPage = () => {
           onToggleFlash={toggleFlash}
           onCycleZoom={cycleZoom}
           onTakePhoto={takePhoto}
-        />
-        <PhotoPreviewModal
-          photo={photo}
-          onRetake={reset}
-          onSend={handleSend}
-          canSend={isInCircle}
-        />
+          onTakeVideo={onTakeVideo}
+          onEndTakeVideo={onEndTakeVideo}
+          />
+
+        <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} canSend={isInCircle} />
+
+        {video && (
+          <VideoPlayer loop={false} isMobile autoPlay={true} />
+        )}
       </View>
     </MyScreen>
   );

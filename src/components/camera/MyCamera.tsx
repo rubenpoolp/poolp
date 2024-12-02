@@ -16,6 +16,9 @@ interface MyCameraProps {
   onToggleFlash: () => void;
   onCycleZoom: () => void;
   onTakePhoto: () => void;
+  
+  onTakeVideo: () => void;
+  onEndTakeVideo: () => void;
 }
 
 export const MyCamera: React.FC<MyCameraProps> = ({
@@ -29,6 +32,8 @@ export const MyCamera: React.FC<MyCameraProps> = ({
   onToggleFlash,
   onCycleZoom,
   onTakePhoto,
+  onTakeVideo,
+  onEndTakeVideo,
 }) => {
   return (
     <View className="flex-1">
@@ -37,6 +42,8 @@ export const MyCamera: React.FC<MyCameraProps> = ({
         device={device}
         isActive={isActive}
         photo
+        video
+        audio={false}
         zoom={zoom}
         style={{ width: SCREEN_WIDTH, height: "100%" }}
       />
@@ -48,6 +55,8 @@ export const MyCamera: React.FC<MyCameraProps> = ({
         flashMode={flashMode}
         currentZoom={currentZoom}
         takePhoto={onTakePhoto}
+        onTakeVideo={onTakeVideo}
+        onEndTakeVideo={onEndTakeVideo}
       />
     </View>
   );
