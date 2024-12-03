@@ -1,4 +1,3 @@
-import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
 import NewCircleAvailable from "@components/NewCircleAvailable";
@@ -10,14 +9,11 @@ import useNotifications from "@hooks/useNotifications";
 import useReload from "@hooks/useReload";
 import { useNavigation } from "@react-navigation/native";
 import {
-  getDateLastCircleReviewed,
-  getDateLastTimeWentOnCircle,
   setDateLastCircleReviewed,
   setDateLastTimeWentOnCircle
 } from "@utils/circles";
 import resetTo from "@utils/resetTo";
 import { shareToInviteFriends } from "@utils/share";
-import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -35,62 +31,65 @@ const Home = () => {
     "newCircle" | "openCircle" | "reviewPastCircle" | "noCircle"
   >("newCircle");
   const { initializeNotifications } = useNotifications();
-  const { data: circle } = useGetMyDailyCircle();
+  // const { data: circle } = useGetMyDailyCircle();
   useReload();
 
   useEffect(() => {
     initializeNotifications();
   }, []);
 
-  useEffect(() => {
-    const checkDates = async () => {
-      if (!circle) {
-        setState("noCircle");
-        return;
-      }
+  // useEffect(() => {
+  //   const checkDates = async () => {
+  //     if (!circle) {
+  //       setState("noCircle");
+  //       return;
+  //     }
 
-      let lastCircleReviewed = await getDateLastCircleReviewed();
-      let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-
-      if (lastTimeWentOnCircle === null) {
-        setDateLastTimeWentOnCircle();
-        lastTimeWentOnCircle = format(new Date(), "t");
-      }
+  //     let lastCircleReviewed = await getDateLastCircleReviewed();
+  //     let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
       
-      if (lastCircleReviewed === null) {
-        setDateLastCircleReviewed();
-        lastCircleReviewed = format(new Date(), "t");
-      }
+  //     console.log("lastTimeWentOnCircle", lastTimeWentOnCircle);
+  //     console.log("lastCircleReviewed", lastCircleReviewed);
 
-
-      const circleCreatedAt = Number(format(circle.created_at, "t"));
+  //     if (lastTimeWentOnCircle === null) {
+  //       setDateLastTimeWentOnCircle();
+  //       lastTimeWentOnCircle = format(new Date(), "t");
+  //     }
       
-      // if (
-      //   Number(lastCircleReviewed) > circleCreatedAt &&
-      //   Number(lastTimeWentOnCircle) < circleCreatedAt
-      // ) {
-      //   console.log("reviewPastCircle", lastCircleReviewed, lastTimeWentOnCircle, circleCreatedAt);
-      //   setState("reviewPastCircle");
-      // } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
-      //   setState("newCircle");
-      // } else {
-      //   setState("openCircle");
-      // }
+  //     if (lastCircleReviewed === null) {
+  //       setDateLastCircleReviewed();
+  //       lastCircleReviewed = format(new Date(), "t");
+  //     }
 
-      if (Number(lastCircleReviewed) < circleCreatedAt) {
-        setState("reviewPastCircle");
-        return;
-      } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
-        setState("newCircle");
-        return;
-      } else if (Number(lastTimeWentOnCircle) >= circleCreatedAt){
-        setState("openCircle");
-        return;
-      }
-    };
 
-    checkDates();
-  }, [circle]);
+  //     const circleCreatedAt = Number(format(circle.created_at, "t"));
+      
+  //     // if (
+  //     //   Number(lastCircleReviewed) > circleCreatedAt &&
+  //     //   Number(lastTimeWentOnCircle) < circleCreatedAt
+  //     // ) {
+  //     //   console.log("reviewPastCircle", lastCircleReviewed, lastTimeWentOnCircle, circleCreatedAt);
+  //     //   setState("reviewPastCircle");
+  //     // } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+  //     //   setState("newCircle");
+  //     // } else {
+  //     //   setState("openCircle");
+  //     // }
+
+  //     if (Number(lastCircleReviewed) < circleCreatedAt) {
+  //       setState("reviewPastCircle");
+  //       return;
+  //     } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+  //       setState("newCircle");
+  //       return;
+  //     } else if (Number(lastTimeWentOnCircle) >= circleCreatedAt){
+  //       setState("openCircle");
+  //       return;
+  //     }
+  //   };
+
+  //   checkDates();
+  // }, [circle]);
 
   const closeReviewPastCircle = () => {
     setDateLastCircleReviewed();
