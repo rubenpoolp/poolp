@@ -6,18 +6,22 @@ import {
   CameraRuntimeError,
   useCameraDevice,
   useCameraPermission,
-  VideoFile,
+  useMicrophonePermission
 } from "react-native-vision-camera";
 
 const ZOOM_LEVELS = [1, 2, 4];
 
 export const useCamera = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { hasPermission: hasMicrophonePermission, requestPermission: requestMicrophonePermission } = useMicrophonePermission();
+  
   const [cameraPosition, setCameraPosition] = useState<CameraPosition>("back");
   const [flashMode, setFlashMode] = useState<"off" | "on">("off");
   const [currentZoom, setCurrentZoom] = useState(ZOOM_LEVELS[0]);
+  
   const [photo, setPhoto] = useState<{ path: string } | null>(null);
-  const [video, setVideo] = useState<VideoFile | null>(null);
+  const [video, setVideo] = useState<{ path: string } | null>(null);
+  
   const camera = useRef<Camera>(null);
   const device = useCameraDevice(cameraPosition);
 
@@ -31,7 +35,15 @@ export const useCamera = () => {
         );
       });
     }
-  }, [hasPermission, requestPermission]);
+    if (!hasMicrophonePermission) {
+      requestMicrophonePermission().catch(() => {
+        Alert.alert(
+          "Microphone Permission",
+          "Please enable microphone access in your device settings to use this feature.",
+        );
+      });
+    }
+  }, [hasPermission, requestPermission, hasMicrophonePermission, requestMicrophonePermission]);
 
   const toggleCameraPosition = useCallback(() => {
     setCameraPosition((current) => (current === "back" ? "front" : "back"));

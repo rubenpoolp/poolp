@@ -43,7 +43,7 @@ export const MyCamera: React.FC<MyCameraProps> = ({
         isActive={isActive}
         photo
         video
-        audio={false}
+        audio
         zoom={zoom}
         style={{ width: SCREEN_WIDTH, height: "100%" }}
       />

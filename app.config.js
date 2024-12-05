@@ -40,8 +40,8 @@ export default {
         "react-native-vision-camera",
         {
           cameraPermissionText: "Allow poolp to access your camera",
-          // microphonePermissionText: "Allow poolp to access your microphone",
-          // enableMicrophonePermission: true,
+          microphonePermissionText: "Allow poolp to access your microphone",
+          enableMicrophonePermission: true,
         },
       ],
       [
@@ -66,6 +66,12 @@ export default {
             "It permits us to improve your experience by providing us with data on how you use the app.",
         },
       ],
+      [
+        "expo-av",
+        {
+          microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone."
+        }
+      ]
     ],
     extra: {
       eas: {

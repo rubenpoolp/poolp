@@ -4,8 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start -c",
-    "ios": "expo start --ios",
-    "android": "expo start --android",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
     "import:assets": "cd assets && node import_assets.js",
     "gen-types": "supabase gen types typescript --linked > database.d.ts && cp database.d.ts supabase/functions/_shared/database.d.ts"
   },
@@ -13,6 +13,7 @@
     "@expo/react-native-action-sheet": "^4.1.0",
     "@gorhom/bottom-sheet": "^5.0.5",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-picker/picker": "2.7.5",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
@@ -65,8 +66,7 @@
     "react-native-svg": "15.2.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-view-shot": "3.8.0",
-    "react-native-vision-camera": "4.5.2",
-    "@react-native-picker/picker": "2.7.5"
+    "react-native-vision-camera": "4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

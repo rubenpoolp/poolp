@@ -1,7 +1,9 @@
 {
   "utils": {
     "enableNotifications": "Enable notifications",
-    "messageInviteFriends": "Join me on Poolp now! The new app to share real daily moments with our school friends - live photos & videos only 🤝 Can't wait to see you there :)"
+    "messageInviteFriends": "Join me on Poolp now! The new app to share real daily moments with our school friends - live photos & videos only 🤝 Can't wait to see you there :)",
+    "error": "Error",
+    "errorOccured": "An error occured"
   },
   "actions": {
     "cancel": "Cancel",

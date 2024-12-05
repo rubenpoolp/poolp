@@ -1,14 +1,13 @@
 import { MyCamera } from "@components/camera/MyCamera";
 import MyScreen from "@components/MyScreen";
 
-import MyButton from "@components/natives/MyButton";
 import { useCamera } from "@hooks/useCamera";
 import useCirclePic from "@hooks/useCirclePic";
 import React, { useCallback, useEffect } from "react";
 import { View } from "react-native";
 import CameraPermissionView from "./components/CameraPermissionView";
 import PhotoPreviewModal from "./components/PhotoPreviewModal";
-import VideoPlayer from "./components/VideoPlayer";
+import VideoPreviewModal from "./components/VideoPreviewModal";
 
 const CameraPage = () => {
   const {
@@ -75,13 +74,7 @@ const CameraPage = () => {
           />
 
         <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} canSend={isInCircle} />
-
-        {video && (
-          <VideoPlayer loop={false} isMobile autoPlay={true} />
-        )}
-        <MyButton onPress={() => {
-          reset();
-        }} txt="taler"/>
+        <VideoPreviewModal video={video} onRetake={reset}/>
       </View>
     </MyScreen>
   );
