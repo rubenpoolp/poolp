@@ -8,6 +8,7 @@ import { View } from "react-native";
 import CameraPermissionView from "./components/CameraPermissionView";
 import PhotoPreviewModal from "./components/PhotoPreviewModal";
 import VideoPreviewModal from "./components/VideoPreviewModal";
+import useCircleVideo from "@hooks/useCircleVideo";
 
 const CameraPage = () => {
   const {
@@ -28,6 +29,7 @@ const CameraPage = () => {
     reset,
   } = useCamera();
   const { uploadPic, isInCircle } = useCirclePic();
+  const { uploadVid } = useCircleVideo();
 
   const handleSend = useCallback(
     (uriScreenshot: string) => {
@@ -35,6 +37,14 @@ const CameraPage = () => {
       reset();
     },
     [reset, uploadPic],
+  );
+
+  const handleSendVideo = useCallback(
+    (uri: string) => {
+      uploadVid(uri);
+      reset();
+    },
+    [reset, uploadVid],
   );
 
   // Initialize camera permissions
@@ -74,7 +84,7 @@ const CameraPage = () => {
           />
 
         <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} canSend={isInCircle} />
-        <VideoPreviewModal video={video} onRetake={reset}/>
+        <VideoPreviewModal video={video} onRetake={reset} onSend={handleSendVideo}/>
       </View>
     </MyScreen>
   );

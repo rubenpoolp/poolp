@@ -43,4 +43,47 @@ const upload = async (path: string, uri: string, bucket: string) => {
   }
 };
 
-export default upload;
+const uploadVideo = async (path: string, uri: string, bucket: string) => {
+  try {
+    // Read the file as base64
+    const fileInfo = await FileSystem.getInfoAsync(uri);
+    if (!fileInfo.exists) {
+      console.error("Video file doesn't exist");
+      return { data: null, error: "Video file doesn't exist" };
+    }
+
+    const base64 = await FileSystem.readAsStringAsync(uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    // Convert base64 to Uint8Array
+    const binaryString = atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    console.log("Uploading video to supabase", bucket, path);
+    
+    // Upload the binary data
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .upload(path, bytes, {
+        contentType: "video/mp4",
+        cacheControl: "3600",
+        upsert: true,
+      });
+
+    if (error) {
+      console.error("Video upload error:", error);
+      return { data: null, error };
+    }
+
+    return { data, error };
+  } catch (error) {
+    console.error("Error processing video:", error);
+    return { data: null, error };
+  }
+};
+
+export { upload as default, uploadVideo };
