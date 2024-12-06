@@ -89,6 +89,7 @@ export const useCamera = () => {
       if (camera.current) {
         camera.current.startRecording({
           flash: flashMode,
+          fileType: "mp4",
           onRecordingError: (error) => {
             console.error("Camera error:", error);
           },
