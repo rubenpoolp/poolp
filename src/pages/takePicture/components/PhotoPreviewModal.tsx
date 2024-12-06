@@ -1,8 +1,12 @@
 import MyModal from "@components/modals/MyModal";
-import MyButton from "@components/natives/MyButton";
+import MyGradient from "@components/MyGradient";
 import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import colors from "@config/colors";
+import shadow from "@config/shadow";
+import * as MediaLibrary from "expo-media-library";
 import { t } from "i18next";
-import { CaretLeft } from "phosphor-react-native";
+import { ArrowRight, CaretLeft, DownloadSimple } from "phosphor-react-native";
 import React, { useRef } from "react";
 import { Image, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -22,15 +26,37 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
 }) => {
   const imageAndTextRef = useRef<View>(null);
 
+  const getLocalUriWithSnapTexts = async () => {
+    let localUri = "";
+    // for video
+    if (photo?.path.endsWith(".mp4")) {
+      console.log("tamer");
+    } else {
+      localUri = await captureRef(imageAndTextRef, {
+        quality: 0.5,
+        format: "jpg",
+      });
+    }
+
+    return localUri;
+  };
+
   const onSaveImage = async () => {
     if (!photo) return;
 
-    const localUri = await captureRef(imageAndTextRef, {
-      quality: 0.5,
-      format: "jpg",
-    });
+    const localUri = await getLocalUriWithSnapTexts();
 
     onSend(localUri);
+  };
+
+  const downloadImage = async () => {
+    if (!photo) return;
+
+    const localUri = await getLocalUriWithSnapTexts();
+
+    console.log("downloading image", photo.path);
+    // download image on device expo camera roll
+    await MediaLibrary.saveToLibraryAsync(localUri);
   };
 
   return (
@@ -60,8 +86,26 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
             </MyPressable>
           </View>
 
-          <View className="w-full px-5 items-center pt-4">
-            <MyButton onPress={onSaveImage} txt={t("camera.send")} />
+          <View className="px-5 pt-4 items-center justify-center">
+            <View className="flex-row space-x-4 items-center justify-center h-14">
+              <MyPressable
+                className="h-full px-6 bg-gray-500 items-center justify-center rounded-full"
+                onPress={downloadImage}
+              >
+                <DownloadSimple size={28} weight="bold" color={colors.light} />
+              </MyPressable>
+              <MyPressable
+                onPress={onSaveImage}
+                className="h-16 rounded-full flex-row gap-2 w-52 items-center justify-center"
+                style={{ elevation: 10, ...shadow.purple }}
+              >
+                <MyGradient className="rounded-full " />
+                <MyText className="text-base font-bold text-light">
+                  {t("camera.send")}
+                </MyText>
+                <ArrowRight size={24} color={colors.light} />
+              </MyPressable>
+            </View>
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

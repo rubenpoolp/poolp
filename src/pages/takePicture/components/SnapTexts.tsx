@@ -49,7 +49,7 @@ const SnapText = ({
           onBlur={() => {
             if (text === "") remove();
           }}
-          className="text-sm text-light w-full text-center"
+          className="text-base text-light w-full text-center"
           value={text}
           onChangeText={onChangeText}
         />
