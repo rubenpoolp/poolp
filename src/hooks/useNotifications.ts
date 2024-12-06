@@ -18,7 +18,6 @@ Notifications.setNotificationHandler({
 });
 
 async function registerForPushNotificationsAsync() {
-
   if (!Device.isDevice) {
     // alert("Must use physical device for Push Notifications");
     return;
@@ -63,7 +62,12 @@ async function registerForPushNotificationsAsync() {
 
 async function pushTokenToUser(
   pushToken: string,
-  updateAccount: UseMutationResult<any, Error, { data: Partial<Account> }, unknown>,
+  updateAccount: UseMutationResult<
+    any,
+    Error,
+    { data: Partial<Account> },
+    unknown
+  >,
   userPushToken: string | null,
 ) {
   // On enlève le ExponentPushToken[ et le ] à la fin pour n'avoir que le token et pas surcharger la DB pour rien
@@ -85,7 +89,9 @@ async function pushTokenToUser(
 }
 
 const useNotifications = () => {
-  const [notification, setNotification] = useState<Notifications.Notification | null>(null);
+  const [notification, setNotification] = useState<
+    Notifications.Notification | null
+  >(null);
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
 
@@ -115,7 +121,9 @@ const useNotifications = () => {
     // Cleanup function
     return () => {
       if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(
+          notificationListener.current,
+        );
       }
       if (responseListener.current) {
         Notifications.removeNotificationSubscription(responseListener.current);
@@ -127,7 +135,9 @@ const useNotifications = () => {
   useEffect(() => {
     return () => {
       if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(
+          notificationListener.current,
+        );
       }
       if (responseListener.current) {
         Notifications.removeNotificationSubscription(responseListener.current);
