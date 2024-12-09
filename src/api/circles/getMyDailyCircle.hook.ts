@@ -20,16 +20,16 @@ const useGetMyDailyCircle = () => {
 
       const hoursSinceCreation = differenceInHours(
         new Date(),
-        new Date(circle.created_at)
+        new Date(circle.created_at),
       );
-      
+
       if (hoursSinceCreation >= 24) {
-        return undefined;
+        return null;
       }
       return circle;
     },
     enabled: !!userId,
-    initialData: undefined,
+    initialData: null,
   });
 };
 

@@ -17,12 +17,14 @@ interface PhotoPreviewModalProps {
   photo: { path: string } | null;
   onRetake: () => void;
   onSend: (uriScreenshot: string) => void;
+  canSend: boolean;
 }
 
 const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
   photo,
   onRetake,
   onSend,
+  canSend,
 }) => {
   const imageAndTextRef = useRef<View>(null);
 
@@ -60,7 +62,13 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
   };
 
   return (
-    <MyModal isVisible={!!photo} className="flex-1 bg-background-dark">
+    <MyModal
+      showAfterMs={0}
+      animationInTiming={5}
+      animationOutTiming={5}
+      isVisible={!!photo}
+      className="flex-1 bg-background-dark"
+    >
       <SafeAreaProvider className="flex-1 w-full h-full">
         <SafeAreaView
           edges={["top", "bottom"]}
@@ -94,17 +102,19 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
               >
                 <DownloadSimple size={28} weight="bold" color={colors.light} />
               </MyPressable>
-              <MyPressable
-                onPress={onSaveImage}
-                className="h-16 rounded-full flex-row gap-2 w-52 items-center justify-center"
-                style={{ elevation: 10, ...shadow.purple }}
-              >
-                <MyGradient className="rounded-full " />
-                <MyText className="text-base font-bold text-light">
-                  {t("camera.send")}
-                </MyText>
-                <ArrowRight size={24} color={colors.light} />
-              </MyPressable>
+              {canSend && (
+                <MyPressable
+                  onPress={onSaveImage}
+                  className="h-16 rounded-full flex-row gap-2 w-52 items-center justify-center"
+                  style={{ elevation: 10, ...shadow.purple }}
+                >
+                  <MyGradient className="rounded-full " />
+                  <MyText className="text-base font-bold text-light">
+                    {t("camera.send")}
+                  </MyText>
+                  <ArrowRight size={24} color={colors.light} />
+                </MyPressable>
+              )}
             </View>
           </View>
         </SafeAreaView>

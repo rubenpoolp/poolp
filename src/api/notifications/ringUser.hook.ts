@@ -9,12 +9,11 @@ import i18n from "@utils/i18n";
 import { Alert } from "react-native";
 
 const useRingUser = () => {
-
   const auth = useAuth();
 
   return useMutation({
     mutationKey: ["ringUser"],
-    mutationFn: async ({userId}: {userId: string}) => {
+    mutationFn: async ({ userId }: { userId: string }) => {
       if (!userId) {
         throw new Error("No users selected");
       }
@@ -28,11 +27,18 @@ const useRingUser = () => {
       if (!success) {
         throw new Error("User already rung");
       }
-      return sendNotif([userId], i18n.t("notifications.ring.title"), i18n.t("notifications.ring.body"));
+      return sendNotif(
+        [userId],
+        i18n.t("notifications.ring.title"),
+        i18n.t("notifications.ring.body"),
+      );
     },
     onError: (error: Error) => {
       if (error.message === "User already rung") {
-        Alert.alert(i18n.t("notifications.ringExcessive.title"), i18n.t("notifications.ringExcessive.body"));
+        Alert.alert(
+          i18n.t("notifications.ringExcessive.title"),
+          i18n.t("notifications.ringExcessive.body"),
+        );
         return;
       }
 
@@ -46,4 +52,4 @@ const useRingUser = () => {
   });
 };
 
-export default useRingUser; 
+export default useRingUser;

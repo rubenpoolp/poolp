@@ -1,9 +1,8 @@
 import { UserProfilePics } from "@/types/story";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
 import { LinearGradient } from "expo-linear-gradient";
-import { DotsThree, X } from "phosphor-react-native";
+import { X } from "phosphor-react-native";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
@@ -27,38 +26,6 @@ const OverlayUserProfile = ({
   onRight,
   userProfilePics,
 }: OverlayUserProfileProps) => {
-  const { t } = useTranslation();
-  const { showActionSheetWithOptions } = useActionSheet();
-
-  const onPressDotsThree = () => {
-    const options = [
-      t("actions.block"),
-      t("actions.report"),
-      t("actions.ring"),
-      t("actions.cancel"),
-    ];
-    const cancelButtonIndex = 3;
-
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      (selectedIndex?: number) => {
-        switch (selectedIndex) {
-          case 0:
-            break;
-          case 1:
-            break;
-          case 2:
-            break;
-          case cancelButtonIndex:
-            break;
-        }
-      },
-    );
-  };
-
   if (!userProfilePics || !userProfilePics.urls) return null;
 
   return (
@@ -81,9 +48,8 @@ const OverlayUserProfile = ({
             <View className="flex-row justify-between items-center">
               <View />
               <View className="self-end mr-2 flex-row space-x-2">
-                <MyPressable onPress={onPressDotsThree}>
-                  <DotsThree />
-                </MyPressable>
+                <DotsThreeOnUser userId={userProfilePics.user_id} />
+
                 <MyPressable onPress={onClose}>
                   <X />
                 </MyPressable>

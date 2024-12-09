@@ -1,10 +1,9 @@
 import Avatar from "@components/Avatar";
+import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
 import GradientLogoHeader from "@components/headers/GradientLogoHeader";
 import MyScreen from "@components/MyScreen";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { PastCircle } from "@types/circles";
-import { DotsThree } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -14,7 +13,6 @@ interface PastCircleDetailsProps {
 
 const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
   const { t } = useTranslation();
-
   const { circle } = route.params as { circle: PastCircle };
 
   return (
@@ -48,9 +46,7 @@ const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
                 </MyText>
               </View>
 
-              <MyPressable hapticImpactStyle="medium" onPress={() => {}}>
-                <DotsThree size={24} weight="bold" />
-              </MyPressable>
+              <DotsThreeOnUser userId={participant.id} />
             </View>
           ))}
         </View>

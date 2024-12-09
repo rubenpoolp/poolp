@@ -22,7 +22,7 @@ const CameraPage = () => {
     takePhoto,
     reset,
   } = useCamera();
-  const { uploadPic } = useCirclePic();
+  const { uploadPic, isInCircle } = useCirclePic();
 
   const handleSend = useCallback(
     (uriScreenshot: string) => {
@@ -64,7 +64,12 @@ const CameraPage = () => {
           onCycleZoom={cycleZoom}
           onTakePhoto={takePhoto}
         />
-        <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} />
+        <PhotoPreviewModal
+          photo={photo}
+          onRetake={reset}
+          onSend={handleSend}
+          canSend={isInCircle}
+        />
       </View>
     </MyScreen>
   );

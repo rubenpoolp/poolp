@@ -30,7 +30,7 @@ const useCirclePic = () => {
     setIsLoading(false);
   };
 
-  return { uploadPic };
+  return { isInCircle: !!circle, uploadPic };
 };
 
 export default useCirclePic;

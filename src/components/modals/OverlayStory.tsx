@@ -1,10 +1,9 @@
 import { Story, UserProfilePics } from "@/types/story";
 import Avatar from "@components/Avatar";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ArrowBendUpLeft, CaretUp, DotsThree, X } from "phosphor-react-native";
-import { useState } from "react";
+import { ArrowBendUpLeft, CaretUp, X } from "phosphor-react-native";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,7 +11,6 @@ import StoryBarLoader from "../animations/StoriesBarLoader";
 import MyButton from "../natives/MyButton";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
-import ReportModal from "./ReportModal";
 
 interface OverlayStoryModalProps {
   onClose: () => void;
@@ -53,36 +51,6 @@ const OverlayStoryModal = ({
 }: OverlayStoryModalProps) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
-  const { showActionSheetWithOptions } = useActionSheet();
-  const [isReportModalVisible, setIsReportModalVisible] =
-    useState<boolean>(false);
-
-  const onPressDotsThree = () => {
-    const options = [
-      t("actions.report"),
-      t("actions.ring"),
-      t("actions.cancel"),
-    ];
-    const cancelButtonIndex = 2;
-
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      (selectedIndex?: number) => {
-        switch (selectedIndex) {
-          case 0:
-            setIsReportModalVisible(true);
-            break;
-          case 1:
-            break;
-          case cancelButtonIndex:
-            break;
-        }
-      },
-    );
-  };
 
   return (
     <SafeAreaView
@@ -127,9 +95,10 @@ const OverlayStoryModal = ({
               </>
             )}
             <View className="self-end mr-2 flex-row space-x-2">
-              <MyPressable onPress={onPressDotsThree}>
-                <DotsThree />
-              </MyPressable>
+              {stories?.[actualIndex].user_id && (
+                <DotsThreeOnUser userId={stories?.[actualIndex].user_id} />
+              )}
+
               <MyPressable onPress={onClose}>
                 <X />
               </MyPressable>
@@ -137,14 +106,6 @@ const OverlayStoryModal = ({
           </View>
         </View>
       </View>
-
-      <ReportModal
-        isVisible={isReportModalVisible}
-        onClose={() => {
-          setIsReportModalVisible(false);
-        }}
-        toUserId={stories?.[actualIndex].user_id!}
-      />
 
       {userProfilePics ? (
         <View className="px-4">
@@ -171,7 +132,9 @@ const OverlayStoryModal = ({
             }}
             LeftComponent={() => <View />}
             RightComponent={() => (
-              <ArrowBendUpLeft weight="bold" className="ml-2" size={24} />
+              <View className="ml-2">
+                <ArrowBendUpLeft weight="bold" size={24} />
+              </View>
             )}
           />
         </View>

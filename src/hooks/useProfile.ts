@@ -70,10 +70,6 @@ const useProfile = () => {
         process.env.APP_STORE_URI && Linking.openURL(process.env.APP_STORE_URI),
     },
     {
-      name: "profile.aboutUs",
-      onPress: () => Linking.openURL("https://poolp.app"),
-    },
-    {
       name: "profile.logout.title",
       onPress: () => {
         Alert.alert(
