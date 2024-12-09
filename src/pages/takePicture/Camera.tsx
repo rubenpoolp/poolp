@@ -82,8 +82,12 @@ const CameraPage = () => {
           onTakeVideo={onTakeVideo}
           onEndTakeVideo={onEndTakeVideo}
           />
-
-        <PhotoPreviewModal photo={photo} onRetake={reset} onSend={handleSend} canSend={isInCircle} />
+        <PhotoPreviewModal
+          photo={photo}
+          onRetake={reset}
+          onSend={handleSend}
+          canSend={isInCircle}
+        />
         <VideoPreviewModal video={video} onRetake={reset} onSend={handleSendVideo}/>
       </View>
     </MyScreen>
