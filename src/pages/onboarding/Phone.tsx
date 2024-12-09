@@ -63,7 +63,6 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     }
   };
 
-  console.log("Reload component Phone");
   return (
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>

@@ -32,7 +32,6 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
     let localUri = "";
     // for video
     if (photo?.path.endsWith(".mp4")) {
-      console.log("tamer");
     } else {
       localUri = await captureRef(imageAndTextRef, {
         quality: 0.5,
@@ -56,7 +55,6 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
 
     const localUri = await getLocalUriWithSnapTexts();
 
-    console.log("downloading image", photo.path);
     // download image on device expo camera roll
     await MediaLibrary.saveToLibraryAsync(localUri);
   };

@@ -68,7 +68,6 @@ const VerificationCode = ({
     setCode(codeFromInput);
     if (codeFromInput.length === MAX_LENGTH_CODE) handleNext(codeFromInput);
   };
-  console.log("Reload component VerificationCode");
 
   return (
     <MyOnboardingLayout onNextPress={() => handleNext(code)}>
