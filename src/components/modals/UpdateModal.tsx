@@ -8,7 +8,7 @@ const UpdateModal = () => {
 
   return (
     <BasicModal
-      isVisible={!showModal}
+      isVisible={showModal}
       title={t("updateModal.title")}
       description={
         updateType === "store"
