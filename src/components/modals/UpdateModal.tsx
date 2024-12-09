@@ -1,24 +1,26 @@
 import useUpdate from "@hooks/useUpdate";
+import { useTranslation } from "react-i18next";
 import BasicModal from "./BasicModal";
 
 const UpdateModal = () => {
   const { updateType, showModal, handleUpdatePress, isLoading } = useUpdate();
+  const { t } = useTranslation();
 
   return (
     <BasicModal
-      isVisible={showModal}
-      title={"Mise à jour disponible"}
+      isVisible={!showModal}
+      title={t("updateModal.title")}
       description={
         updateType === "store"
-          ? "Veuillez la télécharger pour continuer à utiliser l'application."
-          : "Veuillez patienter pendant le téléchargement de la mise à jour."
+          ? t("updateModal.descriptionStore")
+          : t("updateModal.descriptionAppStore")
       }
       txtButtonRight={
         updateType === "store"
-          ? "Mettre à jour"
+          ? t("updateModal.update")
           : isLoading
-            ? "Chargement"
-            : "OK"
+            ? t("updateModal.loading")
+            : t("updateModal.ok")
       }
       onPressRight={handleUpdatePress}
     />

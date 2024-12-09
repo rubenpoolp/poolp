@@ -219,5 +219,13 @@
       "Scam, fraud or spam",
       "Other"
     ]
+  },
+  "updateModal": {
+    "title": "Update available",
+    "descriptionStore": "Please download it to continue using the app.",
+    "descriptionAppStore": "Please wait for the update to be downloaded.",
+    "update": "Update",
+    "loading": "Loading",
+    "ok": "OK"
   }
 }
