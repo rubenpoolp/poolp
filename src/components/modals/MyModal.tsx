@@ -28,7 +28,7 @@ const MyModal = ({
     <Modal
       animationIn={"fadeIn"}
       animationOut={"fadeOut"}
-      backdropOpacity={0.2}
+      backdropOpacity={backdropOpacity}
       animationInTiming={200}
       animationOutTiming={200}
       statusBarTranslucent={Platform.OS === "ios"} // Only on iOS because with it, on Android the modal does not cover the bottom screen
