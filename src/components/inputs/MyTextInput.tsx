@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, forwardRef } from "react";
 import { StyleProp, TextInput, ViewStyle } from "react-native";
 
 interface MyTextInputProps extends ComponentProps<typeof TextInput> {
@@ -6,9 +6,10 @@ interface MyTextInputProps extends ComponentProps<typeof TextInput> {
   style?: StyleProp<ViewStyle>;
 }
 
-const MyTextInput = ({ ...props }: MyTextInputProps) => {
+const MyTextInput = forwardRef<TextInput, MyTextInputProps>((props, ref) => {
   return (
     <TextInput
+      ref={ref}
       autoCapitalize="none"
       {...props}
       style={[
@@ -19,6 +20,8 @@ const MyTextInput = ({ ...props }: MyTextInputProps) => {
       ]}
     />
   );
-};
+});
+
+MyTextInput.displayName = "MyTextInput";
 
 export default MyTextInput;

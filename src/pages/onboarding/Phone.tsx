@@ -4,9 +4,9 @@ import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { CountryCode, parsePhoneNumber } from "libphonenumber-js";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { Alert, TextInput, View } from "react-native";
 
 const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
@@ -15,6 +15,11 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [countryCode, setCountryCode] = useState<CountryCode>("FR");
   const { setIsLoading } = useIsLoading();
+  const phoneNumberInputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    phoneNumberInputRef.current?.focus();
+  }, []);
 
   const goNext = (formattedPhoneNumber: string) => {
     navigation.navigate(nextScreen, {
@@ -25,7 +30,8 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     });
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    phoneNumberInputRef.current?.blur();
     setIsLoading(true);
     // TODO: check if phone number is valid
     if (!phoneNumber) {
@@ -57,6 +63,7 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
     }
   };
 
+  console.log("Reload component Phone");
   return (
     <MyOnboardingLayout onNextPress={handleNext}>
       <View className="flex w-full" style={{ gap: 80 }}>
@@ -70,11 +77,15 @@ const Phone = ({ navigation, route }: { navigation: any; route: any }) => {
         </View>
 
         <PhoneNumberInput
+          ref={phoneNumberInputRef}
           value={phoneNumber}
           setValue={setPhoneNumber}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
           resetError={() => {}}
+          // onBlur={() => {
+          //     phoneNumberInputRef.current?.focus();
+          // }}
           onSubmitEditing={handleNext}
         />
       </View>

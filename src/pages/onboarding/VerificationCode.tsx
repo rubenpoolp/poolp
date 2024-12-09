@@ -5,9 +5,10 @@ import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import i18n from "@utils/i18n";
-import React, { useState } from "react";
+import sleep from "@utils/sleep";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { Alert, Keyboard, TextInput, View } from "react-native";
 
 const VerificationCode = ({
   navigation,
@@ -20,14 +21,22 @@ const VerificationCode = ({
   const { checkCode } = useAuth();
 
   const [code, setCode] = useState<string>("");
+  const codeInputRef = useRef<TextInput>(null);
   const { user, nextScreen } = route.params;
   const { setIsLoading } = useIsLoading();
+
+  useEffect(() => {
+    sleep(700).then(() => {
+      codeInputRef.current?.focus();
+    });
+  }, []);
 
   const goNext = () => {
     navigation.navigate(nextScreen, { user }); // We do not need the confirmation code
   };
 
   const handleNext = (codeFromInput: string) => {
+    Keyboard.dismiss();
     setIsLoading(true);
     if (!codeFromInput || codeFromInput.length !== 6) {
       setIsLoading(false);
@@ -59,6 +68,7 @@ const VerificationCode = ({
     setCode(codeFromInput);
     if (codeFromInput.length === MAX_LENGTH_CODE) handleNext(codeFromInput);
   };
+  console.log("Reload component VerificationCode");
 
   return (
     <MyOnboardingLayout onNextPress={() => handleNext(code)}>
@@ -68,10 +78,12 @@ const VerificationCode = ({
         </MyText>
 
         <MyCodeInput
+          ref={codeInputRef}
           maxLength={MAX_LENGTH_CODE}
           value={code}
           onChangeText={handleChangeCode}
           onSubmitEditing={() => handleNext(code)}
+          autoFocus={false}
         />
       </View>
     </MyOnboardingLayout>
