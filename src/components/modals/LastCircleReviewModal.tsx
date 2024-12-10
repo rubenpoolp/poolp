@@ -46,6 +46,8 @@ const LastCircleReviewModal = ({
     }
   };
 
+  if (!currentParticipant) return null;
+
   return (
     <MyModal isVisible={isVisible}>
       <View className="flex-1 bg-overlay w-full h-full">

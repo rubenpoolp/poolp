@@ -6,9 +6,14 @@ import colors from "@config/colors";
 import shadow from "@config/shadow";
 import * as MediaLibrary from "expo-media-library";
 import { t } from "i18next";
-import { ArrowRight, CaretLeft, DownloadSimple } from "phosphor-react-native";
-import React, { useRef } from "react";
-import { Image, View } from "react-native";
+import {
+  ArrowRight,
+  CaretLeft,
+  CheckCircle,
+  DownloadSimple,
+} from "phosphor-react-native";
+import React, { useRef, useState } from "react";
+import { ActivityIndicator, Image, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { captureRef } from "react-native-view-shot";
 import SnapTexts from "./SnapTexts";
@@ -27,6 +32,9 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
   canSend,
 }) => {
   const imageAndTextRef = useRef<View>(null);
+  const [stateSaveImage, setStateSaveImage] = useState<
+    "saving" | "saved" | "error" | null
+  >(null);
 
   const getLocalUriWithSnapTexts = async () => {
     let localUri = "";
@@ -42,21 +50,36 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
     return localUri;
   };
 
-  const onSaveImage = async () => {
+  const send = async () => {
     if (!photo) return;
 
     const localUri = await getLocalUriWithSnapTexts();
 
+    if (!localUri) return;
     onSend(localUri);
   };
 
   const downloadImage = async () => {
     if (!photo) return;
 
-    const localUri = await getLocalUriWithSnapTexts();
+    setStateSaveImage("saving");
+    const localUri = await getLocalUriWithSnapTexts().catch(() => {
+      setStateSaveImage("error");
+      return null;
+    });
+
+    if (!localUri) return;
 
     // download image on device expo camera roll
-    await MediaLibrary.saveToLibraryAsync(localUri);
+    await MediaLibrary.saveToLibraryAsync(localUri).catch(() => {
+      setStateSaveImage("error");
+      return null;
+    });
+
+    setStateSaveImage("saved");
+    setTimeout(() => {
+      setStateSaveImage(null);
+    }, 2000);
   };
 
   return (
@@ -95,14 +118,27 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
           <View className="px-5 pt-4 items-center justify-center">
             <View className="flex-row space-x-4 items-center justify-center h-14">
               <MyPressable
-                className="h-full px-6 bg-gray-500 items-center justify-center rounded-full"
+                className={`h-full px-6 bg-gray-500 items-center justify-center rounded-full ${stateSaveImage === "saved" && "bg-gray-400"}`}
                 onPress={downloadImage}
+                disabled={
+                  stateSaveImage === "saving" || stateSaveImage === "saved"
+                }
               >
-                <DownloadSimple size={28} weight="bold" color={colors.light} />
+                {stateSaveImage === "saving" ? (
+                  <ActivityIndicator size={28} color={colors.light} />
+                ) : stateSaveImage === "saved" ? (
+                  <CheckCircle size={28} weight="bold" color={colors.light} />
+                ) : (
+                  <DownloadSimple
+                    size={28}
+                    weight="bold"
+                    color={colors.light}
+                  />
+                )}
               </MyPressable>
               {canSend && (
                 <MyPressable
-                  onPress={onSaveImage}
+                  onPress={send}
                   className="h-16 rounded-full flex-row gap-2 w-52 items-center justify-center"
                   style={{ elevation: 10, ...shadow.purple }}
                 >
