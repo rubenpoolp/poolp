@@ -1,3 +1,4 @@
+import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import { Bump } from "@components/animations/Bump";
 import MyHeader from "@components/headers/MyHeader";
 import MyScreen from "@components/MyScreen";
@@ -64,6 +65,13 @@ const Profile = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const navigation = useNavigation();
   const appState = useAppState();
+  
+  const { data: profilePics } = useGetProfilePics();
+  const [pictures, setPictures] = useState<string[]>([]);
+  
+  useEffect(() => {
+    setPictures(profilePics || []);
+  }, [profilePics]);
 
   useEffect(() => {
     const checkSubscription = async () => {
@@ -72,6 +80,7 @@ const Profile = () => {
     };
     checkSubscription();
   }, [appState]);
+  
 
   return (
     <MyScreen edges={["top"]}>
@@ -100,7 +109,7 @@ const Profile = () => {
                     txt="Add pictures"
                     txtClassName="font-semibold text-base"
                     className="px-6"
-                    badge
+                    badge={pictures.length < 3}
                   />
                 </Bump>
               </View>
