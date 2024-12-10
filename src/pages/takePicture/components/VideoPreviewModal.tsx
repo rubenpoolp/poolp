@@ -16,7 +16,7 @@ import FinalVideoPlayer from "./VideoPlayer";
 
 
 interface VideoProps {
-  video: { path: string } | null;
+  video: { path: string, external: boolean } | null;
   onRetake: () => void;
   onSend: (uri: string) => void;
   canSend: boolean;

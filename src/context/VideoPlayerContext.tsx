@@ -2,7 +2,7 @@ import { AVPlaybackStatus, Video } from "expo-av";
 import { createContext, ReactNode, useContext, useRef, useState } from "react";
 
 export const VideoPlayerContext = createContext<{
-  video: { path: string } | null;
+  video: { path: string, external: boolean } | null;
   loop: boolean;
   autoPlay: boolean;
   videoComponentRef: React.RefObject<Video>;
@@ -41,7 +41,7 @@ const VideoPlayerProvider = ({
   video,
   children,
 }: {
-  video: { path: string } | null;
+  video: { path: string, external: boolean } | null;
   
   loop: boolean;
   autoPlay: boolean;

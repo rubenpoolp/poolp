@@ -1,4 +1,5 @@
 import { Story } from "@/types/story";
+import VideoPlayer from "@pages/takePicture/components/VideoPlayer";
 import { getDateLastTimeWentOnCircle, setDateLastTimeWentOnCircle } from "@utils/circles";
 import { format } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
@@ -73,11 +74,19 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
       <View className="flex-1 bg-overlay w-full h-full">
         {/* need this for the SafeAreaView */}
         <SafeAreaProvider>
-          <Image
-            source={{ uri: stories?.[actualIndex].url }}
-            className="flex-1 w-full bg-gray-600"
-            resizeMode="cover"
-          />
+          {stories?.[actualIndex].url.endsWith(".mp4") ? (
+            <View className="flex-1 w-full bg-gray-600">
+              <VideoPlayer
+                video={{ path: stories?.[actualIndex].url, external: true }}
+              />
+            </View>
+          ) : (
+            <Image
+              source={{ uri: stories?.[actualIndex].url }}
+              className="flex-1 w-full bg-gray-600"
+              resizeMode="cover"
+            />
+          )}
           <OverlayStoryModal
             onClose={onClose}
             duration={storyDuration}

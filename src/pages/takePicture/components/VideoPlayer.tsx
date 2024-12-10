@@ -23,7 +23,7 @@ const VideoPlayerWithContext = () => {
       shouldPlay={autoPlay}
       isLooping={loop}
 
-      source={{ uri: `file://${video?.path}` }}
+      source={video?.external ? { uri: video?.path } : { uri: `file://${video?.path}` }}
       resizeMode={ResizeMode.COVER}
       onLoad={onLoad}
       onLoadStart={onLoadStart}
@@ -56,7 +56,7 @@ const VideoPlayerWithContext = () => {
 interface VideoPlayerProps {
   loop?: boolean;
   autoPlay?: boolean;
-  video: { path: string } | null;
+  video: { path: string, external: boolean } | null;
 }
 
 const VideoPlayer = ({
