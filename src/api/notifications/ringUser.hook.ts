@@ -46,8 +46,10 @@ const useRingUser = () => {
       throw new Error("Error sending notification", { cause: error });
     },
     onSuccess: () => {
-      // TODO: Add success message to user
-      // Alert.alert('Success', 'You have successfully sent a notification to the user');
+      Alert.alert(
+        i18n.t('notifications.ringSuccess.title', 'Ring sent! 🔔'),
+        i18n.t('notifications.ringSuccess.body', "Your friend will be notified. They'll be happy to hear from you! ✨")
+      );
     },
   });
 };

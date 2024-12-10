@@ -188,6 +188,10 @@
     "ringExcessive": {
       "title": "Whoa, slow down! 🔔",
       "body": "Hey there! Please wait 5 minutes before ringing another friend. We want to keep things fun for everyone! 😊"
+    },
+    "ringSuccess": {
+      "title": "Ring sent! 🔔",
+      "body": "Your friend will be notified. They'll be happy to hear from you! ✨"
     }
   },
   "paywall": {
