@@ -1,12 +1,33 @@
+import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import TabBarIcon from "@components/TabBarIcon";
 import colors from "@config/colors";
 import { TabBarPages, initialTab } from "@config/tabBarPages";
+import useTodayCircle from "@hooks/useTodayCircle";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const [profilePicsCount, setProfilePicsCount] = useState(0);
+  const { unseenStories } = useTodayCircle();
+
+  const { data: profilePics } = useGetProfilePics();
+  
+  useEffect(() => {
+    setProfilePicsCount(profilePics?.length || 0);
+  }, [profilePics]);
+
+  const checkIfBadgeIsVisible = (route: string):boolean => {
+    if (route === "Profile") {
+      return profilePicsCount < 3;
+    }
+    if (route === "Home") {
+      return unseenStories ?? false;
+    }
+    return false;
+  };
+
   return (
     <Tab.Navigator
       initialRouteName={initialTab}
@@ -19,7 +40,11 @@ const BottomTabNavigator = () => {
           height: 96,
         },
         tabBarIcon: ({ focused }) => (
-          <TabBarIcon focused={focused} route={route} />
+          <TabBarIcon
+            focused={focused}
+            badge={checkIfBadgeIsVisible(route.name)}
+            route={route}
+          />
         ),
       })}
     >

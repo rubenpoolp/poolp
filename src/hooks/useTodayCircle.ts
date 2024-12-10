@@ -2,7 +2,10 @@ import useGetAccounts from "@api/account/getAccounts.hook";
 import useGetCirclePics from "@api/circles/getCirclePics.hook";
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import useGetUsersProfilePics from "@api/profilePics/getUsersProfilePics.hook";
+import { getDateLastTimeWentOnCircle } from "@utils/circles";
 import { formatStoryDate } from "@utils/dates";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
 
 const useTodayCircle = () => {
   const { data: circle } = useGetMyDailyCircle();
@@ -11,6 +14,8 @@ const useTodayCircle = () => {
     users?.map((u) => u.id),
   );
   const { data: circlePics } = useGetCirclePics(circle?.id);
+  
+  const [unseenStories, setUnseenStories] = useState<boolean>(false);
 
   const mappedStories = circlePics.map((pic) => ({
     ...pic,
@@ -24,11 +29,27 @@ const useTodayCircle = () => {
     a?.user_id === b?.user_id ? 1 : 0
   );
 
+
+  useEffect(() => {
+    const fetchLastViewedDate = async ()=> {
+      const lastViewedDate = await getDateLastTimeWentOnCircle();
+      if (!lastViewedDate) return false;
+      const index = stories.findIndex((story) => {
+        return Number(format(story.created_at, "t")) > Number(lastViewedDate);
+      });
+      setUnseenStories(index >= 0);
+    };
+
+    fetchLastViewedDate();
+  }, [stories])
+    
+
   if (!usersProfilePics) return { stories };
 
   return {
     stories,
     usersProfilePics,
+    unseenStories,
   };
 };
 
