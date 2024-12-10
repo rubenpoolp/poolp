@@ -120,7 +120,9 @@
     "reviewNow": "Review your previous circle first!",
     "noCircle": "No active circle today",
     "noCircleDescription": "Come back tomorrow to discover your new circle!",
-    "noCircleButton": "Tap here to get back in the next circle!"
+    "noCircleButton": "Tap here to get back in the next circle!",
+    "backInCircleTitle": "Awesome!",
+    "backInCircleMessage": "You'll be back in the next circle! See you soon 🎉"
   },
   "review": {
     "title": "It's the end of",

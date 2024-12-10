@@ -2,7 +2,7 @@ import updateLastInteraction from "@api/account/updateLastInteraction.query";
 import assets from "@assets/index";
 import { useAuth } from "@context/Auth";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import CornerSparkles from "./CornerSparkles";
 import MyButton from "./natives/MyButton";
 import MyImage from "./natives/MyImage";
@@ -14,7 +14,12 @@ const NoCircle = () => {
 
   const handlePress = () => {
     if (!auth.user?.id) return;
-    updateLastInteraction(auth.user?.id);
+    updateLastInteraction(auth.user?.id).then(() => {
+      Alert.alert(
+        t('home.backInCircleTitle'),
+        t('home.backInCircleMessage')
+      );
+    });
   };
 
   return (
