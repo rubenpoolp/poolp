@@ -1,35 +1,64 @@
 import MyModal from "@components/modals/MyModal";
-import MyButton from "@components/natives/MyButton";
+import MyGradient from "@components/MyGradient";
 import MyPressable from "@components/natives/MyPressable";
-import { purple } from "@config/colors";
+import MyText from "@components/natives/MyText";
+import colors, { purple } from "@config/colors";
+import shadow from "@config/shadow";
 import { useVideoPlayer } from "@context/VideoPlayerContext";
-import { CaretLeft } from "phosphor-react-native";
-import { useRef } from "react";
+import * as MediaLibrary from "expo-media-library";
+import { ArrowRight, CaretLeft, CheckCircle, DownloadSimple } from "phosphor-react-native";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import SnapTexts from "./SnapTexts";
 import FinalVideoPlayer from "./VideoPlayer";
 
+
 interface VideoProps {
   video: { path: string } | null;
   onRetake: () => void;
   onSend: (uri: string) => void;
+  canSend: boolean;
 }
 
-const VideoPreviewModal = ({ video, onRetake, onSend }: VideoProps) => {
+const VideoPreviewModal = ({ video, onRetake, onSend, canSend }: VideoProps) => {
   const { t } = useTranslation();
   const videoAndTextRef = useRef<View>(null);
 
   const { isLoading } = useVideoPlayer();
+  const [stateSaveImage, setStateSaveImage] = useState<
+    "saving" | "saved" | "error" | null
+  >(null);
 
-  const onSaveVideo = async () => {
+  const [processing, setProcessing] = useState<boolean>(false);
+
+
+  const send = async () => {
     if (!video) return;
 
     const localUri = video.path;
 
     onSend(localUri);
   };
+
+  const downloadVideo = async () => {
+    if (!video) return;
+
+    const localUri = video.path;
+
+     // download image on device expo camera roll
+     await MediaLibrary.saveToLibraryAsync(localUri)
+      .catch(() => {
+        setStateSaveImage("error");
+        return null;
+      });
+
+    setStateSaveImage("saved");
+    setTimeout(() => {
+      setStateSaveImage(null);
+    }, 2000);
+  }
 
 
   return (
@@ -62,8 +91,41 @@ const VideoPreviewModal = ({ video, onRetake, onSend }: VideoProps) => {
             </MyPressable>
           </View>
 
-          <View className="w-full px-5 items-center pt-4">
-            <MyButton onPress={onSaveVideo} txt={t("camera.send")} />
+          <View className="px-5 pt-4 items-center justify-center">
+            <View className="flex-row space-x-4 items-center justify-center h-14">
+              <MyPressable
+                className={`h-full px-6 bg-gray-500 items-center justify-center rounded-full ${stateSaveImage === "saved" && "bg-gray-400"}`}
+                onPress={downloadVideo}
+                disabled={
+                  stateSaveImage === "saving" || stateSaveImage === "saved"
+                }
+              >
+                {stateSaveImage === "saving" ? (
+                  <ActivityIndicator size={28} color={colors.light} />
+                ) : stateSaveImage === "saved" ? (
+                  <CheckCircle size={28} weight="bold" color={colors.light} />
+                ) : (
+                  <DownloadSimple
+                    size={28}
+                    weight="bold"
+                    color={colors.light}
+                  />
+                )}
+              </MyPressable>
+              {canSend && (
+                <MyPressable
+                  onPress={send}
+                  className="h-16 rounded-full flex-row gap-2 w-52 items-center justify-center"
+                  style={{ elevation: 10, ...shadow.purple }}
+                >
+                  <MyGradient className="rounded-full " />
+                  <MyText className="text-base font-bold text-light">
+                    {t("camera.send")}
+                  </MyText>
+                  <ArrowRight size={24} color={colors.light} />
+                </MyPressable>
+              )}
+            </View>
           </View>
 
         </SafeAreaView>

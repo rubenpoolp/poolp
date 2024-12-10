@@ -3,12 +3,12 @@ import MyScreen from "@components/MyScreen";
 
 import { useCamera } from "@hooks/useCamera";
 import useCirclePic from "@hooks/useCirclePic";
+import useCircleVideo from "@hooks/useCircleVideo";
 import React, { useCallback, useEffect } from "react";
 import { View } from "react-native";
 import CameraPermissionView from "./components/CameraPermissionView";
 import PhotoPreviewModal from "./components/PhotoPreviewModal";
 import VideoPreviewModal from "./components/VideoPreviewModal";
-import useCircleVideo from "@hooks/useCircleVideo";
 
 const CameraPage = () => {
   const {
@@ -88,7 +88,7 @@ const CameraPage = () => {
           onSend={handleSend}
           canSend={isInCircle}
         />
-        <VideoPreviewModal video={video} onRetake={reset} onSend={handleSendVideo}/>
+        <VideoPreviewModal video={video} onRetake={reset} onSend={handleSendVideo} canSend={isInCircle}/>
       </View>
     </MyScreen>
   );
