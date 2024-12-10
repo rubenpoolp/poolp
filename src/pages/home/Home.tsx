@@ -37,6 +37,7 @@ const Home = () => {
   const { data: circle } = useGetMyDailyCircle();
   useReload();
   useRedirectIfNotLoggedIn();
+  const isOnlyMeInCircle = circle?.user_ids?.length === 1;
 
   useEffect(() => {
     initializeNotifications();
@@ -44,7 +45,7 @@ const Home = () => {
 
   useEffect(() => {
     const checkDates = async () => {
-      if (!circle) {
+      if (!circle || isOnlyMeInCircle) {
         setState("noCircle");
         return;
       }
