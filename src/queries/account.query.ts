@@ -1,4 +1,3 @@
-import { User } from "@supabase/supabase-js";
 import { supabase } from "@utils/supabase";
 
 // Read an account by ID
@@ -35,4 +34,19 @@ export const createAccount = async (data: any): Promise<any> => {
   }
 };
 
+export const deletePushToken = async (userId: string): Promise<any> => {
+  try {
+    const { error } = await supabase
+      .from("account")
+      .update({ push_token: null })
+      .eq("id", userId);
 
+    console.log("tamer en ski", error);
+
+    if (error) throw error;
+    return { error: null };
+  } catch (error) {
+    console.error("Error deleting push token:", error);
+    return { error: error as Error };
+  }
+};

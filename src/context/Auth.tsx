@@ -1,10 +1,9 @@
 import useGetAccount from "@api/account/getAccount.hook";
-import { createAccount, getAccountById } from "@queries/account.query";
+import { createAccount, deletePushToken, getAccountById } from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
 import { Session } from "@supabase/supabase-js";
 import { Account } from "@supabase_types";
 import { supabase } from "@utils/supabase";
-import { User } from "phosphor-react-native";
 import React, { createContext, ReactNode, useContext } from "react";
 
 type AuthContextType = {
@@ -75,8 +74,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut = async () => {
+    if (session?.user?.id) {
+      await deletePushToken(session?.user?.id);
+    }
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+
     getAccount.refetch();
   };
 
