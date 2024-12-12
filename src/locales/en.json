@@ -155,7 +155,8 @@
     "seeWhoLikedYou": "See who liked you 👀",
     "joinedDaysAgo": "You joined your first circle {{days}} days ago",
     "onDay": "On {{date}}",
-    "editPictures": "Edit pictures"
+    "editPictures": "Edit pictures",
+    "addPictures": "Add pictures"
   },
   "camera": {
     "send": "Send in circle",

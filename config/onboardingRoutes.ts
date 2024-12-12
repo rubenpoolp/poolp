@@ -9,7 +9,7 @@ import Phone from "@pages/onboarding/Phone";
 import School from "@pages/onboarding/School";
 import Share from "@pages/onboarding/Share";
 import VerificationCode from "@pages/onboarding/VerificationCode";
-import WaitingRoom from "@pages/onboarding/WaitingRoom";
+import OnboardingProfilePicture from "@pages/profile/OnboardingProfilePicture";
 
 export const onboardingRoutes: {
   name: string;
@@ -24,7 +24,7 @@ export const onboardingRoutes: {
   { name: "Gender", component: Gender },
   { name: "School", component: School },
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
+  { name: "OnboardingProfilePicture", component: OnboardingProfilePicture},
   { name: "Share", component: Share },
-  { name: "WaitingRoom", component: WaitingRoom },
   { name: "HomeStack", component: HomeStackNavigator },
 ];
