@@ -30,6 +30,26 @@ const handler = async (request: Request) => {
   const isAdmin = user!.app_metadata.isAdmin;
   if (isAdmin) throw new Error("Admin user can not be deleted");
 
+  // Récupérer tous les cercles où l'utilisateur est présent
+  const { data: userCircles, error: fetchCirclesError } = await supabaseServiceClient
+    .from('circles')
+    .select('id, user_ids')
+    .filter('user_ids', 'cs', `{${user!.id}}`);
+
+  if (fetchCirclesError) throw fetchCirclesError;
+
+  // Pour chaque cercle, retirer l'utilisateur de la liste user_ids
+  for (const circle of userCircles) {
+    const { error: updateCircleError } = await supabaseServiceClient
+      .from('circles')
+      .update({
+        user_ids: circle.user_ids.filter((id: string) => id !== user!.id)
+      })
+      .eq('id', circle.id);
+
+    if (updateCircleError) throw updateCircleError;
+  }
+
   // Finally delete user from Supabase Authentication
   const { data, error } = await supabaseServiceClient.auth.admin.deleteUser(
     user!.id,
