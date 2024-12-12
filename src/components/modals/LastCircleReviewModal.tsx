@@ -1,10 +1,12 @@
 import { PastCircle } from "@/types/circles";
 import useLike from "@api/likes/like.hook";
 import assets from "@assets/index";
+import Hearts from "@components/animations/Hearts";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
+import { useAuth } from "@context/Auth";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -21,21 +23,42 @@ const LastCircleReviewModal = ({
   pastCircle,
   onClose,
 }: LastCircleReviewModalProps) => {
-  const { t } = useTranslation();
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const auth = useAuth();
   const like = useLike();
 
-  const currentParticipant = pastCircle.participants[currentIndex];
+  const { t } = useTranslation();
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const handleLike = () => {
+  const [heartsVisible, setHeartsVisible] = useState<boolean>(false);
+
+  const [currentParticipant, setCurrentParticipant] = useState(pastCircle.participants[currentIndex]);
+
+  useEffect(() => {
     if (currentIndex === pastCircle.participants.length - 1) {
+      setCurrentParticipant(pastCircle.participants[currentIndex]);
+    }
+  }, [currentIndex]);
+
+  const handleLike = async () => {
+    if (!auth?.user?.id) {
+      throw new Error("User not authenticated");
+    }
+
+    like.mutateAsync({
+      circleId: pastCircle.id,
+      userIdToLike: currentParticipant.id,
+      userIdWhoLiked: auth?.user?.id,
+    });
+    
+    setHeartsVisible(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    if (currentIndex === pastCircle.participants.length - 1) {
+      setHeartsVisible(false);
       onClose();
     } else {
-      like.mutateAsync({
-        circleId: pastCircle.id,
-        userId: currentParticipant.id,
-      });
       setCurrentIndex(currentIndex + 1);
+      setHeartsVisible(false);
     }
   };
 
@@ -102,9 +125,11 @@ const LastCircleReviewModal = ({
               {t("review.description")}
             </MyText>
           </View>
+
         </SafeAreaProvider>
       </View>
-    </MyModal>
+      <Hearts isVisible={heartsVisible} yOffset={100} />
+      </MyModal>
   );
 };
 

@@ -5,8 +5,8 @@ import { like } from "./like.query";
 const useLike = () => {
   return useMutation({
     mutationKey: ["likes"],
-    mutationFn: ({circleId, userId}: {circleId: string, userId: string}) => {
-      return like(circleId, userId);
+    mutationFn: ({circleId, userIdToLike, userIdWhoLiked}: {circleId: string, userIdToLike: string, userIdWhoLiked: string}) => {
+      return like(circleId, userIdToLike, userIdWhoLiked);
     },
     onError: (error: Error) => {
       myCaptureException(error);

@@ -12,7 +12,7 @@ const HeartItem = ({ style }: { style: any }) => (
   </Animated.View>
 );
 
-const Hearts = ({ isVisible }: { isVisible: boolean }) => {
+const Hearts = ({ isVisible, yOffset }: { isVisible: boolean, yOffset?: number }) => {
   const hearts = Array(40)
     .fill(0)
     .map(() => ({
@@ -46,8 +46,11 @@ const Hearts = ({ isVisible }: { isVisible: boolean }) => {
 
   if (!isVisible) return null;
 
+
+  const style = yOffset ? { transform: [{ translateY: yOffset }] } : {};
+
   return (
-    <View className="absolute w-full h-full">
+    <View className="absolute w-full h-full" style={style}>
       {hearts.map((heart, index) => (
         <HeartItem
           key={index}
