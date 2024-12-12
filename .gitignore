@@ -42,3 +42,6 @@ punctuation.txt
 .vscode/launch.json
 
 google-services.json
+
+ios/
+android/

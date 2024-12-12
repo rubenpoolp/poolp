@@ -11,6 +11,8 @@ import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import ProcessingManager from "react-native-video-processing";
+import { captureRef } from "react-native-view-shot";
 import SnapTexts from "./SnapTexts";
 import FinalVideoPlayer from "./VideoPlayer";
 
@@ -33,11 +35,13 @@ const VideoPreviewModal = ({ video, onRetake, onSend, canSend }: VideoProps) => 
 
   const [processing, setProcessing] = useState<boolean>(false);
 
-
   const send = async () => {
     if (!video) return;
 
     const localUri = video.path;
+
+    const localUriWithSnapTexts = await getLocalUriWithSnapTexts();
+    console.log("localUriWithSnapTexts", localUriWithSnapTexts);
 
     onSend(localUri);
   };
@@ -59,6 +63,36 @@ const VideoPreviewModal = ({ video, onRetake, onSend, canSend }: VideoProps) => 
       setStateSaveImage(null);
     }, 2000);
   }
+
+  const getLocalUriWithSnapTexts = async () => {
+    if (!video) return "";
+    if (!videoAndTextRef.current) return;
+
+    setProcessing(true);
+    try {
+      // First capture the SnapTexts overlay
+        const overlayUri = await captureRef(videoAndTextRef.current, {
+          quality: 1,
+          format: "png",
+          // transparent: true,
+        });
+        // Process video with overlay
+        const processedVideo = await ProcessingManager.overlay({
+          source: video.path,
+          overlay: overlayUri,
+          position: {
+            x: 0,
+            y: 0,
+          },
+        });
+        setProcessing(false);
+        return processedVideo;
+      } catch (error) {
+        console.error("Error processing video:", error);
+        setProcessing(false);
+        return video.path;
+      }
+  };
 
 
   return (
