@@ -69,9 +69,12 @@ export default {
       [
         "expo-av",
         {
-          microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone."
-        }
-      ]
+          microphonePermission:
+            "Allow $(PRODUCT_NAME) to access your microphone.",
+        },
+      ],
+      ["@config-plugins/ffmpeg-kit-react-native"],
+      "expo-build-properties",
     ],
     extra: {
       eas: {

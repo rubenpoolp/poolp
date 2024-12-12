@@ -1,6 +1,7 @@
 import { Story, UserProfilePics } from "@/types/story";
 import Avatar from "@components/Avatar";
 import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
+import { useAuth } from "@context/Auth";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowBendUpLeft, CaretUp, X } from "phosphor-react-native";
@@ -51,6 +52,7 @@ const OverlayStoryModal = ({
 }: OverlayStoryModalProps) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   return (
     <SafeAreaView
@@ -95,9 +97,10 @@ const OverlayStoryModal = ({
               </>
             )}
             <View className="self-end mr-2 flex-row space-x-2">
-              {stories?.[actualIndex].user_id && (
-                <DotsThreeOnUser userId={stories?.[actualIndex].user_id} />
-              )}
+              {stories?.[actualIndex].user_id &&
+                user?.id !== stories?.[actualIndex].user_id && (
+                  <DotsThreeOnUser userId={stories?.[actualIndex].user_id} />
+                )}
 
               <MyPressable onPress={onClose}>
                 <X />

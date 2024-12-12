@@ -78,31 +78,32 @@ const ProfilePictureItem = ({
   };
 
   const onPress = () => {
-    const options = [
-      t("actions.camera"),
-      t("actions.gallery"),
-      t("actions.cancel"),
-    ];
-    const cancelButtonIndex = 2;
+    handleImageSelection();
+    // const options = [
+    //   t("actions.camera"),
+    //   t("actions.gallery"),
+    //   t("actions.cancel"),
+    // ];
+    // const cancelButtonIndex = 2;
 
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      (selectedIndex?: number) => {
-        switch (selectedIndex) {
-          case 0:
-            handleCameraSelection();
-            break;
-          case 1:
-            handleImageSelection();
-            break;
-          case cancelButtonIndex:
-            break;
-        }
-      },
-    );
+    // showActionSheetWithOptions(
+    //   {
+    //     options,
+    //     cancelButtonIndex,
+    //   },
+    //   (selectedIndex?: number) => {
+    //     switch (selectedIndex) {
+    //       case 0:
+    //         handleCameraSelection();
+    //         break;
+    //       case 1:
+    //         handleImageSelection();
+    //         break;
+    //       case cancelButtonIndex:
+    //         break;
+    //     }
+    //   },
+    // );
   };
 
   return (

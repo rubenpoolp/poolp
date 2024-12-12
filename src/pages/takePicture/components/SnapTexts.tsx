@@ -45,6 +45,7 @@ const SnapText = ({
         className={"w-full bg-background-dark/80 py-1"}
       >
         <TextInput
+          maxLength={32}
           autoFocus
           onBlur={() => {
             if (text === "") remove();

@@ -14,10 +14,13 @@ const useTodayCircle = () => {
     users?.map((u) => u.id),
   );
   const { data: circlePics } = useGetCirclePics(circle?.id);
-  
+
   const [unseenStories, setUnseenStories] = useState<boolean>(false);
 
-  const mappedStories = circlePics.map((pic) => ({
+  const sortedByDateCirclePics = circlePics.sort((a, b) =>
+    a?.created_at > b?.created_at ? 1 : 0
+  );
+  const mappedStories = sortedByDateCirclePics.map((pic) => ({
     ...pic,
     userName: users?.find((u) => u.id === pic.user_id)?.name ?? "",
     userProfilePictureUrl: usersProfilePics?.find(
@@ -25,13 +28,13 @@ const useTodayCircle = () => {
     )?.urls?.[0],
     createdAtFormatted: formatStoryDate(new Date(pic.created_at)),
   }));
-  const stories = mappedStories.sort((a, b) =>
-    a?.user_id === b?.user_id ? 1 : 0
-  );
-
+  // Remove stories from deleted users
+  const stories = mappedStories.filter((story) => {
+    return users?.some((user) => user.id === story.user_id);
+  });
 
   useEffect(() => {
-    const fetchLastViewedDate = async ()=> {
+    const fetchLastViewedDate = async () => {
       const lastViewedDate = await getDateLastTimeWentOnCircle();
       if (!lastViewedDate) return false;
       const index = stories.findIndex((story) => {
@@ -41,8 +44,7 @@ const useTodayCircle = () => {
     };
 
     fetchLastViewedDate();
-  }, [stories])
-    
+  }, [stories]);
 
   if (!usersProfilePics) return { stories };
 
