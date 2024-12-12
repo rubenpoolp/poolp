@@ -41,7 +41,7 @@ const Home = () => {
 
   useEffect(() => {
     initializeNotifications();
-  }, [initializeNotifications]);
+  }, []);
 
   useEffect(() => {
     const checkDates = async () => {

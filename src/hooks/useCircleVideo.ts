@@ -7,7 +7,7 @@ import { uploadVideo } from "@utils/upload";
 
 const useCircleVideo = () => {
   const { data: circle } = useGetMyDailyCircle();
-  const addCirclePic = useAddCirclePic();
+  const addCirclePic = useAddCirclePic(circle?.id);
   const sendNotifOnReply = useSendNotifOnReply();
   const { setIsLoading } = useIsLoading();
 
@@ -18,11 +18,11 @@ const useCircleVideo = () => {
     const type = uri.split(".").pop();
     const url = `${circle.id}/${Date.now()}.${type}`;
 
-  //   MovToMp4.convertMovToMp4(uri, url + ".mp4")
-  //     .then(function (results: any) {
-  //       //here you can upload the video...
-  //       console.log(results);
-  // });
+    //   MovToMp4.convertMovToMp4(uri, url + ".mp4")
+    //     .then(function (results: any) {
+    //       //here you can upload the video...
+    //       console.log(results);
+    // });
 
     const result = await uploadVideo(url, uri, CIRCLE_PICS_BUCKET);
     if (result.error) {
@@ -31,7 +31,7 @@ const useCircleVideo = () => {
       return;
     }
 
-    await addCirclePic.mutateAsync({ circleId: circle.id, url });
+    await addCirclePic.mutateAsync({ url });
     await sendNotifOnReply.mutateAsync(circle.user_ids!);
 
     setIsLoading(false);

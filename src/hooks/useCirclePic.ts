@@ -7,7 +7,7 @@ import upload from "@utils/upload";
 
 const useCirclePic = () => {
   const { data: circle } = useGetMyDailyCircle();
-  const addCirclePic = useAddCirclePic();
+  const addCirclePic = useAddCirclePic(circle?.id);
   const sendNotifOnReply = useSendNotifOnReply();
   const { setIsLoading } = useIsLoading();
 
@@ -24,7 +24,7 @@ const useCirclePic = () => {
       return;
     }
 
-    await addCirclePic.mutateAsync({ circleId: circle.id, url });
+    await addCirclePic.mutateAsync({ url });
     await sendNotifOnReply.mutateAsync(circle.user_ids!);
 
     setIsLoading(false);
