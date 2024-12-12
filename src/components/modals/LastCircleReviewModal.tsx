@@ -3,6 +3,7 @@ import useLike from "@api/likes/like.hook";
 import assets from "@assets/index";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
+import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, View } from "react-native";
@@ -58,6 +59,11 @@ const LastCircleReviewModal = ({
             className="flex-1 w-full bg-gray-600"
             resizeMode="cover"
           />
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.6)']}
+            className="absolute top-0 w-full h-1/3 rotate-180"
+          />
+
 
           <View className="absolute top-20 w-full justify-center">
             <MyText className="text-2xl font-semibold text-center">
@@ -67,6 +73,11 @@ const LastCircleReviewModal = ({
               Today's circle
             </MyText>
           </View>
+
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.6)']}
+            className="absolute bottom-0 w-full h-1/3"
+          />
           <View className="absolute bottom-10 w-full px-10 space-y-6">
             <MyText className="text-3xl font-semibold">
               {currentParticipant.name}
