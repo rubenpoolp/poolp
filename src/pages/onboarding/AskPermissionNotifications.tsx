@@ -4,7 +4,7 @@ import MyText from "@components/natives/MyText";
 import useNotifications from "@hooks/useNotifications";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { ArrowDown } from "phosphor-react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -46,6 +46,7 @@ const AskPermissionNotifications = ({
 }) => {
   const { t } = useTranslation();
   const { user, nextScreen } = route.params;
+  const { notificationEnabled } = useNotifications();
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
@@ -54,6 +55,12 @@ const AskPermissionNotifications = ({
   const advantages = t("askPermissionNotifications.advantages", {
     returnObjects: true,
   }) as string[];
+
+  useEffect(() => {
+    if (notificationEnabled) {
+      handleNext();
+    }
+  }, [notificationEnabled]);
 
   return (
     <MyOnboardingLayout onNextPress={handleNext}>

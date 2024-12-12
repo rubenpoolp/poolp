@@ -95,6 +95,8 @@ const useNotifications = () => {
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
 
+  const [notificationEnabled, setNotificationEnabled] = useState(false);
+
   const auth = useAuth();
   const updateAccount = useUpdateAccount();
 
@@ -131,6 +133,19 @@ const useNotifications = () => {
     };
   };
 
+  useEffect(() => {
+    const checkStatus = async () => {
+      console.log("notificationEnabled", notificationEnabled);
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      
+      if (existingStatus === "granted") {
+        setNotificationEnabled(true);
+      }
+    };
+
+    checkStatus();
+  }, [notificationEnabled]);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -145,7 +160,7 @@ const useNotifications = () => {
     };
   }, []);
 
-  return { notification, initializeNotifications };
+  return { notification, initializeNotifications, notificationEnabled };
 };
 
 export default useNotifications;
