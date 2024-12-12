@@ -1,5 +1,6 @@
 import { PastCircle } from "@/types/circles";
 import useLike from "@api/likes/like.hook";
+import assets from "@assets/index";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
 import { useState } from "react";
@@ -82,7 +83,7 @@ const LastCircleReviewModal = ({
                 onPress={handleLike}
                 label={t("review.like")}
                 variant="like"
-                icon="💜"
+                svgIcon={assets.heart}
               />
             </View>
 

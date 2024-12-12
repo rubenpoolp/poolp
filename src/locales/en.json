@@ -126,7 +126,7 @@
   },
   "review": {
     "title": "It's the end of",
-    "description": "Users can't see if you like them unless they unlock their likes.Other choice remain hidden.",
+    "description": "Users can't see if you like them unless they unlock their likes. Other choice remain hidden.",
     "neutral": "Neutral",
     "like": "Like"
   },

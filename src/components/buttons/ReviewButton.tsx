@@ -1,20 +1,23 @@
 import { Bump } from "@components/animations/Bump";
+import MyImage from "@components/natives/MyImage";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import shadow from "@config/shadow";
 import { View } from "react-native";
+import { SvgProps } from "react-native-svg";
 
 interface ReviewButtonProps {
   onPress: () => void;
   label: string;
-  icon: string;
+  icon?: string;
+  svgIcon?: SvgProps;
   variant: "neutral" | "like";
 }
 
 const variantStyle = {
   neutral: {
     container: "border-gold-200",
-    text: "text-gray-400",
+    text: "text-gold-200",
     shadow: shadow.gold,
   },
   like: {
@@ -24,7 +27,7 @@ const variantStyle = {
   },
 };
 
-const ReviewButton = ({ onPress, label, icon, variant }: ReviewButtonProps) => {
+const ReviewButton = ({ onPress, label, icon, svgIcon, variant }: ReviewButtonProps) => {
   return (
     <View className="items-center space-y-2">
       <Bump>
@@ -33,12 +36,15 @@ const ReviewButton = ({ onPress, label, icon, variant }: ReviewButtonProps) => {
           onPress={onPress}
           className={`rounded-full w-20 aspect-square items-center justify-center border ${variantStyle[variant].container}`}
         >
-          <MyText className={`text-3xl ${variantStyle[variant].text}`}>
-            {icon}
-          </MyText>
+          {icon && (
+            <MyText className={`text-3xl ${variantStyle[variant].text}`}>
+              {icon}
+            </MyText>
+          )}
+          {svgIcon && !icon && <MyImage img={svgIcon} containerStyle="w-16 h-16" />}
         </MyPressable>
       </Bump>
-      <MyText className="text-gray-400 font-extrabold text-xs uppercase">
+      <MyText className={`font-extrabold text-xs uppercase ${variantStyle[variant].text}`}>
         {label}
       </MyText>
     </View>
