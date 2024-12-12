@@ -41,8 +41,6 @@ export const deletePushToken = async (userId: string): Promise<any> => {
       .update({ push_token: null })
       .eq("id", userId);
 
-    console.log("tamer en ski", error);
-
     if (error) throw error;
     return { error: null };
   } catch (error) {
