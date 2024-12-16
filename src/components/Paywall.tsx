@@ -108,18 +108,17 @@ const Paywall = ({
               isSelected={selectedPlan === "monthly"}
               onSelect={() => setSelectedPlan("monthly")}
               period={t("paywall.month")}
-              price={t("paywall.dayPrice", {
-                price: monthPackage?.priceByDayString,
+              price={t("paywall.monthPrice", {
+                price: monthPackage?.price,
               })}
               isBestValue={true}
             />
-
             <PaywallPlan
               isSelected={selectedPlan === "weekly"}
               onSelect={() => setSelectedPlan("weekly")}
               period={t("paywall.week")}
-              price={t("paywall.dayPrice", {
-                price: weekPackage?.priceByDayString,
+              price={t("paywall.weekPrice", {
+                price: weekPackage?.price,
               })}
             />
           </View>
@@ -141,15 +140,6 @@ const Paywall = ({
             txtClassName="font-bold"
             txt={isLoading ? "Loading..." : t("paywall.button")}
           />
-          <MyText className="text-center mt-1 text-sm mb-2">
-            {selectedPlan === "monthly"
-              ? t("paywall.monthPrice", {
-                  price: monthPackage?.price,
-                })
-              : t("paywall.weekPrice", {
-                  price: weekPackage?.price,
-                })}
-          </MyText>
         </BottomSheetView>
       </BottomSheetModal>
     </>
