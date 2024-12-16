@@ -6,6 +6,7 @@ import { Plus, X } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";
+import CameraModal from "./modals/CameraModal";
 import MyImage from "./natives/MyImage";
 import MyPressable from "./natives/MyPressable";
 
@@ -23,6 +24,7 @@ const ProfilePictureItem = ({
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
     undefined,
   );
+  const [isCameraVisible, setIsCameraVisible] = useState(false);
   const { t } = useTranslation();
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -69,7 +71,15 @@ const ProfilePictureItem = ({
     }
   };
 
-  const handleCameraSelection = async () => {};
+  const handleCameraSelection = () => {
+    setIsCameraVisible(true);
+  };
+
+  const handleCameraCapture = (uri: string) => {
+    if (!onAdd) return;
+
+    onAdd(uri);
+  };
 
   const handleDelete = () => {
     if (onDelete && picture) {
@@ -78,57 +88,64 @@ const ProfilePictureItem = ({
   };
 
   const onPress = () => {
-    handleImageSelection();
-    // const options = [
-    //   t("actions.camera"),
-    //   t("actions.gallery"),
-    //   t("actions.cancel"),
-    // ];
-    // const cancelButtonIndex = 2;
+    const options = [
+      t("actions.camera"),
+      t("actions.gallery"),
+      t("actions.cancel"),
+    ];
+    const cancelButtonIndex = 2;
 
-    // showActionSheetWithOptions(
-    //   {
-    //     options,
-    //     cancelButtonIndex,
-    //   },
-    //   (selectedIndex?: number) => {
-    //     switch (selectedIndex) {
-    //       case 0:
-    //         handleCameraSelection();
-    //         break;
-    //       case 1:
-    //         handleImageSelection();
-    //         break;
-    //       case cancelButtonIndex:
-    //         break;
-    //     }
-    //   },
-    // );
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            handleCameraSelection();
+            break;
+          case 1:
+            handleImageSelection();
+            break;
+          case cancelButtonIndex:
+            break;
+        }
+      },
+    );
   };
 
   return (
-    <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
-      {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}
-      <View className="absolute -bottom-4 left-0 right-0 flex items-center">
-        {selectedImage ? (
-          <MyPressable
-            onPress={handleDelete}
-            hapticImpactStyle="medium"
-            className="bg-light border h-7 w-7 rounded-full justify-center items-center"
-          >
-            <X color={colors.gray[500]} size={16} weight="bold" />
-          </MyPressable>
-        ) : (
-          <MyPressable
-            onPress={onPress}
-            hapticImpactStyle="medium"
-            className="bg-purple-100 border border-light h-7 w-7 rounded-full justify-center items-center"
-          >
-            <Plus color={colors.light} size={16} weight="bold" />
-          </MyPressable>
-        )}
+    <>
+      <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
+        {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}
+        <View className="absolute -bottom-4 left-0 right-0 flex items-center">
+          {selectedImage ? (
+            <MyPressable
+              onPress={handleDelete}
+              hapticImpactStyle="medium"
+              className="bg-light border h-7 w-7 rounded-full justify-center items-center"
+            >
+              <X color={colors.gray[500]} size={16} weight="bold" />
+            </MyPressable>
+          ) : (
+            <MyPressable
+              onPress={onPress}
+              hapticImpactStyle="medium"
+              className="bg-purple-100 border border-light h-7 w-7 rounded-full justify-center items-center"
+            >
+              <Plus color={colors.light} size={16} weight="bold" />
+            </MyPressable>
+          )}
+        </View>
       </View>
-    </View>
+
+      <CameraModal
+        isVisible={isCameraVisible}
+        onClose={() => setIsCameraVisible(false)}
+        onCapture={handleCameraCapture}
+      />
+    </>
   );
 };
 

@@ -16,9 +16,8 @@ interface MyCameraProps {
   onToggleFlash: () => void;
   onCycleZoom: () => void;
   onTakePhoto: () => void;
-  
-  onTakeVideo: () => void;
-  onEndTakeVideo: () => void;
+  onTakeVideo?: () => void;
+  onEndTakeVideo?: () => void;
 }
 
 export const MyCamera: React.FC<MyCameraProps> = ({

@@ -8,6 +8,7 @@ import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
 import useReload from "@hooks/useReload";
+import useTracking from "@hooks/useTracking";
 import { useNavigation } from "@react-navigation/native";
 import {
   getDateLastCircleReviewed,
@@ -37,6 +38,7 @@ const Home = () => {
   const { data: circle } = useGetMyDailyCircle();
   useReload();
   useRedirectIfNotLoggedIn();
+  useTracking();
   const isOnlyMeInCircle = circle?.user_ids?.length === 1;
 
   useEffect(() => {

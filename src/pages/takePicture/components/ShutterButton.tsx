@@ -29,10 +29,8 @@ export const AnimatedPlayPauseButton = ({
   maxDuration,
 }: {
   onPress: () => void;
-  
-  onTakeVideo: () => void;
-  onEndTakeVideo: () => void;
-
+  onTakeVideo?: () => void;
+  onEndTakeVideo?: () => void;
   maxDuration: number;
 }) => {
   const [timeHolded, setTimeHolded] = useState(0);
@@ -54,7 +52,7 @@ export const AnimatedPlayPauseButton = ({
     if (isPressed && timeHolded !== 0) {
       holdTimer = setTimeout(() => {
         isHolding.value = true;
-        onTakeVideo();
+        onTakeVideo?.();
         progress.value = withRepeat(
           withTiming(1, {
             duration: maxDuration,
@@ -91,6 +89,8 @@ export const AnimatedPlayPauseButton = ({
         ...shadow.purple,
       }}
       onPressIn={() => {
+        if (!onTakeVideo) return;
+
         setIsPressed(true);
         setTimeHolded(new Date().getTime());
       }}
@@ -98,7 +98,7 @@ export const AnimatedPlayPauseButton = ({
         setIsPressed(false);
         const currentTime = new Date().getTime();
 
-        if (timeHolded < currentTime - HOLD_TIME_FOR_VIDEO) {
+        if (timeHolded < currentTime - HOLD_TIME_FOR_VIDEO && onEndTakeVideo) {
           onEndTakeVideo();
           stopHoldAnimation();
         } else {
@@ -146,8 +146,8 @@ export const AnimatedPlayPauseButton = ({
 
 interface ShutterButtonProps {
   onPressPicture: () => void;
-  onTakeVideo: () => void;
-  onEndTakeVideo: () => void;
+  onTakeVideo?: () => void;
+  onEndTakeVideo?: () => void;
   maxDuration?: number;
 }
 

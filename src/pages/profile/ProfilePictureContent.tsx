@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 
-const ProfilePictureContent = ({title}: {title: string}) => {
+const ProfilePictureContent = ({ title }: { title: string }) => {
   const { t } = useTranslation();
 
   const { user } = useAuth();
@@ -53,9 +53,14 @@ const ProfilePictureContent = ({title}: {title: string}) => {
       setIsLoading(true);
       await supabase.storage.from(PROFILE_PICS_BUCKET).remove([url]);
       const newPictures = pictures.filter((p) => p !== url);
-      await addProfilePic.mutateAsync({
-        urls: newPictures,
-      });
+
+      await addProfilePic
+        .mutateAsync({
+          urls: newPictures,
+        })
+        .catch((error) => {
+          console.warn("error on Delete", error);
+        });
       setPictures(newPictures);
     } catch (error) {
       Alert.alert(
@@ -73,17 +78,12 @@ const ProfilePictureContent = ({title}: {title: string}) => {
   }, [profilePics]);
 
   return (
-      <View className="flex-1 w-full" style={{ gap: 80 }}>
-      <MyText className="text-3xl font-semibold mb-5">
-        {title}
-      </MyText>
-  
+    <View className="flex-1 w-full" style={{ gap: 80 }}>
+      <MyText className="text-3xl font-semibold mb-5">{title}</MyText>
+
       <View className="relative space-y-4 w-full items-center">
         <View className="absolute top-10 left-0 items-end">
-          <MyText
-            className="text-gray-500 text-left"
-            style={{ maxWidth: 120 }}
-          >
+          <MyText className="text-gray-500 text-left" style={{ maxWidth: 120 }}>
             {t("profile.principalPicture")}
           </MyText>
           <ArrowBendDownRight
@@ -107,11 +107,11 @@ const ProfilePictureContent = ({title}: {title: string}) => {
             onAdd={onAdd}
             onDelete={onDelete}
             picture={pictures[2]}
-              />
-            </View>
-          </View>
+          />
         </View>
-  )
-}
+      </View>
+    </View>
+  );
+};
 
 export default ProfilePictureContent;

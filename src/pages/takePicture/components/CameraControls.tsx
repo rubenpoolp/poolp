@@ -12,9 +12,8 @@ interface CameraControlsProps {
   flashMode: "off" | "on";
   currentZoom: number;
   takePhoto: () => void;
-
-  onTakeVideo: () => void;
-  onEndTakeVideo: () => void;
+  onTakeVideo?: () => void;
+  onEndTakeVideo?: () => void;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
@@ -24,7 +23,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   flashMode,
   currentZoom,
   takePhoto,
-  
+
   onTakeVideo,
   onEndTakeVideo,
 }) => {

@@ -6,22 +6,25 @@ import {
   CameraRuntimeError,
   useCameraDevice,
   useCameraPermission,
-  useMicrophonePermission
+  useMicrophonePermission,
 } from "react-native-vision-camera";
 
 const ZOOM_LEVELS = [1, 2, 4];
 
 export const useCamera = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
-  const { hasPermission: hasMicrophonePermission, requestPermission: requestMicrophonePermission } = useMicrophonePermission();
-  
+  const {
+    hasPermission: hasMicrophonePermission,
+    requestPermission: requestMicrophonePermission,
+  } = useMicrophonePermission();
+
   const [cameraPosition, setCameraPosition] = useState<CameraPosition>("back");
   const [flashMode, setFlashMode] = useState<"off" | "on">("off");
   const [currentZoom, setCurrentZoom] = useState(ZOOM_LEVELS[0]);
-  
+
   const [photo, setPhoto] = useState<{ path: string } | null>(null);
   const [video, setVideo] = useState<{ path: string } | null>(null);
-  
+
   const camera = useRef<Camera>(null);
   const device = useCameraDevice(cameraPosition);
 
@@ -43,7 +46,12 @@ export const useCamera = () => {
         );
       });
     }
-  }, [hasPermission, requestPermission, hasMicrophonePermission, requestMicrophonePermission]);
+  }, [
+    hasPermission,
+    requestPermission,
+    hasMicrophonePermission,
+    requestMicrophonePermission,
+  ]);
 
   const toggleCameraPosition = useCallback(() => {
     setCameraPosition((current) => (current === "back" ? "front" : "back"));
@@ -70,6 +78,7 @@ export const useCamera = () => {
           enableAutoRedEyeReduction: true,
         });
         setPhoto(photo);
+        return photo;
       }
     } catch (e) {
       if (e instanceof CameraRuntimeError) {
@@ -80,8 +89,6 @@ export const useCamera = () => {
 
   const onEndTakeVideo = useCallback(async () => {
     await camera.current?.stopRecording();
-    console.log("onEndTakeVideo");
-    // setVideo(null);
   }, []);
 
   const onTakeVideo = useCallback(() => {
