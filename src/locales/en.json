@@ -37,6 +37,10 @@
     "notificationsNeeded": {
       "title": "🔔 Stay in the loop!",
       "message": "Enable notifications to never miss important updates and stay connected with what matters to you."
+    },
+    "blockSuccess": {
+      "title": "Blocked! 🚫",
+      "message": "This user is now blocked. 🔒"
     }
   },
   "onboarding": {

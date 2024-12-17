@@ -1,3 +1,4 @@
+import useBlockUser from "@api/blocks/blockUser.hook";
 import useRingUser from "@api/notifications/ringUser.hook";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useState } from "react";
@@ -8,14 +9,16 @@ const useActionSheetOnUser = () => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation();
   const ringUser = useRingUser();
+  const blockUser = useBlockUser();
 
   const onPress = (userId: string) => {
     const options = [
+      t("actions.block"),
       t("actions.report"),
       t("actions.ring"),
       t("actions.cancel"),
     ];
-    const cancelButtonIndex = 2;
+    const cancelButtonIndex = 3;
 
     showActionSheetWithOptions(
       {
@@ -25,9 +28,12 @@ const useActionSheetOnUser = () => {
       (selectedIndex?: number) => {
         switch (selectedIndex) {
           case 0:
-            setIsReportModalVisible(true);
+            blockUser.mutate(userId);
             break;
           case 1:
+            setIsReportModalVisible(true);
+            break;
+          case 2:
             ringUser.mutate({ userId });
             break;
           case cancelButtonIndex:
