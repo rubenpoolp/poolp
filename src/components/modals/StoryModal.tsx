@@ -63,7 +63,10 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
   };
 
   const onRight = () => {
-    if (!stories || actualIndex >= stories.length - 1) return;
+    if (!stories || actualIndex >= stories.length - 1) {
+      onClose();
+      return;
+    }
     displayNextStory();
   };
 
