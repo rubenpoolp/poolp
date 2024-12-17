@@ -1,5 +1,5 @@
 import MyPressable from "@components/natives/MyPressable";
-import useActionSheetOnSelfUser from "@hooks/useActionSheetOnSelfuser";
+import useActionSheetOnSelfUser from "@hooks/useActionSheetOnSelfUser";
 import { DotsThree } from "phosphor-react-native";
 
 const DotsThreeOnSelfUser = ({
