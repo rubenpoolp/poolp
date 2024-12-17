@@ -13,8 +13,7 @@ const DotsThreeOnSelfUser = ({
 }) => {
   const { onPress } =
     useActionSheetOnSelfUser();
-
-  console.log("dots three on self user", circleId, circlePicId);
+    
   return (
     <>
       <MyPressable onPress={() => onPress(circleId, circlePicId)}>

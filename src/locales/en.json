@@ -41,6 +41,10 @@
     "blockSuccess": {
       "title": "Blocked! 🚫",
       "message": "This user is now blocked. 🔒"
+    },
+    "deleteCirclePic": {
+      "title": "Mission accomplished! 🎯",
+      "message": "That photo just took a vacation to never-never land 👋"
     }
   },
   "onboarding": {
