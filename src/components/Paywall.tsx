@@ -1,5 +1,6 @@
 import assets from "@assets/index";
 import colors from "@config/colors";
+import { TERMS_URL } from "@config/config";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import usePayment from "@hooks/usePayment";
 import { useNavigation } from "@react-navigation/native";
@@ -81,7 +82,7 @@ const Paywall = ({
   };
 
   const openTerms = () => {
-    Linking.openURL("https://unblur.app");
+    Linking.openURL(TERMS_URL);
   };
 
   return (

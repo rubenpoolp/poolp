@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
+  useWindowDimensions,
   View,
 } from "react-native";
 
@@ -13,8 +14,11 @@ interface MyKeyboardAvoidingViewProps
 }
 
 const MyKeyboardAvoidingView = (props: MyKeyboardAvoidingViewProps) => {
+  const { width, height } = useWindowDimensions();
   const { children } = props;
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 140 : 0;
+  const isTablet = height / width < 2;
+  const keyboardVerticalOffset =
+    Platform.OS === "ios" ? (isTablet ? 40 : 120) : 0;
 
   return (
     <View className={`flex-1 w-full`}>

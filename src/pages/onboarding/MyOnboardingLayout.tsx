@@ -42,7 +42,7 @@ const MyOnboardingLayout = ({
   return (
     <MyScreen
       padding={padding}
-      className={`${Platform.OS === "android" && "py-6"}`}
+      className={`pb-2 ${Platform.OS === "android" && "py-6"}`}
     >
       <MyKeyboardAvoidingView>
         <View className="flex-1">
