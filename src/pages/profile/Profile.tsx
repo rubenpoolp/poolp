@@ -16,7 +16,7 @@ import { formatBasicDate, getDaysFromNow } from "@utils/dates";
 import { getIsSubscribed } from "@utils/purchase";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 
 const DisplayInfo = ({
   title,
@@ -65,10 +65,10 @@ const Profile = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const navigation = useNavigation();
   const appState = useAppState();
-  
+
   const { data: profilePics } = useGetProfilePics();
   const [pictures, setPictures] = useState<string[]>([]);
-  
+
   useEffect(() => {
     setPictures(profilePics || []);
   }, [profilePics]);
@@ -80,7 +80,6 @@ const Profile = () => {
     };
     checkSubscription();
   }, [appState]);
-  
 
   return (
     <MyScreen edges={["top"]}>
@@ -119,6 +118,19 @@ const Profile = () => {
               <Bump scaleValue={0.95}>
                 <MyButton
                   onPress={() => {
+                    if (__DEV__) {
+                      Alert.alert("By pass payment 💵", "", [
+                        {
+                          text: "No",
+                          onPress: () => setIsPaywallVisible(true),
+                        },
+                        {
+                          text: "Yes",
+                          onPress: () => navigation.navigate("WhoLikedYou"),
+                        },
+                      ]);
+                      return;
+                    }
                     if (isSubscribed) {
                       navigation.navigate("WhoLikedYou");
                     } else {

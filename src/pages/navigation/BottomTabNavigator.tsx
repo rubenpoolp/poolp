@@ -13,12 +13,12 @@ const BottomTabNavigator = () => {
   const { unseenStories } = useTodayCircle();
 
   const { data: profilePics } = useGetProfilePics();
-  
+
   useEffect(() => {
     setProfilePicsCount(profilePics?.length || 0);
   }, [profilePics]);
 
-  const checkIfBadgeIsVisible = (route: string):boolean => {
+  const checkIfBadgeIsVisible = (route: string): boolean => {
     if (route === "Profile") {
       return profilePicsCount < 3;
     }

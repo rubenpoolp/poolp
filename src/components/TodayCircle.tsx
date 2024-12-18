@@ -13,7 +13,7 @@ const TodayCircle = () => {
   if (!stories || !usersProfilePics) return null;
 
   return (
-    <View className="flex-1 items-center">
+    <View className="flex-1 items-center pb-4">
       <MyText className="text-3xl font-bold text-center">
         {t("home.currentCircle")}
       </MyText>
