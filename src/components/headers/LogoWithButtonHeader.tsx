@@ -49,7 +49,11 @@ const LogoWithButtonHeader = ({
           )}
 
           <View className="flex justify-between items-center flex-1 space-y-4">
-            <MyImage img={assets.gradientTypoLogo} containerStyle="h-8" />
+            <MyImage
+              img={assets.gradientTypoLogo}
+              containerStyle="h-8"
+              loader={false}
+            />
 
             <View>
               <MyButton txt={txt} size="small" onPress={onPress} />
