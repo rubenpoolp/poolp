@@ -141,6 +141,12 @@
   "pastCircle": {
     "title": "Past circle"
   },
+  "circle": {
+    "photoUploaded": "🎉 Photo sent",
+    "photoDescriptionUploaded": "Your photo has been sent to the circle.",
+    "videoUploaded": "🎉 Video sent",
+    "videoDescriptionUploaded": "Your video has been sent to the circle."
+  },
   "profile": {
     "name": "Name",
     "school": "School",

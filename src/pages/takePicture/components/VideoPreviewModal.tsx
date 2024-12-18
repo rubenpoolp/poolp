@@ -62,7 +62,6 @@ const VideoPreviewModal = ({
     const localUri = video.path;
 
     const localUriWithSnapTexts = await addSnapTextsToVideo();
-    console.log("localUriWithSnapTexts", localUriWithSnapTexts);
 
     onSend(localUriWithSnapTexts || localUri);
   };
@@ -76,14 +75,11 @@ const VideoPreviewModal = ({
 
     await MediaLibrary.saveToLibraryAsync(localUriWithSnapTexts).catch(
       async () => {
-        return await MediaLibrary.saveToLibraryAsync(localUri).catch(
-          (error) => {
-            Alert.alert("Error saving video");
-            console.log("ERROR SAVING VIDEO", localUriWithSnapTexts, error);
-            setStateSaveImage("error");
-            return null;
-          },
-        );
+        return await MediaLibrary.saveToLibraryAsync(localUri).catch(() => {
+          Alert.alert("Error saving video");
+          setStateSaveImage("error");
+          return null;
+        });
       },
     );
 
@@ -98,8 +94,6 @@ const VideoPreviewModal = ({
     if (!videoAndTextRef.current) return "";
     const stringConfig = generateFFmpegParams();
     const config = videoProcessingConfig;
-    console.log("STRING CONFIG", stringConfig);
-    console.log("CONFIG", config);
     setIsLoading(true);
     try {
       const widthOverlay = width - 30;

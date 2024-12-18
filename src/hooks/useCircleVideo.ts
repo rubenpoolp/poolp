@@ -4,8 +4,11 @@ import useSendNotifOnReply from "@api/notifications/sendNotifOnReply.hook";
 import { useIsLoading } from "@context/IsLoading";
 import { CIRCLE_PICS_BUCKET } from "@supabase_types";
 import { uploadVideo } from "@utils/upload";
+import { useTranslation } from "react-i18next";
+import { Alert } from "react-native";
 
 const useCircleVideo = () => {
+  const { t } = useTranslation();
   const { data: circle } = useGetMyDailyCircle();
   const addCirclePic = useAddCirclePic(circle?.id);
   const sendNotifOnReply = useSendNotifOnReply();
@@ -33,6 +36,10 @@ const useCircleVideo = () => {
 
     await addCirclePic.mutateAsync({ url });
     await sendNotifOnReply.mutateAsync(circle.user_ids!);
+    Alert.alert(
+      t("circle.videoUploaded"),
+      t("circle.videoDescriptionUploaded"),
+    );
 
     setIsLoading(false);
   };

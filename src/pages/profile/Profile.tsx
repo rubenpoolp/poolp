@@ -9,9 +9,8 @@ import MyText from "@components/natives/MyText";
 import Paywall from "@components/Paywall";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
-import useAppState from "@hooks/useAppState";
 import useProfile from "@hooks/useProfile";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { formatBasicDate, getDaysFromNow } from "@utils/dates";
 import { getIsSubscribed } from "@utils/purchase";
 import React, { useEffect, useState } from "react";
@@ -64,7 +63,7 @@ const Profile = () => {
   const date = formatBasicDate(createdAt);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const navigation = useNavigation();
-  const appState = useAppState();
+  const isFocused = useIsFocused();
 
   const { data: profilePics } = useGetProfilePics();
   const [pictures, setPictures] = useState<string[]>([]);
@@ -75,11 +74,11 @@ const Profile = () => {
 
   useEffect(() => {
     const checkSubscription = async () => {
-      const isSubscribed = await getIsSubscribed();
-      setIsSubscribed(isSubscribed);
+      const isSubscribedOnRevenueCat = await getIsSubscribed();
+      setIsSubscribed(isSubscribedOnRevenueCat);
     };
     checkSubscription();
-  }, [appState]);
+  }, [isFocused, isPaywallVisible, isSubscribed]);
 
   return (
     <MyScreen edges={["top"]}>
