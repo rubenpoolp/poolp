@@ -6,6 +6,7 @@ import MyText from "@components/natives/MyText";
 import Heart from "@components/SVGs/Heart";
 import { gradient } from "@config/colors";
 import shadow from "@config/shadow";
+import { useWhoLikedYou } from "@hooks/useWhoLikedYou";
 import i18n from "@utils/i18n";
 import { BellRinging } from "phosphor-react-native";
 import React from "react";
@@ -45,50 +46,7 @@ const User = ({ item }: { item: UserToDiscover }) => {
 };
 
 const WhoLikedYou = () => {
-  const usersToDiscover: UserToDiscover[] = [
-    {
-      name: "John Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: true,
-      ringed: true,
-    },
-    {
-      name: "Jane Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: false,
-      ringed: false,
-    },
-    {
-      name: "John Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: true,
-      ringed: false,
-    },
-    {
-      name: "John Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: true,
-      ringed: true,
-    },
-    {
-      name: "Jane Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: false,
-      ringed: false,
-    },
-    {
-      name: "John Doe",
-      avatar:
-        "https://dam.malt.com/0dd02c75-e1f6-4407-914b-acca8f88755d?gravity=face&func=face&face_margin=70&w=440&h=440&force_format=webp",
-      liked: true,
-      ringed: false,
-    },
-  ];
+  const { users, isLoading } = useWhoLikedYou();
 
   return (
     <MyScreen padding>
@@ -100,12 +58,17 @@ const WhoLikedYou = () => {
       >
         {i18n.t("paywall.whoLikedYou")}
       </MyText>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        className="flex-1 w-full px-3"
-        data={usersToDiscover}
-        renderItem={User}
-      />
+      {isLoading ? (
+        <MyText>Loading...</MyText>
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          className="flex-1 w-full px-3"
+          data={users}
+          renderItem={User}
+          keyExtractor={(item) => item.name}
+        />
+      )}
     </MyScreen>
   );
 };
