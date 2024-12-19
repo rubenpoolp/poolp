@@ -13,12 +13,12 @@ const useActionSheetOnUser = () => {
 
   const onPress = (userId: string) => {
     const options = [
-      t("actions.block"),
+      // t("actions.block"),
       t("actions.report"),
       t("actions.ring"),
       t("actions.cancel"),
     ];
-    const cancelButtonIndex = 3;
+    const cancelButtonIndex = 2;
 
     showActionSheetWithOptions(
       {
@@ -27,13 +27,13 @@ const useActionSheetOnUser = () => {
       },
       (selectedIndex?: number) => {
         switch (selectedIndex) {
+          // case 0:
+          //   blockUser.mutate(userId);
+          //   break;
           case 0:
-            blockUser.mutate(userId);
-            break;
-          case 1:
             setIsReportModalVisible(true);
             break;
-          case 2:
+          case 1:
             ringUser.mutate({ userId });
             break;
           case cancelButtonIndex:
