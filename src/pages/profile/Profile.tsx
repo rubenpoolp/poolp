@@ -107,7 +107,7 @@ const Profile = () => {
                     txt="Add pictures"
                     txtClassName="font-semibold text-base"
                     className="px-6"
-                    badge={pictures.length < 3}
+                    badge={pictures.length < 1}
                   />
                 </Bump>
               </View>
