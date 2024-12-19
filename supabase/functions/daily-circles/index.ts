@@ -59,7 +59,7 @@ const handler = async (request: Request) => {
     const { data: users, error } = await supabaseClient
       .from('account')
       .select('id, school_id')
-      .filter('last_interaction_at', 'gte', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+      // .filter('last_interaction_at', 'gte', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
       .order('school_id')
 
     if (error) throw error;
