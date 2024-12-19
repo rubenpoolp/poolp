@@ -64,6 +64,7 @@ const StoryModal = ({ isVisible, onClose, stories }: StoryModalProps) => {
 
   const onRight = () => {
     if (!stories || actualIndex >= stories.length - 1) {
+      setDateLastTimeWentOnCircle();
       onClose();
       return;
     }
