@@ -23,10 +23,14 @@ const User = ({ item }: { item: UserToDiscover }) => {
   return (
     <View className="flex-row items-center justify-between mb-7">
       <View className="flex-row items-center">
-        <MyImage
-          img={item.avatar}
-          containerStyle="w-16 h-16 rounded-full overflow-hidden mr-4"
-        />
+        <View className="w-16 h-16 mr-4">
+          {item.avatar && (
+            <MyImage
+              img={item.avatar}
+              containerStyle="w-full h-full rounded-full overflow-hidden "
+            />
+          )}
+        </View>
         <MyText className="text-xl font-semibold">{item.name}</MyText>
       </View>
       <View className="flex-row items-center space-x-4">

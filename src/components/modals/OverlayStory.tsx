@@ -1,15 +1,17 @@
 import { Story, UserProfilePics } from "@/types/story";
 import Avatar from "@components/Avatar";
 import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
+import MyGradient from "@components/MyGradient";
+import shadow from "@config/shadow";
 import { useAuth } from "@context/Auth";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowBendUpLeft, CaretUp, X } from "phosphor-react-native";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
-import MyButton from "../natives/MyButton";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
 
@@ -130,23 +132,27 @@ const OverlayStoryModal = ({
           </MyPressable>
         </View>
       ) : (
-        <View className="w-full bg-background-dark pt-5 pb-10">
-          <MyButton
-            className="self-center w-1/2 items-center justify-end"
-            txt={t("camera.replyTo", {
-              username: stories?.[actualIndex].userName,
-            })}
+        <View className="bg-background-dark pt-5 pb-10">
+          <MyPressable
             onPress={() => {
               onClose();
               navigation.navigate("Camera");
             }}
-            LeftComponent={() => <View />}
-            RightComponent={() => (
-              <View className="ml-2">
-                <ArrowBendUpLeft weight="bold" size={24} />
-              </View>
-            )}
-          />
+            className="py-2 px-6 self-center justify-between items-center flex-row"
+            style={shadow.purple}
+          >
+            <MyGradient className="rounded-full" />
+            <MyText className="text-lg font-semibold">
+              {stories?.[actualIndex].userName === user?.name
+                ? "Post new content"
+                : t("camera.replyTo", {
+                    username: stories?.[actualIndex].userName,
+                  })}
+            </MyText>
+            <View className="ml-2">
+              <ArrowBendUpLeft weight="bold" size={24} />
+            </View>
+          </MyPressable>
         </View>
       )}
     </SafeAreaView>
