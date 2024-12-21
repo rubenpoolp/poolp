@@ -1,5 +1,9 @@
 import useGetAccount from "@api/account/getAccount.hook";
-import { createAccount, deletePushToken, getAccountById } from "@queries/account.query";
+import {
+  createAccount,
+  deletePushToken,
+  getAccountById,
+} from "@queries/account.query";
 import { useSession } from "@supabase/auth-helpers-react";
 import { Session } from "@supabase/supabase-js";
 import { Account } from "@supabase_types";
@@ -64,9 +68,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       ...onboardingUser,
       id: session?.user?.id,
     })
-      .then((result) => {
-        // setSession(session);
-        // setUser(result.account);
+      .then(() => {
+        getAccount.refetch();
       })
       .catch((error) => {
         console.warn("Error creating account:", error);
