@@ -5,6 +5,7 @@ import Hearts from "@components/animations/Hearts";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
+import sleep from "@utils/sleep";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -28,10 +29,12 @@ const LastCircleReviewModal = ({
 
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
+  const [isLoadingPic, setIsLoadingPic] = useState<boolean>(false);
   const [heartsVisible, setHeartsVisible] = useState<boolean>(false);
 
-  const [currentParticipant, setCurrentParticipant] = useState(pastCircle.participants[currentIndex]);
+  const [currentParticipant, setCurrentParticipant] = useState(
+    pastCircle.participants[currentIndex],
+  );
 
   useEffect(() => {
     if (currentIndex === pastCircle.participants.length - 1) {
@@ -49,17 +52,16 @@ const LastCircleReviewModal = ({
       userIdToLike: currentParticipant.id,
       userIdWhoLiked: auth?.user?.id,
     });
-    
+
     setHeartsVisible(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await sleep(2500);
 
     if (currentIndex === pastCircle.participants.length - 1) {
-      setHeartsVisible(false);
       onClose();
     } else {
       setCurrentIndex(currentIndex + 1);
-      setHeartsVisible(false);
     }
+    setHeartsVisible(false);
   };
 
   const handleNeutral = () => {
@@ -73,20 +75,33 @@ const LastCircleReviewModal = ({
 
   if (!currentParticipant) return null;
 
+  console.log("isLoadingPic", isLoadingPic, currentParticipant);
   return (
-    <MyModal isVisible={isVisible}>
+    <MyModal
+      isVisible={isVisible}
+      animationInTiming={400}
+      animationOutTiming={400}
+      animationIn={"slideInUp"}
+      animationOut={"slideOutDown"}
+    >
       <View className="flex-1 bg-overlay w-full h-full">
         <SafeAreaProvider>
-          <Image
-            source={{ uri: currentParticipant.avatar }}
-            className="flex-1 w-full bg-gray-600"
-            resizeMode="cover"
-          />
+          {currentParticipant.avatar && (
+            <Image
+              source={{ uri: currentParticipant.avatar }}
+              onLoadStart={() => setIsLoadingPic(true)}
+              onLoadEnd={() => setIsLoadingPic(false)}
+              className="flex-1 w-full bg-gray-600"
+              resizeMode="cover"
+            />
+          )}
+          {(!currentParticipant.avatar || isLoadingPic) && (
+            <View className="flex-1 w-full bg-gray-600" />
+          )}
           <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.6)']}
+            colors={["transparent", "rgba(0,0,0,0.6)"]}
             className="absolute top-0 w-full h-1/3 rotate-180"
           />
-
 
           <View className="absolute top-20 w-full justify-center">
             <MyText className="text-2xl font-semibold text-center">
@@ -98,7 +113,7 @@ const LastCircleReviewModal = ({
           </View>
 
           <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.6)']}
+            colors={["transparent", "rgba(0,0,0,0.6)"]}
             className="absolute bottom-0 w-full h-1/3"
           />
           <View className="absolute bottom-10 w-full px-10 space-y-6">
@@ -125,11 +140,10 @@ const LastCircleReviewModal = ({
               {t("review.description")}
             </MyText>
           </View>
-
         </SafeAreaProvider>
       </View>
       <Hearts isVisible={heartsVisible} yOffset={100} />
-      </MyModal>
+    </MyModal>
   );
 };
 

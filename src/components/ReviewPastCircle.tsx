@@ -16,20 +16,18 @@ interface ReviewPastCircleProps {
 const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
   const { t } = useTranslation();
   const { pastCircles } = usePastCircles();
-
-  const [state, setState] = useState<"beforeReview" | "reviewing">(
-    "beforeReview",
-  );
-
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const lastPastCircle = pastCircles?.[0];
 
   const handleReview = () => {
-    setState("reviewing");
+    setIsModalVisible(true);
   };
+
+  if (!lastPastCircle) return null;
 
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
-      {state === "beforeReview" && (
+      {!isModalVisible && (
         <View className="flex-1 w-full space-y-14 justify-center">
           <View className="space-y-6">
             <MyImage img={assets.logoCropped} containerStyle="h-24" />
@@ -53,13 +51,16 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
         </View>
       )}
 
-      {state === "reviewing" && (
-        <LastCircleReviewModal
-          isVisible={state === "reviewing"}
-          pastCircle={lastPastCircle}
-          onClose={() => onClose()}
-        />
-      )}
+      <LastCircleReviewModal
+        isVisible={isModalVisible}
+        pastCircle={lastPastCircle}
+        onClose={() => {
+          setIsModalVisible(false);
+          setTimeout(() => {
+            onClose();
+          }, 500);
+        }}
+      />
     </View>
   );
 };
