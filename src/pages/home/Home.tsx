@@ -36,6 +36,7 @@ const Home = () => {
   >("newCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
+  const navigation = useNavigation();
   useReload();
   useRedirectIfNotLoggedIn();
   useTracking();
@@ -88,8 +89,9 @@ const Home = () => {
   };
 
   const openCircle = () => {
-    setDateLastTimeWentOnCircle();
-    setState("openCircle");
+    // setDateLastTimeWentOnCircle();
+    // setState("openCircle");
+    navigation.navigate("Camera");
   };
 
   return (

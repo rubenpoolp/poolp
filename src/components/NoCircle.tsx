@@ -1,8 +1,8 @@
-import updateLastInteraction from "@api/account/updateLastInteraction.query";
 import assets from "@assets/index";
 import { useAuth } from "@context/Auth";
+import { shareToInviteFriends } from "@utils/share";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import CornerSparkles from "./CornerSparkles";
 import MyButton from "./natives/MyButton";
 import MyImage from "./natives/MyImage";
@@ -14,12 +14,7 @@ const NoCircle = () => {
 
   const handlePress = () => {
     if (!auth.user?.id) return;
-    updateLastInteraction(auth.user?.id).then(() => {
-      Alert.alert(
-        t('home.backInCircleTitle'),
-        t('home.backInCircleMessage')
-      );
-    });
+    shareToInviteFriends(); 
   };
 
   return (
@@ -28,18 +23,18 @@ const NoCircle = () => {
 
       <View className="items-center space-y-4">
         <MyText className="text-3xl font-semibold">
-          {t("home.noCircle")}
+          {t("waitingRoom.title")}
         </MyText>
 
         <MyText className="text-center font-thin text-lg">
-          {t("home.noCircleDescription")}
+          {t("waitingRoom.description")}
         </MyText>
       </View>
 
       <View className="space-y-4 px-4">
         <CornerSparkles>
           <MyButton
-            txt={t("home.noCircleButton")}
+            txt={t("waitingRoom.inviteYourSchoolPeers")}
             txtClassName="font-bold text-lg"
             onPress={handlePress}
           />
