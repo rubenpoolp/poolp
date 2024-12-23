@@ -8,6 +8,7 @@ interface MyPressableProps extends ComponentProps<typeof Pressable> {
   disabledFull?: boolean;
   hapticImpactStyle?: HapticImpactStyle;
   opacity?: number;
+  delayPressIn?: number;
 }
 
 function MyPressable(props: MyPressableProps) {

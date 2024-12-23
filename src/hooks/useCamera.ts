@@ -101,7 +101,6 @@ export const useCamera = () => {
             console.error("Camera error:", error);
           },
           onRecordingFinished: (video) => {
-            console.log("Video recorded:", video);
             setVideo(video);
           },
         });

@@ -75,7 +75,6 @@ const LastCircleReviewModal = ({
 
   if (!currentParticipant) return null;
 
-  console.log("isLoadingPic", isLoadingPic, currentParticipant);
   return (
     <MyModal
       isVisible={isVisible}

@@ -21,6 +21,7 @@ const UserProfileButton = ({
         onPress={() => setIsVisible(true)}
         className="flex-1 z-20"
         opacity={0.9}
+        delayPressIn={150}
       >
         {children}
       </MyPressable>
