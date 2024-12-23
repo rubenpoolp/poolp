@@ -3,9 +3,15 @@ import MyPressable from "@components/natives/MyPressable";
 import useActionSheetOnUser from "@hooks/useActionSheetOnUser";
 import { DotsThree } from "phosphor-react-native";
 
-const DotsThreeOnUser = ({ userId }: { userId: string }) => {
+const DotsThreeOnUser = ({
+  userId,
+  canReportContent,
+}: {
+  userId: string;
+  canReportContent?: boolean;
+}) => {
   const { onPress, isReportModalVisible, setIsReportModalVisible } =
-    useActionSheetOnUser();
+    useActionSheetOnUser(canReportContent);
 
   return (
     <>

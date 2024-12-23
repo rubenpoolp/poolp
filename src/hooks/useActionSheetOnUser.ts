@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 
-const useActionSheetOnUser = () => {
+const useActionSheetOnUser = (canReportContent: boolean = true) => {
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation();
@@ -17,15 +17,15 @@ const useActionSheetOnUser = () => {
     const options = [
       t("actions.block"),
       t("actions.report"),
-      t("actions.reportHisContent"),
+      canReportContent ? t("actions.reportHisContent") : null,
       t("actions.ring"),
       t("actions.cancel"),
     ];
-    const cancelButtonIndex = 4;
+    const cancelButtonIndex = canReportContent ? 4 : 3;
 
     showActionSheetWithOptions(
       {
-        options,
+        options: options.filter((option) => option !== null),
         cancelButtonIndex,
       },
       (selectedIndex?: number) => {
@@ -37,14 +37,20 @@ const useActionSheetOnUser = () => {
             setIsReportModalVisible(true);
             break;
           case 2:
-            sleep(1000).then(() => {
-              Alert.alert(
-                "Content has been reported and will be reviewed shortly",
-              );
-            });
+            if (canReportContent) {
+              sleep(1000).then(() => {
+                Alert.alert(
+                  "Content has been reported and will be reviewed shortly",
+                );
+              });
+              return;
+            }
+            ringUser.mutate({ userId });
             break;
           case 3:
-            ringUser.mutate({ userId });
+            if (canReportContent) {
+              ringUser.mutate({ userId });
+            }
             break;
           case cancelButtonIndex:
             break;

@@ -46,7 +46,10 @@ const PastCircleDetails = ({ route }: PastCircleDetailsProps) => {
                 </MyText>
               </View>
 
-              <DotsThreeOnUser userId={participant.id} />
+              <DotsThreeOnUser
+                userId={participant.id}
+                canReportContent={false}
+              />
             </View>
           ))}
         </View>
