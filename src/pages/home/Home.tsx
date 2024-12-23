@@ -55,7 +55,6 @@ const Home = () => {
 
       let lastCircleReviewed = await getDateLastCircleReviewed();
       let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-
       if (lastTimeWentOnCircle === null) {
         setDateLastTimeWentOnCircle();
         lastTimeWentOnCircle = format(new Date(), "t");
@@ -89,8 +88,7 @@ const Home = () => {
   };
 
   const openCircle = () => {
-    // setDateLastTimeWentOnCircle();
-    // setState("openCircle");
+    setDateLastTimeWentOnCircle();
     navigation.navigate("Camera");
   };
 
