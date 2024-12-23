@@ -20,7 +20,7 @@ const BottomTabNavigator = () => {
 
   const checkIfBadgeIsVisible = (route: string): boolean => {
     if (route === "Profile") {
-      return profilePicsCount < 3;
+      return profilePicsCount < 1;
     }
     if (route === "Home") {
       return unseenStories ?? false;
