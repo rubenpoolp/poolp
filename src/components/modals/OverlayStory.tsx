@@ -1,5 +1,6 @@
 import { Story, UserProfilePics } from "@/types/story";
 import Avatar from "@components/Avatar";
+import DotsThreeOnSelfUser from "@components/buttons/DotsThreeOnSelfUser";
 import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
 import MyGradient from "@components/MyGradient";
 import shadow from "@config/shadow";
@@ -103,13 +104,15 @@ const OverlayStoryModal = ({
                 user?.id !== stories?.[actualIndex].user_id && (
                   <DotsThreeOnUser userId={stories?.[actualIndex].user_id} />
                 )}
-              {/* {user?.id && stories?.[actualIndex].circle_id && user?.id === stories?.[actualIndex].user_id && (
-                <DotsThreeOnSelfUser
-                  circleId={stories?.[actualIndex].circle_id}
-                  circlePicId={stories?.[actualIndex].id}
-                  onDeleteAction={onRight}
-                />
-              )} */}
+              {user?.id &&
+                stories?.[actualIndex].circle_id &&
+                user?.id === stories?.[actualIndex].user_id && (
+                  <DotsThreeOnSelfUser
+                    circleId={stories?.[actualIndex].circle_id}
+                    circlePicId={stories?.[actualIndex].id}
+                    onDeleteAction={onRight}
+                  />
+                )}
 
               <MyPressable onPress={onClose}>
                 <X />

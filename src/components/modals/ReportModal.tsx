@@ -24,7 +24,9 @@ const ReportModal = ({ isVisible, onClose, toUserId }: ReportModalProps) => {
   const handleDismiss = () => {
     onClose();
   };
-  const reasons = t("reportModal.reportReasons", { returnObjects: true }) as string[];
+  const reasons = t("reportModal.reportReasons", {
+    returnObjects: true,
+  }) as string[];
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
   const [description, setDescription] = useState<string>("");
 
@@ -56,66 +58,76 @@ const ReportModal = ({ isVisible, onClose, toUserId }: ReportModalProps) => {
 
   return (
     <MyModal
-    isVisible={isVisible}
-    className="flex-1"
-    animationIn="slideInUp"
-    animationOut="slideOutDown"
-  >
-    <MyScreen className="w-screen">
-      <SafeAreaView
-        style={{
-          flex: 1,
-          paddingTop: Platform.OS === "ios" ? insets.top : 0,
-        }}
-      >
-        <View className="flex-1">
-          <View className="flex-row justify-between mb-2 w-full px-2">
-            <View className="w-14">
-              <CloseModalButton onPress={handleDismiss} />
+      isVisible={isVisible}
+      className="flex-1"
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+    >
+      <MyScreen className="w-screen">
+        <SafeAreaView
+          style={{
+            flex: 1,
+            paddingTop: Platform.OS === "ios" ? insets.top : 0,
+          }}
+        >
+          <View className="flex-1">
+            <View className="flex-row justify-between mb-2 w-full px-2">
+              <View className="w-14">
+                <CloseModalButton onPress={handleDismiss} />
+              </View>
+              <MyText className="text-2xl font-semibold mb-5">
+                {t("actions.report")}
+              </MyText>
+              <View className="w-14" />
             </View>
-            <MyText className="text-2xl font-semibold mb-5">
-              {t("actions.report")}
-            </MyText>
-            <View className="w-14" />
-          </View>
 
-          <View className="justify-center items-center px-6">
-            <MyText className="font-semibold text-center">
+            <View className="justify-center items-center px-6">
+              <MyText className="font-semibold text-center">
                 {t("reportModal.description")}
               </MyText>
               <MyText className="text-gray-400 text-center text-xs">
                 {t("reportModal.subDescription")}
-            </MyText>
-          </View>
+              </MyText>
+            </View>
 
-          <View className="mt-10">
-              {!selectedReason && reasons.map((reason) => (
-                <View key={reason} className="flex-row items-center h-12 border-b border-gray-500 pb-2">
-                  <Pressable className="flex-row items-end px-6 justify-between w-full pt-1" onPress={() => handleSelectReason(reason)}>
-                    <MyText>{reason}</MyText>
-                    <CaretRight size={16} />
-                  </Pressable>
-                </View>
-              ))}
+            <View className="mt-10">
+              {!selectedReason &&
+                reasons.map((reason) => (
+                  <View
+                    key={reason}
+                    className="flex-row items-center h-12 border-b border-gray-500 pb-2"
+                  >
+                    <Pressable
+                      className="flex-row items-end px-6 justify-between w-full pt-1"
+                      onPress={() => handleSelectReason(reason)}
+                    >
+                      <MyText>{reason}</MyText>
+                      <CaretRight size={16} />
+                    </Pressable>
+                  </View>
+                ))}
 
               {selectedReason && (
                 <View className="px-6">
                   <View className="bg-light rounded-xl px-3 py-2 mb-4">
-                    <MyText className="text-background-dark text-sm">{selectedReason}</MyText>
+                    <MyText className="text-background-dark text-sm">
+                      {selectedReason}
+                    </MyText>
                   </View>
-                  <MyTextAreaInput placeholder={t("reportModal.addMoreDetails")} value={description} onChangeText={setDescription}/>
+                  <MyTextAreaInput
+                    placeholder={t("reportModal.addMoreDetails")}
+                    value={description}
+                    onChangeText={setDescription}
+                  />
                 </View>
               )}
             </View>
           </View>
 
           {selectedReason && (
-              <View className="absolute bottom-10 w-full px-6">
-              <MyButton
-                txt={t("actions.send")}
-              onPress={handleSendReport}
-            />
-          </View>
+            <View className="absolute bottom-10 w-full px-6">
+              <MyButton txt={t("actions.send")} onPress={handleSendReport} />
+            </View>
           )}
         </SafeAreaView>
       </MyScreen>

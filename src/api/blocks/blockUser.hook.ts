@@ -22,8 +22,8 @@ const useBlockUser = () => {
     },
     onSuccess: () => {
       Alert.alert(
-        i18n.t('alerts.blockSuccess.title'),
-        i18n.t('alerts.blockSuccess.message')
+        i18n.t("alerts.blockSuccess.title"),
+        i18n.t("alerts.blockSuccess.message"),
       );
     },
   });
