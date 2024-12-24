@@ -39,8 +39,10 @@ export default {
       [
         "react-native-vision-camera",
         {
-          cameraPermissionText: "Allow poolp to access your camera",
-          microphonePermissionText: "Allow poolp to access your microphone",
+          cameraPermissionText:
+            "Allow poolp to access your camera to send photos and videos to your friends.",
+          microphonePermissionText:
+            "Allow poolp to access your microphone to send videos to your friends.",
           enableMicrophonePermission: true,
         },
       ],
@@ -70,7 +72,7 @@ export default {
         "expo-av",
         {
           microphonePermission:
-            "Allow $(PRODUCT_NAME) to access your microphone.",
+            "Allow $(PRODUCT_NAME) to access your microphone to send video to your friends.",
         },
       ],
       ["@config-plugins/ffmpeg-kit-react-native"],
