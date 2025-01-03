@@ -18,7 +18,6 @@ import { supabase } from "@utils/supabase";
 import { useFonts } from "expo-font";
 import * as NavigationBar from "expo-navigation-bar";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
@@ -81,7 +80,6 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
               <ActionSheetProvider>
                 <I18nextProvider i18n={i18n}>
-                  <StatusBar style="light" />
                   <SafeAreaProvider>
                     <IsLoadingProvider>
                       <IconContext.Provider

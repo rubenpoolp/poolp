@@ -21,12 +21,6 @@ const useCircleVideo = () => {
     const type = uri.split(".").pop();
     const url = `${circle.id}/${Date.now()}.${type}`;
 
-    //   MovToMp4.convertMovToMp4(uri, url + ".mp4")
-    //     .then(function (results: any) {
-    //       //here you can upload the video...
-    //       console.log(results);
-    // });
-
     const result = await uploadVideo(url, uri, CIRCLE_PICS_BUCKET);
     if (result.error) {
       console.error("Error uploading video", result.error);

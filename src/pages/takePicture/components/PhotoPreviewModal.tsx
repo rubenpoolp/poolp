@@ -13,7 +13,7 @@ import {
   DownloadSimple,
 } from "phosphor-react-native";
 import React, { useRef, useState } from "react";
-import { ActivityIndicator, Image, View } from "react-native";
+import { ActivityIndicator, Alert, Image, Platform, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { captureRef } from "react-native-view-shot";
 import SnapTexts from "./SnapTexts";
@@ -38,14 +38,11 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
 
   const getLocalUriWithSnapTexts = async () => {
     let localUri = "";
-    // for video
-    if (photo?.path.endsWith(".mp4")) {
-    } else {
-      localUri = await captureRef(imageAndTextRef, {
-        quality: 0.5,
-        format: "jpg",
-      });
-    }
+
+    localUri = await captureRef(imageAndTextRef, {
+      quality: 0.5,
+      format: "jpg",
+    });
 
     return localUri;
   };
@@ -53,9 +50,14 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
   const send = async () => {
     if (!photo) return;
 
-    const localUri = await getLocalUriWithSnapTexts();
+    const localUri = await getLocalUriWithSnapTexts().catch(() => {
+      return null;
+    });
 
-    if (!localUri) return;
+    if (!localUri) {
+      Alert.alert(t("utils.error"), t("camera.errorSendingImage"));
+      return;
+    }
     onSend(localUri);
   };
 
@@ -68,7 +70,10 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
       return null;
     });
 
-    if (!localUri) return;
+    if (!localUri) {
+      Alert.alert(t("utils.error"), t("camera.errorDownloadingImage"));
+      return;
+    }
 
     // download image on device expo camera roll
     await MediaLibrary.saveToLibraryAsync(localUri).catch(() => {
@@ -97,7 +102,11 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
         >
           <View className="flex-1">
             {photo && (
-              <View ref={imageAndTextRef} className="flex-1 ">
+              <View
+                ref={imageAndTextRef}
+                className="flex-1"
+                collapsable={false}
+              >
                 <Image
                   source={{ uri: `file://${photo.path}` }}
                   className="w-full h-full rounded-t-[32px]"
@@ -116,7 +125,9 @@ const PhotoPreviewModal: React.FC<PhotoPreviewModalProps> = ({
           </View>
 
           <View className="px-5 pt-4 items-center justify-center">
-            <View className="flex-row space-x-4 items-center justify-center h-14">
+            <View
+              className={`flex-row space-x-4 items-center justify-center h-14 ${Platform.OS === "android" && "h-16 pb-4"}`}
+            >
               <MyPressable
                 className={`h-full px-6 bg-gray-500 items-center justify-center rounded-full ${stateSaveImage === "saved" && "bg-gray-400"}`}
                 onPress={downloadImage}

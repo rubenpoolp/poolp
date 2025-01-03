@@ -176,7 +176,9 @@
   "camera": {
     "send": "Send in circle",
     "reply": "Reply",
-    "replyTo": "Reply to {{username}}"
+    "replyTo": "Reply to {{username}}",
+    "errorDownloadingImage": "Error downloading image",
+    "errorSendingImage": "Error sending image"
   },
   "askPermissionNotifications": {
     "title": "Tap on the notification to receive it for your next circle !",
