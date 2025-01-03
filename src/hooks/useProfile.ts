@@ -83,8 +83,10 @@ const useProfile = () => {
               style: "destructive",
               text: "Sign out",
               onPress: () => {
-                signOut().then(() => {
-                  AsyncStorage.clear();
+                signOut().then(async () => {
+                  const keys = await AsyncStorage.getAllKeys();
+
+                  await AsyncStorage.multiRemove(keys);
                   resetTo(navigation, "Loader");
                 });
               },
