@@ -3,7 +3,7 @@ export default {
     name: process.env.APP_NAME || "Poolp",
     slug: "poolp",
     scheme: "poolp",
-    version: "0.0.1",
+    version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/logo/icon.png",
     userInterfaceStyle: "light",
