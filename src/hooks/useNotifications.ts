@@ -1,5 +1,6 @@
 import useUpdateAccount from "@api/account/updateAccount.hook";
 import { useAuth } from "@context/Auth";
+import { useNavigation } from "@react-navigation/native";
 import { Account } from "@supabase_types";
 import { UseMutationResult } from "@tanstack/react-query";
 import i18n from "@utils/i18n";
@@ -89,6 +90,7 @@ async function pushTokenToUser(
 }
 
 const useNotifications = () => {
+  const navigation = useNavigation();
   const [notification, setNotification] = useState<
     Notifications.Notification | null
   >(null);
@@ -159,6 +161,15 @@ const useNotifications = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log("reponse tamer:", response.notification.request.content.data.url);
+      navigation.navigate(response.notification.request.content.data.url);
+    });
+
+    return () => subscription.remove();
+  }, [navigation]);
 
   return { notification, initializeNotifications, notificationEnabled };
 };
