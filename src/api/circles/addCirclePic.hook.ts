@@ -1,6 +1,7 @@
 import updateLastInteraction from "@api/account/updateLastInteraction.query";
 import { useAuth } from "@context/Auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { setDateLastTimeWentOnCircle } from "@utils/circles";
 import i18n from "@utils/i18n";
 import { myCaptureException } from "@utils/sentry";
 import addCirclePic from "./addCirclePic.query";
@@ -11,7 +12,7 @@ const useAddCirclePic = (circleId?: string) => {
 
   return useMutation({
     mutationKey: ["addCirclePic", auth.user?.id],
-    mutationFn: ({ url }: { url: string }) => {
+    mutationFn: async ({ url }: { url: string }) => {
       if (!circleId) {
         throw new Error("Circle id is required to update circle pic");
       }
@@ -21,6 +22,7 @@ const useAddCirclePic = (circleId?: string) => {
       }
 
       updateLastInteraction(auth.user.id);
+      await setDateLastTimeWentOnCircle();
       return addCirclePic(circleId, auth.user.id, url);
     },
     onSuccess: () => {

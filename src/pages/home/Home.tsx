@@ -8,6 +8,7 @@ import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
 import useReload from "@hooks/useReload";
+import useTodayCircle from "@hooks/useTodayCircle";
 import useTracking from "@hooks/useTracking";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -36,6 +37,7 @@ const Home = () => {
   >("newCircle");
   const { initializeNotifications } = useNotifications();
   const { data: circle } = useGetMyDailyCircle();
+  const { stories } = useTodayCircle();
   const navigation = useNavigation();
   useReload();
   useRedirectIfNotLoggedIn();
@@ -47,48 +49,48 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const checkDates = async () => {
-      if (!circle || isOnlyMeInCircle) {
-        setState("noCircle");
-        return;
-      }
 
-      let lastCircleReviewed = await getDateLastCircleReviewed();
-      let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-      if (lastTimeWentOnCircle === null) {
-        setDateLastTimeWentOnCircle();
-        lastTimeWentOnCircle = format(new Date(), "t");
-      }
+  const checkDates = async () => {
+    if (!circle || isOnlyMeInCircle) {
+      setState("noCircle");
+      return;
+    }
 
-      if (lastCircleReviewed === null) {
-        setDateLastCircleReviewed();
-        lastCircleReviewed = format(new Date(), "t");
-      }
+    let lastCircleReviewed = await getDateLastCircleReviewed();
+    let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
+    if (lastTimeWentOnCircle === null) {
+      setDateLastTimeWentOnCircle();
+      lastTimeWentOnCircle = format(new Date(), "t");
+    }
 
-      const circleCreatedAt = Number(format(circle.created_at, "t"));
+    if (lastCircleReviewed === null) {
+      setDateLastCircleReviewed();
+      lastCircleReviewed = format(new Date(), "t");
+    }
 
-      if (Number(lastCircleReviewed) < circleCreatedAt) {
-        setState("reviewPastCircle");
-        return;
-      } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
-        setState("newCircle");
-        return;
-      } else if (Number(lastTimeWentOnCircle) >= circleCreatedAt) {
-        setState("openCircle");
-        return;
+    const circleCreatedAt = Number(format(circle.created_at, "t"));
+
+    if (Number(lastCircleReviewed) < circleCreatedAt) {
+      setState("reviewPastCircle");
+      return;
+    } else if (Number(lastTimeWentOnCircle) < circleCreatedAt) {
+      setState("newCircle");
+      return;
+    } else if (Number(lastTimeWentOnCircle) >= circleCreatedAt) {
+      setState("openCircle");
+      return;
       }
     };
 
     checkDates();
-  }, [circle]);
+  }, [circle, stories]);
 
   const closeReviewPastCircle = () => {
     setDateLastCircleReviewed();
     setState("newCircle");
   };
 
-  const openCircle = () => {
-    setDateLastTimeWentOnCircle();
+  const openCircle = async () => {
     navigation.navigate("Camera");
   };
 
