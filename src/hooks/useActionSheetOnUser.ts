@@ -15,10 +15,10 @@ const useActionSheetOnUser = (canReportContent: boolean = true) => {
 
   const onPress = (userId: string) => {
     const options = [
+      t("actions.ring"),
       t("actions.block"),
       t("actions.report"),
       canReportContent ? t("actions.reportHisContent") : null,
-      t("actions.ring"),
       t("actions.cancel"),
     ];
     const cancelButtonIndex = canReportContent ? 4 : 3;
@@ -27,6 +27,7 @@ const useActionSheetOnUser = (canReportContent: boolean = true) => {
       {
         options: options.filter((option) => option !== null),
         cancelButtonIndex,
+        destructiveButtonIndex: [2, canReportContent ? 3 : 2],
       },
       (selectedIndex?: number) => {
         switch (selectedIndex) {

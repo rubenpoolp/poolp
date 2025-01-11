@@ -7,7 +7,11 @@ const useActionSheetOnSelfUser = () => {
   const { t } = useTranslation();
   const { mutate: deleteCirclePic } = useDeleteCirclePic();
 
-  const onPress = (circleId: string, circlePicId: string, onDeleteAction: () => void) => {
+  const onPress = (
+    circleId: string,
+    circlePicId: string,
+    onDeleteAction: () => void,
+  ) => {
     const options = [
       t("actions.delete"),
       t("actions.cancel"),
@@ -18,6 +22,7 @@ const useActionSheetOnSelfUser = () => {
       {
         options,
         cancelButtonIndex,
+        destructiveButtonIndex: 0,
       },
       (selectedIndex?: number) => {
         switch (selectedIndex) {
