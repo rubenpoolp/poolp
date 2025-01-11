@@ -32,12 +32,17 @@ const useActionSheetOnUser = (canReportContent: boolean = true) => {
       (selectedIndex?: number) => {
         switch (selectedIndex) {
           case 0:
-            blockUser.mutate(userId);
+            if (canReportContent) {
+              ringUser.mutate({ userId });
+            }
             break;
           case 1:
-            setIsReportModalVisible(true);
+            blockUser.mutate(userId);
             break;
           case 2:
+            setIsReportModalVisible(true);
+            break;
+          case 3:
             if (canReportContent) {
               sleep(1000).then(() => {
                 Alert.alert(
@@ -45,12 +50,6 @@ const useActionSheetOnUser = (canReportContent: boolean = true) => {
                 );
               });
               return;
-            }
-            ringUser.mutate({ userId });
-            break;
-          case 3:
-            if (canReportContent) {
-              ringUser.mutate({ userId });
             }
             break;
           case cancelButtonIndex:

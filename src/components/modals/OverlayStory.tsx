@@ -3,6 +3,7 @@ import Avatar from "@components/Avatar";
 import DotsThreeOnSelfUser from "@components/buttons/DotsThreeOnSelfUser";
 import DotsThreeOnUser from "@components/buttons/DotsThreeOnUser";
 import MyGradient from "@components/MyGradient";
+import MyUserAvatar from "@components/MyUserAvatar";
 import shadow from "@config/shadow";
 import { useAuth } from "@context/Auth";
 import { useNavigation } from "@react-navigation/native";
@@ -10,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ArrowBendUpLeft, CaretUp, X } from "phosphor-react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, View } from "react-native";
+import { Platform, Pressable, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryBarLoader from "../animations/StoriesBarLoader";
 import MyPressable from "../natives/MyPressable";
@@ -35,9 +36,15 @@ const AvatarNameTime = ({
   username: string;
   date: string;
 }) => {
+  const { user } = useAuth();
+
   return (
     <View className="flex-row items-center space-x-2">
-      <Avatar size="sm" username={username} picture={userProfilePictureUrl} />
+      {user?.name === username ? (
+        <MyUserAvatar size="sm" />
+      ) : (
+        <Avatar size="sm" username={username} picture={userProfilePictureUrl} />
+      )}
       <MyText className="text-sm">{username}</MyText>
       <MyText className="text-xs text-gray-100">{date}</MyText>
     </View>
@@ -56,13 +63,19 @@ const OverlayStoryModal = ({
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { user } = useAuth();
+  const { height, width } = useWindowDimensions();
+  const isTablet = height / width < 2;
 
   return (
     <SafeAreaView
       edges={userProfilePics ? ["top", "bottom"] : ["top"]}
       className={`absolute w-full h-full ${Platform.OS === "android" && "pt-6"}`}
     >
-      <View className="absolute w-full flex-1 h-4/5 bottom-28 justify-end flex-row z-10">
+      <View
+        className={`absolute w-full flex-1  bottom-28 justify-end flex-row z-10 ${
+          isTablet ? "h-3/5" : "h-3/4"
+        }`}
+      >
         <Pressable className="flex-1 " onPress={onLeft} />
         <Pressable className="flex-1" onPress={onRight} />
       </View>

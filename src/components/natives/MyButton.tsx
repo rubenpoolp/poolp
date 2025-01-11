@@ -58,7 +58,7 @@ const MyButton = ({
       ]}
     >
       {badge && (
-        <View className="h-4 w-4 bg-red rounded-full absolute -right-1 -top-1 z-10" />
+        <View className="h-4 w-4 rounded-full absolute -right-1 -top-1 z-10" />
       )}
       {variant === "gradient" && <MyGradient className="rounded-full" />}
       {variant === "gold" && (
