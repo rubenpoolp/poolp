@@ -140,7 +140,8 @@
     "like": "Like"
   },
   "pastCircle": {
-    "title": "Past circle"
+    "title": "Past circle",
+    "titles ": "Past circles"
   },
   "circle": {
     "photoUploaded": "🎉 Photo sent",
@@ -149,6 +150,7 @@
     "videoDescriptionUploaded": "Your video has been sent to the circle."
   },
   "profile": {
+    "selectLanguage": "Select language",
     "name": "Name",
     "school": "School",
     "invite": "Invite your school's friends!",

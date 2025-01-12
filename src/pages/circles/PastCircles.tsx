@@ -8,8 +8,8 @@ import StreakButton from "@components/buttons/StreakButton";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import PastCircleItem from "@components/PastCircleItem";
 import usePastCircles from "@hooks/usePastCircles";
-import { useTranslation } from "react-i18next";
 import { shareToInviteFriends } from "@utils/share";
+import { useTranslation } from "react-i18next";
 
 export const circles = [
   {
@@ -76,7 +76,9 @@ const PastCircles = () => {
         canGoBack
       />
       <View className="flex-row justify-between items-end w-full">
-        <MyText className="text-xs font-bold text-white">LAST CIRCLES</MyText>
+        <MyText className="text-xs font-bold text-white">
+          {t("pastCircle.titles")}
+        </MyText>
         <StreakButton nbStreak={pastCircles?.length ?? 0} />
       </View>
 

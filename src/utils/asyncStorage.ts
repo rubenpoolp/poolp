@@ -16,3 +16,11 @@ export const setAsyncStorage = async (key: string, value: string) => {
     console.error("Error while setting AsyncStorage", e);
   }
 };
+
+export const deleteAsyncStorage = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    console.error("Error while deleting AsyncStorage", e);
+  }
+};

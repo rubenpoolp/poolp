@@ -1,5 +1,6 @@
 import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import { Bump } from "@components/animations/Bump";
+import MyChangeLanguageButton from "@components/buttons/MyChangeLanguageButton";
 import MyHeader from "@components/headers/MyHeader";
 import MyScreen from "@components/MyScreen";
 import MyUserAvatar from "@components/MyUserAvatar";
@@ -83,7 +84,7 @@ const Profile = () => {
   return (
     <MyScreen edges={["top"]}>
       <View>
-        <MyHeader />
+        <MyHeader rightComponent={<MyChangeLanguageButton />} />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -104,7 +105,7 @@ const Profile = () => {
                     onPress={() => {
                       navigation.navigate("ProfilePicture");
                     }}
-                    txt="Add pictures"
+                    txt={t("profile.addPictures")}
                     txtClassName="font-semibold text-base"
                     className="px-6"
                     badge={pictures.length < 1}

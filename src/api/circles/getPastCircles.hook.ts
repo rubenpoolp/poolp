@@ -1,25 +1,17 @@
 import i18n from "@/utils/i18n";
-import getProfilePics from "@api/profilePics/getProfilePics.query";
 import getAccounts from "@api/account/getAccounts.query";
+import getProfilePics from "@api/profilePics/getProfilePics.query";
 import { useAuth } from "@context/Auth";
 import { useQuery } from "@tanstack/react-query";
 import { formatPastCircleDate, formatPastCircleLittleDate } from "@utils/dates";
 import { getProfilePicsStorageUrl } from "@utils/getStorageUrl";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 import getPastCirclesQuery from "./getPastCircles.query";
 
-// {
-//   id: 7,
-//   name: "Past circle",
-//   date: new Date(2023, 8, 17),
-//   participants: [
-//     { id: 0, avatar: assets.defaultProfilePicture, name: "John Doe" },
-//     { id: 1, avatar: assets.defaultProfilePicture, name: "Jane Doe" },
-//     { id: 2, avatar: assets.defaultProfilePicture, name: "John Doe" },
-//   ],
-// },
 const useGetPastCircles = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
   const userId = auth.user?.id;
 
   return useQuery({
@@ -33,7 +25,7 @@ const useGetPastCircles = () => {
       );
       const formattedPastCircles = pastCircles.map((circle) => ({
         id: circle.id,
-        name: "Past Circle",
+        name: t("pastCircle.title"),
         littleFormattedDate: formatPastCircleLittleDate(
           new Date(circle.created_at),
         ),

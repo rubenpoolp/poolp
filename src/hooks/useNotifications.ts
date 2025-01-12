@@ -138,8 +138,9 @@ const useNotifications = () => {
   useEffect(() => {
     const checkStatus = async () => {
       console.log("notificationEnabled", notificationEnabled);
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      
+      const { status: existingStatus } = await Notifications
+        .getPermissionsAsync();
+
       if (existingStatus === "granted") {
         setNotificationEnabled(true);
       }
@@ -163,10 +164,11 @@ const useNotifications = () => {
   }, []);
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log("reponse tamer:", response.notification.request.content.data.url);
-      navigation.navigate(response.notification.request.content.data.url);
-    });
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        navigation.navigate(response.notification.request.content.data.url);
+      },
+    );
 
     return () => subscription.remove();
   }, [navigation]);
