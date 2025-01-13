@@ -123,7 +123,7 @@ const OverlayStoryModal = ({
                   <DotsThreeOnSelfUser
                     circleId={stories?.[actualIndex].circle_id}
                     circlePicId={stories?.[actualIndex].id}
-                    onDeleteAction={onRight}
+                    onDeleteAction={onLeft}
                   />
                 )}
 

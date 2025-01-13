@@ -11,8 +11,7 @@ const DotsThreeOnSelfUser = ({
   circlePicId: string;
   onDeleteAction: () => void;
 }) => {
-  const { onPress } =
-    useActionSheetOnSelfUser();
+  const { onPress } = useActionSheetOnSelfUser();
 
   return (
     <>

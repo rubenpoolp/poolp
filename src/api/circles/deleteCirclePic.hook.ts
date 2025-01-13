@@ -4,14 +4,14 @@ import { myCaptureException } from "@utils/sentry";
 import { Alert } from "react-native";
 import deleteCirclePic from "./deleteCirckePic.query";
 
-const useDeleteCirclePic = (circleId?: string) => {
+const useDeleteCirclePic = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ circlePicId, circleId }: { circlePicId: string; circleId: string }) => {
       return deleteCirclePic(circleId, circlePicId);
     },
-    onSuccess: () => {
+    onSuccess: (_, { circleId }) => {
       Alert.alert(
         i18n.t("alerts.deleteCirclePic.title"),
         i18n.t("alerts.deleteCirclePic.message")
