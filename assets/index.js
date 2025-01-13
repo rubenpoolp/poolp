@@ -1,12 +1,11 @@
 const assets = {
   // .
   "sparkles": require("././sparkles.png"),
-  "heart": require("./review/heart.png"),
-  
+
   // fonts
-  "SFProDisplayLight": require("./fonts/SFProDisplayLight.otf"),
-  "SFProDisplayMedium": require("./fonts/SFProDisplayMedium.otf"),
-  "SFProDisplaySemibold": require("./fonts/SFProDisplaySemibold.otf"),
+  "SFProRoundedLight": require("./fonts/SFProRoundedLight.otf"),
+  "SFProRoundedMedium": require("./fonts/SFProRoundedMedium.otf"),
+  "SFProRoundedSemibold": require("./fonts/SFProRoundedSemibold.otf"),
 
   // logo
   "adaptiveIcon": require("./logo/adaptiveIcon.png"),

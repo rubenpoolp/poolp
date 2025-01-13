@@ -1,9 +1,9 @@
 import assets from "@assets/index";
 
 const fonts = {
-  SFProDisplayLight: assets.SFProDisplayLight,
-  SFProDisplayMedium: assets.SFProDisplayMedium,
-  SFProDisplaySemibold: assets.SFProDisplaySemibold,
+  SFProDisplayLight: assets.SFProRoundedLight,
+  SFProDisplayMedium: assets.SFProRoundedMedium,
+  SFProDisplaySemibold: assets.SFProRoundedSemibold,
 };
 
 export default fonts;
