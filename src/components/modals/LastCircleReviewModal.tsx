@@ -1,11 +1,9 @@
 import { PastCircle } from "@/types/circles";
 import useLike from "@api/likes/like.hook";
 import assets from "@assets/index";
-import Hearts from "@components/animations/Hearts";
 import ReviewButton from "@components/buttons/ReviewButton";
 import MyText from "@components/natives/MyText";
 import { useAuth } from "@context/Auth";
-import sleep from "@utils/sleep";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,7 +28,7 @@ const LastCircleReviewModal = ({
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isLoadingPic, setIsLoadingPic] = useState<boolean>(false);
-  const [heartsVisible, setHeartsVisible] = useState<boolean>(false);
+  // const [heartsVisible, setHeartsVisible] = useState<boolean>(false);
 
   const [currentParticipant, setCurrentParticipant] = useState(
     pastCircle.participants[currentIndex],
@@ -53,15 +51,15 @@ const LastCircleReviewModal = ({
       userIdWhoLiked: auth?.user?.id,
     });
 
-    setHeartsVisible(true);
-    await sleep(2500);
+    // setHeartsVisible(true);
+    // await sleep(2500);
 
     if (currentIndex === pastCircle.participants.length - 1) {
       onClose();
     } else {
       setCurrentIndex(currentIndex + 1);
     }
-    setHeartsVisible(false);
+    // setHeartsVisible(false);
   };
 
   const handleNeutral = () => {
@@ -141,7 +139,7 @@ const LastCircleReviewModal = ({
           </View>
         </SafeAreaProvider>
       </View>
-      <Hearts isVisible={heartsVisible} yOffset={100} />
+      {/* <Hearts isVisible={heartsVisible} yOffset={100} /> */}
     </MyModal>
   );
 };
