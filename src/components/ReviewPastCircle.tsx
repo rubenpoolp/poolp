@@ -19,8 +19,6 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const lastPastCircle = pastCircles?.[1];
 
-  console.log("pastCircles", pastCircles);
-
   const handleReview = () => {
     setIsModalVisible(true);
   };

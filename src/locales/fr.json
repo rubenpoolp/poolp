@@ -133,7 +133,7 @@
     "backInCircleMessage": "Tu seras de retour dans le prochain cercle ! À bientôt 🎉"
   },
   "review": {
-    "title": "C'est la fin de",
+    "title": "C'est la fin du",
     "description": "Les utilisateurs ne peuvent pas voir si tu les aimes sauf s'ils débloquent leurs likes. Les autres choix restent cachés.",
     "neutral": "Neutre",
     "like": "J'aime"
@@ -175,7 +175,7 @@
     "addPictures": "Ajouter des photos"
   },
   "camera": {
-    "send": "Envoyer dans le cercle",
+    "send": "Envoyer",
     "reply": "Répondre",
     "replyTo": "Répondre à {{username}}",
     "errorDownloadingImage": "Erreur lors du téléchargement de l'image",

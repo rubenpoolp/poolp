@@ -105,7 +105,7 @@ const LastCircleReviewModal = ({
               {t("review.title")}
             </MyText>
             <MyText className="text-2xl font-semibold text-center">
-              Today's circle
+              {t("home.currentCircle")}
             </MyText>
           </View>
 

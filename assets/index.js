@@ -33,6 +33,9 @@ const assets = {
   "onboarding2": require("./onboarding/onboarding2.png"),
   "onboarding3": require("./onboarding/onboarding3.png"),
   "onboarding4": require("./onboarding/onboarding4.png"),
+
+  // review
+  "heart": require("./review/heart.png"),
 };
 
 export default assets;
