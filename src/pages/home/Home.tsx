@@ -1,6 +1,9 @@
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
+import NewCircleAvailable from "@components/NewCircleAvailable";
+import NoCircle from "@components/NoCircle";
+import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
 import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
@@ -98,9 +101,9 @@ const Home = () => {
         pastCircleButton
       />
 
-      <TodayCircle />
+      {state === "openCircle" && <TodayCircle />}
 
-      {/* {state === "reviewPastCircle" && (
+      {state === "reviewPastCircle" && (
         <ReviewPastCircle
           onClose={() => {
             closeReviewPastCircle();
@@ -109,7 +112,7 @@ const Home = () => {
       )}
 
       {state === "newCircle" && <NewCircleAvailable onPress={openCircle} />}
-      {state === "noCircle" && <NoCircle />} */}
+      {state === "noCircle" && <NoCircle />}
     </MyScreen>
   );
 };
