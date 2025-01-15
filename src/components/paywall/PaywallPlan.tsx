@@ -2,6 +2,7 @@ import MyGradient from "@components/MyGradient";
 import { gradient } from "@config/colors";
 import shadow from "@config/shadow";
 import { hapticImpact } from "@utils/haptics";
+import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 import MyText from "../natives/MyText";
 
@@ -20,6 +21,8 @@ const PaywallPlan = ({
   period,
   isBestValue,
 }: PaywallPlanProps) => {
+  const { t } = useTranslation();
+
   return (
     <Pressable
       onPress={() => {
@@ -39,7 +42,7 @@ const PaywallPlan = ({
               <View className="rounded-full px-2 py-1">
                 <MyGradient colors={gradient.gold} className="rounded-full" />
                 <MyText className="text-black text-xs font-medium">
-                  Best Value
+                  {t("paywall.bestValue")}
                 </MyText>
               </View>
             )}

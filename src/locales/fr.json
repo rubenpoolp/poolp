@@ -222,6 +222,7 @@
     }
   },
   "paywall": {
+    "bestValue": "Meilleur choix",
     "noUsers": "Aucun utilisateur ne t'a liké",
     "whoLikedYou": "Le reste se passe dans la vraie vie",
     "month": "1 mois",

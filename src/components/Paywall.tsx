@@ -123,16 +123,14 @@ const Paywall = ({
               })}
             />
           </View>
-          <View className="flex-row justify-center items-baseline mb-4 mt-1">
-            <MyText className="text-center text-xs text-gray-400 font-regular mr-0.5">
-              {t("paywall.recurring")}
+          <MyText className="text-center text-xs text-gray-400 font-regular mr-0.5">
+            {t("paywall.recurring")}
+          </MyText>
+          <MyPressable onPress={openTerms}>
+            <MyText className="mb-3 text-center font-regular text-gray-400 text-xs font-semibold">
+              {t("paywall.terms")}
             </MyText>
-            <MyPressable onPress={openTerms}>
-              <MyText className=" font-regular text-gray-400 text-xs font-semibold">
-                {t("paywall.terms")}
-              </MyText>
-            </MyPressable>
-          </View>
+          </MyPressable>
           <MyButton
             variant="gold"
             size="large"

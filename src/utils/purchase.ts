@@ -72,6 +72,7 @@ export const pay = async (selectedPackage: PurchasesPackage) => {
       }
     })
     .catch((error: any) => {
+      console.log(error);
       if (error.message.includes("cancel")) return { isSuccess: false };
       myCaptureException(error);
       myCaptureException(error.message);
