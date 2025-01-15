@@ -27,7 +27,7 @@ const useActionSheetOnUser = (canReportContent: boolean = true) => {
       {
         options: options.filter((option) => option !== null),
         cancelButtonIndex,
-        destructiveButtonIndex: [2, canReportContent ? 3 : 2],
+        destructiveButtonIndex: [1, 2, canReportContent ? 3 : 2],
       },
       (selectedIndex?: number) => {
         switch (selectedIndex) {

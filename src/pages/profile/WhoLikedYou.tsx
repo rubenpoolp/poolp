@@ -8,9 +8,10 @@ import { gradient } from "@config/colors";
 import shadow from "@config/shadow";
 import { useWhoLikedYou } from "@hooks/useWhoLikedYou";
 import i18n from "@utils/i18n";
+import { t } from "i18next";
 import { BellRinging } from "phosphor-react-native";
 import React from "react";
-import { FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 
 type UserToDiscover = {
   name: string;
@@ -53,17 +54,22 @@ const WhoLikedYou = () => {
   const { users, isLoading } = useWhoLikedYou();
 
   return (
-    <MyScreen padding>
+    <MyScreen padding className="items-center justify-start">
       <MyHeader canGoBack />
-      <MyUserAvatar size="xl" />
-      <MyText
-        className="mb-14 mt-8 text-xl font-semibold"
-        style={shadow.purple}
-      >
-        {i18n.t("paywall.whoLikedYou")}
-      </MyText>
+      <View className="items-center">
+        <MyUserAvatar size="xl" />
+        <MyText
+          className="mb-14 mt-8 text-xl font-semibold"
+          style={shadow.purple}
+        >
+          {i18n.t("paywall.whoLikedYou")}
+        </MyText>
+      </View>
       {isLoading ? (
-        <MyText>Loading...</MyText>
+        <View className="flex-1 items-center flex-row space-x-2">
+          <ActivityIndicator color={gradient.primary[0]} />
+          <MyText>Loading...</MyText>
+        </View>
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -71,6 +77,7 @@ const WhoLikedYou = () => {
           data={users}
           renderItem={User}
           keyExtractor={(item) => item.name}
+          ListEmptyComponent={() => <MyText>{t("paywall.noUsers")}</MyText>}
         />
       )}
     </MyScreen>

@@ -1,14 +1,14 @@
 {
   "utils": {
     "enableNotifications": "Activer les notifications",
-    "messageInviteFriends": "Rejoins-moi sur Poolp maintenant ! La nouvelle application pour partager des moments quotidiens authentiques avec nos amis d'école - photos et vidéos en direct uniquement 🤝 J'ai hâte de t'y voir :)",
+    "messageInviteFriends": "Rejoins-moi sur Poolp maintenant ! La nouvelle appli pour partager des moments du quotidien avec nos amis d'école - uniquement des photos et vidéos directement depuis la caméra 🤝",
     "error": "Erreur",
     "errorOccured": "Une erreur est survenue"
   },
   "actions": {
     "cancel": "Annuler",
     "delete": "Supprimer",
-    "invitePeers": "Inviter des amis",
+    "invitePeers": "Inviter des camarades",
     "openCircle": "Ouvrir le cercle",
     "skip": "Passer",
     "details": "Détails",
@@ -17,9 +17,9 @@
     "gallery": "Galerie photo",
     "maybeLater": "Peut-être plus tard",
     "sureThing": "Bien sûr !",
-    "block": "Bloquer",
+    "block": "🔔 Bloquer",
     "report": "Signaler",
-    "reportHisContent": "Signaler le contenu",
+    "reportHisContent": "Signaler ce contenu",
     "ring": "Sonner",
     "send": "Envoyer"
   },
@@ -29,55 +29,56 @@
   "alerts": {
     "photoAccessNeeded": {
       "title": "Souriez pour la photo ! 📸",
-      "message": "Salut ! Nous aimerions voir ta superbe photo de profil. On peut jeter un œil à ta galerie photo ?"
+      "message": "On peut jeter un coup d'œil à ta galerie ?"
     },
     "cameraAccessNeeded": {
-      "title": "Accès à la caméra nécessaire",
+      "title": "Accès à l'appareil photo requis",
       "message": "Nous avons besoin d'accéder à ton appareil photo pour prendre une photo ou en choisir une dans ta galerie."
     },
     "notificationsNeeded": {
-      "title": "🔔 Reste connecté !",
-      "message": "Active les notifications pour ne jamais manquer les mises à jour importantes et rester connecté avec ce qui compte pour toi."
+      "title": "🔔 Reste informé !",
+      "message": "Active les notifications pour découvrir tes nouveaux cercles et ne jamais rater les mises à jour importantes."
     },
     "blockSuccess": {
-      "title": "Bloqué ! 🚫",
-      "message": "Cet utilisateur est maintenant bloqué. 🔒"
+      "title": "Utilisateur bloqué !",
+      "message": "Cet utilisateur est désormais bloqué. 🔒"
     },
     "deleteCirclePic": {
-      "title": "Mission accomplie ! 🎯",
-      "message": "Cette photo est partie en vacances au pays des rêves 👋"
+      "title": "Contenu supprimé !",
+      "message": "Ton post vient d'être supprimé ❌"
     }
   },
   "onboarding": {
     "introduction": {
-      "title": "Qu'est-ce que Poolp ?",
+      "title": "C'est quoi Poolp ?",
+
       "item1": {
-        "title": "Une notification chaque jour",
-        "description": "Pour découvrir ton cercle en postant du contenu en direct"
+        "title": "Une notification par jour",
+        "description": "Pour découvrir ton cercle en publiant un contenu depuis ta caméra."
       },
       "item2": {
         "title": "Un nouveau cercle avec des amis aléatoires de ton école",
-        "description": "Écart d'âge maximum d'un an"
+        "description": "Avec un écart d'âge maximum d'un an."
       },
       "item3": {
-        "title": "Poste des photos et vidéos authentiques en direct dans le cercle",
-        "description": "Tout est mieux quand c'est authentique et disparaît à la fin du cercle..."
+        "title": "Publie des photos et vidéos authentiques dans le cercle",
+        "description": "Tout est mieux quand c'est authentique... et ça disparaît à la fin du cercle."
       },
       "item4": {
-        "title": "Un dormeur dans le cercle ? Réveille-le !",
-        "description": "De façon anonyme bien sûr..."
+        "title": "Un utilisateur endormi ? Réveille-le !",
+        "description": "Anonymement bien sûr..."
       }
     },
     "name": {
-      "title": "Comment t'appelles-tu ?",
-      "error": "Le nom doit contenir entre 2 et 20 caractères."
+      "title": "Quel est ton prénom ?",
+      "error": "Le prénom doit contenir entre 2 et 20 caractères."
     },
     "birthday": {
       "title": "Quelle est ta date de naissance ?",
-      "subtitle": "Uniquement pour rejoindre des cercles avec des personnes de ton âge.",
+      "subtitle": "Pour te placer dans des cercles avec des personnes de ton âge.",
       "errorTooYoung": "Tu dois avoir au moins 13 ans.",
-      "errorTooOld": "Tu es toujours en vie ?",
-      "errorMissing": "Merci d'entrer ta date de naissance."
+      "errorTooOld": "Tu es encore en vie ?",
+      "errorMissing": "Merci de renseigner ta date de naissance."
     },
     "gender": {
       "title": "Quel est ton genre ?",
@@ -87,24 +88,24 @@
       "error": "Merci de sélectionner ton genre."
     },
     "phone": {
-      "title": "Nous avons besoin de ton numéro de téléphone pour vérifier que tu es une vraie personne",
-      "subtitle": "Uniquement à des fins de vérification.",
-      "error": "Merci d'entrer un numéro de téléphone valide."
+      "title": "Nous avons besoin de ton numéro pour vérifier ton identité",
+      "subtitle": "Uniquement pour des raisons de vérification.",
+      "error": "Merci d'entrer un numéro valide."
     },
     "verificationCode": {
       "title": "Entre le code que tu as reçu",
       "error": "Merci d'entrer un code valide.",
-      "invalidCode": "Le code que tu as entré n'est pas valide."
+      "invalidCode": "Le code entré est invalide."
     },
     "school": {
       "title": "Dans quelle école es-tu ?",
-      "subtitle": "Nous utilisons cette information uniquement pour te mettre en relation avec tes amis.",
+      "subtitle": "Nous utilisons cette info uniquement pour te connecter avec tes camarades.",
       "error": "Merci de sélectionner ton école.",
       "button": "Choisir une école",
-      "details": "Fais attention à ne pas faire d'erreur ou choisir une école à laquelle tu n'appartiens pas, pour des raisons de sécurité et pour la communauté poolp."
+      "details": "Fais attention à ne pas te tromper d'école pour des raisons de sécurité et pour l'expérience Poolp."
     },
     "share": {
-      "title": "Profite du plein potentiel de poolp : invite ta promo, ta classe ou quelques amis !",
+      "title": "Profite pleinement de Poolp : invite ta promo entière, ta classe ou quelques potes !",
       "message": "https://www.google.com/"
     },
     "inputs": {
@@ -114,52 +115,52 @@
         "placeholder": "JJ/MM/AAAA"
       },
       "name": {
-        "placeholder": "Ton nom"
+        "placeholder": "Ton prénom"
       }
     }
   },
   "home": {
     "currentCircle": "Cercle du jour",
     "newCircleAvailable": "Nouveau cercle disponible !",
-    "newCircleAvailableDescription": "Capture une photo ou une vidéo pour découvrir ton cercle du jour.",
-    "makeStory": "Fais en sorte que la 1ère soit sensationnelle !",
-    "makeStoryDescription": "Fais ta meilleure blague, raconte une anecdote...",
+    "newCircleAvailableDescription": "Prends une photo ou une vidéo pour découvrir ton cercle du jour.",
+    "makeStory": "Découvre ton cercle !",
+    "makeStoryDescription": "Raconte ta meilleure blague, partage un fun fact...",
     "youreFree": "Tu es libre !",
-    "reviewNow": "Évalue d'abord ton cercle précédent !",
+    "reviewNow": "Review ton cercle précédent d'abord !",
     "noCircle": "Pas de cercle actif aujourd'hui",
     "noCircleDescription": "Reviens demain pour découvrir ton nouveau cercle !",
-    "noCircleButton": "Appuie ici pour revenir dans le prochain cercle !",
-    "backInCircleTitle": "Super !",
-    "backInCircleMessage": "Tu seras de retour dans le prochain cercle ! À bientôt 🎉"
+    "noCircleButton": "Appuie ici pour être dans le prochain cercle !",
+    "backInCircleTitle": "Génial !",
+    "backInCircleMessage": "Tu seras dans le prochain cercle ! À bientôt 🎉"
   },
   "review": {
-    "title": "C'est la fin du",
-    "description": "Les utilisateurs ne peuvent pas voir si tu les aimes sauf s'ils débloquent leurs likes. Les autres choix restent cachés.",
+    "title": "C'est la fin de",
+    "description": "Les utilisateurs ne voient pas si tu les like sauf s'ils débloquent leurs likes. Le choix neutre reste caché.",
     "neutral": "Neutre",
     "like": "J'aime"
   },
   "pastCircle": {
     "title": "Cercle passé",
-    "titles": "Cercle passés"
+    "titles ": "Cercles passés"
   },
   "circle": {
     "photoUploaded": "🎉 Photo envoyée",
-    "photoDescriptionUploaded": "Ta photo a été envoyée au cercle.",
+    "photoDescriptionUploaded": "Ta photo a été postée dans le cercle.",
     "videoUploaded": "🎉 Vidéo envoyée",
-    "videoDescriptionUploaded": "Ta vidéo a été envoyée au cercle."
+    "videoDescriptionUploaded": "Ta vidéo a été postée dans le cercle."
   },
   "profile": {
     "selectLanguage": "Sélectionner la langue",
     "name": "Nom",
     "school": "École",
-    "invite": "Invite tes amis d'école !",
-    "pushNotifications": "Notifications push",
+    "invite": "Invite tes camarades d'école !",
+    "pushNotifications": "Notifications Push",
     "help": "Aide",
     "rate": "Noter 🤍",
     "aboutUs": "À propos de nous",
-    "principalPicture": "C'est la principale",
+    "principalPicture": "C'est la photo principale",
     "logout": {
-      "title": "Se déconnecter",
+      "title": "Déconnexion",
       "areYouSure": "Es-tu sûr de vouloir te déconnecter ?"
     },
     "deletion": {
@@ -168,73 +169,79 @@
       "accountDeleted": "Compte supprimé",
       "accountDeletedDescription": "Ton compte a été supprimé."
     },
-    "seeWhoLikedYou": "Voir qui t'a aimé 👀",
+    "seeWhoLikedYou": "Découvrir qui t'a liké 👀",
     "joinedDaysAgo": "Tu as rejoint ton premier cercle il y a {{days}} jours",
     "onDay": "Le {{date}}",
     "editPictures": "Modifier les photos",
     "addPictures": "Ajouter des photos"
   },
   "camera": {
-    "send": "Envoyer",
+    "send": "Poster dans le cercle",
     "reply": "Répondre",
     "replyTo": "Répondre à {{username}}",
     "errorDownloadingImage": "Erreur lors du téléchargement de l'image",
     "errorSendingImage": "Erreur lors de l'envoi de l'image"
   },
   "askPermissionNotifications": {
-    "title": "Appuie sur la notification pour la recevoir pour ton prochain cercle !",
+    "title": "Appuie sur la notification pour la recevoir lors du prochain cercle !",
     "notifTitle": "💜 Nouveau cercle à découvrir !",
-    "notifDescription": "C'est ainsi que Poolp te notifiera pour découvrir ton nouveau cercle.",
+    "notifDescription": "Voici comment Poolp te préviendra pour découvrir ton nouveau cercle.",
     "byEnablingNotifications": "En activant les notifications, tu sauras chaque jour quand :",
-    "advantages": ["Ton cercle change", "Quelqu'un poste", "Quelqu'un aime"]
+    "advantages": [
+      "Ton cercle change",
+      "Quelqu'un publie",
+      "Quelqu'un t'aime",
+      "Quelqu'un veut que tu publies"
+    ]
   },
   "waitingRoom": {
     "title": "Tu es dans la salle d'attente",
     "description": "Tu recevras une notification quand tu entreras dans ton nouveau cercle.",
-    "inviteYourSchoolPeers": "Invite tes amis d'école"
+    "inviteYourSchoolPeers": "Invite tes camarades d'école"
   },
   "notifications": {
     "ring": {
       "title": "Poolp",
-      "body": "🔔 Quelqu'un dans le cercle veut que tu postes !"
+      "body": "🔔 Quelqu'un dans le cercle veut que tu publies !"
     },
     "newCircle": {
       "title": "💜 Nouveau cercle à découvrir !",
-      "body": "Poste pour découvrir qui est dans ton cercle aujourd'hui !"
+      "body": "Post pour voir qui est dans ton cercle aujourd'hui !"
     },
     "onReply": {
       "title": "Poolp",
-      "body": "{{username}} a posté dans le cercle."
+      "body": "{{username}} a publié dans le cercle."
     },
     "ringExcessive": {
       "title": "Doucement ! 🔔",
-      "body": "Salut ! Merci d'attendre 5 minutes avant de sonner un autre ami. On veut que ça reste amusant pour tout le monde ! 😊"
+      "body": "Il ne faut pas spammer non plus 😉"
     },
     "ringSuccess": {
       "title": "Sonnerie envoyée ! 🔔",
-      "body": "Ils viennent de recevoir une notification anonyme ✨"
+      "body": "La notification est anonyme 🫣"
     }
   },
   "paywall": {
-    "whoLikedYou": "Le reste se passe dans la vie réelle",
+    "noUsers": "Aucun utilisateur ne t'a liké",
+    "whoLikedYou": "Le reste se passe dans la vraie vie",
     "month": "1 mois",
     "week": "1 semaine",
-    "recurring": "Facturation récurrente. Annulez à tout moment.",
+    "recurring": "Facturation récurrente. Annulable à tout moment.",
     "terms": "Conditions & Confidentialité",
-    "button": "DÉFLOUTEZ MAINTENANT 👀",
+    "button": "DÉCOUVRE MAINTENANT 👀",
     "weekPrice": "{{price}}/semaine",
     "monthPrice": "{{price}}/mois",
     "dayPrice": "{{price}}/jour",
     "features": {
-      "discoverWhoLikedYou": "Découvre qui t'a aimé",
-      "discoverWhoWantedYouToPost": "Découvre qui voulait que tu postes",
-      "knowBeforeReviewingYourConnections": "Sache avant d'évaluer tes connexions",
-      "noAds": "Pas de publicités"
+      "discoverWhoLikedYou": "Découvre qui t'a liké",
+      "discoverWhoWantedYouToPost": "Découvre qui voulait que tu publies",
+      "knowBeforeReviewingYourConnections": "Découvre avant de review tes cercles",
+      "noAds": "Sans publicités"
     },
     "successTitle": "Bienvenue dans le club !",
-    "successMessage": "Tu peux maintenant découvrir qui t'a aimé et qui voulait que tu postes !",
+    "successMessage": "Tu peux maintenant découvrir qui t'a liké et qui voulait que tu publies !",
     "errorTitle": "Oups !",
-    "errorMessage": "Quelque chose s'est mal passé. Merci de réessayer."
+    "errorMessage": "Un problème est survenu. Merci de réessayer."
   },
   "reportModal": {
     "description": "Pourquoi signales-tu cet utilisateur ?",

@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import Purchases, { LOG_LEVEL, PurchasesPackage } from "react-native-purchases";
 import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
+import { myCaptureException } from "./sentry";
 
 const APIKeys = {
   apple: process.env.REVENUE_CAT_IOS_KEY ?? "",
@@ -57,6 +58,7 @@ export const getPackages = async () => {
     });
   } catch (error: any) {
     console.error("Error in getPackages:", error, error.code);
+    myCaptureException(error);
   }
 };
 
@@ -71,6 +73,8 @@ export const pay = async (selectedPackage: PurchasesPackage) => {
     })
     .catch((error: any) => {
       if (error.message.includes("cancel")) return { isSuccess: false };
+      myCaptureException(error);
+      myCaptureException(error.message);
 
       return { isSuccess: false, error: error.message };
     });

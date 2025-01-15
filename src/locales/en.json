@@ -1,9 +1,9 @@
 {
   "utils": {
     "enableNotifications": "Enable notifications",
-    "messageInviteFriends": "Join me on Poolp now! The new app to share real daily moments with our school friends - live photos & videos only 🤝 Can't wait to see you there :)",
+    "messageInviteFriends": "Join me on Poolp now! The new app to share real daily moments with our school friends - live photos & videos only 🤝",
     "error": "Error",
-    "errorOccured": "An error occured"
+    "errorOccured": "An error occurred"
   },
   "actions": {
     "cancel": "Cancel",
@@ -17,7 +17,7 @@
     "gallery": "Photo Library",
     "maybeLater": "Maybe later",
     "sureThing": "Sure thing!",
-    "block": "Block",
+    "block": "🔔 Block",
     "report": "Report",
     "reportHisContent": "Report the content",
     "ring": "Ring",
@@ -29,7 +29,7 @@
   "alerts": {
     "photoAccessNeeded": {
       "title": "Smile for the camera! 📸",
-      "message": "Hey there! We'd love to see your awesome profile pic. Mind if we take a peek at your photo gallery?"
+      "message": "Mind if we take a look at your photo gallery?"
     },
     "cameraAccessNeeded": {
       "title": "Camera access needed",
@@ -37,15 +37,15 @@
     },
     "notificationsNeeded": {
       "title": "🔔 Stay in the loop!",
-      "message": "Enable notifications to never miss important updates and stay connected with what matters to you."
+      "message": "Enable notifications to discover your circles and never miss important updates."
     },
     "blockSuccess": {
       "title": "Blocked! 🚫",
       "message": "This user is now blocked. 🔒"
     },
     "deleteCirclePic": {
-      "title": "Mission accomplished! 🎯",
-      "message": "That photo just took a vacation to never-never land 👋"
+      "title": "Post deleted!",
+      "message": "Your post has been deleted ❌"
     }
   },
   "onboarding": {
@@ -102,10 +102,10 @@
       "subtitle": "We are only using this information to get you with your peers.",
       "error": "Please select your school.",
       "button": "Choose School",
-      "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the poolp community."
+      "details": "Be careful not to make a mistake or choose a school that you don't belong to, for safety concerns and for the Poolp community."
     },
     "share": {
-      "title": "Enjoy poolp's full potential : invite your entire promo, class or some peers!",
+      "title": "Enjoy Poolp's full potential: invite your entire promo, class, or some peers!",
       "message": "https://www.google.com/"
     },
     "inputs": {
@@ -123,7 +123,7 @@
     "currentCircle": "Today's circle",
     "newCircleAvailable": "New circle available!",
     "newCircleAvailableDescription": "Capture a photo or video to discover your circle for the day.",
-    "makeStory": "Make the 1st one sensational!",
+    "makeStory": "Discover your circle!",
     "makeStoryDescription": "Make your best joke, tell a fun fact...",
     "youreFree": "You're free!",
     "reviewNow": "Review your previous circle first!",
@@ -135,7 +135,7 @@
   },
   "review": {
     "title": "It's the end of",
-    "description": "Users can't see if you like them unless they unlock their likes. Other choice remain hidden.",
+    "description": "Users can't see if you like them unless they unlock their likes. The neutral choice remain hidden.",
     "neutral": "Neutral",
     "like": "Like"
   },
@@ -144,10 +144,10 @@
     "titles ": "Past circles"
   },
   "circle": {
-    "photoUploaded": "🎉 Photo sent",
-    "photoDescriptionUploaded": "Your photo has been sent to the circle.",
-    "videoUploaded": "🎉 Video sent",
-    "videoDescriptionUploaded": "Your video has been sent to the circle."
+    "photoUploaded": "🎉 Photo posted",
+    "photoDescriptionUploaded": "Your photo has been posted in the circle.",
+    "videoUploaded": "🎉 Video posted",
+    "videoDescriptionUploaded": "Your video has been posted in the circle."
   },
   "profile": {
     "selectLanguage": "Select language",
@@ -183,11 +183,16 @@
     "errorSendingImage": "Error sending image"
   },
   "askPermissionNotifications": {
-    "title": "Tap on the notification to receive it for your next circle !",
+    "title": "Tap on the notification to receive it for your next circle!",
     "notifTitle": "💜 New circle to discover!",
     "notifDescription": "This is how Poolp will notify you to discover your new circle.",
-    "byEnablingNotifications": "By enabling notifications, you will know everyday when :",
-    "advantages": ["Your circle change", "Someone posts", "Someone likes"]
+    "byEnablingNotifications": "By enabling notifications, you will know every day when:",
+    "advantages": [
+      "Your circle changes",
+      "Someone posts",
+      "Someone likes",
+      "Someone wants you to post"
+    ]
   },
   "waitingRoom": {
     "title": "You are in the waiting room",
@@ -208,21 +213,22 @@
       "body": "{{username}} posted in the circle."
     },
     "ringExcessive": {
-      "title": "Whoa, slow down! 🔔",
-      "body": "Hey there! Please wait 5 minutes before ringing another friend. We want to keep things fun for everyone! 😊"
+      "title": "Slow down! 🔔",
+      "body": "Don't need to spam 😉"
     },
     "ringSuccess": {
       "title": "Ring sent! 🔔",
-      "body": "They just received an anonymous notification ✨"
+      "body": "The notification is anonymous 🫣"
     }
   },
   "paywall": {
+    "noUsers": "No users liked you yet",
     "whoLikedYou": "The rest happens in real life",
     "month": "1 month",
     "week": "1 week",
     "recurring": "Recurring billing. Cancel anytime.",
     "terms": "Terms & Privacy",
-    "button": "UNBLUR NOW 👀",
+    "button": "DISCOVER NOW 👀",
     "weekPrice": "{{price}}/week",
     "monthPrice": "{{price}}/month",
     "dayPrice": "{{price}}/day",
