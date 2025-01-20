@@ -28,7 +28,7 @@ const useInitialization = () => {
     setAsyncStorage("STORAGE_URL", storageUrl);
 
     initializeRevenueCatApiKeys(user.id);
-  }, [identify, user]);
+  }, [user]); // Do not use identify here otherwise initializeRevenueCatApiKeys will be called twice and creates a loop on LoadingScreen (Purchases.login is stuck)
 };
 
 const LoaderScreen = () => {

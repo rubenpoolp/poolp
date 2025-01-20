@@ -21,8 +21,6 @@ const UserProfileModal = ({
   const [actualIndex, setActualIndex] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  if (!userProfilePics.urls || userProfilePics.urls.length === 0) return null;
-
   useEffect(() => {
     timerRef.current = setTimeout(() => {
       if (
@@ -58,6 +56,8 @@ const UserProfileModal = ({
     setActualIndex(actualIndex + 1);
     // timerRef.current?.refresh();
   };
+
+  if (!userProfilePics.urls || userProfilePics.urls.length === 0) return null;
 
   return (
     <MyModal
