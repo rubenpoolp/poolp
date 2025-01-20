@@ -7,21 +7,25 @@ type UserProfileButtonProps = {
   children: React.ReactNode;
   className?: string;
   userProfilePics: UserProfilePics;
+  disabled?: boolean;
 };
 
 const UserProfileButton = ({
   children,
   userProfilePics,
+  className,
+  disabled = false,
 }: UserProfileButtonProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <>
       <MyPressable
-        onPress={() => setIsVisible(true)}
+        onPress={() => !disabled && setIsVisible(true)}
         className="flex-1 z-20"
         opacity={0.9}
-        delayPressIn={200}
+        delayPressIn={1000}
+        disabled={disabled}
       >
         {children}
       </MyPressable>

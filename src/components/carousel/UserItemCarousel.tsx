@@ -15,11 +15,13 @@ interface UserItemCarouselProps {
     width: number;
     height: number;
   };
+  isScrolling: boolean;
 }
 
 const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   userProfilePics,
   dimensions,
+  isScrolling,
 }) => {
   const width = dimensions.width * 0.9;
   const height = dimensions.height * 0.5;
@@ -27,7 +29,11 @@ const UserItemCarousel: React.FC<UserItemCarouselProps> = ({
   const ringUser = useRingUser();
 
   return (
-    <UserProfileButton className="flex-1" userProfilePics={userProfilePics}>
+    <UserProfileButton 
+      className="flex-1" 
+      userProfilePics={userProfilePics}
+      disabled={isScrolling}
+    >
       <Animated.View
         entering={FadeInDown.duration(100)}
         className="flex-1 items-center justify-center"

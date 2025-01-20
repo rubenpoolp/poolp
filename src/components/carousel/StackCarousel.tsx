@@ -1,6 +1,7 @@
 import { UserProfilePics } from "@/types/story";
 import UserItemCarousel from "@components/carousel/UserItemCarousel";
 import * as React from "react";
+import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
@@ -15,6 +16,8 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
   const PAGE_WIDTH = width;
   const PAGE_HEIGHT = height * 0.55;
 
+  const [isScrolling, setIsScrolling] = useState(false);
+
   return (
     <Carousel
       enabled={enabled}
@@ -28,8 +31,17 @@ const StackCarousel = ({ data, enabled = true }: StackCarouselProps) => {
           key={index}
           userProfilePics={story}
           dimensions={{ width, height: height * 1.1 }}
+          isScrolling={isScrolling}
         />
       )}
+      onScrollBegin={() => {
+        setIsScrolling(false);
+      }}
+      onScrollEnd={() => {
+        setTimeout(() => {
+          setIsScrolling(true);
+        }, 100);
+      }}
       loop={data.length > 1}
     />
   );
