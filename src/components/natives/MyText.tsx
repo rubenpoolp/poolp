@@ -9,7 +9,11 @@ const MyText = (props: MyTextProps) => {
   const { style, children } = props;
 
   return (
-    <Text {...props} className="text-base text-light" style={style}>
+    <Text
+      {...props}
+      className="text-base text-light"
+      style={[style, { fontFamily: "SFProDisplaySemibold" }]}
+    >
       {children}
     </Text>
   );

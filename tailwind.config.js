@@ -5,7 +5,13 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors,
-    extend: {},
+    extend: {
+      fontFamily: {
+        SFProDisplayLight: ["SFProDisplayLight"],
+        SFProDisplayMedium: ["SFProDisplayMedium"],
+        SFProDisplaySemibold: ["SFProDisplaySemibold"],
+      },
+    },
   },
   plugins: [],
 };
