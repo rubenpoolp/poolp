@@ -12,7 +12,7 @@ const NewCircleAvailable = ({ onPress }: { onPress: () => void }) => {
       <MyImage img={assets.logoCropped} containerStyle="h-24" />
 
       <View className="items-center space-y-4">
-        <MyText className="text-3xl font-semibold">
+        <MyText className="text-3xl font-semibold text-center">
           {t("home.newCircleAvailable")}
         </MyText>
 
@@ -29,15 +29,6 @@ const NewCircleAvailable = ({ onPress }: { onPress: () => void }) => {
             onPress={onPress}
           />
         </CornerSparkles>
-
-        <View className="items-center ">
-          <MyText className="text-center text-sm text-gray-400 font-light">
-            {t("home.makeStoryDescription")}
-          </MyText>
-          <MyText className="text-center text-sm text-gray-400 font-light">
-            {t("home.youreFree")}
-          </MyText>
-        </View>
       </View>
     </View>
   );
