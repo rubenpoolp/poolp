@@ -1,5 +1,4 @@
 import LoaderScreen from "@pages/LoaderScreen";
-import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import AskPermissionNotifications from "@pages/onboarding/AskPermissionNotifications";
 import Birthday from "@pages/onboarding/Birthday";
 import Gender from "@pages/onboarding/Gender";
@@ -24,7 +23,6 @@ export const onboardingRoutes: {
   { name: "Gender", component: Gender },
   { name: "School", component: School },
   { name: "AskPermissionNotifications", component: AskPermissionNotifications },
-  { name: "OnboardingProfilePicture", component: OnboardingProfilePicture},
+  { name: "OnboardingProfilePicture", component: OnboardingProfilePicture },
   { name: "Share", component: Share },
-  { name: "HomeStack", component: HomeStackNavigator },
 ];

@@ -1,6 +1,7 @@
 import { onboardingRoutes } from "@config/onboardingRoutes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import HomeStackNavigator from "./HomeStackNavigator";
 
 // Components
 
@@ -17,11 +18,12 @@ const OnboardingStackNavigator = () => {
           initialParams={{
             nextScreen:
               index === onboardingRoutes.length - 1
-                ? ""
+                ? "Loader"
                 : onboardingRoutes[index + 1].name,
           }}
         />
       ))}
+      <OnboardingStack.Screen name="HomeStack" component={HomeStackNavigator} />
     </OnboardingStack.Navigator>
   );
 };
