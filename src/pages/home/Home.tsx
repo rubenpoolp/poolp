@@ -50,11 +50,11 @@ const Home = () => {
 
   useEffect(() => {
     const checkDates = async () => {
-      if (!circle || isOnlyMeInCircle) {
+      if (!circle) {
         setState("noCircle");
         return;
       }
-
+      
       let lastCircleReviewed = await getDateLastCircleReviewed();
       let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
       const circleCreatedAt = Number(format(circle.created_at, "t"));
@@ -63,7 +63,7 @@ const Home = () => {
         setDateLastCircleReviewed();
         lastCircleReviewed = format(new Date(), "t");
       }
- 
+      
       if (lastTimeWentOnCircle === null) {
         if (circle) {
           setDateLastTimeWentOnCircle(circleCreatedAt - 10);
@@ -72,6 +72,16 @@ const Home = () => {
           setDateLastTimeWentOnCircle();
           lastTimeWentOnCircle = format(new Date(), "t");
         }
+      }
+
+      if (isOnlyMeInCircle) {
+        if (Number(lastTimeWentOnCircle) >= circleCreatedAt) {
+          setState("openCircle");
+        } else {
+          lastTimeWentOnCircle = format(new Date(circleCreatedAt - 10), "t");
+          setState("newCircle");
+        }
+        return;
       }
       
       if (Number(lastCircleReviewed) < circleCreatedAt) {
