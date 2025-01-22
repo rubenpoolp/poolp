@@ -21,7 +21,7 @@ const useGetPastCircles = () => {
 
       // remove the last one (because it's the daily circle)
       const pastCircles = await getPastCirclesQuery(userId).then((data) =>
-        data.slice(0, 10)
+        data.slice(1, 20)
       );
       const formattedPastCircles = pastCircles.map((circle) => ({
         id: circle.id,
