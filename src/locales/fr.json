@@ -1,7 +1,7 @@
 {
   "utils": {
     "enableNotifications": "Activer les notifications",
-    "messageInviteFriends": "Rejoins-moi sur Poolp maintenant ! La nouvelle appli pour partager des moments du quotidien avec nos amis d'école - uniquement des photos et vidéos directement depuis la caméra 🤝",
+    "messageInviteFriends": "Rejoins-moi sur Poolp 💜",
     "error": "Erreur",
     "errorOccured": "Une erreur est survenue"
   },
@@ -41,7 +41,7 @@
     },
     "blockSuccess": {
       "title": "Utilisateur bloqué !",
-      "message": "Cet utilisateur est désormais bloqué. 🔒"
+      "message": "Cet utilisateur est désormais bloqué."
     },
     "deleteCirclePic": {
       "title": "Contenu supprimé !",
@@ -65,7 +65,7 @@
         "description": "Tout est mieux quand c'est authentique... et ça disparaît à la fin du cercle."
       },
       "item4": {
-        "title": "Un utilisateur endormi ? Réveille-le !",
+        "title": "Un membre du cercle endormi ? Réveille-le !",
         "description": "Anonymement bien sûr..."
       }
     },
@@ -88,7 +88,7 @@
       "error": "Merci de sélectionner ton genre."
     },
     "phone": {
-      "title": "Nous avons besoin de ton numéro pour vérifier ton identité",
+      "title": "Quel est ton numéro de téléphone ?",
       "subtitle": "Uniquement pour des raisons de vérification.",
       "error": "Merci d'entrer un numéro valide."
     },
@@ -105,7 +105,7 @@
       "details": "Fais attention à ne pas te tromper d'école pour des raisons de sécurité et pour l'expérience Poolp."
     },
     "share": {
-      "title": "Profite pleinement de Poolp : invite ta promo entière, ta classe ou quelques potes !",
+      "title": "Profite pleinement de Poolp : invite ta promo entière, ta classe ou quelques amis !",
       "message": "https://www.google.com/"
     },
     "inputs": {
@@ -122,11 +122,9 @@
   "home": {
     "currentCircle": "Cercle du jour",
     "newCircleAvailable": "Nouveau cercle disponible !",
-    "newCircleAvailableDescription": "Prends une photo ou une vidéo pour découvrir ton cercle du jour.",
+    "newCircleAvailableDescription": "Poste pour découvrir ton cercle du jour.",
     "makeStory": "Découvre ton cercle !",
-    "makeStoryDescription": "Raconte ta meilleure blague, partage un fun fact...",
-    "youreFree": "Tu es libre !",
-    "reviewNow": "Review ton cercle précédent d'abord !",
+    "reviewNow": "Review ton ancien cercle d'abord !",
     "noCircle": "Pas de cercle actif aujourd'hui",
     "noCircleDescription": "Reviens demain pour découvrir ton nouveau cercle !",
     "noCircleButton": "Appuie ici pour être dans le prochain cercle !",
@@ -153,7 +151,7 @@
     "selectLanguage": "Sélectionner la langue",
     "name": "Nom",
     "school": "École",
-    "invite": "Invite tes camarades d'école !",
+    "invite": "Invite tes amis d'école !",
     "pushNotifications": "Notifications Push",
     "help": "Aide",
     "rate": "Noter 🤍",
@@ -169,7 +167,7 @@
       "accountDeleted": "Compte supprimé",
       "accountDeletedDescription": "Ton compte a été supprimé."
     },
-    "seeWhoLikedYou": "Découvrir qui t'a liké 👀",
+    "seeWhoLikedYou": "Découvre qui t'a liké 👀",
     "joinedDaysAgo": "Tu as rejoint ton premier cercle il y a {{days}} jours",
     "onDay": "Le {{date}}",
     "editPictures": "Modifier les photos",
@@ -223,7 +221,7 @@
   },
   "paywall": {
     "bestValue": "Meilleur choix",
-    "noUsers": "Aucun utilisateur ne t'a liké",
+    "noUsers": "Tu n'as pas encore reçu de like.",
     "whoLikedYou": "Le reste se passe dans la vraie vie",
     "month": "1 mois",
     "week": "1 semaine",

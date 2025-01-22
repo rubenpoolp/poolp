@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     user: getAccount.data,
     isAdmin: getAccount.data?.role === "admin",
     session,
-    isLoading: getAccount.isFetching,
+    isLoading: getAccount.isLoading || getAccount.isFetching,
     sendSMS,
     checkCode,
     signUp,

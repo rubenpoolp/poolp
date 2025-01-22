@@ -1,14 +1,14 @@
 {
   "utils": {
     "enableNotifications": "Enable notifications",
-    "messageInviteFriends": "Join me on Poolp now! The new app to share real daily moments with our school friends - live photos & videos only 🤝",
+    "messageInviteFriends": "Join me on Poolp 💜",
     "error": "Error",
     "errorOccured": "An error occurred"
   },
   "actions": {
     "cancel": "Cancel",
     "delete": "Delete",
-    "invitePeers": "Invite peers",
+    "invitePeers": "Invite friends",
     "openCircle": "Open circle",
     "skip": "Skip",
     "details": "Details",
@@ -41,7 +41,7 @@
     },
     "blockSuccess": {
       "title": "Blocked! 🚫",
-      "message": "This user is now blocked. 🔒"
+      "message": "This user is now blocked."
     },
     "deleteCirclePic": {
       "title": "Post deleted!",
@@ -88,7 +88,7 @@
       "error": "Please select your gender."
     },
     "phone": {
-      "title": "We need your phone number to make sure you're a real person",
+      "title": "What's your phone number?",
       "subtitle": "Only for verification purposes.",
       "error": "Please enter a valid phone number."
     },
@@ -106,7 +106,7 @@
     },
     "share": {
       "title": "Enjoy Poolp's full potential: invite your entire promo, class, or some peers!",
-      "message": "https://www.google.com/"
+      "message": "Join me on Poolp 💜"
     },
     "inputs": {
       "search": "Search",
@@ -124,8 +124,6 @@
     "newCircleAvailable": "New circle available!",
     "newCircleAvailableDescription": "Capture a photo or video to discover your circle for the day.",
     "makeStory": "Discover your circle!",
-    "makeStoryDescription": "Make your best joke, tell a fun fact...",
-    "youreFree": "You're free!",
     "reviewNow": "Review your previous circle first!",
     "noCircle": "No active circle today",
     "noCircleDescription": "Come back tomorrow to discover your new circle!",
@@ -223,7 +221,7 @@
   },
   "paywall": {
     "bestValue": "Best value",
-    "noUsers": "No users liked you yet",
+    "noUsers": "No likes yet",
     "whoLikedYou": "The rest happens in real life",
     "month": "1 month",
     "week": "1 week",
