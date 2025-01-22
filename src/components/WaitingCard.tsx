@@ -1,5 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useWindowDimensions, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 import shadow from "@config/shadow";
 import { useTranslation } from "react-i18next";
@@ -9,13 +10,13 @@ const WaitingCard = () => {
   const { width, height } = useWindowDimensions();
   const { t } = useTranslation(); 
   
-  const cardWidth = width * 0.9;
-  const cardHeight = height * 0.5;
+  const cardWidth = width * 0.8;
+  const cardHeight = height * 0.45;
 
   return (
-    <View
-      className="items-center justify-center"
-      style={{ height: cardHeight }}
+    <Animated.View
+      entering={FadeInDown.duration(100)}
+      className="flex-1 items-center justify-center"
     >
       <View
         className="relative rounded-md border-4 border-purple-100 overflow-hidden z-10"
@@ -42,7 +43,7 @@ const WaitingCard = () => {
           className="absolute bottom-0 w-full h-1/3"
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
