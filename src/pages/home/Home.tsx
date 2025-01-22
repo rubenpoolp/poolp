@@ -83,7 +83,7 @@ const Home = () => {
         }
         return;
       }
-      
+
       if (Number(lastCircleReviewed) < circleCreatedAt) {
         setState("reviewPastCircle");
         return;

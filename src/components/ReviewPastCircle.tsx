@@ -1,5 +1,6 @@
 import assets from "@assets/index";
 import usePastCircles from "@hooks/usePastCircles";
+import { setDateLastCircleReviewed } from "@utils/circles";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
@@ -17,13 +18,16 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
   const { t } = useTranslation();
   const { pastCircles } = usePastCircles();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const lastPastCircle = pastCircles?.[1];
+  const lastPastCircle = pastCircles?.[0];
 
   const handleReview = () => {
     setIsModalVisible(true);
   };
 
-  if (!lastPastCircle) return null;
+  if (!lastPastCircle) {
+    setDateLastCircleReviewed();
+    return null;
+  };
 
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
