@@ -57,18 +57,23 @@ const Home = () => {
 
       let lastCircleReviewed = await getDateLastCircleReviewed();
       let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
-      if (lastTimeWentOnCircle === null) {
-        setDateLastTimeWentOnCircle();
-        lastTimeWentOnCircle = format(new Date(), "t");
-      }
-
+      const circleCreatedAt = Number(format(circle.created_at, "t"));
+      
       if (lastCircleReviewed === null) {
         setDateLastCircleReviewed();
         lastCircleReviewed = format(new Date(), "t");
       }
-
-      const circleCreatedAt = Number(format(circle.created_at, "t"));
-
+ 
+      if (lastTimeWentOnCircle === null) {
+        if (circle) {
+          setDateLastTimeWentOnCircle(circleCreatedAt - 10);
+          lastTimeWentOnCircle = format(new Date(circleCreatedAt - 10), "t");
+        } else {
+          setDateLastTimeWentOnCircle();
+          lastTimeWentOnCircle = format(new Date(), "t");
+        }
+      }
+      
       if (Number(lastCircleReviewed) < circleCreatedAt) {
         setState("reviewPastCircle");
         return;

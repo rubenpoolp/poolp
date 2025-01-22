@@ -10,8 +10,8 @@ export const getDateLastCircleReviewed = async () => {
   return date ? date : null;
 };
 
-export const setDateLastTimeWentOnCircle = () => {
-  setAsyncStorage("USER_LAST_TIME_WENT_ON_CIRCLE", format(new Date(), "t"));
+export const setDateLastTimeWentOnCircle = (timestamp?: number) => {
+  setAsyncStorage("USER_LAST_TIME_WENT_ON_CIRCLE", format(timestamp ? new Date(timestamp) : new Date(), "t"));
 };
 
 export const getDateLastTimeWentOnCircle = async () => {
