@@ -38,7 +38,7 @@ const upload = async (path: string, uri: string, bucket: string) => {
 
     return { data, error };
   } catch (error) {
-    console.error("Error processing image:", error);
+    console.error("Error uploading image:", error);
     return { data: null, error };
   }
 };
@@ -64,7 +64,7 @@ const uploadVideo = async (path: string, uri: string, bucket: string) => {
     }
 
     console.log("Uploading video to supabase", bucket, path);
-    
+
     // Upload the binary data
     const { data, error } = await supabase.storage
       .from(bucket)

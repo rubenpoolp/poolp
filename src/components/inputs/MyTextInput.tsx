@@ -14,6 +14,7 @@ const MyTextInput = forwardRef<TextInput, MyTextInputProps>((props, ref) => {
       {...props}
       style={[
         {
+          fontFamily: "SFProDisplaySemibold",
           textAlignVertical: "top",
         },
         props.style,

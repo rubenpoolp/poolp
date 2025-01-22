@@ -1,14 +1,22 @@
 import NameInput from "@components/inputs/NameInput";
 import MyText from "@components/natives/MyText";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
-import React, { useState } from "react";
+import sleep from "@utils/sleep";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { Alert, TextInput, View } from "react-native";
 
 const Name = ({ navigation, route }: { navigation: any; route: any }) => {
   const { t } = useTranslation();
   const [name, setName] = useState("");
   const { user, nextScreen } = route.params;
+  const nameInputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    sleep(700).then(() => {
+      nameInputRef.current?.focus();
+    });
+  }, []);
 
   const handleNext = () => {
     if (!name || name.length < 2 || name.length > 20) {
@@ -25,7 +33,7 @@ const Name = ({ navigation, route }: { navigation: any; route: any }) => {
           {t("onboarding.name.title")}
         </MyText>
         <NameInput
-          autoFocus
+          ref={nameInputRef}
           value={name}
           onChangeText={setName}
           onSubmitEditing={handleNext}
