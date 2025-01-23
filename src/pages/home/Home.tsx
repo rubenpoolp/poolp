@@ -2,9 +2,9 @@ import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
 import NewCircleAvailable from "@components/NewCircleAvailable";
-import NoCircle from "@components/NoCircle";
 import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
+import WaitingCard from "@components/WaitingCard";
 import { useAuth } from "@context/Auth";
 import useNotifications from "@hooks/useNotifications";
 import useReload from "@hooks/useReload";
@@ -54,16 +54,16 @@ const Home = () => {
         setState("noCircle");
         return;
       }
-      
+
       let lastCircleReviewed = await getDateLastCircleReviewed();
       let lastTimeWentOnCircle = await getDateLastTimeWentOnCircle();
       const circleCreatedAt = Number(format(circle.created_at, "t"));
-      
+
       if (lastCircleReviewed === null) {
         setDateLastCircleReviewed();
         lastCircleReviewed = format(new Date(), "t");
       }
-      
+
       if (lastTimeWentOnCircle === null) {
         if (circle) {
           setDateLastTimeWentOnCircle(circleCreatedAt - 10);
@@ -127,7 +127,7 @@ const Home = () => {
       )}
 
       {state === "newCircle" && <NewCircleAvailable onPress={openCircle} />}
-      {state === "noCircle" && <NoCircle />}
+      {state === "noCircle" && <WaitingCard />}
     </MyScreen>
   );
 };
