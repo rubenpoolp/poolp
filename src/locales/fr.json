@@ -196,7 +196,8 @@
     "title": "Tu es dans la salle d'attente",
     "description": "Tu recevras une notification quand tu entreras dans ton nouveau cercle.",
     "inviteYourSchoolPeers": "Invite tes camarades d'école",
-    "waitingForPeers": "En attente de nouveaux arrivants..."
+    "waitingForPeers": "En attente de nouveaux arrivants...",
+    "inviteToCircle": "Je t’attends dans mon cercle sur poolp !"
   },
   "notifications": {
     "ring": {

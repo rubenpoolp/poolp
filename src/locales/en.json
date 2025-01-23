@@ -196,7 +196,8 @@
     "title": "You are in the waiting room",
     "description": "You will receive a notification when you get into your new circle.",
     "inviteYourSchoolPeers": "Invite your school peers",
-    "waitingForPeers": "Waiting for others to join..."
+    "waitingForPeers": "Waiting for others to join...",
+    "inviteToCircle": "Waiting for you on one of our school circles on Poolp!"
   },
   "notifications": {
     "ring": {
