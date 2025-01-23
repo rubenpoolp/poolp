@@ -18,6 +18,7 @@ const NameInput = forwardRef<TextInput, NameInputProps>((props, ref) => {
       style={{
         textAlignVertical: "top",
       }}
+      autoCapitalize="words"
       {...props}
     />
   );
