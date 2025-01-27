@@ -41,8 +41,27 @@ const handler = async (req: Request) => {
       .gte('created_at', twentyFourHoursAgo);
 
     if (circlesError) throw circlesError;
+
     if (!recentCircles || recentCircles.length === 0) {
-      throw new Error('No circles available');
+      const { data: newCircle, error: createError } = await supabaseClient
+        .from('circles')
+        .insert([
+          { 
+            name: "Daily Circle",
+            user_ids: [user_id],
+            school_id: user.school_id,
+            created_at: new Date().toISOString()
+          }
+        ])
+        .select()
+        .single();
+
+      if (createError) throw createError;
+
+      return new Response(JSON.stringify({ 
+        message: `New circle created with user ${user_id} (no recent circles)`,
+        circle_id: newCircle.id
+      }), { status: 200 });
     }
 
     // verify if user is already in any circle
