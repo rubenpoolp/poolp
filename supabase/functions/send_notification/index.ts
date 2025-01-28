@@ -75,6 +75,7 @@ const handler = async (req: Request) => {
           sound: 'default',
           title: title,
           body: body,
+          badge: 1,
           data: {
             url: "Home"
           },

@@ -10,7 +10,7 @@ import MyText from "./natives/MyText";
 import WaitingCard from "./WaitingCard";
 
 const TodayCircle = () => {
-  const { stories, usersProfilePics } = useTodayCircle();
+  const { stories, usersProfilePics, unseenStories } = useTodayCircle();
 
   const { data: circle } = useGetMyDailyCircle();
   const isOnlyMeInCircle = circle?.user_ids?.length === 1;
@@ -42,6 +42,9 @@ const TodayCircle = () => {
               entering={FadeInDown.duration(300)}
               className="px-6 py-2 rounded-xl border-2 border-gradient-primary-1"
             >
+              {unseenStories && (
+                <View className="absolute -top-2 -right-2 w-4 h-4 bg-red rounded-full z-10" />
+              )}
               <MyGradient className="rounded-lg" />
               <MyText className="font-semibold text-md">
                 {t("actions.openCircle")}
