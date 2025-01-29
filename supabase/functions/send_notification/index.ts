@@ -11,7 +11,7 @@ const fetchPushTokensFromUserIds = async (supabaseClient: SupabaseClient, userId
   try {
     const { data, error } = await supabaseClient
       .from('account')
-      .select('push_token')
+      .select('id, push_token, unseen_notifs')
       .in('id', userIds)
       .neq('push_token', null);
 
@@ -20,10 +20,42 @@ const fetchPushTokensFromUserIds = async (supabaseClient: SupabaseClient, userId
       return [];
     }
 
-    return data.map((record: { push_token: string }) => `ExponentPushToken[${record.push_token}]`);
+    return data.map((record: { id: string, push_token: string, unseen_notifs: number }) => ({
+      id: record.id,
+      token: `ExponentPushToken[${record.push_token}]`,
+      unseenNotifications: record.unseen_notifs || 0
+    }));
   } catch (error) {
     console.error('Error fetching push tokens:', error);
     return [];
+  }
+};
+
+const incrementUnseenNotifications = async (supabaseClient: SupabaseClient, userIds: string[]) => {
+  try {
+    // Retrieve current unseen notifications
+    const { data: currentData, error: selectError } = await supabaseClient
+      .from('account')
+      .select('id, unseen_notifs')
+      .in('id', userIds);
+
+    if (selectError) {
+      console.error('Error fetching current unseen notifications:', selectError);
+      return;
+    }
+
+    // Update each user with their new value
+    const updatePromises = currentData.map(user => {
+      const newValue = (user.unseen_notifs || 0) + 1;
+      return supabaseClient
+        .from('account')
+        .update({ unseen_notifs: newValue })
+        .eq('id', user.id);
+    });
+
+    await Promise.all(updatePromises);
+  } catch (error) {
+    console.error('Error incrementing unseen notifications:', error);
   }
 };
 
@@ -55,27 +87,32 @@ const handler = async (req: Request) => {
        }
     );
 
-    const tokens = await fetchPushTokensFromUserIds(supabaseClient, userIds);
-
-    if (tokens.length === 0) {
+    const userTokens = await fetchPushTokensFromUserIds(supabaseClient, userIds);
+    
+    console.log("userTokens", userTokens);
+    if (userTokens.length === 0) {
       return new Response(
         JSON.stringify({ error: "No tokens found" }), 
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
+
+    // Increment unseen notifications counter for each user
+    await incrementUnseenNotifications(supabaseClient, userIds);
+
     // send notifications in parallel
-    const notificationPromises = tokens.map((token) => 
+    const notificationPromises = userTokens.map((userToken) => 
       fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: token,
+          to: userToken.token,
           sound: 'default',
           title: title,
           body: body,
-          badge: 1,
+          badge: userToken.unseenNotifications + 1,
           data: {
             url: "Home"
           },
@@ -92,7 +129,7 @@ const handler = async (req: Request) => {
       if (!results[i].ok) {
         const errorText = await results[i].text();
         console.error('Failed to send notification:', errorText);
-        failedNotifications.push({ token: tokens[i], error: errorText });
+        failedNotifications.push({ token: userTokens[i].token, error: errorText });
       }
     }
 

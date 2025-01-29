@@ -1,3 +1,5 @@
+import useDecrementUnseenNotifs from "@api/account/decrementUnseenNotifs.hook";
+import useResetUnseenNotifs from "@api/account/resetUnseenNotifs.hook";
 import useUpdateAccount from "@api/account/updateAccount.hook";
 import { useAuth } from "@context/Auth";
 import { useNavigation } from "@react-navigation/native";
@@ -8,13 +10,13 @@ import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
-import { Alert, Linking, Platform } from "react-native";
+import { Alert, AppState, Linking, Platform } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -101,6 +103,8 @@ const useNotifications = () => {
 
   const auth = useAuth();
   const updateAccount = useUpdateAccount();
+  const {mutate: decrementUnseenNotifs} = useDecrementUnseenNotifs();
+  const resetUnseenNotifs = useResetUnseenNotifs();
 
   const initializeNotifications = async () => {
     const pushToken = await registerForPushNotificationsAsync();
@@ -118,19 +122,12 @@ const useNotifications = () => {
         setNotification(notification);
       });
 
-    responseListener.current = Notifications
-      .addNotificationResponseReceivedListener(() => {
-      });
-
     // Cleanup function
     return () => {
       if (notificationListener.current) {
         Notifications.removeNotificationSubscription(
           notificationListener.current,
         );
-      }
-      if (responseListener.current) {
-        Notifications.removeNotificationSubscription(responseListener.current);
       }
     };
   };
@@ -157,21 +154,44 @@ const useNotifications = () => {
           notificationListener.current,
         );
       }
-      if (responseListener.current) {
-        Notifications.removeNotificationSubscription(responseListener.current);
-      }
     };
   }, []);
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        navigation.navigate(response.notification.request.content.data.url);
-      },
+        try {
+          // On s'assure que la mutation est appelée correctement
+          decrementUnseenNotifs();
+          // On navigue vers la page appropriée
+          if (response.notification.request.content.data?.url) {
+            navigation.navigate(response.notification.request.content.data.url);
+          }
+        } catch (error) {
+          console.error("Error handling notification response:", error);
+        }
+      }
     );
 
-    return () => subscription.remove();
-  }, [navigation]);
+    return () => {
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    };
+  }, [navigation, decrementUnseenNotifs]);
+
+  // Réinitialiser le compteur quand l'app passe au premier plan
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'active') {
+        resetUnseenNotifs.mutate();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [resetUnseenNotifs]);
 
   return { notification, initializeNotifications, notificationEnabled };
 };
