@@ -42,7 +42,7 @@ const SnapText = ({
     <GestureDetector gesture={drag}>
       <Animated.View
         style={containerStyle}
-        className={"w-full bg-background-dark/80 py-1"}
+        className={"w-full bg-background-dark/80 pt-0.5 pb-1.5"}
       >
         <TextInput
           maxLength={32}
