@@ -11,12 +11,10 @@ export const decrementUnseenNotifs = async (userId: string): Promise<any> => {
 
     if (selectError) throw selectError;
 
-    console.log("decrementUnseenNotifs", currentData);
-
-    // On calcule la nouvelle valeur (minimum 0)
+    // Calculate the new value (minimum 0)
     const newValue = Math.max(0, (currentData?.unseen_notifs || 0) - 1);
 
-    // On met à jour avec la nouvelle valeur
+    // Update with the new value
     const { data, error } = await supabase
       .from("account")
       .update({ unseen_notifs: newValue })

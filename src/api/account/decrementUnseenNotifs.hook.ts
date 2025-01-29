@@ -18,11 +18,8 @@ const useDecrementUnseenNotifs = () => {
       return decrementUnseenNotifs(auth.user.id);
     },
     onSuccess: async (data) => {
-      // Mettre à jour le badge avec la nouvelle valeur
-
+      // Update the badge with the new value
       const newBadgeCount = data?.account?.unseen_notifs || 0;
-      console.log("data", data);
-      console.log("newBadgeCount", newBadgeCount);
       await Notifications.setBadgeCountAsync(newBadgeCount);
     },
     onError: (error: Error) => {
