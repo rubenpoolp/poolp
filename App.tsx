@@ -60,10 +60,6 @@ const App = () => {
   }, [appIsReady]);
 
   useEffect(() => {
-    if (appIsReady) SplashScreen.hideAsync();
-  }, [appIsReady]);
-
-  useEffect(() => {
     if (Platform.OS !== "android") return;
     NavigationBar.setPositionAsync("absolute");
     NavigationBar.setBackgroundColorAsync("#ffffff01");
