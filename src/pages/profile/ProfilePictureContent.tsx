@@ -2,21 +2,16 @@ import useAddProfilePic from "@api/profilePics/addProfilePics.hook";
 import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import MyText from "@components/natives/MyText";
 import ProfilePictureItem from "@components/ProfilePictureItem";
-import colors from "@config/colors";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import { PROFILE_PICS_BUCKET } from "@supabase_types";
 import { supabase } from "@utils/supabase";
 import upload from "@utils/upload";
 import * as Crypto from "expo-crypto";
-import { ArrowBendDownRight } from "phosphor-react-native";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 
 const ProfilePictureContent = ({ title }: { title: string }) => {
-  const { t } = useTranslation();
-
   const { user } = useAuth();
   const [pictures, setPictures] = useState<string[]>([]);
   const addProfilePic = useAddProfilePic();
@@ -81,23 +76,13 @@ const ProfilePictureContent = ({ title }: { title: string }) => {
     <View className="flex-1 w-full" style={{ gap: 80 }}>
       <MyText className="text-3xl font-semibold mb-5">{title}</MyText>
 
-      <View className="relative space-y-4 w-full items-center">
-        <View className="absolute top-10 left-0 items-end">
-          <MyText className="text-gray-500 text-left" style={{ maxWidth: 120 }}>
-            {t("profile.principalPicture")}
-          </MyText>
-          <ArrowBendDownRight
-            size={32}
-            color={colors.gray[500]}
-            style={{ transform: [{ rotate: "-25deg" }], marginRight: -15 }}
+      <View className="relative space-y-10 w-full items-center">
+        <View className="flex-row">
+          <ProfilePictureItem
+            onAdd={onAdd}
+            onDelete={onDelete}
+            picture={pictures[0]}
           />
-        </View>
-        <ProfilePictureItem
-          onAdd={onAdd}
-          onDelete={onDelete}
-          picture={pictures[0]}
-        />
-        <View className="flex-row w-full justify-evenly">
           <ProfilePictureItem
             onAdd={onAdd}
             onDelete={onDelete}
@@ -107,6 +92,23 @@ const ProfilePictureContent = ({ title }: { title: string }) => {
             onAdd={onAdd}
             onDelete={onDelete}
             picture={pictures[2]}
+          />
+        </View>
+        <View className="flex-row">
+          <ProfilePictureItem
+            onAdd={onAdd}
+            onDelete={onDelete}
+            picture={pictures[3]}
+          />
+          <ProfilePictureItem
+            onAdd={onAdd}
+            onDelete={onDelete}
+            picture={pictures[4]}
+          />
+          <ProfilePictureItem
+            onAdd={onAdd}
+            onDelete={onDelete}
+            picture={pictures[5]}
           />
         </View>
       </View>

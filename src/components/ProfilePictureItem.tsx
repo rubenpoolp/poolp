@@ -117,7 +117,7 @@ const ProfilePictureItem = ({
 
   return (
     <>
-      <View className="relative w-32 h-40 border-4 border-gray-300 border-dotted rounded-lg">
+      <View className="flex-1 h-36 border-4 border-gray-300 border-dotted rounded-lg mx-2">
         {selectedImage && <MyImage img={selectedImage} resizeMode="cover" />}
         <View className="absolute -bottom-4 left-0 right-0 flex items-center">
           {selectedImage ? (
