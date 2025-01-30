@@ -1,6 +1,8 @@
 import useGetMyDailyCircle from "@api/circles/getMyDailyCircle.hook";
+import assets from "@assets/index";
 import LogoWithButtonHeader from "@components/headers/LogoWithButtonHeader";
 import MyScreen from "@components/MyScreen";
+import MyImage from "@components/natives/MyImage";
 import NewCircleAvailable from "@components/NewCircleAvailable";
 import ReviewPastCircle from "@components/ReviewPastCircle";
 import TodayCircle from "@components/TodayCircle";
@@ -22,6 +24,7 @@ import { shareToInviteFriends } from "@utils/share";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Modal, View } from "react-native";
 
 const useRedirectIfNotLoggedIn = () => {
   const { user } = useAuth();
@@ -31,6 +34,7 @@ const useRedirectIfNotLoggedIn = () => {
 };
 
 const Home = () => {
+  const [isWaiting, setIsWaiting] = useState(true);
   const { t } = useTranslation();
   const [state, setState] = useState<
     "newCircle" | "openCircle" | "reviewPastCircle" | "noCircle"
@@ -43,6 +47,12 @@ const Home = () => {
   useRedirectIfNotLoggedIn();
   useTracking();
   const isOnlyMeInCircle = circle?.user_ids?.length === 1;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsWaiting(false);
+    }, 150);
+  }, []);
 
   useEffect(() => {
     initializeNotifications();
@@ -107,6 +117,15 @@ const Home = () => {
   const openCircle = async () => {
     navigation.navigate("Camera");
   };
+
+  if (isWaiting)
+    return (
+      <Modal visible transparent={true}>
+        <View className="flex-1 justify-center items-center">
+          <MyImage img={assets.splash} />
+        </View>
+      </Modal>
+    );
 
   return (
     <MyScreen padding className="space-y-4">
