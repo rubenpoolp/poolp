@@ -5,8 +5,7 @@ import MyImage from "@components/natives/MyImage";
 import { useTranslation } from "react-i18next";
 import ProfilePictureContent from "./ProfilePictureContent";
 
-interface ProfilePictureProps {
-}
+interface ProfilePictureProps {}
 
 const ProfilePicture = ({}: ProfilePictureProps) => {
   const { t } = useTranslation();

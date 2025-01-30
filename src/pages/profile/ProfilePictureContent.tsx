@@ -11,12 +11,25 @@ import * as Crypto from "expo-crypto";
 import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 
-const ProfilePictureContent = ({ title }: { title: string }) => {
+const ProfilePictureContent = ({
+  title,
+  minPictures,
+  setIsPicturesValid,
+}: {
+  title: string;
+  minPictures?: number;
+  setIsPicturesValid?: (value: boolean) => void;
+}) => {
   const { user } = useAuth();
   const [pictures, setPictures] = useState<string[]>([]);
   const addProfilePic = useAddProfilePic();
   const { data: profilePics } = useGetProfilePics();
   const { setIsLoading } = useIsLoading();
+
+  useEffect(() => {
+    if (!minPictures || !setIsPicturesValid) return;
+    setIsPicturesValid(pictures.length >= minPictures);
+  }, [minPictures, pictures, setIsPicturesValid]);
 
   const onAdd = async (uri: string) => {
     try {
@@ -74,7 +87,14 @@ const ProfilePictureContent = ({ title }: { title: string }) => {
 
   return (
     <View className="flex-1 w-full" style={{ gap: 80 }}>
-      <MyText className="text-3xl font-semibold mb-5">{title}</MyText>
+      <View className="mb-3">
+        <MyText className="text-3xl font-semibold mb-2">{title}</MyText>
+        {minPictures && (
+          <MyText className="text-gray-500 text-[13px] font-light">
+            {`Add at least ${minPictures} pictures (to help people recognize you)`}
+          </MyText>
+        )}
+      </View>
 
       <View className="relative space-y-10 w-full items-center">
         <View className="flex-row">

@@ -1,4 +1,5 @@
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ProfilePictureContent from "./ProfilePictureContent";
 
@@ -13,14 +14,22 @@ const OnboardingProfilePicture = ({
 }: OnboardingProfilePictureProps) => {
   const { user, nextScreen } = route.params;
   const { t } = useTranslation();
+  const [isPicturesValid, setIsPicturesValid] = useState(false);
 
   const handleNext = () => {
     navigation.navigate(nextScreen, { user });
   };
 
   return (
-    <MyOnboardingLayout onNextPress={handleNext}>
-      <ProfilePictureContent title={t("profile.addPictures")} />
+    <MyOnboardingLayout
+      onNextPress={handleNext}
+      disableNextButton={!isPicturesValid}
+    >
+      <ProfilePictureContent
+        title={t("profile.addPictures")}
+        minPictures={2}
+        setIsPicturesValid={(value: boolean) => setIsPicturesValid(value)}
+      />
     </MyOnboardingLayout>
   );
 };
