@@ -1,7 +1,6 @@
 import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import assets from "@assets/index";
 import MyImage from "@components/natives/MyImage";
-import { red } from "@config/colors";
 import { useAuth } from "@context/Auth";
 import useAnalytics from "@hooks/useAnalytics";
 import useManageRoute from "@hooks/useManageRoute";
@@ -9,7 +8,7 @@ import { setAsyncStorage } from "@utils/asyncStorage";
 import { initializeRevenueCatApiKeys } from "@utils/purchase";
 import { supabase } from "@utils/supabase";
 import React, { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 
 const useInitialization = () => {
   const { identify } = useAnalytics();
@@ -39,11 +38,11 @@ const LoaderScreen = () => {
   return (
     <View className="flex-1 justify-center items-center">
       <MyImage img={assets.splash} />
-      {isLoading && (
+      {/* {isLoading && (
         <View className="absolute top-0 left-0 right-0 bottom-0 justify-center items-center bg-black/20">
           <ActivityIndicator size="large" color={red} />
         </View>
-      )}
+      )} */}
     </View>
   );
 };
