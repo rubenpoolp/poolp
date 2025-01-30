@@ -103,7 +103,7 @@ const useNotifications = () => {
 
   const auth = useAuth();
   const updateAccount = useUpdateAccount();
-  const {mutate: decrementUnseenNotifs} = useDecrementUnseenNotifs();
+  const { mutate: decrementUnseenNotifs } = useDecrementUnseenNotifs();
   const resetUnseenNotifs = useResetUnseenNotifs();
 
   const initializeNotifications = async () => {
@@ -158,20 +158,23 @@ const useNotifications = () => {
   }, []);
 
   useEffect(() => {
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        try {
-          // On s'assure que la mutation est appelée correctement
-          decrementUnseenNotifs();
-          // On navigue vers la page appropriée
-          if (response.notification.request.content.data?.url) {
-            navigation.navigate(response.notification.request.content.data.url);
+    responseListener.current = Notifications
+      .addNotificationResponseReceivedListener(
+        (response) => {
+          try {
+            // On s'assure que la mutation est appelée correctement
+            decrementUnseenNotifs();
+            // On navigue vers la page appropriée
+            if (response.notification.request.content.data?.url) {
+              navigation.navigate(
+                response.notification.request.content.data.url,
+              );
+            }
+          } catch (error) {
+            console.error("Error handling notification response:", error);
           }
-        } catch (error) {
-          console.error("Error handling notification response:", error);
-        }
-      }
-    );
+        },
+      );
 
     return () => {
       if (responseListener.current) {
@@ -182,8 +185,10 @@ const useNotifications = () => {
 
   // Réinitialiser le compteur quand l'app passe au premier plan
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (nextAppState === 'active') {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        // Reset badge count to 0 when app becomes active
+        Notifications.setBadgeCountAsync(0);
         resetUnseenNotifs.mutate();
       }
     });
