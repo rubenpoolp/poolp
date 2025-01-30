@@ -73,7 +73,7 @@ const App = () => {
   if (!fontLoaded || !appIsReady) return null;
 
   return (
-    <View className="flex-1" onLayout={onLayoutRootView}>
+    <View className="flex-1 bg-background-dark" onLayout={onLayoutRootView}>
       <GestureHandlerRootView>
         <BottomSheetModalProvider>
           <SessionContextProvider supabaseClient={supabase}>

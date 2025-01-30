@@ -36,17 +36,14 @@ const LoaderScreen = () => {
   useManageRoute();
   const { isLoading } = useAuth();
 
-  if (isLoading) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color={red} />
-      </View>
-    );
-  }
-
   return (
     <View className="flex-1 justify-center items-center">
       <MyImage img={assets.splash} />
+      {isLoading && (
+        <View className="absolute top-0 left-0 right-0 bottom-0 justify-center items-center bg-black/20">
+          <ActivityIndicator size="large" color={red} />
+        </View>
+      )}
     </View>
   );
 };
