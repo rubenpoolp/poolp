@@ -1,3 +1,4 @@
+import { MIN_PICTURES } from "@config/config";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +28,7 @@ const OnboardingProfilePicture = ({
     >
       <ProfilePictureContent
         title={t("profile.addPictures")}
-        minPictures={2}
+        minPictures={MIN_PICTURES}
         setIsPicturesValid={(value: boolean) => setIsPicturesValid(value)}
       />
     </MyOnboardingLayout>

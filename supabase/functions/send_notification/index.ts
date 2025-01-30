@@ -7,55 +7,66 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
 
-const fetchPushTokensFromUserIds = async (supabaseClient: SupabaseClient, userIds: string[]) => {
+const fetchPushTokensFromUserIds = async (
+  supabaseClient: SupabaseClient,
+  userIds: string[],
+) => {
   try {
     const { data, error } = await supabaseClient
-      .from('account')
-      .select('id, push_token, unseen_notifs')
-      .in('id', userIds)
-      .neq('push_token', null);
+      .from("account")
+      .select("id, push_token, unseen_notifs")
+      .in("id", userIds)
+      .neq("push_token", null);
 
     if (error) {
-      console.error('Error fetching push tokens:', error);
+      console.error("Error fetching push tokens:", error);
       return [];
     }
 
-    return data.map((record: { id: string, push_token: string, unseen_notifs: number }) => ({
+    return data.map((
+      record: { id: string; push_token: string; unseen_notifs: number },
+    ) => ({
       id: record.id,
       token: `ExponentPushToken[${record.push_token}]`,
-      unseenNotifications: record.unseen_notifs || 0
+      unseenNotifications: record.unseen_notifs || 0,
     }));
   } catch (error) {
-    console.error('Error fetching push tokens:', error);
+    console.error("Error fetching push tokens:", error);
     return [];
   }
 };
 
-const incrementUnseenNotifications = async (supabaseClient: SupabaseClient, userIds: string[]) => {
+const incrementUnseenNotifications = async (
+  supabaseClient: SupabaseClient,
+  userIds: string[],
+) => {
   try {
     // Retrieve current unseen notifications
     const { data: currentData, error: selectError } = await supabaseClient
-      .from('account')
-      .select('id, unseen_notifs')
-      .in('id', userIds);
+      .from("account")
+      .select("id, unseen_notifs")
+      .in("id", userIds);
 
     if (selectError) {
-      console.error('Error fetching current unseen notifications:', selectError);
+      console.error(
+        "Error fetching current unseen notifications:",
+        selectError,
+      );
       return;
     }
 
     // Update each user with their new value
-    const updatePromises = currentData.map(user => {
+    const updatePromises = currentData.map((user) => {
       const newValue = (user.unseen_notifs || 0) + 1;
       return supabaseClient
-        .from('account')
+        .from("account")
         .update({ unseen_notifs: newValue })
-        .eq('id', user.id);
+        .eq("id", user.id);
     });
 
     await Promise.all(updatePromises);
   } catch (error) {
-    console.error('Error incrementing unseen notifications:', error);
+    console.error("Error incrementing unseen notifications:", error);
   }
 };
 
@@ -65,35 +76,41 @@ const handler = async (req: Request) => {
 
     if (!Array.isArray(userIds) || userIds.length === 0) {
       return new Response(
-        JSON.stringify({ error: "userIds must be a non-empty array" }), 
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "userIds must be a non-empty array" }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
     if (!title || !body) {
       return new Response(
-        JSON.stringify({ error: "title and body are required" }), 
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "title and body are required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
-      { global: 
-        { headers:
-          { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` } 
-        }
-       }
+      {
+        global: {
+          headers: {
+            Authorization: `Bearer ${
+              Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+            }`,
+          },
+        },
+      },
     );
 
-    const userTokens = await fetchPushTokensFromUserIds(supabaseClient, userIds);
-    
-    console.log("userTokens", userTokens);
+    const userTokens = await fetchPushTokensFromUserIds(
+      supabaseClient,
+      userIds,
+    );
+
     if (userTokens.length === 0) {
       return new Response(
-        JSON.stringify({ error: "No tokens found" }), 
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "No tokens found" }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
@@ -101,20 +118,20 @@ const handler = async (req: Request) => {
     await incrementUnseenNotifications(supabaseClient, userIds);
 
     // send notifications in parallel
-    const notificationPromises = userTokens.map((userToken) => 
-      fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
+    const notificationPromises = userTokens.map((userToken) =>
+      fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           to: userToken.token,
-          sound: 'default',
+          sound: "default",
           title: title,
           body: body,
           badge: userToken.unseenNotifications + 1,
           data: {
-            url: "Home"
+            url: "Home",
           },
         }),
       })
@@ -122,33 +139,36 @@ const handler = async (req: Request) => {
 
     // wait for all notifications to be sent
     const results = await Promise.all(notificationPromises);
-    
+
     // check results
     const failedNotifications = [];
     for (let i = 0; i < results.length; i++) {
       if (!results[i].ok) {
         const errorText = await results[i].text();
-        console.error('Failed to send notification:', errorText);
-        failedNotifications.push({ token: userTokens[i].token, error: errorText });
+        console.error("Failed to send notification:", errorText);
+        failedNotifications.push({
+          token: userTokens[i].token,
+          error: errorText,
+        });
       }
     }
 
     return new Response(
-      JSON.stringify({ 
-        message: "success", 
+      JSON.stringify({
+        message: "success",
         notificationsSent: results.length - failedNotifications.length,
-        failedNotifications 
-      }), 
-      { headers: { "Content-Type": "application/json" } }
+        failedNotifications,
+      }),
+      { headers: { "Content-Type": "application/json" } },
     );
   } catch (error) {
     console.error("send_notification", error);
     return new Response(
-      JSON.stringify({ error: "Failed to send notifications" }), 
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Failed to send notifications" }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
-}
+};
 
 Deno.serve(handler);
 

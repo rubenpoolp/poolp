@@ -159,22 +159,18 @@ const useNotifications = () => {
 
   useEffect(() => {
     responseListener.current = Notifications
-      .addNotificationResponseReceivedListener(
-        (response) => {
-          try {
-            // On s'assure que la mutation est appelée correctement
-            decrementUnseenNotifs();
-            // On navigue vers la page appropriée
-            if (response.notification.request.content.data?.url) {
-              navigation.navigate(
-                response.notification.request.content.data.url,
-              );
-            }
-          } catch (error) {
-            console.error("Error handling notification response:", error);
+      .addNotificationResponseReceivedListener((response) => {
+        try {
+          // On s'assure que la mutation est appelée correctement
+          decrementUnseenNotifs();
+          // On navigue vers la page appropriée
+          if (response.notification.request.content.data?.url) {
+            navigation.navigate(response.notification.request.content.data.url);
           }
-        },
-      );
+        } catch (error) {
+          console.error("Error handling notification response:", error);
+        }
+      });
 
     return () => {
       if (responseListener.current) {

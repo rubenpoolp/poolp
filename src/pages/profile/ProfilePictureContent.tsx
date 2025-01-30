@@ -2,13 +2,15 @@ import useAddProfilePic from "@api/profilePics/addProfilePics.hook";
 import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import MyText from "@components/natives/MyText";
 import ProfilePictureItem from "@components/ProfilePictureItem";
+import { MIN_PICTURES } from "@config/config";
 import { useAuth } from "@context/Auth";
 import { useIsLoading } from "@context/IsLoading";
 import { PROFILE_PICS_BUCKET } from "@supabase_types";
 import { supabase } from "@utils/supabase";
 import upload from "@utils/upload";
 import * as Crypto from "expo-crypto";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 
 const ProfilePictureContent = ({
@@ -20,6 +22,7 @@ const ProfilePictureContent = ({
   minPictures?: number;
   setIsPicturesValid?: (value: boolean) => void;
 }) => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [pictures, setPictures] = useState<string[]>([]);
   const addProfilePic = useAddProfilePic();
@@ -57,6 +60,10 @@ const ProfilePictureContent = ({
   };
 
   const onDelete = async (url: string) => {
+    if (pictures.length <= MIN_PICTURES) {
+      Alert.alert(t("profile.errorMinPictures"));
+      return;
+    }
     try {
       setIsLoading(true);
       await supabase.storage.from(PROFILE_PICS_BUCKET).remove([url]);

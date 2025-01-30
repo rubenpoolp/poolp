@@ -171,7 +171,8 @@
     "joinedDaysAgo": "Tu as rejoint ton premier cercle il y a {{days}} jours",
     "onDay": "Le {{date}}",
     "editPictures": "Modifier les photos",
-    "addPictures": "Ajouter des photos"
+    "addPictures": "Ajouter des photos",
+    "errorMinPictures": "Vous devez avoir au moins deux photos. Ajoutez une autre avant de supprimer."
   },
   "camera": {
     "send": "Poster dans le cercle",
