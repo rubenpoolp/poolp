@@ -5,7 +5,6 @@ import React, { useState } from "react";
 
 type UserProfileButtonProps = {
   children: React.ReactNode;
-  className?: string;
   userProfilePics: UserProfilePics;
   disabled?: boolean;
 };
@@ -13,7 +12,6 @@ type UserProfileButtonProps = {
 const UserProfileButton = ({
   children,
   userProfilePics,
-  className,
   disabled = false,
 }: UserProfileButtonProps) => {
   const [isVisible, setIsVisible] = useState(false);

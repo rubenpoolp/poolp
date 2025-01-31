@@ -132,7 +132,7 @@ const Home = () => {
       <LogoWithButtonHeader
         onPress={shareToInviteFriends}
         txt={t("actions.invitePeers")}
-        pastCircleButton
+        // pastCircleButton
       />
 
       {state === "openCircle" && <TodayCircle />}
