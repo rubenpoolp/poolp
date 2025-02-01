@@ -1,9 +1,9 @@
 import assets from "@assets/index";
 import usePastCircles from "@hooks/usePastCircles";
 import { setDateLastCircleReviewed } from "@utils/circles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import CornerSparkles from "./CornerSparkles";
 import LastCircleReviewModal from "./modals/LastCircleReviewModal";
 import MyButton from "./natives/MyButton";
@@ -18,17 +18,38 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
   const { t } = useTranslation();
   const { pastCircles } = usePastCircles();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [hasTimedOut, setHasTimedOut] = useState(false);
   const lastPastCircle = pastCircles?.[0];
+  const isLoading = !hasTimedOut && (!pastCircles || pastCircles.length === 0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasTimedOut(true);
+    }, 5000); // 5 secondes de timeout
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleReview = () => {
     setIsModalVisible(true);
   };
 
+  if (isLoading) {
+    return (
+      <View className="flex-1 w-full justify-center items-center">
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   if (!lastPastCircle) {
     setDateLastCircleReviewed();
     return null;
-  };
+  }
 
+  console.log("lastPastCircle :", lastPastCircle);
+  console.log("pastCircles :", pastCircles);
+  
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
       {!isModalVisible && (
