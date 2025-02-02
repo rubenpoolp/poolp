@@ -22,7 +22,7 @@ export const useWhoLikedYou = () => {
   const uniqueUserIds = [
     ...(usersWhoLiked.data || []).map((like) => like.liked_by_user_id),
     ...(usersWhoRinged.data || []).map((ring) => ring.ring_by_user_id),
-  ];
+  ].filter((item) => item !== null);
   const uniqueIds = [...new Set(uniqueUserIds)];
 
   // Get user accounts
