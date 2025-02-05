@@ -1,5 +1,6 @@
 import { MIN_PICTURES } from "@config/config";
 import MyOnboardingLayout from "@pages/onboarding/MyOnboardingLayout";
+import resetTo from "@utils/resetTo";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ProfilePictureContent from "./ProfilePictureContent";
@@ -16,13 +17,19 @@ const OnboardingProfilePicture = ({
   const { user, nextScreen } = route.params;
   const { t } = useTranslation();
   const [isPicturesValid, setIsPicturesValid] = useState(false);
+  const { canGoBack = true } = route.params;
 
   const handleNext = () => {
+    if (nextScreen === "HomeStack") {
+      resetTo(navigation, "HomeStack");
+      return;
+    }
     navigation.navigate(nextScreen, { user });
   };
 
   return (
     <MyOnboardingLayout
+      canGoBack={canGoBack}
       onNextPress={handleNext}
       disableNextButton={!isPicturesValid}
     >

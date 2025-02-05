@@ -4,18 +4,18 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.2";
 import { supabaseClient as supabaseServiceClient } from "../_shared/supabase_client.ts";
 
 function sendNotification(userIds: string[]) {
-  supabaseServiceClient.functions.invoke('send_notification', {
-    body: { 
+  supabaseServiceClient.functions.invoke("send_notification", {
+    body: {
       userIds,
       title: "💜 New circle to discover!",
-      body: "Post to find who is in your circle today!"
-    }
+      body: "Post to find who is in your circle today!",
+    },
   });
 }
 
 function divideIntoGroups(n: number): number[] {
   const groups = [];
-  
+
   while (n > 0) {
     if (n % 3 === 0) {
       for (let i = 0; i < n / 3; i++) {
@@ -54,39 +54,56 @@ const handler = async (request: Request) => {
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
-      { global: { headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` } } });
-    
+      {
+        global: {
+          headers: {
+            Authorization: `Bearer ${
+              Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+            }`,
+          },
+        },
+      },
+    );
+
     const { data: users, error } = await supabaseClient
-      .from('account')
-      .select('id, school_id')
+      .from("account")
+      .select("id, school_id")
+      .not("onboarding_completed_at", "is", null)
       // .filter('last_interaction_at', 'gte', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
-      .order('school_id')
+      .order("school_id");
 
     if (error) throw error;
+
     if (!users?.length) {
-      return new Response(JSON.stringify({ message: 'No active users found.' }), { status: 200 });
+      return new Response(
+        JSON.stringify({ message: "No active users found." }),
+        { status: 200 },
+      );
     }
 
     // Group users by school
-    const usersBySchool = users.reduce<Record<string, string[]>>((acc, user) => {
-      acc[user.school_id] = [...(acc[user.school_id] ?? []), user.id];
-      return acc;
-    }, []);
+    const usersBySchool = users.reduce<Record<string, string[]>>(
+      (acc, user) => {
+        acc[user.school_id] = [...(acc[user.school_id] ?? []), user.id];
+        return acc;
+      },
+      [],
+    );
 
     // Shuffle users by school
     const shuffledUsersBySchool = Object.fromEntries(
       Object.entries(usersBySchool).map(([schoolId, users]) => [
         schoolId,
-        shuffleArray(users)
-      ])
+        shuffleArray(users),
+      ]),
     );
 
     // Define group sizes by school
     const lengthGroupsBySchool = Object.fromEntries(
       Object.entries(shuffledUsersBySchool).map(([schoolId, users]) => [
         schoolId,
-        divideIntoGroups(users.length)
-      ])
+        divideIntoGroups(users.length),
+      ]),
     );
 
     // Create user groups by school
@@ -105,15 +122,15 @@ const handler = async (request: Request) => {
         }
 
         return [schoolId, groups];
-      })
+      }),
     );
-    
+
     // Check for duplicates, it's not necessary but I think it's a good thing.
     const checkForDuplicates = () => {
       for (const [schoolId, groups] of Object.entries(userGroupsBySchool)) {
         const allUsersInGroups = groups.flat();
         const uniqueUsers = new Set(allUsersInGroups);
-        
+
         if (allUsersInGroups.length !== uniqueUsers.size) {
           throw new Error(`Duplicate users found in school ${schoolId}`);
         }
@@ -126,7 +143,9 @@ const handler = async (request: Request) => {
 
         for (const user of uniqueUsers) {
           if (!originalUsers.has(user)) {
-            throw new Error(`Unknown user ${user} in groups for school ${schoolId}`);
+            throw new Error(
+              `Unknown user ${user} in groups for school ${schoolId}`,
+            );
           }
         }
       }
@@ -137,9 +156,9 @@ const handler = async (request: Request) => {
     // Créer les cercles pour chaque groupe de chaque école
     const createdCircles = await Promise.all(
       Object.entries(userGroupsBySchool).flatMap(([schoolId, groups]) =>
-        groups.map(group =>
+        groups.map((group) =>
           supabaseClient
-            .from('circles')
+            .from("circles")
             .insert({
               created_at: new Date().toISOString(),
               user_ids: group,
@@ -149,29 +168,38 @@ const handler = async (request: Request) => {
             .select()
             .single()
         )
-      )
+      ),
     );
 
     // Vérifier s'il y a des erreurs
-    const errors = createdCircles.filter(result => result.error);
+    const errors = createdCircles.filter((result) => result.error);
     if (errors.length) {
-      throw new Error(`Failed to create some circles: ${JSON.stringify(errors)}`);
+      throw new Error(
+        `Failed to create some circles: ${JSON.stringify(errors)}`,
+      );
     }
 
-    sendNotification(createdCircles.map(circle => circle.data?.user_ids).flat());
+    sendNotification(
+      createdCircles.map((circle) => circle.data?.user_ids).flat(),
+    );
 
-    return new Response(JSON.stringify({ 
-      message: 'Success', 
-    }), { status: 200 });
-
+    return new Response(
+      JSON.stringify({
+        message: "Success",
+      }),
+      { status: 200 },
+    );
   } catch (error) {
-    console.error('Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'An error occurred',
-      details: error.message 
-    }), { status: 500 });
+    console.error("Error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "An error occurred",
+        details: error.message,
+      }),
+      { status: 500 },
+    );
   }
-}
+};
 
 Deno.serve(handler);
 

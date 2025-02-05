@@ -1,3 +1,4 @@
+import useUpdateAccount from "@api/account/updateAccount.hook";
 import { Bump } from "@components/animations/Bump";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
@@ -31,7 +32,10 @@ const SocialButton = ({ item }: { item: (typeof socialButtons)[number] }) => {
 const ShareButtons = () => {
   return (
     <Bump scaleValue={0.9}>
-      <MyPressable onPress={shareToInviteFriends} className="items-center">
+      <MyPressable
+        onPress={() => shareToInviteFriends()}
+        className="items-center"
+      >
         <View className="flex-row justify-center mb-3" style={{ gap: 24 }}>
           {socialButtons.slice(0, 3).map((item, index) => (
             <SocialButton key={index} item={item} />
@@ -49,8 +53,14 @@ const ShareButtons = () => {
 
 const Share = ({ navigation, route }: { navigation: any; route: any }) => {
   const { nextScreen } = route.params;
+  const updateAccount = useUpdateAccount();
 
   const handleNext = () => {
+    updateAccount.mutate({
+      data: {
+        onboarding_completed_at: new Date().toISOString(),
+      },
+    });
     navigation.navigate(nextScreen);
   };
 

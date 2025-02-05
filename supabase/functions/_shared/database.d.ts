@@ -4,387 +4,454 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export type Database = {
   graphql_public: {
     Tables: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
       graphql: {
         Args: {
-          operationName?: string
-          query?: string
-          variables?: Json
-          extensions?: Json
-        }
-        Returns: Json
-      }
-    }
+          operationName?: string;
+          query?: string;
+          variables?: Json;
+          extensions?: Json;
+        };
+        Returns: Json;
+      };
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
       account: {
         Row: {
-          birthday: string | null
-          created_at: string
-          gender: Database["public"]["Enums"]["gender"]
-          id: string
-          last_interaction_at: string | null
-          name: string
-          phone: string
-          push_token: string | null
-          role: Database["public"]["Enums"]["role"]
-          school_id: string | null
-        }
+          birthday: string | null;
+          created_at: string;
+          gender: Database["public"]["Enums"]["gender"];
+          id: string;
+          last_interaction_at: string | null;
+          name: string;
+          onboarding_completed_at: string | null;
+          phone: string;
+          push_token: string | null;
+          role: Database["public"]["Enums"]["role"];
+          school_id: string | null;
+          unseen_notifs: number | null;
+        };
         Insert: {
-          birthday?: string | null
-          created_at?: string
-          gender: Database["public"]["Enums"]["gender"]
-          id: string
-          last_interaction_at?: string | null
-          name: string
-          phone: string
-          push_token?: string | null
-          role?: Database["public"]["Enums"]["role"]
-          school_id?: string | null
-        }
+          birthday?: string | null;
+          created_at?: string;
+          gender: Database["public"]["Enums"]["gender"];
+          id: string;
+          last_interaction_at?: string | null;
+          name: string;
+          onboarding_completed_at?: string | null;
+          phone: string;
+          push_token?: string | null;
+          role?: Database["public"]["Enums"]["role"];
+          school_id?: string | null;
+          unseen_notifs?: number | null;
+        };
         Update: {
-          birthday?: string | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender"]
-          id?: string
-          last_interaction_at?: string | null
-          name?: string
-          phone?: string
-          push_token?: string | null
-          role?: Database["public"]["Enums"]["role"]
-          school_id?: string | null
-        }
+          birthday?: string | null;
+          created_at?: string;
+          gender?: Database["public"]["Enums"]["gender"];
+          id?: string;
+          last_interaction_at?: string | null;
+          name?: string;
+          onboarding_completed_at?: string | null;
+          phone?: string;
+          push_token?: string | null;
+          role?: Database["public"]["Enums"]["role"];
+          school_id?: string | null;
+          unseen_notifs?: number | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "account_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
-            referencedRelation: "schools"
-            referencedColumns: ["id"]
+            foreignKeyName: "account_school_id_fkey";
+            columns: ["school_id"];
+            isOneToOne: false;
+            referencedRelation: "schools";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
+      blocks: {
+        Row: {
+          created_at: string;
+          from_user_id: string | null;
+          id: number;
+          managed: boolean | null;
+          reason: string | null;
+          to_user_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          from_user_id?: string | null;
+          id?: number;
+          managed?: boolean | null;
+          reason?: string | null;
+          to_user_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          from_user_id?: string | null;
+          id?: number;
+          managed?: boolean | null;
+          reason?: string | null;
+          to_user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "blocks_from_user_id_fkey";
+            columns: ["from_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "blocks_to_user_id_fkey";
+            columns: ["to_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       circle_pics: {
         Row: {
-          circle_id: string | null
-          created_at: string
-          deleted_at: string | null
-          id: string
-          url: string
-          user_id: string | null
-        }
+          circle_id: string | null;
+          created_at: string;
+          deleted_at: string | null;
+          id: string;
+          url: string;
+          user_id: string | null;
+        };
         Insert: {
-          circle_id?: string | null
-          created_at?: string
-          deleted_at?: string | null
-          id?: string
-          url: string
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          url: string;
+          user_id?: string | null;
+        };
         Update: {
-          circle_id?: string | null
-          created_at?: string
-          deleted_at?: string | null
-          id?: string
-          url?: string
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          url?: string;
+          user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "circle_pics_circle_id_fkey"
-            columns: ["circle_id"]
-            isOneToOne: false
-            referencedRelation: "circles"
-            referencedColumns: ["id"]
+            foreignKeyName: "circle_pics_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "circle_pics_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "circle_pics_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       circles: {
         Row: {
-          created_at: string
-          id: string
-          last_interaction_at: string | null
-          name: string | null
-          school_id: string
-          user_ids: string[] | null
-        }
+          created_at: string;
+          id: string;
+          last_interaction_at: string | null;
+          name: string | null;
+          school_id: string | null;
+          user_ids: string[] | null;
+        };
         Insert: {
-          created_at?: string
-          id?: string
-          last_interaction_at?: string | null
-          name?: string | null
-          school_id: string
-          user_ids?: string[] | null
-        }
+          created_at?: string;
+          id?: string;
+          last_interaction_at?: string | null;
+          name?: string | null;
+          school_id?: string | null;
+          user_ids?: string[] | null;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          last_interaction_at?: string | null
-          name?: string | null
-          school_id?: string
-          user_ids?: string[] | null
-        }
+          created_at?: string;
+          id?: string;
+          last_interaction_at?: string | null;
+          name?: string | null;
+          school_id?: string | null;
+          user_ids?: string[] | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "circles_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
-            referencedRelation: "schools"
-            referencedColumns: ["id"]
+            foreignKeyName: "circles_school_id_fkey";
+            columns: ["school_id"];
+            isOneToOne: false;
+            referencedRelation: "schools";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       likes: {
         Row: {
-          circle_id: string | null
-          created_at: string
-          id: string
-          liked_by_user_id: string | null
-          user_id: string | null
-        }
+          circle_id: string | null;
+          created_at: string;
+          id: string;
+          liked_by_user_id: string | null;
+          user_id: string | null;
+        };
         Insert: {
-          circle_id?: string | null
-          created_at?: string
-          id?: string
-          liked_by_user_id?: string | null
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          id?: string;
+          liked_by_user_id?: string | null;
+          user_id?: string | null;
+        };
         Update: {
-          circle_id?: string | null
-          created_at?: string
-          id?: string
-          liked_by_user_id?: string | null
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          id?: string;
+          liked_by_user_id?: string | null;
+          user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "likes_circle_id_fkey"
-            columns: ["circle_id"]
-            isOneToOne: false
-            referencedRelation: "circles"
-            referencedColumns: ["id"]
+            foreignKeyName: "likes_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "likes_liked_by_user_id_fkey"
-            columns: ["liked_by_user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "likes_liked_by_user_id_fkey";
+            columns: ["liked_by_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "likes_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "likes_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       profile_pics: {
         Row: {
-          id: string
-          urls: string[] | null
-          user_id: string
-        }
+          id: string;
+          urls: string[] | null;
+          user_id: string;
+        };
         Insert: {
-          id?: string
-          urls?: string[] | null
-          user_id?: string
-        }
+          id?: string;
+          urls?: string[] | null;
+          user_id?: string;
+        };
         Update: {
-          id?: string
-          urls?: string[] | null
-          user_id?: string
-        }
+          id?: string;
+          urls?: string[] | null;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "profilePics_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "profilePics_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       reports: {
         Row: {
-          created_at: string | null
-          description: string | null
-          from_user_id: string
-          id: number
-          managed: boolean
-          reason: string
-          to_user_id: string | null
-        }
+          created_at: string | null;
+          description: string | null;
+          from_user_id: string | null;
+          id: number;
+          managed: boolean;
+          reason: string;
+          to_user_id: string | null;
+        };
         Insert: {
-          created_at?: string | null
-          description?: string | null
-          from_user_id?: string
-          id?: number
-          managed?: boolean
-          reason: string
-          to_user_id?: string | null
-        }
+          created_at?: string | null;
+          description?: string | null;
+          from_user_id?: string | null;
+          id?: number;
+          managed?: boolean;
+          reason: string;
+          to_user_id?: string | null;
+        };
         Update: {
-          created_at?: string | null
-          description?: string | null
-          from_user_id?: string
-          id?: number
-          managed?: boolean
-          reason?: string
-          to_user_id?: string | null
-        }
+          created_at?: string | null;
+          description?: string | null;
+          from_user_id?: string | null;
+          id?: number;
+          managed?: boolean;
+          reason?: string;
+          to_user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "reports_from_user_id_fkey"
-            columns: ["from_user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "reports_from_user_id_fkey";
+            columns: ["from_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "reports_to_user_id_fkey"
-            columns: ["to_user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "reports_to_user_id_fkey";
+            columns: ["to_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       rings: {
         Row: {
-          circle_id: string | null
-          created_at: string
-          id: string
-          ring_by_user_id: string | null
-          user_id: string | null
-        }
+          circle_id: string | null;
+          created_at: string;
+          id: string;
+          ring_by_user_id: string | null;
+          user_id: string | null;
+        };
         Insert: {
-          circle_id?: string | null
-          created_at?: string
-          id?: string
-          ring_by_user_id?: string | null
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          id?: string;
+          ring_by_user_id?: string | null;
+          user_id?: string | null;
+        };
         Update: {
-          circle_id?: string | null
-          created_at?: string
-          id?: string
-          ring_by_user_id?: string | null
-          user_id?: string | null
-        }
+          circle_id?: string | null;
+          created_at?: string;
+          id?: string;
+          ring_by_user_id?: string | null;
+          user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "rings_circle_id_fkey"
-            columns: ["circle_id"]
-            isOneToOne: false
-            referencedRelation: "circles"
-            referencedColumns: ["id"]
+            foreignKeyName: "rings_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "rings_ring_by_user_id_fkey"
-            columns: ["ring_by_user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "rings_ring_by_user_id_fkey";
+            columns: ["ring_by_user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "rings_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
+            foreignKeyName: "rings_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "account";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       schools: {
         Row: {
-          address: Json
-          created_at: string
-          id: string
-          name: string
-        }
+          address: Json;
+          created_at: string;
+          id: string;
+          name: string;
+        };
         Insert: {
-          address: Json
-          created_at?: string
-          id?: string
-          name: string
-        }
+          address: Json;
+          created_at?: string;
+          id?: string;
+          name: string;
+        };
         Update: {
-          address?: Json
-          created_at?: string
-          id?: string
-          name?: string
-        }
-        Relationships: []
-      }
-    }
+          address?: Json;
+          created_at?: string;
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      settings: {
+        Row: {
+          id: number;
+          last_mandatory_version: string;
+        };
+        Insert: {
+          id?: number;
+          last_mandatory_version: string;
+        };
+        Update: {
+          id?: number;
+          last_mandatory_version?: string;
+        };
+        Relationships: [];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      gender: "female" | "male" | "other"
-      role: "admin" | "user"
-    }
+      gender: "female" | "male" | "other";
+      role: "admin" | "user";
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    ? keyof (
+      & Database[PublicTableNameOrOptions["schema"]]["Tables"]
+      & Database[PublicTableNameOrOptions["schema"]]["Views"]
+    )
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
-    }
-    ? R
+> = PublicTableNameOrOptions extends { schema: keyof Database } ? (
+    & Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    & Database[PublicTableNameOrOptions["schema"]]["Views"]
+  )[TableName] extends {
+    Row: infer R;
+  } ? R
+  : never
+  : PublicTableNameOrOptions extends keyof (
+    & PublicSchema["Tables"]
+    & PublicSchema["Views"]
+  ) ? (
+      & PublicSchema["Tables"]
+      & PublicSchema["Views"]
+    )[PublicTableNameOrOptions] extends {
+      Row: infer R;
+    } ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
-    : never
+  : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -395,17 +462,15 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
-    }
-    ? I
-    : never
+    Insert: infer I;
+  } ? I
+  : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
+      Insert: infer I;
+    } ? I
     : never
+  : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -416,17 +481,15 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
-    }
-    ? U
-    : never
+    Update: infer U;
+  } ? U
+  : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
+      Update: infer U;
+    } ? U
     : never
+  : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -439,19 +502,24 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+  : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof Database;
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]][
+      "CompositeTypes"
+    ]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][
+    CompositeTypeName
+  ]
+  : PublicCompositeTypeNameOrOptions extends
+    keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
+  : never;

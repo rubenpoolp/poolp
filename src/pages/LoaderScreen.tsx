@@ -1,4 +1,3 @@
-import useGetProfilePics from "@api/profilePics/getProfilePics.hook";
 import assets from "@assets/index";
 import MyImage from "@components/natives/MyImage";
 import { useAuth } from "@context/Auth";
@@ -13,7 +12,6 @@ import { View } from "react-native";
 const useInitialization = () => {
   const { identify } = useAnalytics();
   const { user } = useAuth();
-  useGetProfilePics(); // This will set the profile pics in the query client
 
   useEffect(() => {
     if (!user) return;

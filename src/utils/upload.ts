@@ -64,7 +64,6 @@ const uploadVideo = async (path: string, uri: string, bucket: string) => {
     }
 
     console.log("Uploading video to supabase", bucket, path);
-
     // Upload the binary data
     const { data, error } = await supabase.storage
       .from(bucket)

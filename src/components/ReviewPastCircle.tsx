@@ -42,14 +42,11 @@ const ReviewPastCircle = ({ onClose }: ReviewPastCircleProps) => {
     );
   }
 
-  if (!lastPastCircle) {
+  if (!lastPastCircle || lastPastCircle.participants.length === 0) {
     setDateLastCircleReviewed();
     return null;
   }
 
-  console.log("lastPastCircle :", lastPastCircle);
-  console.log("pastCircles :", pastCircles);
-  
   return (
     <View className="flex-1 w-full space-y-10 justify-center">
       {!isModalVisible && (
